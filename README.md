@@ -1,4 +1,4 @@
-# GreenCityJavaTA
+# GreenCityTAJava
 
 
 create file `src/test/resources/credentials.properties`
