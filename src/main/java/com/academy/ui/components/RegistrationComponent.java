@@ -4,18 +4,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@Getter
 public class RegistrationComponent extends BaseComponent {
-
     @Getter
-    @AllArgsConstructor
-    public static class RegistrationField {
-        private WebElement label;
-        private WebElement input;
-        private WebElement error;
-    }
+    @FindBy(how = How.XPATH, using = ".//h1[@class='title-text']")
+    private WebElement title;
+    @Getter
+    @FindBy(how = How.XPATH, using = ".//h2[@class='subtitle-text']")
+    private WebElement subtitle;
 
     @FindBy(how = How.XPATH, using = ".//label[@for='email']")
     private WebElement emailLabel;
@@ -44,25 +42,64 @@ public class RegistrationComponent extends BaseComponent {
     private WebElement repeatPasswordInput;
     @FindBy(how = How.XPATH, using = ".//div[@id='confirm-err-msg']//div")
     private WebElement repeatPasswordError;
-
-
+    
     public RegistrationComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
     }
 
-    public RegistrationField getEmail() {
-        return new RegistrationField(emailLabel, emailInput, emailError);
+    public RegistrationComponent enterEmail(String email) {
+        emailInput.sendKeys(email);
+        title.click();
+        return this;
     }
 
-    public RegistrationField getUsername() {
-        return new RegistrationField(usernameLabel, usernameInput, usernameError);
+    public RegistrationComponent enterUsername(String username) {
+        usernameInput.sendKeys(username);
+        title.click();
+        return this;
     }
 
-    public RegistrationField getPassword() {
-        return new RegistrationField(passwordLabel, passwordInput, passwordError);
+	public RegistrationComponent enterPassword(String password) {
+		passwordInput.sendKeys(password);
+        title.click();
+        return this;
     }
 
-    public RegistrationField getRepeatPassword() {
-        return new RegistrationField(repeatPasswordLabel, repeatPasswordInput, repeatPasswordError);
+	public RegistrationComponent enterRepeatPassword(String repeatPassword) {
+		repeatPasswordInput.sendKeys(repeatPassword);
+        title.click();
+        return this;
+    }
+
+    public boolean isEmailErrorDisplayed() {
+        try {
+            return emailError.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isUsernameErrorDisplayed() {
+        try {
+            return usernameError.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isPasswordErrorDisplayed() {
+        try {
+            return passwordError.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isRepeatPasswordErrorDisplayed() {
+        try {
+            return repeatPasswordError.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
