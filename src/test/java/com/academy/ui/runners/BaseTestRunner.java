@@ -22,14 +22,15 @@ public class BaseTestRunner {
         configProperties = new ConfigProperties();
     }
     @BeforeMethod
-    public void  setUp(){
+    public void baseSetUp() {
         ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--headless=new");
+        //        options.addArguments("--headless=new");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitlyWaitDuration));
         driver.get(configProperties.getBaseUrl());
     }
+    
     @AfterMethod
     public void  tearDown(){
         if(driver != null) {

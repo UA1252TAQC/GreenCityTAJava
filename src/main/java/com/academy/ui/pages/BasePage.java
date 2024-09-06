@@ -8,8 +8,10 @@ public class BasePage extends Base {
     public BasePage(WebDriver driver) {
         super(driver);
     }
-    public void openURL(String url){
+
+    public BasePage openURL(String url){
         driver.get(url);
         PageFactory.initElements(driver, this);
+        return this;
     }
 }
