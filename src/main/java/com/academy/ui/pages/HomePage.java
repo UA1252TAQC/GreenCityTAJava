@@ -2,11 +2,11 @@ package com.academy.ui.pages;
 
 import org.openqa.selenium.WebDriver;
 import com.academy.ui.components.HeaderComponent;
-import com.academy.ui.components.RegistrationForm;
+import com.academy.ui.components.RegistrationComponent;
 
 public class HomePage extends BasePage {
     private HeaderComponent headerComponent;
-    private RegistrationForm registrationComponent;
+    private RegistrationComponent registrationComponent;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -27,10 +27,10 @@ public class HomePage extends BasePage {
         return headerComponent;
     }
 
-    public RegistrationForm getRegistrationComponent() {
+    public RegistrationComponent getRegistrationComponent() {
         if (registrationComponent == null) {
             var root = findElement("//app-auth-modal");
-            registrationComponent = new RegistrationForm(driver, root);
+            registrationComponent = new RegistrationComponent(driver, root);
         }
 
         return registrationComponent;
