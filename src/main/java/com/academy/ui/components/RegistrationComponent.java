@@ -42,7 +42,7 @@ public class RegistrationComponent extends BaseComponent {
     private WebElement repeatPasswordInput;
     @FindBy(how = How.XPATH, using = ".//div[@id='confirm-err-msg']//div")
     private WebElement repeatPasswordError;
-    
+
     public RegistrationComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
     }
@@ -59,47 +59,47 @@ public class RegistrationComponent extends BaseComponent {
         return this;
     }
 
-	public RegistrationComponent enterPassword(String password) {
-		passwordInput.sendKeys(password);
+    public RegistrationComponent enterPassword(String password) {
+        passwordInput.sendKeys(password);
         title.click();
         return this;
     }
 
-	public RegistrationComponent enterRepeatPassword(String repeatPassword) {
-		repeatPasswordInput.sendKeys(repeatPassword);
+    public RegistrationComponent enterRepeatPassword(String repeatPassword) {
+        repeatPasswordInput.sendKeys(repeatPassword);
         title.click();
         return this;
     }
 
-    public boolean isEmailErrorDisplayed() {
+    public boolean isEmailValid() {
         try {
-            return emailError.isDisplayed();
+            return !emailError.isDisplayed();
         } catch (Exception e) {
-            return false;
+            return true;
         }
     }
 
-    public boolean isUsernameErrorDisplayed() {
+    public boolean isUsernameValid() {
         try {
-            return usernameError.isDisplayed();
+            return !usernameError.isDisplayed();
         } catch (Exception e) {
-            return false;
+            return true;
         }
     }
 
-    public boolean isPasswordErrorDisplayed() {
+    public boolean isPasswordValid() {
         try {
-            return passwordError.isDisplayed();
+            return !passwordError.isDisplayed();
         } catch (Exception e) {
-            return false;
+            return true;
         }
     }
 
-    public boolean isRepeatPasswordErrorDisplayed() {
+    public boolean isRepeatPasswordValid() {
         try {
-            return repeatPasswordError.isDisplayed();
+            return !repeatPasswordError.isDisplayed();
         } catch (Exception e) {
-            return false;
+            return true;
         }
     }
 }
