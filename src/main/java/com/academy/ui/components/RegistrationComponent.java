@@ -51,13 +51,13 @@ public class RegistrationComponent extends BaseComponent {
         super(driver, rootElement);
     }
 
-    @Getter(lazy = true)
+    @Getter
     private final FormField email = new FormField(emailInput, emailError, emailDynamicError);
-    @Getter(lazy = true)
+    @Getter
     private final FormField username = new FormField(usernameInput, usernameError, null);
-    @Getter(lazy = true)
+    @Getter
     private final FormField password = new FormField(passwordInput, passwordError, null);
-    @Getter(lazy = true)
+    @Getter
     private final FormField repeatPassword = new FormField(repeatPasswordInput, repeatPasswordError, null);
 
     public RegistrationComponent enterEmail(String text) {

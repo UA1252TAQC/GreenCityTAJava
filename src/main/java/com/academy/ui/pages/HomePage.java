@@ -17,8 +17,8 @@ public class HomePage extends BasePage {
     }
 
     public HomePage openRegistrationFormInHeader() {
-        getHeaderComponent()
-        .clickRegister();
+        this.getHeaderComponent()
+            .clickRegister();
         return this;
     }
 }

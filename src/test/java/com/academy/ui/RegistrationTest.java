@@ -30,32 +30,26 @@ public class RegistrationTest extends BaseTestRunner {
         boolean isActualValid = form.getEmail().isValid();
         String actualErrorMessage = form.getEmail().getErrorMessage();
 
-        assertEquals(isActualValid, isExpectedValid, "Field expectation failed");
-        //softAssert.assertEquals(actualErrorMessage, expectedErrorMessage);
+        softAssert.assertEquals(isActualValid, isExpectedValid);
+        softAssert.assertEquals(actualErrorMessage, expectedErrorMessage);
 
         softAssert.assertAll(errorMessage);
     }
 
-    @Test(dataProvider = "testUsernameValidation",
-            dataProviderClass = RegistrationTestProvider.class)
-    public void testUsernameValidation(boolean isExpectedValid, String errorMessage,
-            String username) {
+    @Test(dataProvider = "testUsernameValidation", dataProviderClass = RegistrationTestProvider.class)
+    public void testUsernameValidation(boolean isExpectedValid, String errorMessage, String username) {
         form.getUsername().enter(username);
         assertEquals(form.getUsername().isValid(), isExpectedValid, errorMessage);
     }
 
-    @Test(dataProvider = "testPasswordValidation",
-            dataProviderClass = RegistrationTestProvider.class)
-    public void testPasswordValidation(boolean isExpectedValid, String errorMessage,
-            String password) {
+    @Test(dataProvider = "testPasswordValidation", dataProviderClass = RegistrationTestProvider.class)
+    public void testPasswordValidation(boolean isExpectedValid, String errorMessage, String password) {
         form.getPassword().enter(password);
         assertEquals(form.getPassword().isValid(), isExpectedValid, errorMessage);
     }
 
-    @Test(dataProvider = "testRepeatPasswordValidation",
-            dataProviderClass = RegistrationTestProvider.class)
-    public void testRepeatPasswordValidation(boolean isExpectedValid, String errorMessage,
-            String repeatPassword) {
+    @Test(dataProvider = "testRepeatPasswordValidation", dataProviderClass = RegistrationTestProvider.class)
+    public void testRepeatPasswordValidation(boolean isExpectedValid, String errorMessage, String repeatPassword) {
         form.getRepeatPassword().enter(repeatPassword);
         assertEquals(form.getRepeatPassword().isValid(), isExpectedValid, errorMessage);
     }
