@@ -12,6 +12,10 @@ public class RegistrationTestProvider {
     public Iterator<Object[]> dpTestEmailValidation() {
         List<Object[]> data = new ArrayList<>();
 
+        data.add(new Object[] {true, false, "'Електронна пошта' field can't contain more than 72 characters", "emailemai1emailemailemai5emailemai1emailema36emailemai2emailemailemail123@gmaif.com"});
+        data.add(new Object[] {true, false, "'Електронна пошта' field can't contain more than 72 characters", "emailemai1emailemailemailemailemai2emailemailem77lemai2email123@gmaif.com"});
+        data.add(new Object[] {true, true, "'Електронна пошта' field can contain max 72 characters", "emailemailemai1emailemailemailemailemai3emailemaile47ilemai212@gmaif.com"});
+
         return data.iterator();
     }
 

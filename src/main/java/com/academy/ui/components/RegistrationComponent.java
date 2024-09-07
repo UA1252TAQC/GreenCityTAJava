@@ -21,6 +21,8 @@ public class RegistrationComponent extends BaseComponent {
     private WebElement emailInput;
     @FindBy(how = How.XPATH, using = ".//div[@id='email-err-msg']//div")
     private WebElement emailError;
+    @FindBy(how = How.XPATH, using = ".//div[@class='error-message error-message-show']")
+    private WebElement emailSubmitError;
 
     @FindBy(how = How.XPATH, using = ".//label[@for='firstName']")
     private WebElement usernameLabel;
@@ -38,13 +40,47 @@ public class RegistrationComponent extends BaseComponent {
 
     @FindBy(how = How.XPATH, using = ".//label[@for='repeatPassword']")
     private WebElement repeatPasswordLabel;
-    @FindBy(how = How.XPATH, using = ".//input[@id='repeatPassword']']")
+    @FindBy(how = How.XPATH, using = ".//input[@id='repeatPassword']")
     private WebElement repeatPasswordInput;
     @FindBy(how = How.XPATH, using = ".//div[@id='confirm-err-msg']//div")
     private WebElement repeatPasswordError;
 
+    @FindBy(how = How.XPATH, using = ".//button[@type='submit']")
+    private WebElement submitButton;
+
     public RegistrationComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
+    }
+
+    public String getEmailErrorMessage() {
+        if (isDisplayed(emailSubmitError)) {
+            return this.emailSubmitError.getText();
+        }
+        if (isDisplayed(emailError)) {
+            return this.emailError.getText();
+        }
+        return null;
+    }
+
+    public String getUsernameErrorMessage() {
+        if (isDisplayed(this.usernameError)) {
+            return this.usernameError.getText();
+        }
+        return null;
+    }
+
+    public String getPasswordErrorMessage() {
+        if (isDisplayed(this.passwordError)) {
+            return this.passwordError.getText();
+        }
+        return null;
+    }
+
+    public String getRepeatPasswordErrorMessage() {
+        if (isDisplayed(this.repeatPasswordError)) {
+            return this.repeatPasswordError.getText();
+        }
+        return null;
     }
 
     public RegistrationComponent enterEmail(String email) {
@@ -72,34 +108,38 @@ public class RegistrationComponent extends BaseComponent {
     }
 
     public boolean isEmailValid() {
-        try {
-            return !emailError.isDisplayed();
-        } catch (Exception e) {
-            return true;
-        }
+        return !(isDisplayed(emailError) || isDisplayed(emailSubmitError));
     }
 
     public boolean isUsernameValid() {
-        try {
-            return !usernameError.isDisplayed();
-        } catch (Exception e) {
-            return true;
-        }
+        return !isDisplayed(usernameError);
     }
 
     public boolean isPasswordValid() {
-        try {
-            return !passwordError.isDisplayed();
-        } catch (Exception e) {
-            return true;
-        }
+        return !isDisplayed(passwordError);
     }
 
     public boolean isRepeatPasswordValid() {
-        try {
-            return !repeatPasswordError.isDisplayed();
-        } catch (Exception e) {
-            return true;
+        return !isDisplayed(repeatPasswordError);
+    }
+
+    public RegistrationComponent fillForm(String email, String username, String password,
+            String repeatPassword) {
+        this.enterEmail(email).enterUsername(username).enterPassword(password)
+                .enterRepeatPassword(repeatPassword);
+        title.click();
+        return this;
+    }
+
+    public boolean submitIfEnable() {
+        if (!isEnableToClickButton(submitButton)) {
+                return false;
         }
+        click(submitButton);
+        return !isDisplayed(submitButton);
+    }
+
+    public boolean isDisplayed() {
+        return isDisplayed(rootElement);
     }
 }
