@@ -2,7 +2,6 @@ package com.academy.ui;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import com.academy.ui.components.RegistrationComponent;
 import com.academy.ui.pages.HomePage;
 import com.academy.ui.providers.RegistrationTestProvider;
@@ -13,15 +12,12 @@ import static org.testng.Assert.*;
 public class RegistrationTest extends BaseTestRunner {
     private static final String[] validData = new String[] {"mail@gmail.com", "Denys1", "Password1!", "Password1!"};
     private RegistrationComponent form;
-    private SoftAssert softAssert;
 
     @BeforeMethod
     public void setUp() {
         final HomePage page = new HomePage(driver);
         page.openRegistrationFormInHeader();
         form = page.getRegistrationComponent();
-
-        softAssert = new SoftAssert();
     }
 
     @Test(dataProvider = "testEmailValidation", dataProviderClass = RegistrationTestProvider.class)
@@ -32,11 +28,12 @@ public class RegistrationTest extends BaseTestRunner {
             return;
         }
 
-        final boolean isRegistered = form
-                .fillForm(email, validData[1], validData[2], validData[3])
-                .submitIfEnable();
+        final boolean isRegistered =
+                form
+                        .fillForm(email, validData[1], validData[2], validData[3])
+                        .submitIfEnable();
         if (isRegistered) {
-            assertEquals(isRegistered, isExpectedValid, errorMessage);
+            assertTrue(isExpectedValid, errorMessage);
         } else {
             assertEquals(form.getEmail().isValid(), isExpectedValid, errorMessage + ": " + form.getEmail().getErrorMessage());
         }

@@ -1,5 +1,6 @@
 package com.academy.ui.components;
 
+import com.academy.ui.components.sub.FormField;
 import com.academy.ui.utils.WebElementUtils;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
@@ -65,14 +66,15 @@ public class RegistrationComponent extends BaseComponent {
         this.username.enter(username);
         this.password.enter(password);
         this.repeatPassword.enter(repeatPassword);
-        title.click();
+        WebElementUtils.click(title);
         return this;
     }
 
     public boolean submitIfEnable() {
         if (!WebElementUtils.isEnabled(submitButton)) {
-                return false;
+            return false;
         }
+
         WebElementUtils.click(submitButton);
         return !WebElementUtils.isDisplayed(submitButton);
     }

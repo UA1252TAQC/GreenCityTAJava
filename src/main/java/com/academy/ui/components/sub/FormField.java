@@ -1,4 +1,4 @@
-package com.academy.ui.components;
+package com.academy.ui.components.sub;
 
 
 import lombok.AllArgsConstructor;
