@@ -11,12 +11,13 @@ import com.academy.ui.runners.BaseTestRunner;
 import static org.testng.Assert.*;
 
 public class RegistrationTest extends BaseTestRunner {
+    private static final String[] validData = new String[] {"mail@gmail.com", "Denys1", "Password1!", "Password1!"};
     private RegistrationComponent form;
     private SoftAssert softAssert;
 
     @BeforeMethod
-    public void setUpPage() {
-        var page = new HomePage(driver);
+    public void setUp() {
+        final HomePage page = new HomePage(driver);
         page.openRegistrationFormInHeader();
         form = page.getRegistrationComponent();
 
@@ -24,9 +25,21 @@ public class RegistrationTest extends BaseTestRunner {
     }
 
     @Test(dataProvider = "testEmailValidation", dataProviderClass = RegistrationTestProvider.class)
-    public void testEmailValidation(boolean isExpectedValid, String errorMessage, String email) {
-        form.enterEmail(email);
-        assertEquals(form.isEmailValid(), isExpectedValid, errorMessage);
+    public void testEmailValidation(boolean isShouldSubmitForm, boolean isExpectedValid, String errorMessage, String email) {
+        if (!isShouldSubmitForm) {
+            form.enterEmail(email);
+            assertEquals(form.isEmailValid(), isExpectedValid, errorMessage + ": " + form.getEmailErrorMessage());
+            return;
+        }
+
+        final boolean isRegistered = form
+                .fillForm(email, validData[1], validData[2], validData[3])
+                .submitIfEnable();
+        if (isRegistered) {
+            assertEquals(isRegistered, isExpectedValid, errorMessage);
+        } else {
+            assertEquals(form.isEmailValid(), isExpectedValid, errorMessage + ": " + form.getEmailErrorMessage());
+        }
     }
 
     @Test(dataProvider = "testUsernameValidation", dataProviderClass = RegistrationTestProvider.class)
