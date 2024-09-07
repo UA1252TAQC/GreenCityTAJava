@@ -60,26 +60,50 @@ public class RegistrationComponent extends BaseComponent {
     @Getter(lazy = true)
     private final FormField repeatPassword = new FormField(repeatPasswordInput, repeatPasswordError, null);
 
+    public RegistrationComponent enterEmail(String text) {
+        this.email.enter(text);
+        return this;
+    }
+
+    public RegistrationComponent enterUsername(String text) {
+        this.username.enter(text);
+        return this;
+    }
+
+    public RegistrationComponent enterPassword(String text) {
+        this.password.enter(text);
+        return this;
+    }
+
+    public RegistrationComponent enterRepeatPassword(String text) {
+        this.repeatPassword.enter(text);
+        return this;
+    }
 
     public RegistrationComponent fillForm(String email, String username, String password, String repeatPassword) {
-        this.email.enter(email);
-        this.username.enter(username);
-        this.password.enter(password);
-        this.repeatPassword.enter(repeatPassword);
+        return this
+            .enterEmail(email)
+            .enterUsername(username)
+            .enterPassword(password)
+            .enterRepeatPassword(repeatPassword)
+            .click();
+    }
+    
+    public RegistrationComponent click() {
         WebElementUtils.click(title);
         return this;
     }
 
     public boolean submitIfEnable() {
-        if (!WebElementUtils.isEnabled(submitButton)) {
+        if (!WebElementUtils.isEnabled(this.submitButton)) {
             return false;
         }
 
-        WebElementUtils.click(submitButton);
-        return !WebElementUtils.isDisplayed(submitButton);
+        WebElementUtils.click(this.submitButton);
+        return !WebElementUtils.isDisplayed(this.submitButton);
     }
 
     public boolean isDisplayed() {
-        return WebElementUtils.isDisplayed(rootElement);
+        return WebElementUtils.isDisplayed(this.rootElement);
     }
 }
