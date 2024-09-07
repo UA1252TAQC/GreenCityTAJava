@@ -24,7 +24,7 @@ public class BaseTestRunner {
     @BeforeMethod
     public void baseSetUp() {
         ChromeOptions options = new ChromeOptions();
-        //        options.addArguments("--headless=new");
+        //options.addArguments("--headless=new");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitlyWaitDuration));
@@ -32,7 +32,7 @@ public class BaseTestRunner {
     }
     
     @AfterMethod
-    public void  tearDown(){
+    public void baseTearDown(){
         if(driver != null) {
             driver.quit();
         }

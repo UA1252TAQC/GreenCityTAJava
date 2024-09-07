@@ -80,30 +80,54 @@ public class RegistrationComponent extends BaseComponent {
         return this;
     }
 
-    public RegistrationComponent fillForm(String email, String username, String password, String repeatPassword) {
-        return this
-            .enterEmail(email)
-            .enterUsername(username)
-            .enterPassword(password)
-            .enterRepeatPassword(repeatPassword)
-            .click();
+    public RegistrationComponent fillForm(String email, String username, String password,
+            String repeatPassword) {
+        return this.enterEmail(email).enterUsername(username).enterPassword(password)
+                .enterRepeatPassword(repeatPassword).click();
     }
-    
+
     public RegistrationComponent click() {
         WebElementUtils.click(title);
         return this;
     }
 
-    public boolean submitIfEnable() {
-        if (!WebElementUtils.isEnabled(this.submitButton)) {
-            return false;
-        }
-
+    public boolean submit() {
         WebElementUtils.click(this.submitButton);
         return !WebElementUtils.isDisplayed(this.submitButton);
     }
 
     public boolean isDisplayed() {
         return WebElementUtils.isDisplayed(this.rootElement);
+    }
+
+    public boolean isValid() {
+        return WebElementUtils.isEnabled(this.submitButton);
+    }
+
+    private static final String[] VALID_DATA = new String[] {"mail@gmail.com", "Denys1", "Password1!", "Password1!"};
+
+    public void fillFormWithTestDataAndSubmitIf(boolean isShouldSubmitForm, String email, String username, String password, String repeatPassword) {
+        if (isShouldSubmitForm) {
+            this.fillForm(
+                    email != null ? email : VALID_DATA[0],
+                    username != null ? username : VALID_DATA[1],
+                    password != null ? password : VALID_DATA[2],
+                    repeatPassword != null ? repeatPassword : VALID_DATA[3]
+            ).submit();
+            return;
+        }
+
+        if (email != null) {
+            this.enterEmail(email).click();
+        }
+        if (username != null) {
+            this.enterUsername(username).click();
+        }
+        if (password != null) {
+            this.enterPassword(password).click();
+        }
+        if (repeatPassword != null) {
+            this.enterRepeatPassword(repeatPassword).click();
+        }
     }
 }
