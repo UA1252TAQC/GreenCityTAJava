@@ -27,8 +27,8 @@ public class RegistrationTest extends BaseTestRunner {
     @Test(dataProvider = "testEmailValidation", dataProviderClass = RegistrationTestProvider.class)
     public void testEmailValidation(boolean isShouldSubmitForm, boolean isExpectedValid, String errorMessage, String email) {
         if (!isShouldSubmitForm) {
-            form.enterEmail(email);
-            assertEquals(form.isEmailValid(), isExpectedValid, errorMessage + ": " + form.getEmailErrorMessage());
+            form.getEmail().enter(email);
+            assertEquals(form.getEmail().isValid(), isExpectedValid, errorMessage + ": " + form.getEmail().getErrorMessage());
             return;
         }
 
@@ -38,25 +38,25 @@ public class RegistrationTest extends BaseTestRunner {
         if (isRegistered) {
             assertEquals(isRegistered, isExpectedValid, errorMessage);
         } else {
-            assertEquals(form.isEmailValid(), isExpectedValid, errorMessage + ": " + form.getEmailErrorMessage());
+            assertEquals(form.getEmail().isValid(), isExpectedValid, errorMessage + ": " + form.getEmail().getErrorMessage());
         }
     }
 
     @Test(dataProvider = "testUsernameValidation", dataProviderClass = RegistrationTestProvider.class)
     public void testUsernameValidation(boolean isExpectedValid, String errorMessage, String username) {
-        form.enterUsername(username);
-        assertEquals(form.isUsernameValid(), isExpectedValid, errorMessage);
+        form.getUsername().enter(username);
+        assertEquals(form.getUsername().isValid(), isExpectedValid, errorMessage);
     }
 
     @Test(dataProvider = "testPasswordValidation", dataProviderClass = RegistrationTestProvider.class)
     public void testPasswordValidation(boolean isExpectedValid, String errorMessage, String password) {
-        form.enterPassword(password);
-        assertEquals(form.isPasswordValid(), isExpectedValid, errorMessage);
+        form.getPassword().enter(password);
+        assertEquals(form.getPassword().isValid(), isExpectedValid, errorMessage);
     }
 
     @Test(dataProvider = "testRepeatPasswordValidation", dataProviderClass = RegistrationTestProvider.class)
     public void testRepeatPasswordValidation(boolean isExpectedValid, String errorMessage, String repeatPassword) {
-        form.enterRepeatPassword(repeatPassword);
-        assertEquals(form.isRepeatPasswordValid(), isExpectedValid, errorMessage);
+        form.getRepeatPassword().enter(repeatPassword);
+        assertEquals(form.getRepeatPassword().isValid(), isExpectedValid, errorMessage);
     }
 }
