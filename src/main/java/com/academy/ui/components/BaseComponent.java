@@ -9,7 +9,7 @@ import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
 
 @Getter
 public class BaseComponent extends Base {
-    protected WebElement rootElement;
+    protected final WebElement rootElement;
 
     public BaseComponent(WebDriver driver, WebElement rootElement) {
         super(driver);

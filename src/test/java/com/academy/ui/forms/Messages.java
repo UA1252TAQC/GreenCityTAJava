@@ -3,7 +3,7 @@ package com.academy.ui.forms;
 public enum Messages {
 	// FIELD_REQUIRED, 
 	// EMAIL_INVALID, 
-	// USERNAME_INVALID, //should be, but
+	// USERNAME_INVALID, //expected, but
 	// PASSWORD_REQUIRED, 
 	// PASSWORD_TOO_SHORT, 
 	// PASSWORD_INVALID,						 

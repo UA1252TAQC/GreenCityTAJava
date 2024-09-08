@@ -1,7 +1,6 @@
 package com.academy.ui.components;
 
 import com.academy.ui.components.sub.FormField;
-import com.academy.ui.utils.WebElementUtils;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -51,11 +50,11 @@ public class RegistrationComponent extends BaseComponent {
     @Getter
     private final FormField email = new FormField(emailInput, emailError, emailDynamicError);
     @Getter
-    private final FormField username = new FormField(usernameInput, usernameError, null);
+    private final FormField username = new FormField(usernameInput, usernameError);
     @Getter
-    private final FormField password = new FormField(passwordInput, passwordError, null);
+    private final FormField password = new FormField(passwordInput, passwordError);
     @Getter
-    private final FormField repeatPassword = new FormField(repeatPasswordInput, repeatPasswordError, null);
+    private final FormField repeatPassword = new FormField(repeatPasswordInput, repeatPasswordError);
 
     public RegistrationComponent enterEmail(String text) {
         this.email.enter(text);
@@ -86,35 +85,34 @@ public class RegistrationComponent extends BaseComponent {
     }
 
     public RegistrationComponent click() {
-        WebElementUtils.click(title);
+        click(title);
         return this;
     }
 
     public boolean isSubmitButtonDisplayed() {
-        return WebElementUtils.isDisplayed(this.submitButton);
+        return isDisplayed(this.submitButton);
     }
 
     public boolean isGoogleButtonDisplayed() {
-        return WebElementUtils.isDisplayed(this.googleButton);
+        return isDisplayed(this.googleButton);
     }
 
-    public boolean submit() {
-        WebElementUtils.click(this.submitButton);
-        return !WebElementUtils.isDisplayed(this.submitButton);
+    public void submit() {
+        click(this.submitButton);
     }
 
     public boolean isDisplayed() {
-        return WebElementUtils.isDisplayed(this.rootElement);
+        return isDisplayed(this.rootElement);
     }
 
     public boolean isValid() {
-        return WebElementUtils.isEnabled(this.submitButton);
+        return isEnabled(this.submitButton);
     }
 
     private static final String[] VALID_DATA = new String[] {"mail@gmail.com", "Denys1", "Password1!", "Password1!"};
 
     public void fillFormWithTestDataAndSubmitIf(boolean isShouldSubmitForm, String email, String username, String password, String repeatPassword) {
-        if (isShouldSubmitForm) { //TODO move to dataprovider & refactor
+        if (isShouldSubmitForm) { //TODO move to data-provider & refactor
             this.fillForm(email != null ? email : VALID_DATA[0],
                     username != null ? username : VALID_DATA[1],
                     password != null ? password : VALID_DATA[2],
@@ -137,11 +135,11 @@ public class RegistrationComponent extends BaseComponent {
     }
 
     public boolean isSignInLinkDisplayed() {
-        return WebElementUtils.isDisplayed(this.signInLink);
+        return isDisplayed(this.signInLink);
     }
 
     public void close() {
-        WebElementUtils.click(this.closeButton);
+        click(this.closeButton);
         sleep(1);
     }
 }

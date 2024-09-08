@@ -1,37 +1,46 @@
 package com.academy.ui.components.sub;
 
 
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import com.academy.ui.Base;
 import org.openqa.selenium.WebElement;
-import com.academy.ui.utils.WebElementUtils;
 
-@AllArgsConstructor
-@RequiredArgsConstructor
-public class FormField {
+public class FormField extends Base {
     protected final WebElement input;
     protected final WebElement error;
     protected WebElement dynamicError;
+
+    public FormField(WebElement input, WebElement error) {
+        super(null);
+        this.input = input;
+        this.error = error;
+    }
+
+    public FormField(WebElement input, WebElement error, WebElement dynamicError) {
+        super(null);
+        this.input = input;
+        this.error = error;
+        this.dynamicError = dynamicError;
+    }
 
     public void enter(String text) {
         input.sendKeys(text);
     }
 
     public boolean isDisplayed() {
-        return WebElementUtils.isDisplayed(input);
+        return isDisplayed(input);
     }
 
     public String getErrorMessage() {
-        if (WebElementUtils.isDisplayed(dynamicError)) {
+        if (isDisplayed(dynamicError)) {
             return dynamicError.getText();
         }
-        if (WebElementUtils.isDisplayed(error)) {
+        if (isDisplayed(error)) {
             return error.getText();
         }
         return null;
     }
 
     public boolean isValid() {
-        return !((WebElementUtils.isDisplayed(error)) || (WebElementUtils.isDisplayed(dynamicError)));
+        return !((isDisplayed(error)) || (isDisplayed(dynamicError)));
     }
 }
