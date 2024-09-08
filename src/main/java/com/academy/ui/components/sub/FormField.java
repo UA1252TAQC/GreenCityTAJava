@@ -3,8 +3,7 @@ package com.academy.ui.components.sub;
 
 import lombok.AllArgsConstructor;
 import org.openqa.selenium.WebElement;
-
-import static com.academy.ui.utils.WebElementUtils.isDisplayed;
+import com.academy.ui.utils.WebElementUtils;
 
 @AllArgsConstructor
 public class FormField {
@@ -16,17 +15,21 @@ public class FormField {
         input.sendKeys(text);
     }
 
+    public boolean isDisplayed() {
+        return WebElementUtils.isDisplayed(input);
+    }
+
     public String getErrorMessage() {
-        if (isDisplayed(dynamicError)) {
+        if (WebElementUtils.isDisplayed(dynamicError)) {
             return dynamicError.getText();
         }
-        if (isDisplayed(error)) {
+        if (WebElementUtils.isDisplayed(error)) {
             return error.getText();
         }
         return null;
     }
 
     public boolean isValid() {
-        return !((isDisplayed(error)) || (isDisplayed(dynamicError)));
+        return !((WebElementUtils.isDisplayed(error)) || (WebElementUtils.isDisplayed(dynamicError)));
     }
 }

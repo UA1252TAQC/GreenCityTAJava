@@ -20,6 +20,12 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(how = How.XPATH, using = ".//div[@class='header_navigation-menu']//li[3]/a")
     protected WebElement profile;
 
+    @FindBy(how = How.XPATH, using = ".//ul[@class='header_lang-switcher-wrp header_navigation-menu-right-lang']")
+    protected WebElement listLanguage;
+
+    @FindBy(how = How.XPATH, using = ".//li[@tabindex='0'][@class='lang-option'][@role='menuitem']")
+    protected WebElement english;
+
     @FindBy(how = How.XPATH, using = ".//li[@class='header_sign-up-link']//span")
     protected WebElement register;
 
@@ -29,6 +35,16 @@ public class HeaderComponent extends BaseComponent {
 
     public HeaderComponent clickRegister() {
         click(register);
+        return this;
+    }
+
+    public HeaderComponent clickListLanguage() {
+        click(this.listLanguage);
+        return this;
+    }
+
+    public HeaderComponent clickEnglish() {
+        click(this.english);
         return this;
     }
 }

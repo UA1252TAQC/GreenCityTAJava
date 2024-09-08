@@ -17,10 +17,11 @@ public class BaseTestRunner {
     protected static ConfigProperties configProperties;
 
     @BeforeSuite
-    public void setUpWebDriver(){
+    public void setUpWebDriver() {
         WebDriverManager.chromedriver().setup();
         configProperties = new ConfigProperties();
     }
+    
     @BeforeMethod
     public void baseSetUp() {
         ChromeOptions options = new ChromeOptions();
