@@ -1,6 +1,5 @@
 package com.academy.ui.components;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -24,22 +23,6 @@ public class HeaderComponent extends BaseComponent{
         super(driver, rootElement);
     }
 
-    public WebElement getPlaces() {
-        return places;
-    }
-
-    public WebElement getProfile() {
-        return profile;
-    }
-
-    public WebElement getNews() {
-        return news;
-    }
-
-    public WebElement getLogo() {
-        return logo;
-    }
-
     public void clickElement(WebElement element){
         new Actions(driver)
                 .moveToElement(element)
@@ -47,7 +30,6 @@ public class HeaderComponent extends BaseComponent{
                 .perform();
     }
 
-    // Специализированный метод для клика на профиль
     public void clickProfile() {
         clickElement(profile);
     }
