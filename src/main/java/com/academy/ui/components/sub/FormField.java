@@ -8,9 +8,9 @@ import static com.academy.ui.utils.WebElementUtils.isDisplayed;
 
 @AllArgsConstructor
 public class FormField {
-    private final WebElement input;
-    private final WebElement error;
-    private final WebElement dynamicError;
+    protected final WebElement input;
+    protected final WebElement error;
+    protected final WebElement dynamicError;
 
     public void enter(String text) {
         input.sendKeys(text);

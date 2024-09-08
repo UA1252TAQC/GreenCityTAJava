@@ -1,4 +1,4 @@
-package com.academy.ui.components.sub;
+package com.academy.ui.pages;
 
 public class RegistrationMessages {
 

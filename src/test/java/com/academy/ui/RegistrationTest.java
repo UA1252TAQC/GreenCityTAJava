@@ -37,20 +37,41 @@ public class RegistrationTest extends BaseTestRunner {
     }
 
     @Test(dataProvider = "testUsernameValidation", dataProviderClass = RegistrationTestProvider.class)
-    public void testUsernameValidation(boolean isExpectedValid, String errorMessage, String username) {
-        form.getUsername().enter(username);
-        assertEquals(form.getUsername().isValid(), isExpectedValid, errorMessage);
+    public void testUsernameValidation(boolean isExpectedValid, String expectedErrorMessage, String errorMessage, String username) {
+        form.enterUsername(username).click();
+        boolean isActualValid = form.getUsername().isValid();
+        String actualErrorMessage = form.getUsername().getErrorMessage();
+
+        softAssert.assertEquals(isActualValid, isExpectedValid);
+        softAssert.assertEquals(actualErrorMessage, expectedErrorMessage);
+        
+        softAssert.assertAll(errorMessage);
     }
 
     @Test(dataProvider = "testPasswordValidation", dataProviderClass = RegistrationTestProvider.class)
-    public void testPasswordValidation(boolean isExpectedValid, String errorMessage, String password) {
-        form.getPassword().enter(password);
-        assertEquals(form.getPassword().isValid(), isExpectedValid, errorMessage);
+    public void testPasswordValidation(boolean isExpectedValid, String expectedErrorMessage, String errorMessage, String password) {
+        form.enterPassword(password).click();
+        boolean isActualValid = form.getPassword().isValid();
+        String actualErrorMessage = form.getPassword().getErrorMessage();
+
+        softAssert.assertEquals(isActualValid, isExpectedValid, expectedErrorMessage);
+        softAssert.assertEquals(actualErrorMessage, expectedErrorMessage);
+        
+
+        softAssert.assertAll(errorMessage);
     }
 
     @Test(dataProvider = "testRepeatPasswordValidation", dataProviderClass = RegistrationTestProvider.class)
-    public void testRepeatPasswordValidation(boolean isExpectedValid, String errorMessage, String repeatPassword) {
-        form.getRepeatPassword().enter(repeatPassword);
-        assertEquals(form.getRepeatPassword().isValid(), isExpectedValid, errorMessage);
+    public void testRepeatPasswordValidation(boolean isExpectedValid, String expectedErrorMessage, String errorMessage, String password, String repeatPassword) {
+        form.enterPassword(password)
+                .enterRepeatPassword(repeatPassword)
+                .click();
+        boolean isActualValid = form.getRepeatPassword().isValid();
+        String actualErrorMessage = form.getRepeatPassword().getErrorMessage();
+
+        softAssert.assertEquals(isActualValid, isExpectedValid, expectedErrorMessage);
+        softAssert.assertEquals(actualErrorMessage, expectedErrorMessage);
+
+        softAssert.assertAll();
     }
 }
