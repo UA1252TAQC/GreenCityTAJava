@@ -19,4 +19,16 @@ public class ConfigProperties {
     public String getBaseUrl(){
         return properties.getProperty("base.url");
     }
+
+    public String getUserEmail(){
+        return properties.getProperty("user.email");
+    }
+
+    public String getUserPassword(){
+        return properties.getProperty("user.password");
+    }
+
+    public String getUserName(){
+        return properties.getProperty("user.name");
+    }
 }
