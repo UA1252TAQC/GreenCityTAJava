@@ -23,7 +23,7 @@ public class RegistrationFormTest extends FormTestRunner {
 
     @BeforeClass
     @Parameters({"language"})
-    public void setUp(@Optional("en") String language) {
+    public void setUp(@Optional("ua") String language) {
         page = new HomePage(driver).setLanguage(language);
 
         LocalizationProperties properties = new LocalizationProperties();
@@ -105,6 +105,6 @@ public class RegistrationFormTest extends FormTestRunner {
         softAssert.assertEquals(isActualValid, isExpectedValid);
         softAssert.assertEquals(actualErrorMessage, localizedErrors.get(expectedErrorMessage));
 
-        softAssert.assertAll();
+        softAssert.assertAll(errorMessage);
     }
 }

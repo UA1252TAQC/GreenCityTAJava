@@ -2,14 +2,16 @@ package com.academy.ui.components.sub;
 
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.WebElement;
 import com.academy.ui.utils.WebElementUtils;
 
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class FormField {
     protected final WebElement input;
     protected final WebElement error;
-    protected final WebElement dynamicError;
+    protected WebElement dynamicError;
 
     public void enter(String text) {
         input.sendKeys(text);

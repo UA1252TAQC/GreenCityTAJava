@@ -8,7 +8,6 @@ import com.academy.ui.components.RegistrationComponent;
 public class HomePage extends BasePage {
     @Getter(lazy = true)
     private final HeaderComponent headerComponent = new HeaderComponent(driver, findElement("//header[@role='banner']"));
-
     private RegistrationComponent registrationComponent;
 
     public HomePage(WebDriver driver) {
