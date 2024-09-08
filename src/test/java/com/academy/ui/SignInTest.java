@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -18,26 +19,34 @@ public class SignInTest extends BaseTestRunner {
     private SignInComponent signInComponent;
 
     @BeforeMethod
-    public void setUpSignInTest(){
+    public void setUpSignInTest() {
         WebElement headerRootElement = getHeaderRootElement();
         headerComponent = new HeaderComponent(driver, headerRootElement);
-        openProfileAndWaitForWrapper();
     }
 
     @Test
-    public void openGoogle() {
-        signInComponent.sendEmail("hahaha");
+    public void verifyErrorMessageForInvalidPasswordInUa(){
+        headerComponent.selectLanguage("ua");
+        openProfileAndWaitForWrapper();
+        boolean isErrorDisplayed =signInComponent
+                .sendEmail("test@gmail.com")
+                .sendPassword("Test123!")
+                .sendForm()
+                .verifyErrorMessageUA("Введено невірний email або пароль");
+
+        Assert.assertTrue(isErrorDisplayed, "Error message is not displayed as expected");
     }
 
-    public WebElement getHeaderRootElement(){
+    public WebElement getHeaderRootElement() {
         return driver.findElement(By.xpath("//div[@class='header_container']"));
     }
-    public WebElement getSignInRootElement(){
+
+    public WebElement getSignInRootElement() {
         return driver.findElement(By.xpath("//div[@class='wrapper']"));
     }
+
     private void openProfileAndWaitForWrapper() {
-        headerComponent.selectLanguage("en");
-        headerComponent.clickProfile();
+        headerComponent.openProfile();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement signInRootElement = wait.until(ExpectedConditions
                 .visibilityOfElementLocated(By.xpath("//div[@class='wrapper']")));

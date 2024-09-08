@@ -4,18 +4,47 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class SignInComponent extends BaseComponent {
     @FindBy(how = How.XPATH, using = "//input[@id='email']")
     protected WebElement emailField;
 
+    @FindBy(how = How.XPATH, using = "//input[@id='password']")
+    protected WebElement passwordField;
+
+    @FindBy(how = How.XPATH, using = "//button[@type='submit']")
+    protected WebElement signInButton;
+
+    @FindBy(how = How.XPATH, using = "//div[contains(@class, 'alert-general-error')]")
+    protected WebElement errorMessage;
+
     public SignInComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
     }
 
-    public void sendEmail(String email){
+    public SignInComponent sendEmail(String email){
         emailField.sendKeys(email);
+        return this;
     }
+
+    public SignInComponent sendPassword(String password){
+        passwordField.sendKeys(password);
+        return this;
+    }
+
+    public SignInComponent sendForm(){
+        signInButton.click();
+        return this;
+    }
+
+    public boolean verifyErrorMessageUA(String expectedMessage){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(errorMessage));
+        return errorMessage.getText().equals(expectedMessage);
+    }
+
 }

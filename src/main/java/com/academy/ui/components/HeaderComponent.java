@@ -36,7 +36,7 @@ public class HeaderComponent extends BaseComponent{
                 .perform();
     }
 
-    public void clickProfile() {
+    public void openProfile() {
         clickElement(profile);
     }
 
