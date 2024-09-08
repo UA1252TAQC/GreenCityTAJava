@@ -36,9 +36,9 @@ public class SignInTest extends BaseTestRunner {
         return driver.findElement(By.xpath("//div[@class='wrapper']"));
     }
     private void openProfileAndWaitForWrapper() {
+        headerComponent.selectLanguage("en");
         headerComponent.clickProfile();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        // Исправлено: передаем By в ExpectedConditions
         WebElement signInRootElement = wait.until(ExpectedConditions
                 .visibilityOfElementLocated(By.xpath("//div[@class='wrapper']")));
         signInComponent = new SignInComponent(driver, signInRootElement);
