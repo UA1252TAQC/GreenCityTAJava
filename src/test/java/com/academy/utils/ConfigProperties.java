@@ -19,4 +19,10 @@ public class ConfigProperties {
     public String getBaseUrl(){
         return properties.getProperty("base.url");
     }
+    public String getTestEmail(){
+        return properties.getProperty("test_email");
+    }
+    public String getTestPassword(){
+        return properties.getProperty("test_password");
+    }
 }

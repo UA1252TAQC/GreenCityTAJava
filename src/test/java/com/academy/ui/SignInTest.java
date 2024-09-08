@@ -3,6 +3,8 @@ package com.academy.ui;
 import com.academy.ui.components.HeaderComponent;
 import com.academy.ui.components.SignInComponent;
 import com.academy.ui.runners.BaseTestRunner;
+import com.academy.ui.utils.ResourceBundleManager;
+import com.academy.utils.ConfigProperties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,6 +14,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.Locale;
 
 public class SignInTest extends BaseTestRunner {
 
@@ -26,11 +29,13 @@ public class SignInTest extends BaseTestRunner {
 
     @Test
     public void verifyErrorMessageForInvalidPasswordInUa(){
+        ConfigProperties configProperties = new ConfigProperties();
         headerComponent.selectLanguage("ua");
         openProfileAndWaitForWrapper();
+
         boolean isErrorDisplayed =signInComponent
-                .sendEmail("test@gmail.com")
-                .sendPassword("Test123!")
+                .sendEmail(configProperties.getTestEmail())
+                .sendPassword(configProperties.getTestPassword())
                 .sendForm()
                 .verifyErrorMessageUA("Введено невірний email або пароль");
 
