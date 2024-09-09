@@ -16,7 +16,7 @@ import com.academy.utils.LocalizationProperties;
 import com.google.common.collect.ImmutableMap;
 
 public class RegistrationFormTest extends FormTestRunner {
-    private ImmutableMap<Messages, String> localizedErrors;
+    private ImmutableMap<Messages, String> localizedMessages;
     private HomePage page;
     private RegistrationComponent form;
     private SoftAssert softAssert;
@@ -27,13 +27,12 @@ public class RegistrationFormTest extends FormTestRunner {
         page = new HomePage(driver).setLanguage(language);
 
         LocalizationProperties properties = new LocalizationProperties();
-        localizedErrors = properties.getRegistrationMessages(language);
+        localizedMessages = properties.getRegistrationMessages(language);
     }
     
     @BeforeMethod
     public void setUpMethod() {
-        form = page.openRegistrationFormInHeader().getNewRegistrationComponent();
-
+        form = page.openRegistrationFormInHeader();
         softAssert = new SoftAssert();
     }
 
@@ -49,7 +48,7 @@ public class RegistrationFormTest extends FormTestRunner {
         softAssert.assertTrue(form.getPassword().isDisplayed());
         softAssert.assertTrue(form.getRepeatPassword().isDisplayed());
 
-        softAssert.assertTrue(form.isSubmitButtonDisplayed());
+        softAssert.assertTrue(form.isRegisterButtonDisplayed());
         softAssert.assertTrue(form.isGoogleButtonDisplayed());
         softAssert.assertTrue(form.isSignInLinkDisplayed());
 
@@ -64,31 +63,31 @@ public class RegistrationFormTest extends FormTestRunner {
         String actualErrorMessage = form.getEmail().getErrorMessage();
 
         softAssert.assertEquals(isActualValid, isExpectedValid);
-        softAssert.assertEquals(actualErrorMessage, localizedErrors.get(expectedErrorMessage));
+        softAssert.assertEquals(actualErrorMessage, localizedMessages.get(expectedErrorMessage));
 
         softAssert.assertAll(errorMessage);
     }
 
     @Test(dataProvider = "testUsernameValidation", dataProviderClass = RegistrationFormTestProvider.class)
     public void testUsernameValidation(boolean isExpectedValid, Messages expectedErrorMessage, String errorMessage, String username) {
-        form.enterUsername(username).click();
+        form.enterUsername(username).clickTitle();
         boolean isActualValid = form.getUsername().isValid();
         String actualErrorMessage = form.getUsername().getErrorMessage();
 
         softAssert.assertEquals(isActualValid, isExpectedValid);
-        softAssert.assertEquals(actualErrorMessage, localizedErrors.get(expectedErrorMessage));
+        softAssert.assertEquals(actualErrorMessage, localizedMessages.get(expectedErrorMessage));
 
         softAssert.assertAll(errorMessage);
     }
 
     @Test(dataProvider = "testPasswordValidation", dataProviderClass = RegistrationFormTestProvider.class)
     public void testPasswordValidation(boolean isExpectedValid, Messages expectedErrorMessage, String errorMessage, String password) {
-        form.enterPassword(password).click();
+        form.enterPassword(password).clickTitle();
         boolean isActualValid = form.getPassword().isValid();
         String actualErrorMessage = form.getPassword().getErrorMessage();
 
         softAssert.assertEquals(isActualValid, isExpectedValid);
-        softAssert.assertEquals(actualErrorMessage, localizedErrors.get(expectedErrorMessage));
+        softAssert.assertEquals(actualErrorMessage, localizedMessages.get(expectedErrorMessage));
         
         softAssert.assertAll(errorMessage);
     }
@@ -97,12 +96,12 @@ public class RegistrationFormTest extends FormTestRunner {
     public void testRepeatPasswordValidation(boolean isExpectedValid, Messages expectedErrorMessage, String errorMessage, String password, String repeatPassword) {
         form.enterPassword(password)
             .enterRepeatPassword(repeatPassword)
-            .click();
+            .clickTitle();
         boolean isActualValid = form.getRepeatPassword().isValid();
         String actualErrorMessage = form.getRepeatPassword().getErrorMessage();
 
         softAssert.assertEquals(isActualValid, isExpectedValid);
-        softAssert.assertEquals(actualErrorMessage, localizedErrors.get(expectedErrorMessage));
+        softAssert.assertEquals(actualErrorMessage, localizedMessages.get(expectedErrorMessage));
 
         softAssert.assertAll(errorMessage);
     }
