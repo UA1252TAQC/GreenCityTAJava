@@ -10,16 +10,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class SignInComponent extends BaseComponent {
-    @FindBy(how = How.XPATH, using = "//input[@id='email']")
+    @FindBy(how = How.XPATH, using = ".//input[@id='email']")
     protected WebElement emailField;
 
-    @FindBy(how = How.XPATH, using = "//input[@id='password']")
+    @FindBy(how = How.XPATH, using = ".//input[@id='password']")
     protected WebElement passwordField;
 
-    @FindBy(how = How.XPATH, using = "//button[@type='submit']")
+    @FindBy(how = How.XPATH, using = ".//button[@type='submit']")
     protected WebElement signInButton;
 
-    @FindBy(how = How.XPATH, using = "//div[contains(@class, 'alert-general-error')]")
+    @FindBy(how = How.XPATH, using = ".//div[contains(@class, 'alert-general-error')]")
     protected WebElement errorMessage;
 
     public SignInComponent(WebDriver driver, WebElement rootElement) {
