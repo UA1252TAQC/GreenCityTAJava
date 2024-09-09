@@ -13,7 +13,7 @@ import java.time.Duration;
 
 public class BaseTestRunner {
     protected WebDriver driver;
-    protected final long implicitlyWaitDuration = 10;
+    protected final long implicitlyWaitDuration = 2;
     protected static ConfigProperties configProperties;
 
     @BeforeSuite

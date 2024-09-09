@@ -13,10 +13,16 @@ public class ConfigProperties {
             FileInputStream fileInputStream = new FileInputStream("src/test/resources/credentials.properties");
             properties.load(fileInputStream);
         } catch (IOException e) {
-           throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
     public String getBaseUrl(){
         return properties.getProperty("base.url");
+    }
+    public String getTestEmail(){
+        return properties.getProperty("test_email");
+    }
+    public String getTestPassword(){
+        return properties.getProperty("test_password");
     }
 }
