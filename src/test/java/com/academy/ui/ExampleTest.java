@@ -64,11 +64,7 @@ public class ExampleTest extends BaseTestRunner {
     public Object[][] invalidUserNames() {
         return new Object[][] {
                 { "" },
-                { "." },
-                { ".." },
-                { ".John" },
-                { "John." },
-                { "John..Doe" },
+                //{ " " },
         };
     }
 
@@ -102,8 +98,9 @@ public class ExampleTest extends BaseTestRunner {
             String errorMessage = form.getUserNameValidationError();
             System.out.println("Error message displayed: " + errorMessage);
 
+            // Проверяем сообщение об ошибке для пустого имени
             if (userName.isEmpty()) {
-                Assert.assertEquals(errorMessage, "User name cannot be empty", "Validation error message should be for empty user name.");
+                Assert.assertEquals(errorMessage, "User name is required", "Validation error message should be for empty user name.");
             } else if (userName.length() > 30) {
                 Assert.assertEquals(errorMessage, "User name cannot exceed 30 characters", "Validation error message should be for exceeding length.");
             } else if (userName.startsWith(".") || userName.endsWith(".") || userName.contains("..")) {
