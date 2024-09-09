@@ -98,7 +98,6 @@ public class ExampleTest extends BaseTestRunner {
             String errorMessage = form.getUserNameValidationError();
             System.out.println("Error message displayed: " + errorMessage);
 
-            // Проверяем сообщение об ошибке для пустого имени
             if (userName.isEmpty()) {
                 Assert.assertEquals(errorMessage, "User name is required", "Validation error message should be for empty user name.");
             } else if (userName.length() > 30) {
