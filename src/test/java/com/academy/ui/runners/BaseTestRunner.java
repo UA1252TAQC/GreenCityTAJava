@@ -11,9 +11,9 @@ import com.academy.utils.props.ConfigProperties;
 import java.time.Duration;
 
 public class BaseTestRunner {
-    protected WebDriver driver;
-    protected final long implicitlyWaitDuration = 10;
-    protected static ConfigProperties configProperties;
+  protected WebDriver driver;
+  protected final long implicitlyWaitDuration = 10;
+  protected static ConfigProperties configProperties;
 
     @BeforeSuite
     public void setUpWebDriver() {
