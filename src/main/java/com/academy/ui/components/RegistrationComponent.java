@@ -25,7 +25,7 @@ public class RegistrationComponent extends BaseComponent {
 
     @FindBy(how = How.XPATH, using = ".//input[@id='password']")
     private WebElement passwordInput;
-    @FindBy(how = How.XPATH, using = ".//p[@class='password-not-valid']")
+    @FindBy(how = How.XPATH, using = ".//div[@id=\"password-err-msg\"]//div")
     private WebElement passwordError;
 
     @FindBy(how = How.XPATH, using = ".//input[@id='repeatPassword']")
