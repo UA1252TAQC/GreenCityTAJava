@@ -26,7 +26,7 @@ public class SignInTest extends BaseTestRunner {
                 .sendEmail(configProperties.getTestEmail())
                 .sendPassword(configProperties.getTestPassword())
                 .sendForm()
-                .verifyErrorMessageUA("Введено невірний email або пароль");
+                .verifyErrorMessageForInvalidInputUa("Введено невірний email або пароль");
 
         Assert.assertTrue(isErrorDisplayed, "Error message is not displayed as expected");
     }

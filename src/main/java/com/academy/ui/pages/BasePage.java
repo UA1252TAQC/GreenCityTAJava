@@ -23,7 +23,7 @@ public class BasePage extends Base {
         return headerComponent;
     }
 
-    public WebElement getHeaderRootElement() {
+    private WebElement getHeaderRootElement() {
         return driver.findElement(By.xpath("//div[@class='header_container']"));
     }
 }

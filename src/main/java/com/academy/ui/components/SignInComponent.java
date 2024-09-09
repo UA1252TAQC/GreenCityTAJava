@@ -20,7 +20,7 @@ public class SignInComponent extends BaseComponent {
     protected WebElement signInButton;
 
     @FindBy(how = How.XPATH, using = ".//div[contains(@class, 'alert-general-error')]")
-    protected WebElement errorMessage;
+    protected WebElement errorMessageForInvalidPasswordInUa;
 
     public SignInComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
@@ -41,10 +41,10 @@ public class SignInComponent extends BaseComponent {
         return this;
     }
 
-    public boolean verifyErrorMessageUA(String expectedMessage){
+    public boolean verifyErrorMessageForInvalidInputUa(String expectedMessage){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOf(errorMessage));
-        return errorMessage.getText().equals(expectedMessage);
+        wait.until(ExpectedConditions.visibilityOf(errorMessageForInvalidPasswordInUa));
+        return errorMessageForInvalidPasswordInUa.getText().equals(expectedMessage);
     }
 
 }
