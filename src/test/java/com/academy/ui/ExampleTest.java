@@ -21,10 +21,12 @@ public class ExampleTest extends BaseTestRunner {
 
     @Test
     public void openFormEng() {
+        WebElement greencity = driver.findElement(By.xpath("//li[@class='nav-left-list'][3]/a[@class='url-name']\n"));
+        new Actions(driver).moveToElement(greencity).click().perform();
         WebElement langOptions = driver.findElement(By.xpath(" //li[@class='lang-option']"));
         new Actions(driver).moveToElement(langOptions).click().perform();
-        driver.findElement(By.xpath("//span[@class='ubs-lang-switcher-span']")).click();
-        WebElement signUpButton = driver.findElement(By.xpath("//div[@class='ubs-header_sign-up-btn']"));
+        //driver.findElement(By.xpath("//span[@class='ubs-lang-switcher-span']")).click();
+        WebElement signUpButton = driver.findElement(By.xpath("//div[@class='header_sign-up-btn']"));
         new Actions(driver).moveToElement(signUpButton).click().perform();
     }
 
@@ -40,12 +42,18 @@ public class ExampleTest extends BaseTestRunner {
     public void registrationFormEmptyUsernameEng() {
         openFormEng();
         fillForm("test@gmail.com", "", "Testpass1111!", "Testpass1111!");
+
         WebElement userNameError = driver.findElement(By.xpath("//*[@id='firstname-err-msg']/app-error/div"));
         WebElement signUpButton = driver.findElement(By.xpath("//button[@type='submit']"));
 
-        Assert.assertEquals(userNameError.getText(), "User name is required");
-        Assert.assertFalse(signUpButton.isEnabled());
+        String actualErrorMessage = userNameError.getText();
+        System.out.println("Error message displayed: " + actualErrorMessage);
+
+        String expectedErrorMessage = "Введіть ім'я";
+        Assert.assertEquals(actualErrorMessage, expectedErrorMessage, "Validation error message should match the expected message.");
+        Assert.assertFalse(signUpButton.isEnabled(), "Sign-up button should be disabled when username is empty.");
     }
+
 
     @DataProvider(name = "validUserNames")
     public Object[][] validUserNames() {
@@ -92,21 +100,23 @@ public class ExampleTest extends BaseTestRunner {
         form.enterConfirmPassword("Cuho_46699");
         //form.submitForm();
 
-        //String errorMessage = form.getUserNameValidationError();
-
         try {
             String errorMessage = form.getUserNameValidationError();
             System.out.println("Error message displayed: " + errorMessage);
 
+            String expectedMessage;
             if (userName.isEmpty()) {
-                Assert.assertEquals(errorMessage, "User name is required", "Validation error message should be for empty user name.");
+                expectedMessage = "Введіть ім'я";
             } else if (userName.length() > 30) {
-                Assert.assertEquals(errorMessage, "User name cannot exceed 30 characters", "Validation error message should be for exceeding length.");
+                expectedMessage = "Ім'я користувача не може перевищувати 30 символів";
             } else if (userName.startsWith(".") || userName.endsWith(".") || userName.contains("..")) {
-                Assert.assertEquals(errorMessage, "User name cannot start or end with a dot and cannot contain consecutive dots", "Validation error message should be for invalid dot placement.");
+                expectedMessage = "Ім'я користувача не може починатися або закінчуватися крапкою і не може містити підрядкові крапки"; // Локализованное сообщение для недопустимого размещения точек
             } else {
                 Assert.fail("Unexpected test case");
+                return;
             }
+
+            Assert.assertEquals(errorMessage, expectedMessage, "Validation error message should match the expected message.");
         } catch (NoSuchElementException e) {
             System.out.println("No validation error message found: " + e.getMessage());
             Assert.fail("Expected validation error message but none was found.");
