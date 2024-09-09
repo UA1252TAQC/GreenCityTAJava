@@ -9,9 +9,11 @@ import org.openqa.selenium.interactions.Actions;
 
 public class Base {
     protected final WebDriver driver;
+    private final Actions actions;
 
     public Base(WebDriver driver) {
         this.driver = driver;
+        this.actions = new Actions(driver);
     }
 
     public void sleep(long seconds) {
@@ -28,7 +30,7 @@ public class Base {
 
     public void click(WebElement element) {
         if (isDisplayed(element)) {
-            new Actions(driver).moveToElement(element).click().perform();
+            actions.moveToElement(element).click().perform();
         } else {
             throw new NoSuchElementException("Element is not visible.");
         }
@@ -38,6 +40,7 @@ public class Base {
         if (element == null) {
             return false;
         }
+
         try {
             return element.isDisplayed();
         } catch (Exception e) {

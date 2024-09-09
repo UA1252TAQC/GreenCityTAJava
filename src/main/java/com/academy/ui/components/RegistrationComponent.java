@@ -48,13 +48,13 @@ public class RegistrationComponent extends BaseComponent {
     }
 
     @Getter
-    private final FormField email = new FormField(emailInput, emailError, emailDynamicError);
+    private final FormField email = new FormField(driver, rootElement, emailInput, emailError, emailDynamicError);
     @Getter
-    private final FormField username = new FormField(usernameInput, usernameError);
+    private final FormField username = new FormField(driver, rootElement, usernameInput, usernameError);
     @Getter
-    private final FormField password = new FormField(passwordInput, passwordError);
+    private final FormField password = new FormField(driver, rootElement, passwordInput, passwordError);
     @Getter
-    private final FormField repeatPassword = new FormField(repeatPasswordInput, repeatPasswordError);
+    private final FormField repeatPassword = new FormField(driver, rootElement, repeatPasswordInput, repeatPasswordError);
 
     public RegistrationComponent enterEmail(String text) {
         this.email.enter(text);
@@ -113,7 +113,8 @@ public class RegistrationComponent extends BaseComponent {
 
     public void fillFormWithTestDataAndSubmitIf(boolean isShouldSubmitForm, String email, String username, String password, String repeatPassword) {
         if (isShouldSubmitForm) { //TODO move to data-provider & refactor
-            this.fillForm(email != null ? email : VALID_DATA[0],
+            this.fillForm(
+                    email != null ? email : VALID_DATA[0],
                     username != null ? username : VALID_DATA[1],
                     password != null ? password : VALID_DATA[2],
                     repeatPassword != null ? repeatPassword : VALID_DATA[3]).submit();

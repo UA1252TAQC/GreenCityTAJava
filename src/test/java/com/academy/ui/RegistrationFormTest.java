@@ -32,8 +32,7 @@ public class RegistrationFormTest extends FormTestRunner {
     
     @BeforeMethod
     public void setUpMethod() {
-        form = page.openRegistrationFormInHeader()
-            .getNewRegistrationComponent();
+        form = page.openRegistrationFormInHeader().getNewRegistrationComponent();
 
         softAssert = new SoftAssert();
     }

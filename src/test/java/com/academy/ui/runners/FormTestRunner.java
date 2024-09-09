@@ -12,7 +12,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class FormTestRunner {
 	protected WebDriver driver;
-    protected final long implicitlyWaitDuration = 10;
+    protected final long implicitlyWaitDuration = 1;
     protected static ConfigProperties configProperties;
 
     @BeforeSuite
