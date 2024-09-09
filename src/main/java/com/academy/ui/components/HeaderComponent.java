@@ -31,18 +31,16 @@ public class HeaderComponent extends BaseComponent {
         super(driver, rootElement);
     }
 
-    public HeaderComponent clickRegister() {
+    public RegistrationComponent openRegistrationForm() {
         click(register);
-        return this;
+        return new RegistrationComponent(driver, findElement(".//app-auth-modal"));
     }
 
-    public HeaderComponent clickListLanguage() {
-        click(this.listLanguage);
-        return this;
-    }
-
-    public HeaderComponent clickEnglish() {
-        click(this.english);
+    public HeaderComponent changeLanguage(String language) {
+        if (language.equals("en")) {
+            click(this.listLanguage);
+            click(this.english);
+        }
         return this;
     }
 }

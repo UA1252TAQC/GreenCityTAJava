@@ -1,6 +1,9 @@
 package com.academy.ui.components;
 
-import com.academy.ui.components.sub.FormField;
+import com.academy.ui.components.sub.form.EmailField;
+import com.academy.ui.components.sub.form.PasswordField;
+import com.academy.ui.components.sub.form.RepeatPasswordField;
+import com.academy.ui.components.sub.form.UsernameField;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,30 +14,8 @@ public class RegistrationComponent extends BaseComponent {
     @FindBy(how = How.XPATH, using = ".//h1[@class='title-text']")
     private WebElement title;
 
-    @FindBy(how = How.XPATH, using = ".//input[@id='email']")
-    private WebElement emailInput;
-    @FindBy(how = How.XPATH, using = ".//div[@id='email-err-msg']//div")
-    private WebElement emailError;
-    @FindBy(how = How.XPATH, using = ".//div[@class='error-message error-message-show']")
-    private WebElement emailDynamicError;
-
-    @FindBy(how = How.XPATH, using = ".//input[@id='firstName']")
-    private WebElement usernameInput;
-    @FindBy(how = How.XPATH, using = ".//div[@id='firstname-err-msg']//div")
-    private WebElement usernameError;
-
-    @FindBy(how = How.XPATH, using = ".//input[@id='password']")
-    private WebElement passwordInput;
-    @FindBy(how = How.XPATH, using = ".//div[@id=\"password-err-msg\"]//div")
-    private WebElement passwordError;
-
-    @FindBy(how = How.XPATH, using = ".//input[@id='repeatPassword']")
-    private WebElement repeatPasswordInput;
-    @FindBy(how = How.XPATH, using = ".//div[@id='confirm-err-msg']//div")
-    private WebElement repeatPasswordError;
-
     @FindBy(how = How.XPATH, using = ".//button[@type='submit']")
-    private WebElement submitButton;
+    private WebElement registerButton;
     @FindBy(how = How.XPATH, using = ".//button[@class='google-sign-in']")
     private WebElement googleButton;
     @FindBy(how = How.XPATH, using = ".//a[@aria-label='sign in modal window'][@class='green-link']")
@@ -43,18 +24,23 @@ public class RegistrationComponent extends BaseComponent {
     @FindBy(how = How.XPATH, using = ".//img[@class='cross-btn'][@alt='close button']")
     private WebElement closeButton;
 
+    @Getter
+    private final EmailField email;
+    @Getter
+    private final UsernameField username;
+    @Getter
+    private final PasswordField password;
+    @Getter
+    private final RepeatPasswordField repeatPassword;
+
     public RegistrationComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
+        email = new EmailField(driver, rootElement);
+        username = new UsernameField(driver, rootElement);
+        password = new PasswordField(driver, rootElement);
+        repeatPassword = new RepeatPasswordField(driver, rootElement);
     }
 
-    @Getter
-    private final FormField email = new FormField(driver, rootElement, emailInput, emailError, emailDynamicError);
-    @Getter
-    private final FormField username = new FormField(driver, rootElement, usernameInput, usernameError);
-    @Getter
-    private final FormField password = new FormField(driver, rootElement, passwordInput, passwordError);
-    @Getter
-    private final FormField repeatPassword = new FormField(driver, rootElement, repeatPasswordInput, repeatPasswordError);
 
     public RegistrationComponent enterEmail(String text) {
         this.email.enter(text);
@@ -81,16 +67,16 @@ public class RegistrationComponent extends BaseComponent {
                 .enterUsername(username)
                 .enterPassword(password)
                 .enterRepeatPassword(repeatPassword)
-                .click();
+                .clickTitle();
     }
 
-    public RegistrationComponent click() {
+    public RegistrationComponent clickTitle() {
         click(title);
         return this;
     }
 
-    public boolean isSubmitButtonDisplayed() {
-        return isDisplayed(this.submitButton);
+    public boolean isRegisterButtonDisplayed() {
+        return isDisplayed(this.registerButton);
     }
 
     public boolean isGoogleButtonDisplayed() {
@@ -98,7 +84,7 @@ public class RegistrationComponent extends BaseComponent {
     }
 
     public void submit() {
-        click(this.submitButton);
+        click(this.registerButton);
     }
 
     public boolean isDisplayed() {
@@ -106,7 +92,7 @@ public class RegistrationComponent extends BaseComponent {
     }
 
     public boolean isValid() {
-        return isEnabled(this.submitButton);
+        return isEnabled(this.registerButton);
     }
 
     private static final String[] VALID_DATA = new String[] {"mail@gmail.com", "Denys1", "Password1!", "Password1!"};
@@ -122,16 +108,16 @@ public class RegistrationComponent extends BaseComponent {
         }
 
         if (email != null) {
-            this.enterEmail(email).click();
+            this.enterEmail(email).clickTitle();
         }
         if (username != null) {
-            this.enterUsername(username).click();
+            this.enterUsername(username).clickTitle();
         }
         if (password != null) {
-            this.enterPassword(password).click();
+            this.enterPassword(password).clickTitle();
         }
         if (repeatPassword != null) {
-            this.enterRepeatPassword(repeatPassword).click();
+            this.enterRepeatPassword(repeatPassword).clickTitle();
         }
     }
 
