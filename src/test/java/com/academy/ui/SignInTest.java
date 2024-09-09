@@ -1,14 +1,9 @@
 package com.academy.ui;
 
-import com.academy.ui.components.HeaderComponent;
-import com.academy.ui.components.SignInComponent;
 import com.academy.ui.pages.BasePage;
 import com.academy.ui.pages.HomePage;
 import com.academy.ui.runners.BaseTestRunner;
-import com.academy.ui.utils.ResourceBundleManager;
 import com.academy.utils.ConfigProperties;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -34,9 +29,5 @@ public class SignInTest extends BaseTestRunner {
                 .verifyErrorMessageUA("Введено невірний email або пароль");
 
         Assert.assertTrue(isErrorDisplayed, "Error message is not displayed as expected");
-    }
-
-    public WebElement getHeaderRootElement() {
-        return driver.findElement(By.xpath("//div[@class='header_container']"));
     }
 }
