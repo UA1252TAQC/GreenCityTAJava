@@ -25,6 +25,7 @@ public class BaseTestRunner {
     public void  setUp(){
         ChromeOptions options = new ChromeOptions();
 //        options.addArguments("--headless=new");
+        options.addArguments("--disable-search-engine-choice-screen");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitlyWaitDuration));
