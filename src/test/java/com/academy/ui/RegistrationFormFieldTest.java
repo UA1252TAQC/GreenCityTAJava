@@ -24,16 +24,12 @@ public class RegistrationFormFieldTest extends FormTestRunner {
 
     @BeforeClass
     @Parameters({"language"})
-    public void setUp(@Optional("ua") String language) {
+    public void setUp(@Optional("ua") String language) throws IOException {
         page = new HomePage(driver).setLanguage(language);
-        try {
-            LocalizationProperties properties = new LocalizationProperties();
-            localizedMessages = properties.getRegistrationMessages(language);
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
-        }
+        LocalizationProperties properties = new LocalizationProperties();
+        localizedMessages = properties.getRegistrationMessages(language);
     }
-    
+
     @BeforeMethod
     public void setUpMethod() {
         form = page.openRegistrationFormInHeader();
