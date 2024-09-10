@@ -1,12 +1,14 @@
-package com.academy.ui.pages;
+package com.academy.ui.user;
 
+import com.academy.ui.Base;
+import com.academy.ui.pages.HomePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
-public class SignInModal extends BasePage{
+public class SignInModal extends Base {
 
     @FindBy(how = How.ID, using = "email")
     protected WebElement emailInput;
@@ -57,7 +59,7 @@ public class SignInModal extends BasePage{
     // Functional
 
     private void enterEmailInput(String email) {
-        clearEmailInput();
+        clickEmailInput();
         clearEmailInput();
         setEmailInput(email);
     }
@@ -73,7 +75,9 @@ public class SignInModal extends BasePage{
         enterPasswordInput(password);
     }
 
-    public HomePage successfulLogin(String email, String password) {
+    // Business Logic
+
+    public HomePage successfulSignIn(String email, String password) {
         fillLogin(email, password);
         clickSignInButton();
         return new HomePage(driver);

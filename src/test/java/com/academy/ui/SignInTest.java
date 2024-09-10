@@ -1,6 +1,5 @@
 package com.academy.ui;
 
-import com.academy.ui.pages.BasePage;
 import com.academy.ui.pages.HomePage;
 import com.academy.ui.pages.MyHabitsPage;
 import com.academy.ui.runners.BaseTestRunner;
@@ -16,8 +15,6 @@ public class SignInTest extends BaseTestRunner {
         return new MyHabitsPage(driver);
     }
 
-
-
     @DataProvider(name = "validUserDataProvider")
     public Object[][] validUserDataProvider() {
         HashMap<String,String> validUserData = new <String,String>HashMap();
@@ -32,12 +29,11 @@ public class SignInTest extends BaseTestRunner {
     @Test(dataProvider = "validUserDataProvider")
     public void checkSuccessfulLogin(HashMap<String,String> user){
 
-
         HomePage homePage = loadApplication()
                 .openSignInModal()
-                .successfulLogin(user.get("email"), user.get("password"));
+                .successfulSignIn(user.get("email"), user.get("password"));
 
-        Assert.assertEquals(user.get("name"), homePage.getHeaderProfileLinkText(), "User name must match.");
+        Assert.assertEquals(user.get("name"), homePage.getUserProfileButtonText(), "User name must match.");
 
         homePage.sleep(3); // for presentation only
     }

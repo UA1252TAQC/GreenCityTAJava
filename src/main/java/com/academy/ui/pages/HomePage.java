@@ -17,4 +17,6 @@ public class HomePage extends BasePage{
         element = driver.findElement(By.cssSelector(".rate"));
     }
 
+
+
 }
