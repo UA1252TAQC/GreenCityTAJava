@@ -29,8 +29,6 @@ public class HeaderComponent extends BaseComponent{
     @FindBy(how = How.CSS, using = ".header_sign-up-link")
     protected WebElement signInComponentRoot;
 
-    private SignInComponent signInComponent;
-
     public HeaderComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
         PageFactory.initElements(driver,this);
