@@ -35,7 +35,7 @@ public class RegistrationFormTest extends FormTestRunner {
     }
 
     @Test(dataProvider = "testPopUpSignUpValidation", dataProviderClass = RegistrationFormTestProvider.class)
-    public void testSuccessfulRegistrationPopup(String expectedMessage, String email, String username, String password, String repeatPassword) {
+    public void testPopUpSignUpValidation(String expectedMessage, String email, String username, String password, String repeatPassword) {
         form.fillForm(email,username,password,repeatPassword).submit();
         String actualMessage = form.getPopUpMessage();
         String expectedLocalizedMessage = localizedMessages.get(expectedMessage);
