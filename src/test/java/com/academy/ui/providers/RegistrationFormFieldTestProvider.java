@@ -69,5 +69,4 @@ public class RegistrationFormFieldTestProvider {
         return data.iterator();
     }
 
-
 }

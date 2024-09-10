@@ -24,8 +24,6 @@ public class RegistrationComponent extends BaseComponent {
     @FindBy(how = How.XPATH, using = ".//img[@class='cross-btn'][@alt='close button']")
     private WebElement closeButton;
 
-
-
     @Getter
     private final EmailField email;
     @Getter
@@ -34,8 +32,6 @@ public class RegistrationComponent extends BaseComponent {
     private final PasswordField password;
     @Getter
     private final RepeatPasswordField repeatPassword;
-
-
 
     public RegistrationComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
@@ -77,8 +73,6 @@ public class RegistrationComponent extends BaseComponent {
         click(title);
         return this;
     }
-
-
 
     public String getPopUpMessage() {
         return findWithWaitElement("//snack-bar-container//span").getText();

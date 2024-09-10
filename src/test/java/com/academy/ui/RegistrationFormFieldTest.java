@@ -112,15 +112,4 @@ public class RegistrationFormFieldTest extends FormTestRunner {
         softAssert.assertAll(errorMessage);
     }
 
-
-
-
-
-
-
-
-
-
-
-
 }
