@@ -1,9 +1,6 @@
 package com.academy.ui;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import com.academy.utils.props.LocalizationProperties;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -12,17 +9,13 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.academy.ui.components.RegistrationComponent;
-import com.academy.ui.forms.Messages;
 import com.academy.ui.pages.HomePage;
 import com.academy.ui.providers.RegistrationFormFieldTestProvider;
 import com.academy.ui.runners.FormTestRunner;
-import com.academy.utils.LocalizationProperties;
 import com.google.common.collect.ImmutableMap;
 
-import java.time.Duration;
-
 public class RegistrationFormFieldTest extends FormTestRunner {
-    private ImmutableMap<Messages, String> localizedMessages;
+    private ImmutableMap<String, String> localizedMessages;
     private HomePage page;
     private RegistrationComponent form;
     private SoftAssert softAssert;
@@ -62,7 +55,7 @@ public class RegistrationFormFieldTest extends FormTestRunner {
     }
 
     @Test(dataProvider = "testEmailValidation", dataProviderClass = RegistrationFormFieldTestProvider.class)
-    public void testEmailValidation(boolean isExpectedValid, Messages expectedErrorMessage, boolean isShouldSubmitForm, String errorMessage, String email) {
+    public void testEmailValidation(boolean isExpectedValid, String expectedErrorMessage, boolean isShouldSubmitForm, String errorMessage, String email) {
         form.fillFormWithTestDataAndSubmitIf(isShouldSubmitForm, email, null, null, null);
 
         boolean isActualValid = form.getEmail().isValid();
@@ -75,7 +68,7 @@ public class RegistrationFormFieldTest extends FormTestRunner {
     }
 
     @Test(dataProvider = "testUsernameValidation", dataProviderClass = RegistrationFormFieldTestProvider.class)
-    public void testUsernameValidation(boolean isExpectedValid, Messages expectedErrorMessage, String errorMessage, String username) {
+    public void testUsernameValidation(boolean isExpectedValid, String expectedErrorMessage, String errorMessage, String username) {
         form.enterUsername(username).clickTitle();
         boolean isActualValid = form.getUsername().isValid();
         String actualErrorMessage = form.getUsername().getErrorMessage();
@@ -87,7 +80,7 @@ public class RegistrationFormFieldTest extends FormTestRunner {
     }
 
     @Test(dataProvider = "testPasswordValidation", dataProviderClass = RegistrationFormFieldTestProvider.class)
-    public void testPasswordValidation(boolean isExpectedValid, Messages expectedErrorMessage, String errorMessage, String password) {
+    public void testPasswordValidation(boolean isExpectedValid, String expectedErrorMessage, String errorMessage, String password) {
         form.enterPassword(password).clickTitle();
         boolean isActualValid = form.getPassword().isValid();
         String actualErrorMessage = form.getPassword().getErrorMessage();
@@ -99,7 +92,7 @@ public class RegistrationFormFieldTest extends FormTestRunner {
     }
 
     @Test(dataProvider = "testRepeatPasswordValidation", dataProviderClass = RegistrationFormFieldTestProvider.class)
-    public void testRepeatPasswordValidation(boolean isExpectedValid, Messages expectedErrorMessage, String errorMessage, String password, String repeatPassword) {
+    public void testRepeatPasswordValidation(boolean isExpectedValid, String expectedErrorMessage, String errorMessage, String password, String repeatPassword) {
         form.enterPassword(password)
             .enterRepeatPassword(repeatPassword)
             .clickTitle();

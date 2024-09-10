@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
-import com.academy.utils.ConfigProperties;
+import com.academy.utils.props.ConfigProperties;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class FormTestRunner {
