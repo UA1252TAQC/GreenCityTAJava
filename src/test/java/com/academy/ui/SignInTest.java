@@ -22,7 +22,9 @@ public class SignInTest extends BaseTestRunner {
         ConfigProperties configProperties = new ConfigProperties();
         basePage.getHeaderComponent().selectLanguage("ua");
 
-        boolean isErrorDisplayed = basePage.getHeaderComponent().getSignInComponent()
+        boolean isErrorDisplayed = basePage
+                .getHeaderComponent()
+                .openProfileOrSignInForm()
                 .sendEmail(configProperties.getTestEmail())
                 .sendPassword(configProperties.getTestPassword())
                 .sendForm()
