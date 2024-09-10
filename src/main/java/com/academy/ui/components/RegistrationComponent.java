@@ -41,7 +41,6 @@ public class RegistrationComponent extends BaseComponent {
         repeatPassword = new RepeatPasswordField(driver, rootElement);
     }
 
-
     public RegistrationComponent enterEmail(String text) {
         this.email.enter(text);
         return this;
@@ -73,6 +72,10 @@ public class RegistrationComponent extends BaseComponent {
     public RegistrationComponent clickTitle() {
         click(title);
         return this;
+    }
+
+    public String getPopUpMessage() {
+        return findWithWaitElement("//snack-bar-container//span").getText();
     }
 
     public boolean isRegisterButtonDisplayed() {
