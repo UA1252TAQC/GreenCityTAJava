@@ -1,20 +1,13 @@
 package com.academy.ui;
 
-import com.academy.utils.props.LocalizationProperties;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import com.academy.ui.components.RegistrationComponent;
 import com.academy.ui.pages.HomePage;
 import com.academy.ui.providers.RegistrationFormFieldTestProvider;
 import com.academy.ui.runners.FormTestRunner;
+import com.academy.utils.LocalizationUtils;
 import com.google.common.collect.ImmutableMap;
-
-import java.io.IOException;
+import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
 
 public class RegistrationFormFieldTest extends FormTestRunner {
     private ImmutableMap<String, String> localizedMessages;
@@ -24,9 +17,9 @@ public class RegistrationFormFieldTest extends FormTestRunner {
 
     @BeforeClass
     @Parameters({"language"})
-    public void setUp(@Optional("ua") String language) throws IOException {
+    public void setUp(@Optional("ua") String language) {
         page = new HomePage(driver).setLanguage(language);
-        LocalizationProperties properties = new LocalizationProperties();
+        LocalizationUtils properties = new LocalizationUtils();
         localizedMessages = properties.getRegistrationMessages(language);
     }
 

@@ -1,19 +1,15 @@
-package com.academy.utils.props;
+package com.academy.utils;
 
 import com.academy.ui.forms.Messages;
-import com.academy.utils.BaseJson;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LocalizationProperties extends BaseJson {
+public class LocalizationUtils extends BaseJson {
 
-    public LocalizationProperties() {
+    public LocalizationUtils() {
         super("localization.json");
     }
 
