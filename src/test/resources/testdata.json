@@ -35,6 +35,6 @@
     ],
 
     "testPopUpSignUpValidation": [
-        ["POP_UP_MESSAGE", "tsdddjdsaa@gmail.com", "TestUser", "Password1!", "Password1!"]
+        ["POP_UP_MESSAGE", "tsdddjdsasdadfs@gmail.com", "TestUser", "Password1!", "Password1!"]
     ]
 }
