@@ -45,7 +45,7 @@ public class MailHttpClient {
 		String endpoint = "/inboxes";
 
 		ZonedDateTime now = ZonedDateTime.now();
-        ZonedDateTime expiration = now.plusHours(24);
+        ZonedDateTime expiration = now.plusHours(1);
         String expiresAt = expiration.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
         
 		String payload = String.format("{\"expiresAt\": \"%s\"}", expiresAt);

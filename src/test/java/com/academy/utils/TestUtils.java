@@ -7,8 +7,11 @@ import java.util.List;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public class TestUtils extends BaseJson {
+	private final MailUtils mailUtils;
+
 	public TestUtils() {
 		super("testdata.json");
+		this.mailUtils = new MailUtils();
 	}
 
 	public Iterator<Object[]> getTestCases(Method method) {
@@ -36,6 +39,14 @@ public class TestUtils extends BaseJson {
 	}
 
 	private Object convertJsonToType(JsonNode cell, Class<?> type) {
+		if (cell.asText().equals("GENERATE_TEMPORALY_EMAIL")) {
+			try {
+				return mailUtils.createNewMailCredentials();
+			} catch (Exception e) {
+				throw new RuntimeException("Error generating temporary email: " + e.getMessage());
+			}
+		}
+		
 		if (type == String.class) {
 			return cell.asText();
 		} else if (type == boolean.class || type == Boolean.class) {

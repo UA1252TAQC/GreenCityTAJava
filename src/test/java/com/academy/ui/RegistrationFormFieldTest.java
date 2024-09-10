@@ -16,9 +16,9 @@ import com.google.common.collect.ImmutableMap;
 
 public class RegistrationFormFieldTest extends FormTestRunner {
     private ImmutableMap<String, String> localizedMessages;
-    private HomePage page;
     private RegistrationComponent form;
     private SoftAssert softAssert;
+    private HomePage page;
 
     @BeforeClass
     @Parameters({"language"})
