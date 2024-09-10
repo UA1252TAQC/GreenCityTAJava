@@ -1,18 +1,20 @@
 package com.academy.ui.providers;
 
-import com.academy.ui.forms.Messages;
+import com.academy.utils.TestUtils;
 import org.testng.annotations.DataProvider;
 
-import java.util.ArrayList;
+import java.lang.reflect.Method;
 import java.util.Iterator;
-import java.util.List;
 
 public class RegistrationFormTestProvider {
+    private final TestUtils testUtils;
+
+    public RegistrationFormTestProvider() {
+        this.testUtils = new TestUtils();
+    }
 
     @DataProvider(name = "testPopUpSignUpValidation")
-    public Iterator<Object[]> dpTestPopUpSignUpValidation() {
-        List<Object[]> data = new ArrayList<>();
-        data.add(new Object[] { Messages.POP_UP_MESSAGE, "tsdddjdseaa@gmail.com", "TestUser", "Password1!", "Password1!"});
-        return data.iterator();
+    public Iterator<Object[]> dpTestPopUpSignUpValidation(Method method) {
+        return testUtils.getTestCases(method);
     }
 }
