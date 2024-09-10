@@ -30,8 +30,23 @@ public class SignInTest extends BaseTestRunner {
     public void checkSuccessfulLogin(HashMap<String,String> user){
 
         HomePage homePage = loadApplication()
-                .openSignInModal()
+                .openSignInComponent()
                 .successfulSignIn(user.get("email"), user.get("password"));
+
+        Assert.assertEquals(user.get("name"), homePage.getUserProfileButtonText(), "User name must match.");
+
+        homePage.sleep(3); // for presentation only
+    }
+
+    @Test(dataProvider = "validUserDataProvider")
+    public void checkSuccessfulSignInWithValidCredentials(HashMap<String,String> user){
+
+        HomePage homePage = loadApplication()
+                .openSignInComponent()
+                .fillEmailInput(user.get("email"))
+                .fillPasswordInput(user.get("password"))
+                .sendSignInForm()
+                .successfulSignIn();
 
         Assert.assertEquals(user.get("name"), homePage.getUserProfileButtonText(), "User name must match.");
 

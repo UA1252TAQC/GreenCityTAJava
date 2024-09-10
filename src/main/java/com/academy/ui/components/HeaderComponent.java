@@ -1,6 +1,5 @@
 package com.academy.ui.components;
 
-import com.academy.ui.user.SignInModal;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,15 +26,18 @@ public class HeaderComponent extends BaseComponent{
     @FindBy(how = How.CSS, using = "li.user-name")
     protected WebElement profileLink;
 
-    private SignInModal signInComponent;
+    @FindBy(how = How.CSS, using = ".header_sign-up-link")
+    protected WebElement signInComponentRoot;
+
+    private SignInComponent signInComponent;
 
     public HeaderComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
         PageFactory.initElements(driver,this);
     }
 
-    private SignInModal getSignInComponent() {
-        return new SignInModal(driver);
+    public SignInComponent getSignInComponent() {
+        return new SignInComponent(driver, signInComponentRoot);
     }
 
     public void clickSignInLink() {

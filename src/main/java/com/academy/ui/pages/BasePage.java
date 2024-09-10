@@ -2,8 +2,7 @@ package com.academy.ui.pages;
 
 import com.academy.ui.Base;
 import com.academy.ui.components.HeaderComponent;
-import com.academy.ui.user.SignInModal;
-import lombok.Getter;
+import com.academy.ui.components.SignInComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -35,9 +34,9 @@ public class BasePage extends Base {
         headerComponent.clickSignInLink();
     }
 
-    public SignInModal openSignInModal() {
+    public SignInComponent openSignInComponent() {
         clickSignInLink();
-        return new SignInModal(driver);
+        return headerComponent.getSignInComponent();
     }
 
 

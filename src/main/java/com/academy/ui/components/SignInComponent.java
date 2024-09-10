@@ -1,4 +1,4 @@
-package com.academy.ui.user;
+package com.academy.ui.components;
 
 import com.academy.ui.Base;
 import com.academy.ui.pages.HomePage;
@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
-public class SignInModal extends Base {
+public class SignInComponent extends BaseComponent {
 
     @FindBy(how = How.ID, using = "email")
     protected WebElement emailInput;
@@ -20,8 +20,8 @@ public class SignInModal extends Base {
     protected WebElement signInButton;
 
 
-    public SignInModal(WebDriver driver) {
-        super(driver);
+    public SignInComponent(WebDriver driver, WebElement rootElement) {
+        super(driver, rootElement);
         PageFactory.initElements(driver, this);
     }
 
@@ -76,6 +76,25 @@ public class SignInModal extends Base {
     }
 
     // Business Logic
+
+    public SignInComponent fillEmailInput(String email) {
+        enterEmailInput(email);
+        return this;
+    }
+
+    public SignInComponent fillPasswordInput(String password) {
+        enterPasswordInput(password);
+        return this;
+    }
+
+    public SignInComponent sendSignInForm() {
+        clickSignInButton();
+        return this;
+    }
+
+    public HomePage successfulSignIn() {
+        return new HomePage(driver);
+    }
 
     public HomePage successfulSignIn(String email, String password) {
         fillLogin(email, password);
