@@ -1,5 +1,6 @@
 package com.academy.ui;
 
+import com.academy.ui.components.SignInComponent;
 import com.academy.ui.pages.HomePage;
 import com.academy.ui.pages.MyHabitsPage;
 import com.academy.ui.runners.BaseTestRunner;
@@ -33,7 +34,7 @@ public class SignInTest extends BaseTestRunner {
                 .openSignInComponent()
                 .successfulSignIn(user.get("email"), user.get("password"));
 
-        Assert.assertEquals(user.get("name"), homePage.getUserProfileButtonText(), "User name must match.");
+        Assert.assertEquals(homePage.getUserProfileButtonText(), user.get("name"), "User name must match.");
 
         homePage.sleep(3); // for presentation only
     }
@@ -48,8 +49,36 @@ public class SignInTest extends BaseTestRunner {
                 .sendSignInForm()
                 .successfulSignIn();
 
-        Assert.assertEquals(user.get("name"), homePage.getUserProfileButtonText(), "User name must match.");
+        Assert.assertEquals(homePage.getUserProfileButtonText(), user.get("name"), "User name must match.");
 
         homePage.sleep(3); // for presentation only
     }
+
+    @Test(dataProvider = "validUserDataProvider")
+    public void checkSignInButtonRemainedInactiveWithFilledPassword(HashMap<String,String> user){
+
+        SignInComponent signInComponent = loadApplication()
+                .openSignInComponent()
+                .fillPasswordInput(user.get("password"));
+
+        Assert.assertFalse(signInComponent.isSignButtonActive());
+
+        signInComponent.sleep(3); // for presentation only
+    }
+
+    @Test(dataProvider = "validUserDataProvider")
+    public void checkErrorMessageForEmptyEmailAndPasswordFieldsInUALocalization(HashMap<String,String> user) {
+
+        SignInComponent signInComponent = loadApplication()
+                //.changeLocaleTo("UA")
+                .openSignInComponent()
+                .sendSignInForm()
+                .unsuccessfulSignIn();
+
+        Assert.assertEquals("actual", "expected", "Error message is appeared");
+
+        signInComponent.sleep(3); // for presentation only
+
+    }
+
 }

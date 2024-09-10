@@ -55,6 +55,11 @@ public class SignInComponent extends BaseComponent {
         signInButton.click();
     }
 
+    public boolean isSignButtonActive() {
+        return signInButton.isEnabled();
+    }
+
+
     // Functional
 
     private void enterEmailInput(String email) {
@@ -99,5 +104,9 @@ public class SignInComponent extends BaseComponent {
         fillLogin(email, password);
         clickSignInButton();
         return new HomePage(driver);
+    }
+
+    public SignInComponent unsuccessfulSignIn() {
+        return this;
     }
 }
