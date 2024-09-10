@@ -13,6 +13,8 @@ import com.academy.ui.runners.FormTestRunner;
 import com.academy.utils.props.LocalizationProperties;
 import com.google.common.collect.ImmutableMap;
 
+import java.io.IOException;
+
 public class RegistrationFormTest extends FormTestRunner {
     private ImmutableMap<String, String> localizedMessages;
     private RegistrationComponent form;
@@ -23,9 +25,12 @@ public class RegistrationFormTest extends FormTestRunner {
     @Parameters({"language"})
     public void setUp(@Optional("ua") String language) {
         page = new HomePage(driver).setLanguage(language);
-
-        LocalizationProperties properties = new LocalizationProperties();
-        localizedMessages = properties.getRegistrationMessages(language);
+        try {
+            LocalizationProperties properties = new LocalizationProperties();
+            localizedMessages = properties.getRegistrationMessages(language);
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     @BeforeMethod
