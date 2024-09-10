@@ -67,6 +67,18 @@ public class SignInTest extends BaseTestRunner {
     }
 
     @Test(dataProvider = "validUserDataProvider")
+    public void checkSignInButtonRemainedInactiveWithFilledEmail(HashMap<String,String> user){
+
+        SignInComponent signInComponent = loadApplication()
+                .openSignInComponent()
+                .fillEmailInput(user.get("email"));
+
+        Assert.assertFalse(signInComponent.isSignButtonActive());
+
+        signInComponent.sleep(3); // for presentation only
+    }
+
+    @Test(dataProvider = "validUserDataProvider")
     public void checkErrorMessageForEmptyEmailAndPasswordFieldsInUALocalization(HashMap<String,String> user) {
 
         SignInComponent signInComponent = loadApplication()
