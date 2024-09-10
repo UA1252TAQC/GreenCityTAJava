@@ -11,13 +11,7 @@ public class ConfigProperties {
     protected final Properties properties;
 
     public ConfigProperties() {
-        properties = new Properties();
-        try {
-            var fileInputStream = new BufferedReader(new InputStreamReader(new FileInputStream("src/test/resources/credentials.properties"), StandardCharsets.UTF_8));
-            properties.load(fileInputStream);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        this("credentials.properties");
     }
 
     protected ConfigProperties(String source) {
@@ -30,7 +24,11 @@ public class ConfigProperties {
         }
     }
     
-    public String getBaseUrl(){
+    public String getBaseUrl() {
         return properties.getProperty("base.url");
     }
+
+	public String getEmailToken() {
+        return properties.getProperty("email.token");
+	}
 }
