@@ -14,8 +14,7 @@ public class BasePage extends Base {
         super(driver);
         headerComponent = new HeaderComponent(driver, getHeaderRootElement());
     }
-
-    public void openURL(String url) {
+    public void openURL(String url){
         driver.get(url);
         PageFactory.initElements(driver, this);
     }

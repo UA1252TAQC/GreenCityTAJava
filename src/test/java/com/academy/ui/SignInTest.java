@@ -8,20 +8,21 @@ import org.testng.annotations.Test;
 
 public class SignInTest extends BaseTestRunner {
 
-    private BasePage basePage;
+    private BasePage homePage;
 
     @BeforeMethod
     public void setUpSignInTest() {
-        basePage = new BasePage(driver);
+        homePage = new BasePage(driver);
     }
 
     @Test
-    public void verifyOpeningOfForgotPasswordAfterClickingTheLink() {
-        boolean isWindowDisplayed = basePage
+    public void verifyForgotPasswordWindowIsDisplayed() {
+        boolean isWindowDisplayed = homePage
                 .getHeaderComponent()
-                .getSignInComponent()
-                .getForgotPasswordComponent()
-                .isForgotPassportWindowDisplayed();
-        Assert.assertTrue(isWindowDisplayed);
+                .openProfileOrSignInForm()
+                .openForgotPasswordAndGetComponent()
+                .isForgotPasswordWindowDisplayed();
+
+        Assert.assertTrue(isWindowDisplayed, "Forgot password window is not displayed.");
     }
 }
