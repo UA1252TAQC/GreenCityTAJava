@@ -10,10 +10,10 @@ import org.testng.asserts.SoftAssert;
 import com.academy.ui.components.RegistrationComponent;
 import com.academy.ui.pages.HomePage;
 import com.academy.ui.runners.FormTestRunner;
+import com.academy.utils.LocalizationUtils;
 import com.academy.utils.MailUtils;
 import com.academy.utils.mail.Mail;
 import com.academy.utils.mail.MailBoxCredentials;
-import com.academy.utils.props.LocalizationProperties;
 import com.google.common.collect.ImmutableMap;
 
 public class RegistrationFormTest extends FormTestRunner {
@@ -27,8 +27,7 @@ public class RegistrationFormTest extends FormTestRunner {
     @Parameters({"language"})
     public void setUp(@Optional("ua") String language) {
         page = new HomePage(driver).setLanguage(language);
-
-        LocalizationProperties properties = new LocalizationProperties();
+        LocalizationUtils properties = new LocalizationUtils();
         localizedMessages = properties.getRegistrationMessages(language);
 
         mailUtils = new MailUtils();
@@ -54,7 +53,7 @@ public class RegistrationFormTest extends FormTestRunner {
 
         String actualAccountSubmitMessage = null; // ubs.get pop up
         softAssert.assertEquals(actualAccountSubmitMessage, localizedMessages.get(expectedAccountSubmitMessage));
-        
+
         // TODO add login & parse jwt & add 24 hours validation check
         softAssert.assertAll();
     }

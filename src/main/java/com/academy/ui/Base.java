@@ -18,7 +18,7 @@ public class Base {
     public Base(WebDriver driver) {
         this.driver = driver;
         this.actions = new Actions(driver);
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
     public void sleep(long seconds) {
