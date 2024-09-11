@@ -1,12 +1,12 @@
 package com.academy.ui.components.sub.form;
 
-import com.academy.ui.BaseElement;
+import com.academy.ui.components.BaseComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class UsernameField extends BaseElement {
+public class UsernameField extends BaseComponent {
     @FindBy(how = How.XPATH, using = ".//input[@id='firstName']")
     private WebElement input;
     @FindBy(how = How.XPATH, using = ".//div[@id='firstname-err-msg']//div")
