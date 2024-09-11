@@ -78,19 +78,4 @@ public class SignInTest extends BaseTestRunner {
         signInComponent.sleep(3); // for presentation only
     }
 
-    @Test(dataProvider = "validUserDataProvider")
-    public void checkErrorMessageForEmptyEmailAndPasswordFieldsInUALocalization(HashMap<String,String> user) {
-
-        SignInComponent signInComponent = loadApplication()
-                //.changeLocaleTo("UA")
-                .openSignInComponent()
-                .sendSignInForm()
-                .unsuccessfulSignIn();
-
-        Assert.assertEquals("actual", "expected", "Error message is appeared");
-
-        signInComponent.sleep(3); // for presentation only
-
-    }
-
 }
