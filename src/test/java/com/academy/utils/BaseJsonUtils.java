@@ -5,11 +5,11 @@ import java.io.IOException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class BaseJson {
+public class BaseJsonUtils {
 	protected final ObjectMapper mapper;
 	protected final JsonNode rootNode;
 
-	protected BaseJson(String source) {
+	protected BaseJsonUtils(String source) {
 		this.mapper = new ObjectMapper();
 		try {
 			this.rootNode = mapper.readTree(new File("src/test/resources/" + source));

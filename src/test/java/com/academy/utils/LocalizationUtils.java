@@ -7,7 +7,7 @@ import com.google.common.collect.ImmutableMap;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LocalizationUtils extends BaseJson {
+public class LocalizationUtils extends BaseJsonUtils {
 
     public LocalizationUtils() {
         super("localization.json");

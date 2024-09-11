@@ -8,16 +8,14 @@ import org.openqa.selenium.support.PageFactory;
 public class BasePage extends Base {
     public BasePage(WebDriver driver) {
         super(driver);
-    }
-
-    public BasePage openURL(String url) {
-        driver.get(url);
         PageFactory.initElements(driver, this);
-        return this;
     }
 
-    public BasePage openUrlInNewTab(String url) {
+    public void openURL(String url){
+        driver.get(url);
+    }
+
+    public void openUrlInNewTab(String url) {
         ((JavascriptExecutor) driver).executeScript("window.open('" + url + "', '_blank');");
-        return this;
     }
 }

@@ -1,13 +1,12 @@
 package com.academy.utils;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import com.fasterxml.jackson.databind.JsonNode;
 
-public class TestUtils extends BaseJson {
+public class TestUtils extends BaseJsonUtils {
 	private final MailUtils mailUtils;
 
 	public TestUtils() {
@@ -47,7 +46,7 @@ public class TestUtils extends BaseJson {
 				throw new RuntimeException("Error generating temporary email: " + e.getMessage());
 			}
 		}
-		
+
 		if (type == String.class) {
 			return cell.asText();
 		} else if (type == boolean.class || type == Boolean.class) {

@@ -1,12 +1,12 @@
 package com.academy.ui.components.sub.form;
 
-import com.academy.ui.BaseElement;
+import com.academy.ui.components.BaseComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class EmailField extends BaseElement {
+public class EmailField extends BaseComponent {
     @FindBy(how = How.XPATH, using = ".//input[@id='email']")
     protected WebElement input;
     @FindBy(how = How.XPATH, using = ".//div[@id='email-err-msg']//div")
