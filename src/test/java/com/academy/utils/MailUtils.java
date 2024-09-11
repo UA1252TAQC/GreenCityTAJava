@@ -17,24 +17,6 @@ public class MailUtils {
 		this.mailHttpClient = new MailHttpClient();
 	}
 
-	public MailBoxCredentials getMailCredentials() throws Exception {
-		try {
-			List<MailBoxCredentials> inboxes = mailHttpClient.getAllInboxes();
-			return findValidInbox(inboxes).orElseGet(this::createNewMailCredentials);
-		} catch (Exception e) {
-			throw new RuntimeException("Error while getting mail credentials: " + e.getMessage());
-		}
-	}
-
-	private Optional<MailBoxCredentials> findValidInbox(List<MailBoxCredentials> inboxes) {
-		return inboxes.stream().filter(inbox -> {
-			if (inbox.getExpiresAt() == null) return false;
-			ZonedDateTime expirationDate = ZonedDateTime.parse(inbox.getExpiresAt());
-			ZonedDateTime nowPlusHour = ZonedDateTime.now(ZoneOffset.UTC).plusHours(1);
-			return expirationDate.isAfter(nowPlusHour);
-		}).findFirst();
-	}
-
 	private MailBoxCredentials createNewMailCredentials() {
 		try {
 			return mailHttpClient.createInbox();

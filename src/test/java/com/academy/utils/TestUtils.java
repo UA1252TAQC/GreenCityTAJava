@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import com.fasterxml.jackson.databind.JsonNode;
 
-public class TestUtils extends BaseJson {
+public class TestUtils extends BaseJsonUtils {
 	public TestUtils() {
 		super("testdata.json");
 	}
