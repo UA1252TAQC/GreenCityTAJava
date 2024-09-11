@@ -15,7 +15,7 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(how = How.XPATH, using = ".//div[@class='header_navigation-menu']//li[2]/a")
     protected WebElement places;
 
-    @FindBy(how = How.XPATH, using = ".//div[@class='header_navigation-menu']//li[3]/a")
+    @FindBy(how = How.XPATH, using = ".//div[@class='header_navigation-menu-ubs']//a[@class='ubs-header-sign-in']")
     protected WebElement profile;
 
     @FindBy(how = How.XPATH, using = ".//ul[@class='header_lang-switcher-wrp header_navigation-menu-right-lang']")
@@ -29,6 +29,11 @@ public class HeaderComponent extends BaseComponent {
 
     public HeaderComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
+    }
+
+    public SignInComponent openSignInForm() {
+        click(profile);
+        return new SignInComponent(driver, findElement(".//div[@class='wrapper']"));
     }
 
     public RegistrationComponent openRegistrationForm() {

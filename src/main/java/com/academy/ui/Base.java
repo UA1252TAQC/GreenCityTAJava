@@ -13,7 +13,6 @@ import java.util.NoSuchElementException;
 public class Base {
     protected final WebDriver driver;
 
-
     public Base(WebDriver driver) {
         this.driver = driver;
     }
