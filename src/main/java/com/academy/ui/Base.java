@@ -11,7 +11,7 @@ public class Base {
         this.driver = driver;
     }
 
-    public void clickElement(WebElement element) {
+    public void clickElementWithAction(WebElement element) {
         new Actions(driver)
                 .moveToElement(element)
                 .click()

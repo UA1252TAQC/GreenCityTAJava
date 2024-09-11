@@ -1,35 +1,36 @@
 package com.academy.ui;
 
 import com.academy.ui.pages.BasePage;
-import com.academy.ui.pages.HomePage;
 import com.academy.ui.runners.BaseTestRunner;
 import com.academy.utils.ConfigProperties;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class SignInTest extends BaseTestRunner {
-
     private BasePage basePage;
 
     @BeforeMethod
     public void setUpSignInTest() {
-        basePage = new HomePage(driver);
+        basePage = new BasePage(driver);
     }
 
     @Test
     public void verifyErrorMessageForInvalidPasswordInUa() {
         ConfigProperties configProperties = new ConfigProperties();
-        basePage.getHeaderComponent().selectLanguage("ua");
+        basePage.getHeaderComponent().selectLanguage("UA");
 
-        boolean isErrorDisplayed = basePage
+        String errorMessage = basePage
                 .getHeaderComponent()
-                .openProfileOrSignInForm()
+                .getSignInFormModal()
                 .sendEmail(configProperties.getTestEmail())
                 .sendPassword(configProperties.getTestPassword())
-                .sendForm()
-                .verifyErrorMessageForInvalidInputUa("Введено невірний email або пароль");
+                .randomClick()
+                .getErrorMessageForExceedingPasswordLengthUa();
 
-        Assert.assertTrue(isErrorDisplayed, "Error message is not displayed as expected");
+        Assert.assertEquals(errorMessage, "Пароль повинен містити менше 20 символів без пробілів.");
     }
 }
