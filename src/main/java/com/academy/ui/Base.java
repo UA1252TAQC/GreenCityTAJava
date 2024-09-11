@@ -1,8 +1,5 @@
 package com.academy.ui;
 
-import java.time.Duration;
-import java.util.NoSuchElementException;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,15 +7,23 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+import java.util.NoSuchElementException;
+
 public class Base {
     protected final WebDriver driver;
-    private final Actions actions;
-    private final WebDriverWait wait;
+
 
     public Base(WebDriver driver) {
         this.driver = driver;
-        this.actions = new Actions(driver);
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    }
+
+    public Actions getActions() {
+        return new Actions(driver);
+    }
+
+    public WebDriverWait getWait(long seconds) {
+        return new WebDriverWait(driver, Duration.ofSeconds(seconds));
     }
 
     public void sleep(long seconds) {
@@ -34,12 +39,12 @@ public class Base {
     }
 
     public WebElement findWithWaitElement(String xPath) {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
+        return getWait(5).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
     }
 
     public void click(WebElement element) {
         if (isDisplayed(element)) {
-            actions.moveToElement(element).click().perform();
+            getActions().moveToElement(element).click().perform();
         } else {
             throw new NoSuchElementException("Element is not visible.");
         }
