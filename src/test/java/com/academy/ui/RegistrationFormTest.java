@@ -105,6 +105,7 @@ public class RegistrationFormTest extends FormTestRunner {
 
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
+
         //String actualRegistrationSuccessMessage = page.getSuccessRegisteredMessage(); doesnt work on prod
         //softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
         HomePage homePage = openHomePageInNewTab(ubsPage);
@@ -117,6 +118,74 @@ public class RegistrationFormTest extends FormTestRunner {
 
         softAssert.assertAll();
     }
+
+    @Test (dataProvider = "testEmailAlreadyExists" , dataProviderClass = RegistrationFormTestProvider.class)
+    public void testEmailAlreadyExists (String expectedRegistrationSuccessMessage , String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword){
+        HomePage homePage = openHomePage();
+        RegistrationComponent homeForm = homePage.openRegistrationFormInHeader();
+
+
+        homeForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
+
+    //  String actualRegistrationSuccessMessage = homePage.getSuccessRegisteredPopUpMessage(); //doesnt work on prod
+    //  softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
+
+        homeForm.sleep(5);
+        homeForm = homePage.openRegistrationFormInHeader();
+        homeForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
+
+        String actualErrorMessage = homeForm.getEmail().getErrorMessage();
+        softAssert.assertEquals(actualErrorMessage, localizedMessages.get(expectedRegistrationErrorMessage));
+
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "testGreenCityRegisteredWithConfirmEmail", dataProviderClass = RegistrationFormTestProvider.class)
+    public void testGreenCityRegisteredWithConfirmEmail(String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
+        HomePage homePage = openHomePage();
+        RegistrationComponent greenCityForm = homePage.openRegistrationFormInHeader();
+
+        greenCityForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
+
+        greenCityForm.sleep(5);
+
+        Mail mail = mailUtils.getLastEmail(mailBox.getId());
+        homePage.openUrlInNewTab(mail.extractActivationLink());
+        greenCityForm.sleep(5);
+
+        UbsPage ubsPage = openUbsPageInNewTab(homePage);
+        RegistrationComponent ubsForm = ubsPage.openRegistrationFormInHeader();
+        ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
+
+        String actualRegistrationErrorMessage = ubsForm.getEmail().getErrorMessage();
+        softAssert.assertEquals(actualRegistrationErrorMessage, localizedMessages.get(expectedRegistrationErrorMessage));
+
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "testUbsRegisteredWithConfirmEmail", dataProviderClass = RegistrationFormTestProvider.class)
+    public void testUbsRegisteredWithConfirmEmail(String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
+        UbsPage ubsPage = openUbsPage();
+        RegistrationComponent ubsForm = ubsPage.openRegistrationFormInHeader();
+
+        ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
+        ubsForm.sleep(5);
+
+        Mail mail = mailUtils.getLastEmail(mailBox.getId());
+        ubsPage.openUrlInNewTab(mail.extractActivationLink());
+        ubsForm.sleep(5);
+
+        HomePage homePage = openHomePageInNewTab(ubsPage);
+        RegistrationComponent greenCityForm = homePage.openRegistrationFormInHeader();
+        greenCityForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
+
+        String actualRegistrationErrorMessage = greenCityForm.getEmail().getErrorMessage();
+        softAssert.assertEquals(actualRegistrationErrorMessage, localizedMessages.get(expectedRegistrationErrorMessage));
+
+        softAssert.assertAll();
+    }
+
+
 
     private UbsPage openUbsPageInNewTab(HomePage homePage) {
         homePage.openUrlInNewTab(configProperties.getBaseUrl() + "/#/ubs");

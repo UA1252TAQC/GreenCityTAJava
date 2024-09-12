@@ -52,5 +52,17 @@
 
     "testRegisteredUbs" : [
         ["EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
+    ],
+
+    "testEmailAlreadyExists" : [
+        ["REGISTERED_POP_UP_MESSAGE","EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
+    ],
+
+    "testGreenCityRegisteredWithConfirmEmail" : [
+            ["EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
+    ],
+
+    "testUbsRegisteredWithConfirmEmail" : [
+        ["EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
     ]
 }
