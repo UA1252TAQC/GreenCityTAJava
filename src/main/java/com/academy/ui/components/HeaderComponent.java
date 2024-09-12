@@ -32,9 +32,6 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = "//a[@role='link']")
     public WebElement signInButton;
 
-//    @FindBy(how = How.XPATH, using = "//nav[contains(@class, 'header_navigation-menu-left')]//li[1]/a")
-//    protected WebElement newsLogin;
-
     public HeaderComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
     }
