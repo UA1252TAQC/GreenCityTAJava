@@ -2,8 +2,6 @@ package com.academy.ui;
 
 import com.academy.ui.components.GoogleAuthComponent;
 import com.academy.ui.components.RegistrationComponent;
-import com.academy.ui.components.UbsHeaderComponent;
-import com.academy.ui.pages.BasePage;
 import com.academy.ui.pages.HomePage;
 import com.academy.ui.pages.ProfilePage;
 import com.academy.ui.pages.UbsPage;
@@ -13,7 +11,6 @@ import com.academy.utils.LocalizationUtils;
 import com.academy.utils.MailUtils;
 import com.academy.utils.mail.Mail;
 import com.academy.utils.mail.MailBoxCredentials;
-import com.academy.utils.props.ConfigProperties;
 import com.academy.utils.props.ConfigProperties;
 import com.google.common.collect.ImmutableMap;
 import org.testng.annotations.*;
@@ -42,7 +39,7 @@ public class RegistrationFormTest extends FormTestRunner {
 
     @Test(dataProvider = "testPopUpSignUpValidation", dataProviderClass = RegistrationFormTestProvider.class)
     public void testPopUpSignUpValidation(String expectedRegistrationSuccessMessage, String expectedAccountSubmitMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
-        HomePage homePage = getHomePage();
+        HomePage homePage = openHomePage();
         RegistrationComponent form = homePage.openRegistrationFormInHeader();
 
         form.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
@@ -64,7 +61,7 @@ public class RegistrationFormTest extends FormTestRunner {
 
     @Test(dataProvider = "testGoogleSignUp", dataProviderClass = RegistrationFormTestProvider.class)
     public void testGoogleSignUp(String googleEmail, String googlePassword) {
-        HomePage homePage = getHomePage();
+        HomePage homePage = openHomePage();
         RegistrationComponent form = homePage.openRegistrationFormInHeader();
 
 
@@ -79,33 +76,64 @@ public class RegistrationFormTest extends FormTestRunner {
         ProfilePage profilePage = new ProfilePage(driver);
         softAssert.assertNotNull(profilePage.getAuthToken());
         softAssert.assertAll();
-
     }
 
     @Test(dataProvider = "testRegisteredGreenCity", dataProviderClass = RegistrationFormTestProvider.class)
     public void testRegisteredGreenCity(String expectedRegistrationErrorMessage,MailBoxCredentials mailBox, String username, String password, String repeatPassword){
-        page.openUrl(configProperties.getBaseUrl() + "/#/greenCity");
-        HomePage homePage = new HomePage(driver).setLanguage(language);
+        HomePage homePage = openHomePage();
+        RegistrationComponent homeForm = homePage.openRegistrationFormInHeader();
 
-        RegistrationComponent form = homePage.openRegistrationFormInHeader();
+        homeForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
+        //String actualRegistrationSuccessMessage = page.getSuccessRegisteredMessage(); doesnt work on prod
+        //softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
 
-        form.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
+        UbsPage ubsPage = openUbsPageInNewTab(homePage);
+        RegistrationComponent ubsForm = ubsPage.openRegistrationFormInHeader();
+        ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
-        page.openUrlInNewTab(configProperties.getBaseUrl() + "/#/ubs");
-        UbsPage ubsPage = new UbsPage(driver);
-        UbsHeaderComponent headerComponent = ubsPage.getHeaderComponent();
-        RegistrationComponent registrationForm = headerComponent.openRegistrationForm();
-        registrationForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
-
-        String actualAccountSubmitMessage = ubsPage.getAccountSubmitPopUpMessage();
-        softAssert.assertEquals(actualAccountSubmitMessage, localizedMessages.get(expectedRegistrationErrorMessage));
+        String actualRegistrationErrorMessage = ubsForm.getEmail().getErrorMessage();
+        softAssert.assertEquals(actualRegistrationErrorMessage, localizedMessages.get(expectedRegistrationErrorMessage));
 
         softAssert.assertAll();
-
     }
 
-    private HomePage getHomePage() {
+    @Test(dataProvider = "testRegisteredUbs", dataProviderClass = RegistrationFormTestProvider.class)
+    public void testRegisteredUbs(String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword){
+        UbsPage ubsPage = openUbsPage();
+        RegistrationComponent ubsForm = ubsPage.openRegistrationFormInHeader();
+
+        ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
+
+        //String actualRegistrationSuccessMessage = page.getSuccessRegisteredMessage(); doesnt work on prod
+        //softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
+        HomePage homePage = openHomePageInNewTab(ubsPage);
+        RegistrationComponent homeForm = homePage.openRegistrationFormInHeader();
+
+        homeForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
+
+        String actualRegistrationErrorMessage = homeForm.getEmail().getErrorMessage();
+        softAssert.assertEquals(actualRegistrationErrorMessage, localizedMessages.get(expectedRegistrationErrorMessage));
+
+        softAssert.assertAll();
+    }
+
+    private UbsPage openUbsPageInNewTab(HomePage homePage) {
+        homePage.openUrlInNewTab(configProperties.getBaseUrl() + "/#/ubs");
+        return new UbsPage(driver);
+    }
+
+    private HomePage openHomePageInNewTab(UbsPage ubsPage) {
+        ubsPage.openUrlInNewTab(configProperties.getBaseUrl() + "/#/greenCity");
+        return new HomePage(driver);
+    }
+
+    private UbsPage openUbsPage() {
+        driver.get(configProperties.getBaseUrl() + "/#/ubs");
+        return new UbsPage(driver).setLanguage(language);
+    }
+
+    private HomePage openHomePage() {
         driver.get(configProperties.getBaseUrl() + "/#/greenCity");
         return new HomePage(driver).setLanguage(language);
     }

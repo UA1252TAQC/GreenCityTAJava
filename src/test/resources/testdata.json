@@ -48,5 +48,9 @@
 
     "testRegisteredGreenCity" : [
         ["EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","Sakldsan","Solandkad12*","Solandkad12*"]
+    ],
+
+    "testRegisteredUbs" : [
+        ["EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
     ]
 }

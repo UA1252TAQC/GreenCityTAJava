@@ -24,7 +24,12 @@ public class RegistrationFormTestProvider {
     }
 
     @DataProvider(name = "testRegisteredGreenCity")
-    public Iterator<Object[]> dptestRegisteredGreenCity(Method method) {
+    public Iterator<Object[]> dpTestRegisteredGreenCity(Method method) {
+        return testUtils.getTestCases(method);
+    }
+
+    @DataProvider(name = "testRegisteredUbs")
+    public Iterator<Object[]> dpTestRegisteredUbs(Method method) {
         return testUtils.getTestCases(method);
     }
 }
