@@ -1,5 +1,6 @@
 package com.academy.ui.components;
 
+import com.academy.ui.pages.NewsPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,6 +28,9 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(how = How.XPATH, using = ".//li[@class='header_sign-up-link']//span")
     protected WebElement register;
 
+    @FindBy(how = How.XPATH, using = "//div[@class='header_navigation-menu-right']//img[@class='ubs-header-sing-in-img ubs-header-sing-in-img-greencity']")
+    protected WebElement signIn;
+
     public HeaderComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
     }
@@ -36,11 +40,21 @@ public class HeaderComponent extends BaseComponent {
         return new RegistrationComponent(driver, findElement(".//app-auth-modal"));
     }
 
+    public SignInComponent openSignInForm() {
+        click(signIn);
+        return new SignInComponent(driver, findElement(".//app-auth-modal"));
+    }
+
     public HeaderComponent changeLanguage(String language) {
         if (language.equals("en")) {
             click(this.listLanguage);
             click(this.english);
         }
         return this;
+    }
+
+    public NewsPage navigateToNews(){
+        click(news);
+        return new NewsPage(driver);
     }
 }
