@@ -2,8 +2,8 @@ package com.academy.ui;
 
 import com.academy.ui.components.GoogleAuthComponent;
 import com.academy.ui.components.RegistrationComponent;
-import com.academy.ui.pages.BasePage;
 import com.academy.ui.components.UbsHeaderComponent;
+import com.academy.ui.pages.BasePage;
 import com.academy.ui.pages.HomePage;
 import com.academy.ui.pages.ProfilePage;
 import com.academy.ui.pages.UbsPage;
@@ -15,11 +15,7 @@ import com.academy.utils.mail.Mail;
 import com.academy.utils.mail.MailBoxCredentials;
 import com.academy.utils.props.ConfigProperties;
 import com.google.common.collect.ImmutableMap;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
 public class RegistrationFormTest extends FormTestRunner {
@@ -37,7 +33,7 @@ public class RegistrationFormTest extends FormTestRunner {
         this.mailUtils = new MailUtils();
         this.language = language;
         this.page = new BasePage(driver);
-        this.configProperties = new ConfigProperties
+        this.configProperties = new ConfigProperties();
     }
 
     @BeforeMethod
@@ -94,7 +90,14 @@ public class RegistrationFormTest extends FormTestRunner {
 
     @Test(dataProvider = "testRegisteredGreenCity", dataProviderClass = RegistrationFormTestProvider.class)
     public void testRegisteredGreenCity(String expectedRegistrationErrorMessage,MailBoxCredentials mailBox, String username, String password, String repeatPassword){
+        page.openUrl(configProperties.getBaseUrl() + "/#/greenCity");
+        HomePage homePage = new HomePage(driver).setLanguage(language);
+
+        RegistrationComponent form = homePage.openRegistrationFormInHeader();
+
+
         form.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
+
         page.openUrlInNewTab(configProperties.getBaseUrl() + "/#/ubs");
         UbsPage ubsPage = new UbsPage(driver);
         UbsHeaderComponent headerComponent = ubsPage.getHeaderComponent();
