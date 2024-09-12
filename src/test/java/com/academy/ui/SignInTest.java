@@ -61,4 +61,3 @@ public class SignInTest extends BaseTestRunner {
     }
 
 }
-it
