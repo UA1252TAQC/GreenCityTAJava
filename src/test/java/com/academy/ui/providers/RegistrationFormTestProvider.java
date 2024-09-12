@@ -32,4 +32,19 @@ public class RegistrationFormTestProvider {
     public Iterator<Object[]> dpTestRegisteredUbs(Method method) {
         return testUtils.getTestCases(method);
     }
+
+    @DataProvider(name = "testEmailAlreadyExists")
+    public Iterator<Object[]> dpTestEmailAlreadyExists(Method method) {
+        return testUtils.getTestCases(method);
+    }
+
+    @DataProvider(name = "testGreenCityRegisteredWithConfirmEmail")
+    public Iterator<Object[]> dpTestGreenCityRegisteredWithConfirmEmail(Method method) {
+        return testUtils.getTestCases(method);
+    }
+
+    @DataProvider(name = "testUbsRegisteredWithConfirmEmail")
+    public Iterator<Object[]> dpTestUbsRegisteredWithConfirmEmail(Method method) {
+        return testUtils.getTestCases(method);
+    }
 }
