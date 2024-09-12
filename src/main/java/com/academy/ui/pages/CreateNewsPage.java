@@ -10,19 +10,31 @@ import java.util.List;
 
 public class CreateNewsPage extends BasePage {
 
-    @FindBy(how = How.XPATH, using = "./button[class='tag-button']/a")
-    protected List<WebElement> tagsButton;
+    @FindBy(how = How.XPATH, using = "//button[contains(@class, 'tag-button')]//span[text()='News']")
+    protected WebElement tagsButtons;
 
     public CreateNewsPage (WebDriver driver) {
         super(driver);
     }
 
-    public void chooseTag(NewsTags tag){
+    public CreateNewsPage chooseTag(NewsTags tag, String language){
+        findWithWaitElement("//button[contains(@class, 'tag-button')]//span[text()='"+tag.getText(language)+"']").click();
+        return this;
+    }
+
+    public CreateNewsPage unSelectTag(NewsTags tag, String language){
+        findWithWaitElement("//a[.//span[text()='"+tag.getText(language)+"']]//div[contains(@class, 'global-tag-close-icon')]").click();
+        return this;
+    }
+
+    public String getTagButtonBackgroundColor(NewsTags tag,String lang){
+        return findElement("//button[contains(@class, 'tag-button')]//span[text()='"+tag.getText(lang)+"']")
+                .getCssValue("background-color");
 
     }
 
-    public List<WebElement> getTagsButton(){
-        return tagsButton;
+    public  String getTagButtonBackgroundColor(NewsTags tag){
+        return getTagButtonBackgroundColor(tag,"en");
     }
 
 }
