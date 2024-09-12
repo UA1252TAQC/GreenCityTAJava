@@ -31,7 +31,7 @@ public class CreateNewsTest extends BaseTestRunner {
         createNewsPage = new CreateNewsPage(driver);
     }
     @Test(dataProvider = "validData", dataProviderClass = CreateNewsProvider.class)
-    public void firstTest(String title, NewsTags[] tagNames, String description) {
+    public void testBackToEditing(String title, NewsTags[] tagNames, String description) {
         createNewsPage.enterTitle(title)
                 .enterDescription(description)
                 .selectTags(tagNames, "en");
