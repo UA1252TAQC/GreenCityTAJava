@@ -20,17 +20,18 @@ public class BaseTestRunner {
         WebDriverManager.chromedriver().setup();
         configProperties = new ConfigProperties();
     }
-    
+
     @BeforeMethod
     public void baseSetUp() {
         ChromeOptions options = new ChromeOptions();
-        //options.addArguments("--headless=new");
+//        options.addArguments("--headless=new");
+        options.addArguments("--disable-search-engine-choice-screen");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitlyWaitDuration));
         driver.get(configProperties.getBaseUrl());
     }
-    
+
     @AfterMethod
     public void baseTearDown(){
         if(driver != null) {
