@@ -1,20 +1,20 @@
 package com.academy.ui;
 
+import com.academy.ui.components.RegistrationComponent;
+import com.academy.ui.pages.HomePage;
 import com.academy.ui.pages.UbsPage;
 import com.academy.ui.providers.RegistrationFormTestProvider;
 import com.academy.ui.runners.BaseTestRunner;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-import com.academy.ui.components.RegistrationComponent;
-import com.academy.ui.pages.HomePage;
 import com.academy.utils.LocalizationUtils;
 import com.academy.utils.MailUtils;
 import com.academy.utils.mail.Mail;
 import com.academy.utils.mail.MailBoxCredentials;
 import com.google.common.collect.ImmutableMap;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class RegistrationFormTest extends BaseTestRunner {
     private ImmutableMap<String, String> localizedMessages;
@@ -50,7 +50,7 @@ public class RegistrationFormTest extends BaseTestRunner {
         String actualAccountSubmitMessage = ubsPage.getAccountSubmitPopUpMessage();
         softAssert.assertEquals(actualAccountSubmitMessage, localizedMessages.get(expectedAccountSubmitMessage));
 
-        //TODO add login & parse jwt & add 24 hours validation check
+        // TODO add login & parse jwt & add 24 hours validation check
         softAssert.assertAll();
     }
 }

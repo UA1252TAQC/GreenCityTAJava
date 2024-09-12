@@ -43,7 +43,8 @@
       "PASSWORDS_DO_NOT_MATCH": "Passwords do not match",
       "ENTER_PASSWORD_FIRST": "Please type your password first!",
       "CONFIRM_PASSWORD_REQUIRED": "Please confirm your password",
-      "POP_UP_MESSAGE": "Congratulations! You have successfully registered on the site. Please confirm your email address in the email box."
+      "REGISTERED_POP_UP_MESSAGE": "Congratulations! You have successfully registered on the site. Please confirm your email address in the email box.",
+      "ACCOUNT_SUBMIT_POP_UP_MESSAGE": "Your mail has been verified."
     }
   }
 }
