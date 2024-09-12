@@ -1,4 +1,8 @@
 {
+    "testButtonState": [
+        [true, false, "test@gmail.com", "Denys", "Password1!", "Password1!"],
+        [false, true, "test@gmail.com", "Denys", "Password1!", "Password1!"]
+    ],
     "testEmailValidation": [
         [false, "EMAIL_REQUIRED", false, "'Електронна пошта' with empty field", ""],
         [true, null, false, "'Електронна пошта' with spaces around", " test@gmail.com "],

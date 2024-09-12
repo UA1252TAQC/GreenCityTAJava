@@ -39,4 +39,9 @@ public class EmailField extends BaseComponent {
     public boolean isValid() {
         return !((isDisplayed(error)) || (isDisplayed(dynamicError)));
     }
+
+    public void clear() {
+        click(input);
+        clear(input);
+    }
 }

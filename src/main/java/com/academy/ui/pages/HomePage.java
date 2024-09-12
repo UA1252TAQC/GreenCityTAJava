@@ -17,7 +17,7 @@ public class HomePage extends BasePage {
     }
 
     public HomePage setLanguage(String language) {
-        this.headerComponent.changeLanguage(language);
+        this.headerComponent.setLanguage(language);
         return this;
     }
 
