@@ -3,13 +3,13 @@ package com.academy.ui;
 import com.academy.ui.components.RegistrationComponent;
 import com.academy.ui.pages.HomePage;
 import com.academy.ui.providers.RegistrationFormFieldTestProvider;
-import com.academy.ui.runners.FormTestRunner;
+import com.academy.ui.runners.FormFieldTestRunner;
 import com.academy.utils.LocalizationUtils;
 import com.google.common.collect.ImmutableMap;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
-public class RegistrationFormFieldTest extends FormTestRunner {
+public class RegistrationFormFieldTest extends FormFieldTestRunner {
     private ImmutableMap<String, String> localizedMessages;
     private RegistrationComponent form;
     private SoftAssert softAssert;

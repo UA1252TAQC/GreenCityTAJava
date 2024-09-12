@@ -12,9 +12,9 @@ import org.testng.annotations.BeforeSuite;
 import java.time.Duration;
 
 public class BaseTestRunner {
-    protected WebDriver driver;
-    protected final long implicitlyWaitDuration = 1;
+    private static final long IMPLICITLY_WAIT_DURATION = 1;
     protected static ConfigProperties configProperties;
+    protected WebDriver driver;
 
     @BeforeSuite
     public void setUpWebDriver() {
@@ -28,8 +28,8 @@ public class BaseTestRunner {
         options.addArguments("--disable-blink-features=AutomationControlled");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitlyWaitDuration));
-        driver.get(configProperties.getBaseUrl());
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPLICITLY_WAIT_DURATION));
+        driver.get(configProperties.getBaseUrl() + "/#/greenCity");
     }
     
     @AfterMethod

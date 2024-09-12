@@ -14,7 +14,7 @@ public class BasePage extends Base {
         PageFactory.initElements(driver, this);
     }
 
-    public void openURL(String url) {
+    public void openUrl(String url) {
         driver.get(url);
     }
 
