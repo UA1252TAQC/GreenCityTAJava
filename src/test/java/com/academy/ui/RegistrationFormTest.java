@@ -14,6 +14,7 @@ import com.academy.utils.MailUtils;
 import com.academy.utils.mail.Mail;
 import com.academy.utils.mail.MailBoxCredentials;
 import com.academy.utils.props.ConfigProperties;
+import com.academy.utils.props.ConfigProperties;
 import com.google.common.collect.ImmutableMap;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
@@ -24,7 +25,6 @@ public class RegistrationFormTest extends FormTestRunner {
     private SoftAssert softAssert;
     private MailUtils mailUtils;
     private String language;
-    private BasePage page;
 
     @BeforeClass
     @Parameters({"language"})
@@ -32,7 +32,6 @@ public class RegistrationFormTest extends FormTestRunner {
         this.localizedMessages =  new LocalizationUtils().getRegistrationMessages(language);
         this.mailUtils = new MailUtils();
         this.language = language;
-        this.page = new BasePage(driver);
         this.configProperties = new ConfigProperties();
     }
 
@@ -43,11 +42,8 @@ public class RegistrationFormTest extends FormTestRunner {
 
     @Test(dataProvider = "testPopUpSignUpValidation", dataProviderClass = RegistrationFormTestProvider.class)
     public void testPopUpSignUpValidation(String expectedRegistrationSuccessMessage, String expectedAccountSubmitMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
-        page.openUrl(configProperties.getBaseUrl() + "/#/greenCity");
-        HomePage homePage = new HomePage(driver).setLanguage(language);
-
+        HomePage homePage = getHomePage();
         RegistrationComponent form = homePage.openRegistrationFormInHeader();
-
 
         form.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
@@ -56,7 +52,7 @@ public class RegistrationFormTest extends FormTestRunner {
 
         Mail mail = mailUtils.getLastEmail(mailBox.getId());
 
-        page.openUrlInNewTab(mail.extractActivationLink());
+        homePage.openUrlInNewTab(mail.extractActivationLink());
         UbsPage ubsPage = new UbsPage(driver);
 
         String actualAccountSubmitMessage = ubsPage.getAccountSubmitPopUpMessage();
@@ -68,9 +64,7 @@ public class RegistrationFormTest extends FormTestRunner {
 
     @Test(dataProvider = "testGoogleSignUp", dataProviderClass = RegistrationFormTestProvider.class)
     public void testGoogleSignUp(String googleEmail, String googlePassword) {
-        page.openUrl(configProperties.getBaseUrl() + "/#/greenCity");
-        HomePage homePage = new HomePage(driver).setLanguage(language);
-
+        HomePage homePage = getHomePage();
         RegistrationComponent form = homePage.openRegistrationFormInHeader();
 
 
@@ -80,7 +74,7 @@ public class RegistrationFormTest extends FormTestRunner {
                 .enterPassword(googlePassword)
                 .clickPasswordSubmitButton();
 
-        page.switchToActiveTab();
+        homePage.switchToActiveTab();
 
         ProfilePage profilePage = new ProfilePage(driver);
         softAssert.assertNotNull(profilePage.getAuthToken());
@@ -109,5 +103,10 @@ public class RegistrationFormTest extends FormTestRunner {
 
         softAssert.assertAll();
 
+    }
+
+    private HomePage getHomePage() {
+        driver.get(configProperties.getBaseUrl() + "/#/greenCity");
+        return new HomePage(driver).setLanguage(language);
     }
 }

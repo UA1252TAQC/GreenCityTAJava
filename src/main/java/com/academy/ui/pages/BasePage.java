@@ -15,7 +15,7 @@ public class BasePage extends Base {
     }
 
     public void openUrl(String url) {
-        driver.get(url);
+        this.driver.get(url);
     }
 
     public void openUrlInNewTab(String url) {
