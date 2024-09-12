@@ -12,4 +12,12 @@ public class ConfigProperties extends BaseProperties {
     public String getEmailToken() {
         return properties.getProperty("email.token");
     }
+
+    public String getGoogleEmail() {
+        return properties.getProperty("google.email");
+    }
+
+    public String getGooglePassword() {
+        return properties.getProperty("google.password");
+    }
 }

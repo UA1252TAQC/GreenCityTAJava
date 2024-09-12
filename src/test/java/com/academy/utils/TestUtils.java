@@ -1,17 +1,21 @@
 package com.academy.utils;
 
+import com.academy.utils.props.ConfigProperties;
+import com.fasterxml.jackson.databind.JsonNode;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import com.fasterxml.jackson.databind.JsonNode;
 
 public class TestUtils extends BaseJsonUtils {
 	private final MailUtils mailUtils;
+	private final ConfigProperties configProperties;
 
 	public TestUtils() {
 		super("testdata.json");
 		this.mailUtils = new MailUtils();
+		this.configProperties = new ConfigProperties();
 	}
 
 	public Iterator<Object[]> getTestCases(Method method) {
@@ -39,13 +43,9 @@ public class TestUtils extends BaseJsonUtils {
 	}
 
 	private Object convertJsonToType(JsonNode cell, Class<?> type) {
-		if (cell.asText().equals("GENERATE_TEMPORARY_EMAIL")) {
-			try {
-				return mailUtils.createNewMailCredentials();
-			} catch (Exception e) {
-				throw new RuntimeException("Error generating temporary email: " + e.getMessage());
-			}
-		}
+		if (implementData(cell,"GENERATE_TEMPORARY_EMAIL")) return mailUtils.createNewMailCredentials();
+		if (implementData(cell,"EXTRACT_GOOGLE_EMAIL")) return configProperties.getGoogleEmail();
+		if (implementData(cell,"EXTRACT_GOOGLE_PASSWORD")) return configProperties.getGooglePassword();
 
 		if (type == String.class) {
 			return cell.asText();
@@ -60,5 +60,16 @@ public class TestUtils extends BaseJsonUtils {
 		} else {
 			return cell.toString();
 		}
+	}
+
+	private boolean implementData(JsonNode cell,String param) {
+		if (cell.asText().equals(param)) {
+			try {
+				return true;
+			} catch (Exception e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return false;
 	}
 }

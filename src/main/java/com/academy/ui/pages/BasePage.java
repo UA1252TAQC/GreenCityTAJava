@@ -14,15 +14,27 @@ public class BasePage extends Base {
         PageFactory.initElements(driver, this);
     }
 
-    public void openURL(String url){
+    public void openURL(String url) {
         driver.get(url);
     }
 
     public void openUrlInNewTab(String url) {
         ((JavascriptExecutor) driver).executeScript("window.open('" + url + "', '_blank');");
+        switchToActiveTab();
+    }
 
-        sleep(1);
+    public void switchToActiveTab() {
+        sleep(5);
         List<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.getLast());
+    }
+
+    public String getLocalStorageItem(String key) {
+        return (String) ((JavascriptExecutor) driver).executeScript(String.format(
+                "return window.localStorage.getItem('%s');", key));
+    }
+
+    public String getAuthToken() {
+        return getLocalStorageItem("accessToken");
     }
 }
