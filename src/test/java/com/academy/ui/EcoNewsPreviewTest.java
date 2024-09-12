@@ -17,6 +17,7 @@ public class EcoNewsPreviewTest extends FormTestRunner {
 
   private static final String NEWS_TITLE = "Workshop to educate your customers about eco-friendly living";
   private static final String NEWS_CONTENT = "Workshop to educate your customers about eco-friendly living";
+
   private SignInComponent form;
   private HomePage page;
   private NewsPage newsPage;
@@ -47,11 +48,13 @@ public class EcoNewsPreviewTest extends FormTestRunner {
     newsPage.goToCreateNews()
         .fillTheNewsForm(NEWS_TITLE, NEWS_CONTENT);
     boolean isPreviewButtonEnabled = createNewsPage.waitForPreviewButton();
-    softAssert.assertTrue(isPreviewButtonEnabled, "test1");
+    softAssert.assertTrue(isPreviewButtonEnabled);
     createNewsPage.goToNewsPreviewPage();
     boolean isPreviewPageDisplayed = newsPreviewPage.isPreviewPageDisplayed();
-    softAssert.assertTrue(isPreviewPageDisplayed, "test2");
+    softAssert.assertTrue(isPreviewPageDisplayed);
     softAssert.assertAll();
   }
+
 }
+
 

@@ -19,6 +19,8 @@ public class CreateNewsPage extends BasePage {
   protected WebElement newsContent;
   @FindBy(how = How.XPATH, using = "//button[contains(@class, 'secondary-global-button')]")
   protected WebElement newsPreviewButton;
+  @FindBy(how = How.XPATH, using = "//button[contains(@class, 'primary-global-button')]")
+  protected WebElement newsPublishButton;
 
   public CreateNewsPage(WebDriver driver) {
     super(driver);
