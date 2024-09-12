@@ -1,5 +1,6 @@
 package com.academy.ui.pages;
 
+import com.academy.ui.components.LoginComponent;
 import org.openqa.selenium.WebDriver;
 import com.academy.ui.components.HeaderComponent;
 import com.academy.ui.components.RegistrationComponent;
@@ -18,6 +19,19 @@ public class HomePage extends BasePage {
 
     public HomePage setLanguage(String language) {
         this.headerComponent.changeLanguage(language);
+        return this;
+    }
+
+    public LoginComponent openLoginFormInHeader() {
+        return headerComponent.openLoginForm();
+    }
+
+    public NewsPage openNewsInHeader() {
+        return headerComponent.switchToNews();
+    }
+
+    public HomePage switchLanguage(String lang) {
+        headerComponent.changeLanguage(lang);
         return this;
     }
 }

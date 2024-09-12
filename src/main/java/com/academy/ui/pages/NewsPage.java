@@ -7,7 +7,7 @@ import org.openqa.selenium.support.How;
 
 public class NewsPage extends BasePage {
 
-    @FindBy(how = How.XPATH, using = "./[@id='create-button']")
+    @FindBy(how = How.XPATH, using = ".//*[@id='create-button']")
     protected WebElement createNewsButton;
 
     public NewsPage(WebDriver driver){
