@@ -44,5 +44,9 @@
 
     "testGoogleSignUp": [
         ["EXTRACT_GOOGLE_EMAIL","EXTRACT_GOOGLE_PASSWORD"]
+    ],
+
+    "testRegisteredGreenCity" : [
+        ["EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","Sakldsan","Solandkad12*","Solandkad12*"]
     ]
 }

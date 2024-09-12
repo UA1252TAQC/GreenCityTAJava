@@ -2,6 +2,7 @@ package com.academy.ui;
 
 import com.academy.ui.components.GoogleAuthComponent;
 import com.academy.ui.components.RegistrationComponent;
+import com.academy.ui.components.UbsHeaderComponent;
 import com.academy.ui.pages.HomePage;
 import com.academy.ui.pages.ProfilePage;
 import com.academy.ui.pages.UbsPage;
@@ -11,6 +12,7 @@ import com.academy.utils.LocalizationUtils;
 import com.academy.utils.MailUtils;
 import com.academy.utils.mail.Mail;
 import com.academy.utils.mail.MailBoxCredentials;
+import com.academy.utils.props.ConfigProperties;
 import com.google.common.collect.ImmutableMap;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
@@ -24,6 +26,9 @@ public class RegistrationFormTest extends BaseTestRunner {
     private SoftAssert softAssert;
     private MailUtils mailUtils;
     private HomePage page;
+    private ConfigProperties configProperties;
+
+
 
     @BeforeMethod
     @Parameters({"language"})
@@ -35,6 +40,7 @@ public class RegistrationFormTest extends BaseTestRunner {
         mailUtils = new MailUtils();
         form = page.openRegistrationFormInHeader();
         softAssert = new SoftAssert();
+        configProperties = new ConfigProperties();
     }
 
     @Test(dataProvider = "testPopUpSignUpValidation", dataProviderClass = RegistrationFormTestProvider.class)
@@ -68,6 +74,22 @@ public class RegistrationFormTest extends BaseTestRunner {
 
         ProfilePage profilePage = new ProfilePage(driver);
         softAssert.assertNotNull(profilePage.getAuthToken());
+        softAssert.assertAll();
+
+    }
+
+    @Test(dataProvider = "testRegisteredGreenCity", dataProviderClass = RegistrationFormTestProvider.class)
+    public void testRegisteredGreenCity(String expectedRegistrationErrorMessage,MailBoxCredentials mailBox, String username, String password, String repeatPassword){
+        form.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
+        page.openUrlInNewTab(configProperties.getBaseUrl() + "/#/ubs");
+        UbsPage ubsPage = new UbsPage(driver);
+        UbsHeaderComponent headerComponent = ubsPage.getHeaderComponent();
+        RegistrationComponent registrationForm = headerComponent.openRegistrationForm();
+        registrationForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
+
+        String actualAccountSubmitMessage = ubsPage.getAccountSubmitPopUpMessage();
+        softAssert.assertEquals(actualAccountSubmitMessage, localizedMessages.get(expectedRegistrationErrorMessage));
+
         softAssert.assertAll();
 
     }
