@@ -35,6 +35,6 @@
     ],
 
     "testPopUpSignUpValidation": [
-        ["REGISTERED_POP_UP_MESSAGE", "GENERATE_TEMPORARY_EMAIL", "TestUser", "Password1!", "Password1!"]
+        ["REGISTERED_POP_UP_MESSAGE", "ACCOUNT_SUBMIT_POP_UP_MESSAGE","GENERATE_TEMPORARY_EMAIL", "TestUser", "Password1!", "Password1!"]
     ]
 }

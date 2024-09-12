@@ -12,7 +12,7 @@ public class MailUtils {
 		this.mailHttpClient = new MailHttpClient();
 	}
 
-	private MailBoxCredentials createNewMailCredentials() {
+	public MailBoxCredentials createNewMailCredentials() {
 		try {
 			return mailHttpClient.createInbox();
 		} catch (Exception e) {
