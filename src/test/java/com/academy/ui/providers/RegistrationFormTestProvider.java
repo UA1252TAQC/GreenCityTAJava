@@ -17,4 +17,9 @@ public class RegistrationFormTestProvider {
     public Iterator<Object[]> dpTestPopUpSignUpValidation(Method method) {
         return testUtils.getTestCases(method);
     }
+
+    @DataProvider(name = "testGoogleSignUp")
+    public Iterator<Object[]> dpTestGoogleSignUp(Method method) {
+        return testUtils.getTestCases(method);
+    }
 }

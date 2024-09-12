@@ -1,7 +1,9 @@
 package com.academy.ui;
 
+import com.academy.ui.components.GoogleAuthComponent;
 import com.academy.ui.components.RegistrationComponent;
 import com.academy.ui.pages.HomePage;
+import com.academy.ui.pages.ProfilePage;
 import com.academy.ui.pages.UbsPage;
 import com.academy.ui.providers.RegistrationFormTestProvider;
 import com.academy.ui.runners.BaseTestRunner;
@@ -52,5 +54,21 @@ public class RegistrationFormTest extends BaseTestRunner {
 
         // TODO add login & parse jwt & add 24 hours validation check
         softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "testGoogleSignUp", dataProviderClass = RegistrationFormTestProvider.class)
+    public void testGoogleSignUp(String googleEmail, String googlePassword) {
+        GoogleAuthComponent googleForm = form.openAuthGoogleForm();
+        googleForm.enterEmail(googleEmail)
+                .clickEmailSubmitButton()
+                .enterPassword(googlePassword)
+                .clickPasswordSubmitButton();
+
+        googleForm.switchToActiveTab();
+
+        ProfilePage profilePage = new ProfilePage(driver);
+        softAssert.assertNotNull(profilePage.getAuthToken());
+        softAssert.assertAll();
+
     }
 }

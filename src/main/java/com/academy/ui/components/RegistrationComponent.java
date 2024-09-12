@@ -10,6 +10,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RegistrationComponent extends BaseComponent {
     @FindBy(how = How.XPATH, using = ".//h1[@class='title-text']")
     private WebElement title;
@@ -59,6 +62,14 @@ public class RegistrationComponent extends BaseComponent {
     public RegistrationComponent enterRepeatPassword(String text) {
         this.repeatPassword.enter(text);
         return this;
+    }
+
+    public GoogleAuthComponent openAuthGoogleForm() {
+        click(googleButton);
+        sleep(1);
+        List<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.getLast());
+        return new GoogleAuthComponent(driver);
     }
 
     public RegistrationComponent fillForm(String email, String username, String password, String repeatPassword) {
