@@ -22,4 +22,14 @@ public class RegistrationFormTestProvider {
     public Iterator<Object[]> dpTestGoogleSignUp(Method method) {
         return testUtils.getTestCases(method);
     }
+
+    @DataProvider(name = "testRegisteredGreenCity")
+    public Iterator<Object[]> dpTestRegisteredGreenCity(Method method) {
+        return testUtils.getTestCases(method);
+    }
+
+    @DataProvider(name = "testRegisteredUbs")
+    public Iterator<Object[]> dpTestRegisteredUbs(Method method) {
+        return testUtils.getTestCases(method);
+    }
 }
