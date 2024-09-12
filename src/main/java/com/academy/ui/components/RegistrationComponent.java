@@ -18,8 +18,7 @@ public class RegistrationComponent extends BaseComponent {
     private WebElement registerButton;
     @FindBy(how = How.XPATH, using = ".//button[@class='google-sign-in']")
     private WebElement googleButton;
-    @FindBy(how = How.XPATH,
-            using = ".//a[@aria-label='sign in modal window'][@class='green-link']")
+    @FindBy(how = How.XPATH, using = ".//a[@aria-label='sign in modal window'][@class='green-link']")
     private WebElement signInLink;
 
     @FindBy(how = How.XPATH, using = ".//img[@class='cross-btn'][@alt='close button']")
@@ -62,8 +61,7 @@ public class RegistrationComponent extends BaseComponent {
         return this;
     }
 
-    public RegistrationComponent fillForm(String email, String username, String password,
-            String repeatPassword) {
+    public RegistrationComponent fillForm(String email, String username, String password, String repeatPassword) {
         return this.enterEmail(email).enterUsername(username).enterPassword(password)
                 .enterRepeatPassword(repeatPassword).clickTitle();
     }
@@ -73,7 +71,7 @@ public class RegistrationComponent extends BaseComponent {
         return this;
     }
 
-    public boolean isRegisterButtonDisplayed() {
+    public boolean isRegistrationButtonDisplayed() {
         return isDisplayed(this.registerButton);
     }
 
@@ -85,19 +83,14 @@ public class RegistrationComponent extends BaseComponent {
         click(this.registerButton);
     }
 
-    public boolean isDisplayed() {
-        return isDisplayed(this.rootElement);
-    }
-
-    public boolean isValid() {
+    public boolean isRegistrationButtonEnabled() {
         return isEnabled(this.registerButton);
     }
 
     private static final String[] VALID_DATA =
             new String[] {"mail@gmail.com", "Denys1", "Password1!", "Password1!"};
 
-    public void fillFormWithTestDataAndSubmitIf(boolean isShouldSubmitForm, String email,
-            String username, String password, String repeatPassword) {
+    public void fillFormWithTestDataAndSubmitIf(boolean isShouldSubmitForm, String email, String username, String password, String repeatPassword) {
         if (isShouldSubmitForm) { // TODO move to data-provider & refactor
             this.fillForm(email != null ? email : VALID_DATA[0],
                     username != null ? username : VALID_DATA[1],
@@ -127,5 +120,12 @@ public class RegistrationComponent extends BaseComponent {
     public void close() {
         click(this.closeButton);
         sleep(1);
+    }
+
+    public RegistrationComponent clearPasswordFieldIf(boolean isShouldClearPassword) {
+        if (isShouldClearPassword) {
+            password.clear();
+        }
+        return this;
     }
 }

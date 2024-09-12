@@ -15,10 +15,10 @@ public class UbsPage extends BasePage {
     }
 
     public String getAccountSubmitPopUpMessage() {
-        return findWithWaitElement("//div[@class='mat-mdc-snack-bar-label mdc-snackbar__label']").getText();
+        return findWithWaitElement(".//div[@class='mat-mdc-snack-bar-label mdc-snackbar__label']").getText();
     }
 
-    public UbsHeaderComponent getUbsHeaderComponent() {
-        return new UbsHeaderComponent(driver,headerRoot);
+    public UbsHeaderComponent getHeaderComponent() {
+        return new UbsHeaderComponent(driver, headerRoot);
     }
 }

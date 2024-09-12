@@ -33,14 +33,13 @@ public class HeaderComponent extends BaseComponent {
 
     public RegistrationComponent openRegistrationForm() {
         click(register);
-        return new RegistrationComponent(driver, findElement(".//app-auth-modal"));
+        return new RegistrationComponent(driver, findElement("//app-auth-modal"));
     }
 
-    public HeaderComponent changeLanguage(String language) {
+    public void setLanguage(String language) {
         if (language.equals("en")) {
             click(this.listLanguage);
             click(this.english);
         }
-        return this;
     }
 }

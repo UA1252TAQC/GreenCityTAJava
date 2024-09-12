@@ -21,61 +21,71 @@ public class MailHttpClient {
 	public MailHttpClient() {
 		var properties = new ConfigProperties();
 		this.apiKey = properties.getEmailToken();
-
 		this.httpClient = HttpClient.newBuilder().build();
 		this.objectMapper = new ObjectMapper();
-        this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}
 
-	public List<MailBoxCredentials> getAllInboxes() throws Exception {
-		String endpoint = "/inboxes";
-		HttpRequest request = HttpRequest.newBuilder().uri(new URI(BASE_URL + endpoint))
-				.header("x-api-key", apiKey).GET().build();
+	public List<MailBoxCredentials> getAllInboxes() {
+		try {
+			HttpRequest request = HttpRequest.newBuilder().uri(new URI(BASE_URL + "/inboxes"))
+					.header("x-api-key", apiKey).GET().build();
 
-		HttpResponse<String> response =
-				httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-		if (response.statusCode() == 200) {
-			return objectMapper.readValue(response.body(), new TypeReference<List<MailBoxCredentials>>() {});
-		} else {
-			throw new RuntimeException("Failed to get inboxes: " + response.body());
+			HttpResponse<String> response =
+					httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+			if (response.statusCode() != 200) {
+				throw new RuntimeException("Failed to get inboxes: " + response.body());
+			}
+
+			return objectMapper.readValue(response.body(),
+					new TypeReference<List<MailBoxCredentials>>() {});
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
 	}
 
-	public MailBoxCredentials createInbox() throws Exception {
-		String endpoint = "/inboxes";
-
+	public MailBoxCredentials createInbox() {
 		ZonedDateTime now = ZonedDateTime.now();
-        ZonedDateTime expiration = now.plusHours(1);
-        String expiresAt = expiration.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-        
+		ZonedDateTime expiration = now.plusHours(1);
+		String expiresAt = expiration.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+
 		String payload = String.format("{\"expiresAt\": \"%s\"}", expiresAt);
 
-		HttpRequest request = HttpRequest.newBuilder().uri(new URI(BASE_URL + endpoint))
-				.header("x-api-key", apiKey)
-				.POST(HttpRequest.BodyPublishers.ofString(payload))
-				.build();
-				
+		try {
+			HttpRequest request = HttpRequest.newBuilder().uri(new URI(BASE_URL + "/inboxes"))
+					.header("x-api-key", apiKey).POST(HttpRequest.BodyPublishers.ofString(payload))
+					.build();
 
-		HttpResponse<String> response =
-				httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-		if (response.statusCode() == 201) {
+			HttpResponse<String> response =
+					httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+			if (response.statusCode() != 201) {
+				throw new RuntimeException("Failed to create inbox: " + response.body());
+			}
+
 			return objectMapper.readValue(response.body(), MailBoxCredentials.class);
-		} else {
-			throw new RuntimeException("Failed to create inbox: " + response.body());
+
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
 	}
 
-	public Mail getLastMail(String inboxId, Long timeoutMillis) throws Exception {
-		String endpoint = "/waitForLatestEmail?inboxId=" + inboxId + "&timeout=" + timeoutMillis;
-		HttpRequest request = HttpRequest.newBuilder().uri(new URI(BASE_URL + endpoint))
-				.header("x-api-key", apiKey).GET().build();
+	public Mail getLastMail(String inboxId, Long timeoutMillis) {
+		try {
+			HttpRequest request = HttpRequest
+					.newBuilder().uri(new URI(BASE_URL + "/waitForLatestEmail?inboxId=" + inboxId
+							+ "&timeout=" + timeoutMillis))
+					.header("x-api-key", apiKey).GET().build();
 
-		HttpResponse<String> response =
-				httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-		if (response.statusCode() == 200) {
+			HttpResponse<String> response =
+					httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+			if (response.statusCode() != 200) {
+				throw new RuntimeException("Failed to get last email: " + response.body());
+			}
+
 			return objectMapper.readValue(response.body(), Mail.class);
-		} else {
-			throw new RuntimeException("Failed to get last email: " + response.body());
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
 	}
 }
