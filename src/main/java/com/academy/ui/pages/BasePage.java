@@ -5,6 +5,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
+
 public class BasePage extends Base {
     public BasePage(WebDriver driver) {
         super(driver);
@@ -17,5 +19,8 @@ public class BasePage extends Base {
 
     public void openUrlInNewTab(String url) {
         ((JavascriptExecutor) driver).executeScript("window.open('" + url + "', '_blank');");
+
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.getLast());
     }
 }

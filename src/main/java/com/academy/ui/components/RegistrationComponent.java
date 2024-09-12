@@ -73,10 +73,6 @@ public class RegistrationComponent extends BaseComponent {
         return this;
     }
 
-    public String getSuccessRegisteredMessage() {
-        return findWithWaitElement("//snack-bar-container//span").getText();
-    }
-
     public boolean isRegisterButtonDisplayed() {
         return isDisplayed(this.registerButton);
     }
