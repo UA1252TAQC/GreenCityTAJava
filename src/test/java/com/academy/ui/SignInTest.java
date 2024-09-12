@@ -28,30 +28,16 @@ public class SignInTest extends BaseTestRunner {
     }
 
     @Test(dataProvider = "validUserDataProvider")
-    public void checkSuccessfulLogin(HashMap<String,String> user){
-
-        HomePage homePage = loadApplication()
-                .openSignInComponent()
-                .successfulSignIn(user.get("email"), user.get("password"));
-
-        Assert.assertEquals(homePage.getUserProfileButtonText(), user.get("name"), "User name must match.");
-
-        homePage.sleep(3); // for presentation only
-    }
-
-    @Test(dataProvider = "validUserDataProvider")
     public void checkSuccessfulSignInWithValidCredentials(HashMap<String,String> user){
 
         HomePage homePage = loadApplication()
                 .openSignInComponent()
                 .fillEmailInput(user.get("email"))
                 .fillPasswordInput(user.get("password"))
-                .sendSignInForm()
+                .clickSignInButton()
                 .successfulSignIn();
 
         Assert.assertEquals(homePage.getUserProfileButtonText(), user.get("name"), "User name must match.");
-
-        homePage.sleep(3); // for presentation only
     }
 
     @Test(dataProvider = "validUserDataProvider")
@@ -62,8 +48,6 @@ public class SignInTest extends BaseTestRunner {
                 .fillPasswordInput(user.get("password"));
 
         Assert.assertFalse(signInComponent.isSignButtonActive());
-
-        signInComponent.sleep(3); // for presentation only
     }
 
     @Test(dataProvider = "validUserDataProvider")
@@ -74,8 +58,7 @@ public class SignInTest extends BaseTestRunner {
                 .fillEmailInput(user.get("email"));
 
         Assert.assertFalse(signInComponent.isSignButtonActive());
-
-        signInComponent.sleep(3); // for presentation only
     }
 
 }
+it

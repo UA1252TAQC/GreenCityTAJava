@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.PageFactory;
 
 public class SignInComponent extends BaseComponent {
 
@@ -21,7 +20,6 @@ public class SignInComponent extends BaseComponent {
 
     public SignInComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
-        PageFactory.initElements(driver, this);
     }
 
     //emailInput
@@ -50,63 +48,30 @@ public class SignInComponent extends BaseComponent {
         passwordInput.sendKeys(password);
     }
 
-    //signInButton
-    private void clickSignInButton() {
-        signInButton.click();
-    }
-
     public boolean isSignButtonActive() {
         return signInButton.isEnabled();
     }
 
-
-    // Functional
-
-    private void enterEmailInput(String email) {
+    public SignInComponent fillEmailInput(String email) {
         clickEmailInput();
         clearEmailInput();
         setEmailInput(email);
-    }
-
-    private void enterPasswordInput(String password) {
-        clickPasswordInput();
-        clearPasswordInput();
-        setPasswordInput(password);
-    }
-
-    private void fillLogin(String email, String password) {
-        enterEmailInput(email);
-        enterPasswordInput(password);
-    }
-
-    // Business Logic
-
-    public SignInComponent fillEmailInput(String email) {
-        enterEmailInput(email);
         return this;
     }
 
     public SignInComponent fillPasswordInput(String password) {
-        enterPasswordInput(password);
+        clickPasswordInput();
+        clearPasswordInput();
+        setPasswordInput(password);
         return this;
     }
 
-    public SignInComponent sendSignInForm() {
-        clickSignInButton();
+    public SignInComponent clickSignInButton() {
+        signInButton.click();
         return this;
     }
 
     public HomePage successfulSignIn() {
         return new HomePage(driver);
-    }
-
-    public HomePage successfulSignIn(String email, String password) {
-        fillLogin(email, password);
-        clickSignInButton();
-        return new HomePage(driver);
-    }
-
-    public SignInComponent unsuccessfulSignIn() {
-        return this;
     }
 }

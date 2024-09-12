@@ -1,10 +1,16 @@
 package com.academy.ui.components;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class HeaderComponent extends BaseComponent{
 
@@ -26,20 +32,13 @@ public class HeaderComponent extends BaseComponent{
     @FindBy(how = How.CSS, using = "li.user-name")
     protected WebElement profileLink;
 
-    @FindBy(how = How.CSS, using = ".header_sign-up-link")
-    protected WebElement signInComponentRoot;
-
     public HeaderComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
-        PageFactory.initElements(driver,this);
     }
 
-    public SignInComponent getSignInComponent() {
-        return new SignInComponent(driver, signInComponentRoot);
-    }
-
-    public void clickSignInLink() {
+    public SignInComponent clickSignInLink() {
         signInLink.click();
+        return new SignInComponent(driver, driver.findElement(By.cssSelector(".wrapper")));
     }
 
     public void clickNewsTab() {

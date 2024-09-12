@@ -11,32 +11,27 @@ import org.openqa.selenium.support.PageFactory;
 
 public class BasePage extends Base {
 
-    @FindBy(how = How.CSS, using = ".header-container")
+    @FindBy(how = How.CSS, using = ".header_container")
     protected WebElement headerComponentRoot;
 
     private HeaderComponent headerComponent;
 
     public BasePage(WebDriver driver) {
         super(driver);
+        PageFactory.initElements(driver, this);
         this.headerComponent = new HeaderComponent(driver, headerComponentRoot);
     }
 
     public void openURL(String url){
         driver.get(url);
-        PageFactory.initElements(driver, this);
     }
 
     public String getUserProfileButtonText() {
         return headerComponent.getProfileButtonText();
     }
 
-    private void clickSignInLink() {
-        headerComponent.clickSignInLink();
-    }
-
     public SignInComponent openSignInComponent() {
-        clickSignInLink();
-        return headerComponent.getSignInComponent();
+        return headerComponent.clickSignInLink();
     }
 
 
