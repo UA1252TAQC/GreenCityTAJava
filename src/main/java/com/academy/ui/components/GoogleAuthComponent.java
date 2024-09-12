@@ -36,7 +36,6 @@ public class GoogleAuthComponent extends BasePage {
     }
 
     public GoogleAuthComponent enterPassword(String password) {
-        //var passwordInput = findElement(".//*[@id=\"password\"]/div[1]/div/div[1]/input");
         passwordInput.sendKeys(password);
         return this;
     }
