@@ -1,7 +1,6 @@
 package com.academy.ui;
 
 import com.academy.ui.components.SignInComponent;
-import com.academy.ui.pages.HomePage;
 import com.academy.ui.pages.MyHabitsPage;
 import com.academy.ui.pages.ProfilePage;
 import com.academy.ui.runners.BaseTestRunner;
@@ -20,17 +19,17 @@ public class SignInTest extends BaseTestRunner {
 
     @DataProvider(name = "validUserDataProvider")
     public Object[][] validUserDataProvider() {
-        HashMap<String,String> validUserData = new <String,String>HashMap();
+        HashMap<String, String> validUserData = new <String, String>HashMap();
         validUserData.put("email", configProperties.getUserEmail());
         validUserData.put("password", configProperties.getUserPassword());
         validUserData.put("name", configProperties.getUserName());
-        return new Object[][] {
-                { validUserData}
+        return new Object[][]{
+                {validUserData}
         };
     }
 
     @Test(dataProvider = "validUserDataProvider")
-    public void checkSuccessfulSignInWithValidCredentials(HashMap<String,String> user){
+    public void checkSuccessfulSignInWithValidCredentials(HashMap<String, String> user) {
 
         ProfilePage profilePage = loadApplication()
                 .openSignInComponent()
@@ -44,7 +43,7 @@ public class SignInTest extends BaseTestRunner {
     }
 
     @Test(dataProvider = "validUserDataProvider")
-    public void checkSignInButtonRemainedInactiveWithFilledPassword(HashMap<String,String> user){
+    public void checkSignInButtonRemainedInactiveWithFilledPassword(HashMap<String, String> user) {
 
         SignInComponent signInComponent = loadApplication()
                 .openSignInComponent()
@@ -54,7 +53,7 @@ public class SignInTest extends BaseTestRunner {
     }
 
     @Test(dataProvider = "validUserDataProvider")
-    public void checkSignInButtonRemainedInactiveWithFilledEmail(HashMap<String,String> user){
+    public void checkSignInButtonRemainedInactiveWithFilledEmail(HashMap<String, String> user) {
 
         SignInComponent signInComponent = loadApplication()
                 .openSignInComponent()

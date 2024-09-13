@@ -1,6 +1,5 @@
 package com.academy.ui.components;
 
-import com.academy.ui.pages.HomePage;
 import com.academy.ui.pages.ProfilePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

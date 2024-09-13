@@ -14,7 +14,7 @@ public class BasePage extends Base {
     @FindBy(how = How.CSS, using = ".header_container")
     protected WebElement headerComponentRoot;
 
-    private HeaderComponent headerComponent;
+    private final HeaderComponent headerComponent;
 
     public BasePage(WebDriver driver) {
         super(driver);
@@ -22,7 +22,7 @@ public class BasePage extends Base {
         this.headerComponent = new HeaderComponent(driver, headerComponentRoot);
     }
 
-    public void openURL(String url){
+    public void openURL(String url) {
         driver.get(url);
     }
 
@@ -33,7 +33,6 @@ public class BasePage extends Base {
     public SignInComponent openSignInComponent() {
         return headerComponent.clickSignInLink();
     }
-
 
 
 }

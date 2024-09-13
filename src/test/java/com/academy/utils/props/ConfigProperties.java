@@ -4,7 +4,7 @@ public class ConfigProperties extends BaseProperties {
     public ConfigProperties() {
         super("credentials.properties");
     }
-    
+
     public String getBaseUrl() {
         return properties.getProperty("base.url");
     }
@@ -13,15 +13,15 @@ public class ConfigProperties extends BaseProperties {
         return properties.getProperty("email.token");
     }
 
-    public String getUserEmail(){
+    public String getUserEmail() {
         return properties.getProperty("user.email");
     }
 
-    public String getUserPassword(){
+    public String getUserPassword() {
         return properties.getProperty("user.password");
     }
 
-    public String getUserName(){
+    public String getUserName() {
         return properties.getProperty("user.name");
     }
 
