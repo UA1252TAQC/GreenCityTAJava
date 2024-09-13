@@ -22,7 +22,6 @@ public class BasePageGreenCity extends Base {
         ((JavascriptExecutor) driver).executeScript("window.open('" + url + "', '_blank');");
         switchToActiveTab();
     }
-
     public void switchToActiveTab() {
         sleep(5);
         List<String> tabs = new ArrayList<>(driver.getWindowHandles());

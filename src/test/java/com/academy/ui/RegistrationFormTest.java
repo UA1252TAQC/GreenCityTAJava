@@ -1,7 +1,7 @@
 package com.academy.ui;
 
 import com.academy.ui.components.GoogleAuthComponent;
-import com.academy.ui.components.RegistrationComponent;
+import com.academy.ui.components.RegistrationModalComponent;
 import com.academy.ui.pages.HomePage;
 import com.academy.ui.pages.ProfilePage;
 import com.academy.ui.pages.BasePageUbs;
@@ -40,7 +40,7 @@ public class RegistrationFormTest extends FormTestRunner {
     @Test(dataProvider = "testPopUpSignUpValidation", dataProviderClass = RegistrationFormTestProvider.class)
     public void testPopUpSignUpValidation(String expectedRegistrationSuccessMessage, String expectedAccountSubmitMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
         HomePage homePage = openHomePage();
-        RegistrationComponent form = homePage.openRegistrationFormInHeader();
+        RegistrationModalComponent form = homePage.openRegistrationFormInHeader();
 
         form.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
@@ -62,7 +62,7 @@ public class RegistrationFormTest extends FormTestRunner {
     @Test(dataProvider = "testGoogleSignUp", dataProviderClass = RegistrationFormTestProvider.class)
     public void testGoogleSignUp(String googleEmail, String googlePassword) {
         HomePage homePage = openHomePage();
-        RegistrationComponent form = homePage.openRegistrationFormInHeader();
+        RegistrationModalComponent form = homePage.openRegistrationFormInHeader();
 
 
         GoogleAuthComponent googleForm = form.openAuthGoogleForm();
@@ -81,7 +81,7 @@ public class RegistrationFormTest extends FormTestRunner {
     @Test(dataProvider = "testRegisteredGreenCity", dataProviderClass = RegistrationFormTestProvider.class)
     public void testRegisteredGreenCity(String expectedRegistrationErrorMessage,MailBoxCredentials mailBox, String username, String password, String repeatPassword){
         HomePage homePage = openHomePage();
-        RegistrationComponent homeForm = homePage.openRegistrationFormInHeader();
+        RegistrationModalComponent homeForm = homePage.openRegistrationFormInHeader();
 
         homeForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
@@ -89,7 +89,7 @@ public class RegistrationFormTest extends FormTestRunner {
         //softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
 
         BasePageUbs ubsPage = openUbsPageInNewTab(homePage);
-        RegistrationComponent ubsForm = ubsPage.openRegistrationFormInHeader();
+        RegistrationModalComponent ubsForm = ubsPage.openRegistrationFormInHeader();
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
         String actualRegistrationErrorMessage = ubsForm.getEmail().getErrorMessage();
@@ -101,7 +101,7 @@ public class RegistrationFormTest extends FormTestRunner {
     @Test(dataProvider = "testRegisteredUbs", dataProviderClass = RegistrationFormTestProvider.class)
     public void testRegisteredUbs(String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword){
         BasePageUbs ubsPage = openUbsPage();
-        RegistrationComponent ubsForm = ubsPage.openRegistrationFormInHeader();
+        RegistrationModalComponent ubsForm = ubsPage.openRegistrationFormInHeader();
 
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
@@ -109,7 +109,7 @@ public class RegistrationFormTest extends FormTestRunner {
         //String actualRegistrationSuccessMessage = page.getSuccessRegisteredMessage(); doesnt work on prod
         //softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
         HomePage homePage = openHomePageInNewTab(ubsPage);
-        RegistrationComponent homeForm = homePage.openRegistrationFormInHeader();
+        RegistrationModalComponent homeForm = homePage.openRegistrationFormInHeader();
 
         homeForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
@@ -122,7 +122,7 @@ public class RegistrationFormTest extends FormTestRunner {
     @Test (dataProvider = "testEmailAlreadyExists" , dataProviderClass = RegistrationFormTestProvider.class)
     public void testEmailAlreadyExists (String expectedRegistrationSuccessMessage , String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword){
         HomePage homePage = openHomePage();
-        RegistrationComponent homeForm = homePage.openRegistrationFormInHeader();
+        RegistrationModalComponent homeForm = homePage.openRegistrationFormInHeader();
 
 
         homeForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
@@ -143,7 +143,7 @@ public class RegistrationFormTest extends FormTestRunner {
     @Test(dataProvider = "testGreenCityRegisteredWithConfirmEmail", dataProviderClass = RegistrationFormTestProvider.class)
     public void testGreenCityRegisteredWithConfirmEmail(String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
         HomePage homePage = openHomePage();
-        RegistrationComponent greenCityForm = homePage.openRegistrationFormInHeader();
+        RegistrationModalComponent greenCityForm = homePage.openRegistrationFormInHeader();
 
         greenCityForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
@@ -154,7 +154,7 @@ public class RegistrationFormTest extends FormTestRunner {
         greenCityForm.sleep(5);
 
         BasePageUbs ubsPage = openUbsPageInNewTab(homePage);
-        RegistrationComponent ubsForm = ubsPage.openRegistrationFormInHeader();
+        RegistrationModalComponent ubsForm = ubsPage.openRegistrationFormInHeader();
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
         String actualRegistrationErrorMessage = ubsForm.getEmail().getErrorMessage();
@@ -166,7 +166,7 @@ public class RegistrationFormTest extends FormTestRunner {
     @Test(dataProvider = "testUbsRegisteredWithConfirmEmail", dataProviderClass = RegistrationFormTestProvider.class)
     public void testUbsRegisteredWithConfirmEmail(String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
         BasePageUbs ubsPage = openUbsPage();
-        RegistrationComponent ubsForm = ubsPage.openRegistrationFormInHeader();
+        RegistrationModalComponent ubsForm = ubsPage.openRegistrationFormInHeader();
 
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
         ubsForm.sleep(5);
@@ -176,7 +176,7 @@ public class RegistrationFormTest extends FormTestRunner {
         ubsForm.sleep(5);
 
         HomePage homePage = openHomePageInNewTab(ubsPage);
-        RegistrationComponent greenCityForm = homePage.openRegistrationFormInHeader();
+        RegistrationModalComponent greenCityForm = homePage.openRegistrationFormInHeader();
         greenCityForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
         String actualRegistrationErrorMessage = greenCityForm.getEmail().getErrorMessage();

@@ -10,7 +10,7 @@ import org.testng.annotations.BeforeSuite;
 import com.academy.utils.props.ConfigProperties;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class FormFieldTestRunner {
+public class FormFieldTestRunner extends BaseTestRunner{
     private static final long IMPLICITLY_WAIT_DURATION = 1;
     protected ConfigProperties configProperties;
     protected WebDriver driver;
@@ -20,8 +20,9 @@ public class FormFieldTestRunner {
         WebDriverManager.chromedriver().setup();
         configProperties = new ConfigProperties();
     }
-    
+
     @BeforeClass
+    @Override
     public void baseSetUp() {
         ChromeOptions options = new ChromeOptions();
         //options.addArguments("--headless=new");
@@ -30,7 +31,7 @@ public class FormFieldTestRunner {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPLICITLY_WAIT_DURATION));
         driver.get(configProperties.getBaseUrl() + "/#/greenCity");
     }
-    
+
     @AfterClass
     public void baseTearDown(){
         if(driver != null) {

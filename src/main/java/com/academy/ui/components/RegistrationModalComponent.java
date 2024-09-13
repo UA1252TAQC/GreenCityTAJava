@@ -13,7 +13,7 @@ import org.openqa.selenium.support.How;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegistrationComponent extends BaseComponent {
+public class RegistrationModalComponent extends BaseComponent {
     @FindBy(how = How.XPATH, using = ".//h1[@class='title-text']")
     private WebElement title;
 
@@ -36,7 +36,7 @@ public class RegistrationComponent extends BaseComponent {
     @Getter
     private final RepeatPasswordField repeatPassword;
 
-    public RegistrationComponent(WebDriver driver, WebElement rootElement) {
+    public RegistrationModalComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
         email = new EmailField(driver, rootElement);
         username = new UsernameField(driver, rootElement);
@@ -44,22 +44,22 @@ public class RegistrationComponent extends BaseComponent {
         repeatPassword = new RepeatPasswordField(driver, rootElement);
     }
 
-    public RegistrationComponent enterEmail(String text) {
+    public RegistrationModalComponent enterEmail(String text) {
         this.email.enter(text);
         return this;
     }
 
-    public RegistrationComponent enterUsername(String text) {
+    public RegistrationModalComponent enterUsername(String text) {
         this.username.enter(text);
         return this;
     }
 
-    public RegistrationComponent enterPassword(String text) {
+    public RegistrationModalComponent enterPassword(String text) {
         this.password.enter(text);
         return this;
     }
 
-    public RegistrationComponent enterRepeatPassword(String text) {
+    public RegistrationModalComponent enterRepeatPassword(String text) {
         this.repeatPassword.enter(text);
         return this;
     }
@@ -72,12 +72,12 @@ public class RegistrationComponent extends BaseComponent {
         return new GoogleAuthComponent(driver);
     }
 
-    public RegistrationComponent fillForm(String email, String username, String password, String repeatPassword) {
+    public RegistrationModalComponent fillForm(String email, String username, String password, String repeatPassword) {
         return this.enterEmail(email).enterUsername(username).enterPassword(password)
                 .enterRepeatPassword(repeatPassword).clickTitle();
     }
 
-    public RegistrationComponent clickTitle() {
+    public RegistrationModalComponent clickTitle() {
         click(title);
         return this;
     }
@@ -133,7 +133,7 @@ public class RegistrationComponent extends BaseComponent {
         sleep(1);
     }
 
-    public RegistrationComponent clearPasswordFieldIf(boolean isShouldClearPassword) {
+    public RegistrationModalComponent clearPasswordFieldIf(boolean isShouldClearPassword) {
         if (isShouldClearPassword) {
             password.clear();
         }

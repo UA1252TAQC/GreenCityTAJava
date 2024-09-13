@@ -52,7 +52,7 @@ public class Base {
     }
 
     public void clear(WebElement element) {
-        element.sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));;
+        element.sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
     }
 
     public boolean isDisplayed(WebElement element) {

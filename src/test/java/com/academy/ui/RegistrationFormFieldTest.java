@@ -1,6 +1,6 @@
 package com.academy.ui;
 
-import com.academy.ui.components.RegistrationComponent;
+import com.academy.ui.components.RegistrationModalComponent;
 import com.academy.ui.pages.HomePage;
 import com.academy.ui.providers.RegistrationFormFieldTestProvider;
 import com.academy.ui.runners.FormFieldTestRunner;
@@ -11,7 +11,7 @@ import org.testng.asserts.SoftAssert;
 
 public class RegistrationFormFieldTest extends FormFieldTestRunner {
     private ImmutableMap<String, String> localizedMessages;
-    private RegistrationComponent form;
+    private RegistrationModalComponent form;
     private SoftAssert softAssert;
     private HomePage page;
 

@@ -1,7 +1,7 @@
 package com.academy.ui.pages;
 
 import com.academy.ui.components.HeaderComponent;
-import com.academy.ui.components.RegistrationComponent;
+import com.academy.ui.components.RegistrationModalComponent;
 import org.openqa.selenium.WebDriver;
 
 public class HomePage extends BasePageGreenCity {
@@ -12,7 +12,7 @@ public class HomePage extends BasePageGreenCity {
         headerComponent = new HeaderComponent(driver, findElement(".//header[@role='banner']"));
     }
 
-    public RegistrationComponent openRegistrationFormInHeader() {
+    public RegistrationModalComponent openRegistrationFormInHeader() {
         return headerComponent.openRegistrationForm();
     }
 

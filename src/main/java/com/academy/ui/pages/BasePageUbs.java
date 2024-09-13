@@ -1,7 +1,7 @@
 package com.academy.ui.pages;
 
 import com.academy.ui.Base;
-import com.academy.ui.components.RegistrationComponent;
+import com.academy.ui.components.RegistrationModalComponent;
 import com.academy.ui.components.UbsHeaderComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -15,7 +15,7 @@ public class BasePageUbs extends Base {
         this.headerComponent = new UbsHeaderComponent(driver, findElement(".//header[@role='banner']"));
     }
 
-    public RegistrationComponent openRegistrationFormInHeader() {
+    public RegistrationModalComponent openRegistrationFormInHeader() {
         return headerComponent.openRegistrationForm();
     }
 

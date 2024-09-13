@@ -15,11 +15,11 @@ public class CreateNewsPage extends BasePageGreenCity {
     @FindBy(how = How.XPATH, using = "./button[class='tag-button']/a")
     protected List<WebElement> tagsButton;
 
-    public CreateNewsPage (WebDriver driver) {
+    public CreateNewsPage(WebDriver driver) {
         super(driver);
     }
 
-    public void chooseTag(NewsTags tag){
+    public void chooseTag(NewsTags tag) {
 
     }
 
