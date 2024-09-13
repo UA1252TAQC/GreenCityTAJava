@@ -98,7 +98,7 @@ public class RegistrationComponent extends BaseComponent {
         return isEnabled(this.registerButton);
     }
 
-    private static final String[] VALID_DATA = new String[]{"mail@gmail.com", "Denys1", "Password1!", "Password1!"};
+    private static final String[] VALID_DATA = new String[] {"mail@gmail.com", "Denys1", "Password1!", "Password1!"};
 
     public void fillFormWithTestDataAndSubmitIf(boolean isShouldSubmitForm, String email, String username, String password, String repeatPassword) {
         if (isShouldSubmitForm) { //TODO move to data-provider & refactor

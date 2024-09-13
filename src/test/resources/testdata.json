@@ -1,188 +1,40 @@
 {
-  "testEmailValidation": [
-    [
-      false,
-      "EMAIL_REQUIRED",
-      false,
-      "'Електронна пошта' with empty field",
-      ""
+    "testEmailValidation": [
+        [false, "EMAIL_REQUIRED", false, "'Електронна пошта' with empty field", ""],
+        [true, null, false, "'Електронна пошта' with spaces around", " test@gmail.com "],
+        [false, "EMAIL_WITH_SPACES", false, "'Електронна пошта' with spaces", "tes t@gmail.com"],
+        [true, null, false, "'Електронна пошта' with “@” is valid", "test@gmail.com"],
+        [false, "EMAIL_INVALID", false, "'Електронна пошта' with “@” is valid", "test@gmailcom"],
+        [false, "EMAIL_INVALID", false, "'Електронна пошта' field require “@”", "testgmail.com"],
+        [false, "EMAIL_INVALID", true, "'Електронна пошта' field can't contain more than 72 characters", "emailemailemailemailemailemailemailemailemailemailemai2emailema1@gmail.com"],
+        [true, null, true, "'Електронна пошта' field can contain max 72 characters", "emailemailemailemailemailemailemailemailemailemailemailemailem@gmail.com"],
+        [true, null, true, "'Електронна пошта' field can contain max 72 characters", "emailemailemailemailemailemailemailemailemailemailemailemaile@gmail.com"]
     ],
-    [
-      true,
-      null,
-      false,
-      "'Електронна пошта' with spaces around",
-      " test@gmail.com "
+    "testUsernameValidation": [
+        [false, "USERNAME_REQUIRED", "User name empty", ""],
+        [true, null, "Valid username", "Ira"],
+        [true, null, "Valid username with numbers and dots", "Ira99.Prut"],
+        [false, "USERNAME_WITH_DOT_AT_THE_START", "Username with dot at the start", ".Ira"],
+        [false, "USERNAME_WITH_CONSECUTIVE_DOT", "Username with consecutive dots", "Ira..99"],
+        [false, "USERNAME_TOO_LONG", "Username too long", "IraThisUsernameIsWayTooLongForTheValidationRule"]
     ],
-    [
-      false,
-      "EMAIL_WITH_SPACES",
-      false,
-      "'Електронна пошта' with spaces",
-      "tes t@gmail.com"
+    "testPasswordValidation": [
+        [false, "PASSWORD_REQUIRED", "Password empty", ""],
+        [false, "PASSWORD_TOO_SHORT", "Password too short", "Short1!"],
+        [false, "PASSWORD_WITHOUT_UPPERCASE", "Password without uppercase", "password1!"],
+        [false, "PASSWORD_WITHOUT_DIGIT", "Password without digit", "Password!@"],
+        [false, "PASSWORD_WITHOUT_SPECIAL_CHAR", "Password without special char", "Password1a"],
+        [true, null, "Valid password", "Password1!"],
+        [false, "PASSWORD_TOO_LONG", "VeryLongPasswordThatExceeds20Chars1!", "Password1!Password1!Password1!"]
     ],
-    [
-      true,
-      null,
-      false,
-      "'Електронна пошта' with “@” is valid",
-      "test@gmail.com"
+    "testRepeatPasswordValidation": [
+        [true, null, "Confirm password and password are equals!", "Password1!", "Password1!"],
+        [false, "CONFIRM_PASSWORD_REQUIRED", "Confirm password empty", "Password1!", ""],
+        [false, "PASSWORDS_DO_NOT_MATCH", "Passwords do not match", "Password1!", "DifferentPassword1!"],
+        [false, "ENTER_PASSWORD_FIRST", "Confirm password with password empty", "", "Password1!"]
     ],
-    [
-      false,
-      "EMAIL_INVALID",
-      false,
-      "'Електронна пошта' with “@” is valid",
-      "test@gmailcom"
-    ],
-    [
-      false,
-      "EMAIL_INVALID",
-      false,
-      "'Електронна пошта' field require “@”",
-      "testgmail.com"
-    ],
-    [
-      false,
-      "EMAIL_INVALID",
-      true,
-      "'Електронна пошта' field can't contain more than 72 characters",
-      "emailemailemailemailemailemailemailemailemailemailemai2emailema1@gmail.com"
-    ],
-    [
-      true,
-      null,
-      true,
-      "'Електронна пошта' field can contain max 72 characters",
-      "emailemailemailemailemailemailemailemailemailemailemailemailem@gmail.com"
-    ],
-    [
-      true,
-      null,
-      true,
-      "'Електронна пошта' field can contain max 72 characters",
-      "emailemailemailemailemailemailemailemailemailemailemailemaile@gmail.com"
+
+    "testPopUpSignUpValidation": [
+        ["POP_UP_MESSAGE", "tsdddjdsasdadfs@gmail.com", "TestUser", "Password1!", "Password1!"]
     ]
-  ],
-  "testUsernameValidation": [
-    [
-      false,
-      "USERNAME_REQUIRED",
-      "User name empty",
-      ""
-    ],
-    [
-      true,
-      null,
-      "Valid username",
-      "Ira"
-    ],
-    [
-      true,
-      null,
-      "Valid username with numbers and dots",
-      "Ira99.Prut"
-    ],
-    [
-      false,
-      "USERNAME_WITH_DOT_AT_THE_START",
-      "Username with dot at the start",
-      ".Ira"
-    ],
-    [
-      false,
-      "USERNAME_WITH_CONSECUTIVE_DOT",
-      "Username with consecutive dots",
-      "Ira..99"
-    ],
-    [
-      false,
-      "USERNAME_TOO_LONG",
-      "Username too long",
-      "IraThisUsernameIsWayTooLongForTheValidationRule"
-    ]
-  ],
-  "testPasswordValidation": [
-    [
-      false,
-      "PASSWORD_REQUIRED",
-      "Password empty",
-      ""
-    ],
-    [
-      false,
-      "PASSWORD_TOO_SHORT",
-      "Password too short",
-      "Short1!"
-    ],
-    [
-      false,
-      "PASSWORD_WITHOUT_UPPERCASE",
-      "Password without uppercase",
-      "password1!"
-    ],
-    [
-      false,
-      "PASSWORD_WITHOUT_DIGIT",
-      "Password without digit",
-      "Password!@"
-    ],
-    [
-      false,
-      "PASSWORD_WITHOUT_SPECIAL_CHAR",
-      "Password without special char",
-      "Password1a"
-    ],
-    [
-      true,
-      null,
-      "Valid password",
-      "Password1!"
-    ],
-    [
-      false,
-      "PASSWORD_TOO_LONG",
-      "VeryLongPasswordThatExceeds20Chars1!",
-      "Password1!Password1!Password1!"
-    ]
-  ],
-  "testRepeatPasswordValidation": [
-    [
-      true,
-      null,
-      "Confirm password and password are equals!",
-      "Password1!",
-      "Password1!"
-    ],
-    [
-      false,
-      "CONFIRM_PASSWORD_REQUIRED",
-      "Confirm password empty",
-      "Password1!",
-      ""
-    ],
-    [
-      false,
-      "PASSWORDS_DO_NOT_MATCH",
-      "Passwords do not match",
-      "Password1!",
-      "DifferentPassword1!"
-    ],
-    [
-      false,
-      "ENTER_PASSWORD_FIRST",
-      "Confirm password with password empty",
-      "",
-      "Password1!"
-    ]
-  ],
-  "testPopUpSignUpValidation": [
-    [
-      "POP_UP_MESSAGE",
-      "tsdddjdsasdadfs@gmail.com",
-      "TestUser",
-      "Password1!",
-      "Password1!"
-    ]
-  ]
 }
