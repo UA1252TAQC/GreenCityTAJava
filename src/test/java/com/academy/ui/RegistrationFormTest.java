@@ -2,9 +2,9 @@ package com.academy.ui;
 
 import com.academy.ui.components.GoogleAuthComponent;
 import com.academy.ui.components.RegistrationModalComponent;
-import com.academy.ui.pages.HomePage;
-import com.academy.ui.pages.ProfilePage;
-import com.academy.ui.pages.BasePageUbs;
+import com.academy.ui.pages.greenCity.HomePage;
+import com.academy.ui.pages.greenCity.ProfilePage;
+import com.academy.ui.pages.ubs.HomePageUbs;
 import com.academy.ui.providers.RegistrationFormTestProvider;
 import com.academy.ui.runners.FormTestRunner;
 import com.academy.utils.LocalizationUtils;
@@ -25,7 +25,7 @@ public class RegistrationFormTest extends FormTestRunner {
 
     @BeforeClass
     @Parameters({"language"})
-    public void setUp(@Optional("ua") String language) {
+    public void setUp(@Optional("Ua") String language) {
         this.localizedMessages =  new LocalizationUtils().getRegistrationMessages(language);
         this.mailUtils = new MailUtils();
         this.language = language;
@@ -40,19 +40,19 @@ public class RegistrationFormTest extends FormTestRunner {
     @Test(dataProvider = "testPopUpSignUpValidation", dataProviderClass = RegistrationFormTestProvider.class)
     public void testPopUpSignUpValidation(String expectedRegistrationSuccessMessage, String expectedAccountSubmitMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
         HomePage homePage = openHomePage();
-        RegistrationModalComponent form = homePage.openRegistrationFormInHeader();
+        var form = homePage.openRegistrationFormInHeader();
 
         form.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
-        //String actualRegistrationSuccessMessage = page.getSuccessRegisteredMessage(); doesnt work on prod
-        //softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
+        String actualRegistrationSuccessMessage = homePage.getPopUpMessage();
+        softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
 
         Mail mail = mailUtils.getLastEmail(mailBox.getId());
 
         homePage.openUrlInNewTab(mail.extractActivationLink());
-        BasePageUbs ubsPage = new BasePageUbs(driver);
+        HomePageUbs ubsPage = new HomePageUbs(driver);
 
-        String actualAccountSubmitMessage = ubsPage.getAccountSubmitPopUpMessage();
+        String actualAccountSubmitMessage = ubsPage.getPopUpMessage();
         softAssert.assertEquals(actualAccountSubmitMessage, localizedMessages.get(expectedAccountSubmitMessage));
 
         // TODO add login page & parse jwt & add 24 hours validation check
@@ -62,8 +62,7 @@ public class RegistrationFormTest extends FormTestRunner {
     @Test(dataProvider = "testGoogleSignUp", dataProviderClass = RegistrationFormTestProvider.class)
     public void testGoogleSignUp(String googleEmail, String googlePassword) {
         HomePage homePage = openHomePage();
-        RegistrationModalComponent form = homePage.openRegistrationFormInHeader();
-
+        var form = homePage.openRegistrationFormInHeader();
 
         GoogleAuthComponent googleForm = form.openAuthGoogleForm();
         googleForm.enterEmail(googleEmail)
@@ -79,16 +78,16 @@ public class RegistrationFormTest extends FormTestRunner {
     }
 
     @Test(dataProvider = "testRegisteredGreenCity", dataProviderClass = RegistrationFormTestProvider.class)
-    public void testRegisteredGreenCity(String expectedRegistrationErrorMessage,MailBoxCredentials mailBox, String username, String password, String repeatPassword){
+    public void testRegisteredGreenCity(String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword){
         HomePage homePage = openHomePage();
-        RegistrationModalComponent homeForm = homePage.openRegistrationFormInHeader();
+        var homeForm = homePage.openRegistrationFormInHeader();
 
         homeForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
-        //String actualRegistrationSuccessMessage = page.getSuccessRegisteredMessage(); doesnt work on prod
-        //softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
+        // String actualRegistrationSuccessMessage = homePage.getPopUpMessage();
+        // softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationErrorMessage));
 
-        BasePageUbs ubsPage = openUbsPageInNewTab(homePage);
+        HomePageUbs ubsPage = openUbsPageInNewTab(homePage);
         RegistrationModalComponent ubsForm = ubsPage.openRegistrationFormInHeader();
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
@@ -100,14 +99,15 @@ public class RegistrationFormTest extends FormTestRunner {
 
     @Test(dataProvider = "testRegisteredUbs", dataProviderClass = RegistrationFormTestProvider.class)
     public void testRegisteredUbs(String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword){
-        BasePageUbs ubsPage = openUbsPage();
-        RegistrationModalComponent ubsForm = ubsPage.openRegistrationFormInHeader();
+        HomePageUbs ubsPage = openUbsPage();
+        var ubsForm = ubsPage.openRegistrationFormInHeader();
 
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
 
-        //String actualRegistrationSuccessMessage = page.getSuccessRegisteredMessage(); doesnt work on prod
-        //softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
+        // String actualRegistrationSuccessMessage = homePage.getPopUpMessage();
+        // softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationErrorMessage));
+
         HomePage homePage = openHomePageInNewTab(ubsPage);
         RegistrationModalComponent homeForm = homePage.openRegistrationFormInHeader();
 
@@ -122,13 +122,13 @@ public class RegistrationFormTest extends FormTestRunner {
     @Test (dataProvider = "testEmailAlreadyExists" , dataProviderClass = RegistrationFormTestProvider.class)
     public void testEmailAlreadyExists (String expectedRegistrationSuccessMessage , String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword){
         HomePage homePage = openHomePage();
-        RegistrationModalComponent homeForm = homePage.openRegistrationFormInHeader();
+        var homeForm = homePage.openRegistrationFormInHeader();
 
 
         homeForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
-    //  String actualRegistrationSuccessMessage = homePage.getSuccessRegisteredPopUpMessage(); //doesnt work on prod
-    //  softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
+        // String actualRegistrationSuccessMessage = homePage.getPopUpMessage();
+        // softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationErrorMessage));
 
         homeForm.sleep(5);
         homeForm = homePage.openRegistrationFormInHeader();
@@ -143,9 +143,12 @@ public class RegistrationFormTest extends FormTestRunner {
     @Test(dataProvider = "testGreenCityRegisteredWithConfirmEmail", dataProviderClass = RegistrationFormTestProvider.class)
     public void testGreenCityRegisteredWithConfirmEmail(String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
         HomePage homePage = openHomePage();
-        RegistrationModalComponent greenCityForm = homePage.openRegistrationFormInHeader();
+        var greenCityForm = homePage.openRegistrationFormInHeader();
 
         greenCityForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
+
+        // String actualRegistrationSuccessMessage = homePage.getPopUpMessage();
+        // softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationErrorMessage));
 
         greenCityForm.sleep(5);
 
@@ -153,8 +156,8 @@ public class RegistrationFormTest extends FormTestRunner {
         homePage.openUrlInNewTab(mail.extractActivationLink());
         greenCityForm.sleep(5);
 
-        BasePageUbs ubsPage = openUbsPageInNewTab(homePage);
-        RegistrationModalComponent ubsForm = ubsPage.openRegistrationFormInHeader();
+        HomePageUbs ubsPage = openUbsPageInNewTab(homePage);
+        var ubsForm = ubsPage.openRegistrationFormInHeader();
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
         String actualRegistrationErrorMessage = ubsForm.getEmail().getErrorMessage();
@@ -165,10 +168,14 @@ public class RegistrationFormTest extends FormTestRunner {
 
     @Test(dataProvider = "testUbsRegisteredWithConfirmEmail", dataProviderClass = RegistrationFormTestProvider.class)
     public void testUbsRegisteredWithConfirmEmail(String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
-        BasePageUbs ubsPage = openUbsPage();
+        HomePageUbs ubsPage = openUbsPage();
         RegistrationModalComponent ubsForm = ubsPage.openRegistrationFormInHeader();
 
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
+
+        
+        // String actualRegistrationSuccessMessage = homePage.getPopUpMessage();
+        // softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationErrorMessage));
         ubsForm.sleep(5);
 
         Mail mail = mailUtils.getLastEmail(mailBox.getId());
@@ -187,19 +194,21 @@ public class RegistrationFormTest extends FormTestRunner {
 
 
 
-    private BasePageUbs openUbsPageInNewTab(HomePage homePage) {
+    private HomePageUbs openUbsPageInNewTab(HomePage homePage) {
         homePage.openUrlInNewTab(configProperties.getBaseUrl() + "/#/ubs");
-        return new BasePageUbs(driver);
+        HomePageUbs page = new HomePageUbs(driver);
+        return page;
     }
 
-    private HomePage openHomePageInNewTab(BasePageUbs ubsPage) {
+    private HomePage openHomePageInNewTab(HomePageUbs ubsPage) {
         ubsPage.openUrlInNewTab(configProperties.getBaseUrl() + "/#/greenCity");
-        return new HomePage(driver);
+        HomePage page = new HomePage(driver);
+        return page;
     }
 
-    private BasePageUbs openUbsPage() {
+    private HomePageUbs openUbsPage() {
         driver.get(configProperties.getBaseUrl() + "/#/ubs");
-        return new BasePageUbs(driver).setLanguage(language);
+        return new HomePageUbs(driver).setLanguage(language);
     }
 
     private HomePage openHomePage() {

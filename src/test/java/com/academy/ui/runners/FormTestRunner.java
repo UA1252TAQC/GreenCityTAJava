@@ -11,7 +11,7 @@ import com.academy.utils.props.ConfigProperties;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class FormTestRunner {
-    private static final long IMPLICITLY_WAIT_DURATION = 1;
+    protected static final long IMPLICITLY_WAIT_DURATION = 1;
     protected ConfigProperties configProperties;
     protected WebDriver driver;
 
