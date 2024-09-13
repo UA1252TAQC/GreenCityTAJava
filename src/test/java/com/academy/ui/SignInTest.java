@@ -3,10 +3,12 @@ package com.academy.ui;
 import com.academy.ui.components.SignInComponent;
 import com.academy.ui.pages.HomePage;
 import com.academy.ui.pages.MyHabitsPage;
+import com.academy.ui.pages.ProfilePage;
 import com.academy.ui.runners.BaseTestRunner;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.util.HashMap;
 
@@ -30,14 +32,15 @@ public class SignInTest extends BaseTestRunner {
     @Test(dataProvider = "validUserDataProvider")
     public void checkSuccessfulSignInWithValidCredentials(HashMap<String,String> user){
 
-        HomePage homePage = loadApplication()
+        ProfilePage profilePage = loadApplication()
                 .openSignInComponent()
                 .fillEmailInput(user.get("email"))
                 .fillPasswordInput(user.get("password"))
-                .clickSignInButton()
-                .successfulSignIn();
-
-        Assert.assertEquals(homePage.getUserProfileButtonText(), user.get("name"), "User name must match.");
+                .clickSignInSuccess();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(driver.getCurrentUrl().startsWith(configProperties.getBaseUrl() + "/profile"));
+        softAssert.assertEquals(profilePage.getUserProfileButtonText(), user.get("name"), "User name must match.");
+        softAssert.assertAll();
     }
 
     @Test(dataProvider = "validUserDataProvider")

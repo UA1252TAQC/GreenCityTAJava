@@ -1,6 +1,7 @@
 package com.academy.ui.components;
 
 import com.academy.ui.pages.HomePage;
+import com.academy.ui.pages.ProfilePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -66,12 +67,13 @@ public class SignInComponent extends BaseComponent {
         return this;
     }
 
-    public SignInComponent clickSignInButton() {
+    public SignInComponent clickSignInUnSuccess() {
         signInButton.click();
         return this;
     }
 
-    public HomePage successfulSignIn() {
-        return new HomePage(driver);
+    public ProfilePage clickSignInSuccess() {
+        signInButton.click();
+        return new ProfilePage(driver);
     }
 }

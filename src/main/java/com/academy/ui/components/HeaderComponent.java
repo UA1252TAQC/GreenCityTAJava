@@ -40,6 +40,9 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(how = How.CSS, using = "li.user-name")
     protected WebElement profileLink;
 
+    @FindBy(how = How.XPATH, using = ".//app-auth-modal")
+    protected WebElement signInComponentRoot;
+
     public HeaderComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
     }
@@ -56,12 +59,14 @@ public class HeaderComponent extends BaseComponent {
         }
         return this;
     }
+
+
     public SignInComponent clickSignInLink() {
         signInLink.click();
-        return new SignInComponent(driver, driver.findElement(By.cssSelector(".wrapper")));
+        return new SignInComponent(driver, signInComponentRoot);
     }
 
-    public void clickNewsTab() {
+        public void clickNewsTab() {
         news.click();
     }
 
