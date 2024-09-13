@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +30,12 @@ public class CreateNewsPage extends BasePage {
 
     @FindBy(xpath = "//div[@class = 'submit-buttons']/button[2]")
     private WebElement previewButton;
-    public CreateNewsPage (WebDriver driver) {
+
+    public CreateNewsPage(WebDriver driver) {
         super(driver);
     }
 
-    public CreateNewsPage chooseTag(NewsTags tag, String languageCode){
+    public CreateNewsPage chooseTag(NewsTags tag, String languageCode) {
         String tagText = tag.getText(languageCode);
         for (WebElement tagButton : tagsButton) {
             if (tagButton.getText().equalsIgnoreCase(tagText)) {
@@ -46,7 +46,7 @@ public class CreateNewsPage extends BasePage {
         return this;
     }
 
-    public List<WebElement> getTagsButton(){
+    public List<WebElement> getTagsButton() {
         return tagsButton;
     }
 
@@ -59,6 +59,7 @@ public class CreateNewsPage extends BasePage {
         inputSource.sendKeys(source);
         return this;
     }
+
     public CreateNewsPage enterDescription(String description) {
         WebElement quillEditor = driver.findElement(By.cssSelector(".ql-editor"));
         quillEditor.sendKeys(description);

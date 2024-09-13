@@ -1,9 +1,9 @@
 package com.academy.ui.pages;
 
-import com.academy.ui.components.LoginComponent;
-import org.openqa.selenium.WebDriver;
 import com.academy.ui.components.HeaderComponent;
+import com.academy.ui.components.LoginComponent;
 import com.academy.ui.components.RegistrationComponent;
+import org.openqa.selenium.WebDriver;
 
 public class HomePage extends BasePage {
     private final HeaderComponent headerComponent;

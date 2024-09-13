@@ -10,11 +10,11 @@ public class NewsPage extends BasePage {
     @FindBy(how = How.XPATH, using = ".//*[@id='create-button']")
     protected WebElement createNewsButton;
 
-    public NewsPage(WebDriver driver){
+    public NewsPage(WebDriver driver) {
         super(driver);
     }
 
-    public CreateNewsPage goToCreateNews(){
+    public CreateNewsPage goToCreateNews() {
         createNewsButton.click();
         return new CreateNewsPage(driver);
     }

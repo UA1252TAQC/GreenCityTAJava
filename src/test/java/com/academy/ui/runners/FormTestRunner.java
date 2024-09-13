@@ -1,17 +1,18 @@
 package com.academy.ui.runners;
 
-import java.time.Duration;
+import com.academy.utils.props.ConfigProperties;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
-import com.academy.utils.props.ConfigProperties;
-import io.github.bonigarcia.wdm.WebDriverManager;
+
+import java.time.Duration;
 
 public class FormTestRunner {
-	protected WebDriver driver;
+    protected WebDriver driver;
     protected final long implicitlyWaitDuration = 1;
     protected static ConfigProperties configProperties;
 
@@ -20,7 +21,7 @@ public class FormTestRunner {
         WebDriverManager.chromedriver().setup();
         configProperties = new ConfigProperties();
     }
-    
+
     @BeforeClass
     public void baseSetUp() {
         ChromeOptions options = new ChromeOptions();
@@ -30,10 +31,10 @@ public class FormTestRunner {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitlyWaitDuration));
         driver.get(configProperties.getBaseUrl());
     }
-    
+
     @AfterClass
-    public void baseTearDown(){
-        if(driver != null) {
+    public void baseTearDown() {
+        if (driver != null) {
             driver.quit();
         }
     }

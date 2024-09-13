@@ -2,16 +2,16 @@ package com.academy.ui.components;
 
 import com.academy.ui.components.sub.form.EmailField;
 import com.academy.ui.components.sub.form.PasswordField;
-import com.academy.ui.pages.HomePage;
+import com.academy.ui.pages.ProfilePage;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class LoginComponent extends BaseComponent {
-    private EmailField emailField;
+    private final EmailField emailField;
 
-    private PasswordField passwordField;
+    private final PasswordField passwordField;
 
     @FindBy(xpath = "//button[@type='submit']")
     @Getter
@@ -34,16 +34,13 @@ public class LoginComponent extends BaseComponent {
         return this;
     }
 
-    public HomePage fillForm(String email, String password) {
-        this.enterEmail(email)
-                .enterPassword(password)
-                .clickSubmit();
-
-        return new HomePage(driver);
+    public LoginComponent clickSignInUnSuccess() {
+        submitButton.click();
+        return this;
     }
 
-    public LoginComponent clickSubmit() {
-        click(submitButton);
-        return this;
+    public ProfilePage clickSignInSuccess() {
+        submitButton.click();
+        return new ProfilePage(driver);
     }
 }
