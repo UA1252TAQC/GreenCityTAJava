@@ -1,10 +1,10 @@
 package com.academy.ui.providers;
 
-import java.lang.reflect.Method;
-import java.util.Iterator;
-
 import com.academy.utils.TestUtils;
 import org.testng.annotations.DataProvider;
+
+import java.lang.reflect.Method;
+import java.util.Iterator;
 
 public class RegistrationFormFieldTestProvider {
     private final TestUtils testUtils;
