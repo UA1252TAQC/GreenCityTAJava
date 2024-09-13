@@ -13,6 +13,11 @@ public class RegistrationFormFieldTestProvider {
         this.testUtils = new TestUtils();
     }
 
+    @DataProvider(name = "testButtonState")
+    public Iterator<Object[]> dpTestButtonState(Method method) {
+        return testUtils.getTestCases(method);
+    }
+
     @DataProvider(name = "testEmailValidation")
     public Iterator<Object[]> dpTestEmailValidation(Method method) {
         return testUtils.getTestCases(method);

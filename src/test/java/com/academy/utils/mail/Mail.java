@@ -19,4 +19,21 @@ public class Mail {
 		this.subject = subject;
 		this.body = body;
 	}
+
+	public String extractActivationLink() {
+		String startToken = "<p style=\"margin: 0;\">https";
+		String endToken = "</p>";
+		int startIndex = body.indexOf(startToken);
+		if (startIndex != -1) {
+			startIndex += startToken.length() - 5;
+			int endIndex = body.indexOf(endToken, startIndex);
+			if (endIndex == -1) {
+				endIndex = body.indexOf("\"", startIndex);
+			}
+			if (startIndex < endIndex) {
+				return body.substring(startIndex, endIndex).replaceAll("amp;", "");
+			}
+		}
+		throw new IllegalStateException("Token cannot be parsed!");
+	}
 }

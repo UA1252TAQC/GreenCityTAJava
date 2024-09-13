@@ -1,6 +1,7 @@
 package com.academy.ui;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -39,7 +40,7 @@ public class Base {
     }
 
     public WebElement findWithWaitElement(String xPath) {
-        return getWait(5).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
+        return getWait(8).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
     }
 
     public void click(WebElement element) {
@@ -50,11 +51,11 @@ public class Base {
         }
     }
 
-    public boolean isDisplayed(WebElement element) {
-        if (element == null) {
-            return false;
-        }
+    public void clear(WebElement element) {
+        element.sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+    }
 
+    public boolean isDisplayed(WebElement element) {
         try {
             return element.isDisplayed();
         } catch (Exception e) {
@@ -63,7 +64,7 @@ public class Base {
     }
 
     public boolean isEnabled(WebElement element) {
-        if (isDisplayed(element)) {
+        if (!isDisplayed(element)) {
             return false;
         }
 

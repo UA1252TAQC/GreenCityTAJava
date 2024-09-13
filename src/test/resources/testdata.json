@@ -1,4 +1,8 @@
 {
+    "testButtonState": [
+        [true, false, "test@gmail.com", "Denys", "Password1!", "Password1!"],
+        [false, true, "test@gmail.com", "Denys", "Password1!", "Password1!"]
+    ],
     "testEmailValidation": [
         [false, "EMAIL_REQUIRED", false, "'Електронна пошта' with empty field", ""],
         [true, null, false, "'Електронна пошта' with spaces around", " test@gmail.com "],
@@ -35,6 +39,30 @@
     ],
 
     "testPopUpSignUpValidation": [
-        ["POP_UP_MESSAGE", "tsdddjdsasdadfs@gmail.com", "TestUser", "Password1!", "Password1!"]
+        ["REGISTERED_POP_UP_MESSAGE", "ACCOUNT_SUBMIT_POP_UP_MESSAGE","GENERATE_TEMPORARY_EMAIL", "TestUser", "Password1!", "Password1!"]
+    ],
+
+    "testGoogleSignUp": [
+        ["EXTRACT_GOOGLE_EMAIL","EXTRACT_GOOGLE_PASSWORD"]
+    ],
+
+    "testRegisteredGreenCity" : [
+        ["EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","Sakldsan","Solandkad12*","Solandkad12*"]
+    ],
+
+    "testRegisteredUbs" : [
+        ["EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
+    ],
+
+    "testEmailAlreadyExists" : [
+        ["REGISTERED_POP_UP_MESSAGE","EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
+    ],
+
+    "testGreenCityRegisteredWithConfirmEmail" : [
+            ["EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
+    ],
+
+    "testUbsRegisteredWithConfirmEmail" : [
+        ["EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
     ]
 }

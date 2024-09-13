@@ -34,4 +34,9 @@ public class RepeatPasswordField extends BaseComponent {
     public boolean isValid() {
         return !(isDisplayed(error));
     }
+
+    public void clear() {
+        click(input);
+        clear(input);
+    }
 }
