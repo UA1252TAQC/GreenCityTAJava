@@ -10,7 +10,7 @@ public class BasePageGreenCity extends BasePage {
         super(driver);
     }
 
-    protected HeaderComponent getHeaderComponent() {
+    public HeaderComponent getHeaderComponent() {
         return new HeaderComponent(driver, headerRootElement);
     }
 

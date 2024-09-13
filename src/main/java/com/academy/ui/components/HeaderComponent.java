@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class HeaderComponent extends BaseComponent {
-    @FindBy(xpath = ".//[@class='header_logo']")
+    @FindBy(xpath = ".//*[@class='header_logo']")
     protected WebElement logo;
 
     @FindBy(xpath = ".//div[@class='header_navigation-menu']//li[1]/a")
@@ -26,6 +26,9 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//li[@class='header_sign-up-link']//span")
     protected WebElement register;
 
+    @FindBy(xpath = ".//li[contains(@class, 'body-2 user-name') or contains(@class, 'body-2 ubs-user-name')]")
+    protected WebElement username;
+
     public HeaderComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
     }
@@ -40,5 +43,9 @@ public class HeaderComponent extends BaseComponent {
             click(this.listLanguage);
             click(this.english);
         }
+    }
+
+    public String getUsername(){
+        return username.getText();
     }
 }

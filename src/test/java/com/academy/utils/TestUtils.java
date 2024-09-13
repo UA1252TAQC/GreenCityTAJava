@@ -46,6 +46,7 @@ public class TestUtils extends BaseJsonUtils {
 		if (isShouldInjectData(cell,"GENERATE_TEMPORARY_EMAIL")) return mailUtils.createNewMailCredentials();
 		if (isShouldInjectData(cell,"EXTRACT_GOOGLE_EMAIL")) return configProperties.getGoogleEmail();
 		if (isShouldInjectData(cell,"EXTRACT_GOOGLE_PASSWORD")) return configProperties.getGooglePassword();
+		if (isShouldInjectData(cell,"EXTRACT_GOOGLE_NAME")) return configProperties.getGoogleName();
 
 		if (type == String.class) {
 			return cell.asText();
