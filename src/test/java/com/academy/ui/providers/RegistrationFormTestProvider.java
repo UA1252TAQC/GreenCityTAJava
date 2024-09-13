@@ -17,4 +17,34 @@ public class RegistrationFormTestProvider {
     public Iterator<Object[]> dpTestPopUpSignUpValidation(Method method) {
         return testUtils.getTestCases(method);
     }
+
+    @DataProvider(name = "testGoogleSignUp")
+    public Iterator<Object[]> dpTestGoogleSignUp(Method method) {
+        return testUtils.getTestCases(method);
+    }
+
+    @DataProvider(name = "testRegisteredGreenCity")
+    public Iterator<Object[]> dpTestRegisteredGreenCity(Method method) {
+        return testUtils.getTestCases(method);
+    }
+
+    @DataProvider(name = "testRegisteredUbs")
+    public Iterator<Object[]> dpTestRegisteredUbs(Method method) {
+        return testUtils.getTestCases(method);
+    }
+
+    @DataProvider(name = "testEmailAlreadyExists")
+    public Iterator<Object[]> dpTestEmailAlreadyExists(Method method) {
+        return testUtils.getTestCases(method);
+    }
+
+    @DataProvider(name = "testGreenCityRegisteredWithConfirmEmail")
+    public Iterator<Object[]> dpTestGreenCityRegisteredWithConfirmEmail(Method method) {
+        return testUtils.getTestCases(method);
+    }
+
+    @DataProvider(name = "testUbsRegisteredWithConfirmEmail")
+    public Iterator<Object[]> dpTestUbsRegisteredWithConfirmEmail(Method method) {
+        return testUtils.getTestCases(method);
+    }
 }

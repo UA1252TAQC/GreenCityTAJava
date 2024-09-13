@@ -10,7 +10,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class RegistrationComponent extends BaseComponent {
+import java.util.ArrayList;
+import java.util.List;
+
+public class RegistrationModalComponent extends BaseComponent {
     @FindBy(how = How.XPATH, using = ".//h1[@class='title-text']")
     private WebElement title;
 
@@ -33,7 +36,7 @@ public class RegistrationComponent extends BaseComponent {
     @Getter
     private final RepeatPasswordField repeatPassword;
 
-    public RegistrationComponent(WebDriver driver, WebElement rootElement) {
+    public RegistrationModalComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
         email = new EmailField(driver, rootElement);
         username = new UsernameField(driver, rootElement);
@@ -41,44 +44,45 @@ public class RegistrationComponent extends BaseComponent {
         repeatPassword = new RepeatPasswordField(driver, rootElement);
     }
 
-    public RegistrationComponent enterEmail(String text) {
+    public RegistrationModalComponent enterEmail(String text) {
         this.email.enter(text);
         return this;
     }
 
-    public RegistrationComponent enterUsername(String text) {
+    public RegistrationModalComponent enterUsername(String text) {
         this.username.enter(text);
         return this;
     }
 
-    public RegistrationComponent enterPassword(String text) {
+    public RegistrationModalComponent enterPassword(String text) {
         this.password.enter(text);
         return this;
     }
 
-    public RegistrationComponent enterRepeatPassword(String text) {
+    public RegistrationModalComponent enterRepeatPassword(String text) {
         this.repeatPassword.enter(text);
         return this;
     }
 
-    public RegistrationComponent fillForm(String email, String username, String password, String repeatPassword) {
-        return this.enterEmail(email)
-                .enterUsername(username)
-                .enterPassword(password)
-                .enterRepeatPassword(repeatPassword)
-                .clickTitle();
+    public GoogleAuthComponent openAuthGoogleForm() {
+        click(googleButton);
+        sleep(1);
+        List<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.getLast());
+        return new GoogleAuthComponent(driver);
     }
 
-    public RegistrationComponent clickTitle() {
+    public RegistrationModalComponent fillForm(String email, String username, String password, String repeatPassword) {
+        return this.enterEmail(email).enterUsername(username).enterPassword(password)
+                .enterRepeatPassword(repeatPassword).clickTitle();
+    }
+
+    public RegistrationModalComponent clickTitle() {
         click(title);
         return this;
     }
 
-    public String getPopUpMessage() {
-        return findWithWaitElement("//snack-bar-container//span").getText();
-    }
-
-    public boolean isRegisterButtonDisplayed() {
+    public boolean isRegistrationButtonDisplayed() {
         return isDisplayed(this.registerButton);
     }
 
@@ -90,20 +94,16 @@ public class RegistrationComponent extends BaseComponent {
         click(this.registerButton);
     }
 
-    public boolean isDisplayed() {
-        return isDisplayed(this.rootElement);
-    }
-
-    public boolean isValid() {
+    public boolean isRegistrationButtonEnabled() {
         return isEnabled(this.registerButton);
     }
 
-    private static final String[] VALID_DATA = new String[] {"mail@gmail.com", "Denys1", "Password1!", "Password1!"};
+    private static final String[] VALID_DATA =
+            new String[] {"mail@gmail.com", "Denys1", "Password1!", "Password1!"};
 
     public void fillFormWithTestDataAndSubmitIf(boolean isShouldSubmitForm, String email, String username, String password, String repeatPassword) {
-        if (isShouldSubmitForm) { //TODO move to data-provider & refactor
-            this.fillForm(
-                    email != null ? email : VALID_DATA[0],
+        if (isShouldSubmitForm) { // TODO move to data-provider & refactor
+            this.fillForm(email != null ? email : VALID_DATA[0],
                     username != null ? username : VALID_DATA[1],
                     password != null ? password : VALID_DATA[2],
                     repeatPassword != null ? repeatPassword : VALID_DATA[3]).submit();
@@ -131,5 +131,12 @@ public class RegistrationComponent extends BaseComponent {
     public void close() {
         click(this.closeButton);
         sleep(1);
+    }
+
+    public RegistrationModalComponent clearPasswordFieldIf(boolean isShouldClearPassword) {
+        if (isShouldClearPassword) {
+            password.clear();
+        }
+        return this;
     }
 }

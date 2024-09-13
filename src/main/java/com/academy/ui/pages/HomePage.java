@@ -1,10 +1,10 @@
 package com.academy.ui.pages;
 
-import org.openqa.selenium.WebDriver;
 import com.academy.ui.components.HeaderComponent;
-import com.academy.ui.components.RegistrationComponent;
+import com.academy.ui.components.RegistrationModalComponent;
+import org.openqa.selenium.WebDriver;
 
-public class HomePage extends BasePage {
+public class HomePage extends BasePageGreenCity {
     private final HeaderComponent headerComponent;
 
     public HomePage(WebDriver driver) {
@@ -12,12 +12,16 @@ public class HomePage extends BasePage {
         headerComponent = new HeaderComponent(driver, findElement(".//header[@role='banner']"));
     }
 
-    public RegistrationComponent openRegistrationFormInHeader() {
+    public RegistrationModalComponent openRegistrationFormInHeader() {
         return headerComponent.openRegistrationForm();
     }
 
     public HomePage setLanguage(String language) {
-        this.headerComponent.changeLanguage(language);
+        this.headerComponent.setLanguage(language);
         return this;
+    }
+
+    public String getSuccessRegisteredPopUpMessage() {
+        return findWithWaitElement("//snack-bar-container//span").getText();
     }
 }
