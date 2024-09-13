@@ -24,14 +24,9 @@ public class UbsHeaderComponent extends BaseComponent {
     }
 
     public void setLanguage(String language) {
-        if (language.equals("en")) {
+        if (language.equalsIgnoreCase("En")) {
             click(this.listLanguage);
             click(this.english);
         }
-    }
-
-    public String getPopUpMessage() {
-        WebElement messageElement = findWithWaitElement("//simple-snack-bar[@class='mat-mdc-simple-snack-bar ng-star-inserted']");
-        return messageElement.getText();
     }
 }
