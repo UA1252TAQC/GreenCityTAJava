@@ -39,21 +39,21 @@
     ],
 
     "testPopUpSignUpValidation": [
-        ["GENERATE_TEMPORARY_EMAIL", "TestUser", "Password1!", "Password1!"]
+        ["REGISTERED_POP_UP_MESSAGE", "ACCOUNT_SUBMIT_POP_UP_MESSAGE", "GENERATE_TEMPORARY_EMAIL", "TestUser", "Password1!", "Password1!"]
     ],
 
     "testGoogleSignUp": [
         ["EXTRACT_GOOGLE_EMAIL","EXTRACT_GOOGLE_PASSWORD","EXTRACT_GOOGLE_NAME"]
     ],
 
-    "testRegisteredGreenCity" : [
-        ["REGISTERED_POP_UP_MESSAGE","EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","Sakldsan","Solandkad12*","Solandkad12*"]
-    ],
-    "testRegisteredUbs" : [
+    "testEmailAlreadyExists" : [
         ["REGISTERED_POP_UP_MESSAGE","EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
     ],
 
-    "testEmailAlreadyExists" : [
+    "testRegisteredGreenCity" : [
+        ["REGISTERED_POP_UP_MESSAGE","EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
+    ],
+    "testRegisteredUbs" : [
         ["REGISTERED_POP_UP_MESSAGE","EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
     ],
 
