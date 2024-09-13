@@ -81,15 +81,15 @@ public class RegistrationFormFieldTest extends FormTestRunner {
 
         softAssert.assertEquals(isActualValid, isExpectedValid);
         softAssert.assertEquals(actualErrorMessage, localizedMessages.get(expectedErrorMessage));
-
+        
         softAssert.assertAll(errorMessage);
     }
 
     @Test(dataProvider = "testRepeatPasswordValidation", dataProviderClass = RegistrationFormFieldTestProvider.class)
     public void testRepeatPasswordValidation(boolean isExpectedValid, String expectedErrorMessage, String errorMessage, String password, String repeatPassword) {
         form.enterPassword(password)
-                .enterRepeatPassword(repeatPassword)
-                .clickTitle();
+            .enterRepeatPassword(repeatPassword)
+            .clickTitle();
         boolean isActualValid = form.getRepeatPassword().isValid();
         String actualErrorMessage = form.getRepeatPassword().getErrorMessage();
 

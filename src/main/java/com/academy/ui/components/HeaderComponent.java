@@ -27,22 +27,13 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(how = How.XPATH, using = ".//li[@class='header_sign-up-link']//span")
     protected WebElement register;
 
-    @FindBy(how = How.CSS, using = "a.header_sign-in-link")
-    protected WebElement signInLink;
-
-    @FindBy(how = How.CSS, using = "li.user-name")
-    protected WebElement profileLink;
-
-    @FindBy(how = How.XPATH, using = "//app-auth-modal")
-    protected WebElement signInComponentRoot;
-
     public HeaderComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
     }
 
     public RegistrationComponent openRegistrationForm() {
         click(register);
-        return new RegistrationComponent(driver, signInComponentRoot);
+        return new RegistrationComponent(driver, findElement(".//app-auth-modal"));
     }
 
     public HeaderComponent changeLanguage(String language) {
@@ -51,19 +42,5 @@ public class HeaderComponent extends BaseComponent {
             click(this.english);
         }
         return this;
-    }
-
-
-    public SignInComponent clickSignInLink() {
-        signInLink.click();
-        return new SignInComponent(driver, signInComponentRoot);
-    }
-
-    public void clickNewsTab() {
-        news.click();
-    }
-
-    public String getProfileButtonText() {
-        return profileLink.getText();
     }
 }

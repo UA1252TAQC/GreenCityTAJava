@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 public class BaseProperties {
-    protected final Properties properties;
+	protected final Properties properties;
 
     protected BaseProperties(String source) {
         properties = new Properties();
