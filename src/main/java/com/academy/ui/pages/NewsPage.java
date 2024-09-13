@@ -7,14 +7,14 @@ import org.openqa.selenium.support.How;
 
 public class NewsPage extends BasePageGreenCity {
 
-    @FindBy(how = How.XPATH, using = "./[@id='create-button']")
+    @FindBy(how = How.XPATH, using = ".//div[@id='create-button']")
     protected WebElement createNewsButton;
 
     public NewsPage(WebDriver driver) {
         super(driver);
     }
 
-    public CreateNewsPage goToCreateNews() {
+    public CreateNewsPage clickNews() {
         createNewsButton.click();
         return new CreateNewsPage(driver);
     }

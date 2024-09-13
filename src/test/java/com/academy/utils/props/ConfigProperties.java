@@ -20,4 +20,12 @@ public class ConfigProperties extends BaseProperties {
     public String getGooglePassword() {
         return properties.getProperty("google.password");
     }
+
+    public String getEmail() {
+        return properties.getProperty("valid.email");
+    }
+
+    public String getPassword() {
+        return properties.getProperty("valid.password");
+    }
 }
