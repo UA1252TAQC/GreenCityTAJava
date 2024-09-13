@@ -33,7 +33,7 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(how = How.CSS, using = "li.user-name")
     protected WebElement profileLink;
 
-    @FindBy(how = How.XPATH, using = ".//app-auth-modal")
+    @FindBy(how = How.XPATH, using = "//app-auth-modal")
     protected WebElement signInComponentRoot;
 
     public HeaderComponent(WebDriver driver, WebElement rootElement) {
@@ -42,7 +42,7 @@ public class HeaderComponent extends BaseComponent {
 
     public RegistrationComponent openRegistrationForm() {
         click(register);
-        return new RegistrationComponent(driver, findElement(".//app-auth-modal"));
+        return new RegistrationComponent(driver, signInComponentRoot);
     }
 
     public HeaderComponent changeLanguage(String language) {
