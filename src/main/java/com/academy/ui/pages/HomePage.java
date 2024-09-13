@@ -4,7 +4,7 @@ import com.academy.ui.components.HeaderComponent;
 import com.academy.ui.components.RegistrationComponent;
 import org.openqa.selenium.WebDriver;
 
-public class HomePage extends BasePage {
+public class HomePage extends BasePageGreenCity {
     private final HeaderComponent headerComponent;
 
     public HomePage(WebDriver driver) {

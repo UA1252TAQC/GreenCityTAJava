@@ -4,7 +4,7 @@ import com.academy.ui.components.GoogleAuthComponent;
 import com.academy.ui.components.RegistrationComponent;
 import com.academy.ui.pages.HomePage;
 import com.academy.ui.pages.ProfilePage;
-import com.academy.ui.pages.UbsPage;
+import com.academy.ui.pages.BasePageUbs;
 import com.academy.ui.providers.RegistrationFormTestProvider;
 import com.academy.ui.runners.FormTestRunner;
 import com.academy.utils.LocalizationUtils;
@@ -50,7 +50,7 @@ public class RegistrationFormTest extends FormTestRunner {
         Mail mail = mailUtils.getLastEmail(mailBox.getId());
 
         homePage.openUrlInNewTab(mail.extractActivationLink());
-        UbsPage ubsPage = new UbsPage(driver);
+        BasePageUbs ubsPage = new BasePageUbs(driver);
 
         String actualAccountSubmitMessage = ubsPage.getAccountSubmitPopUpMessage();
         softAssert.assertEquals(actualAccountSubmitMessage, localizedMessages.get(expectedAccountSubmitMessage));
@@ -88,7 +88,7 @@ public class RegistrationFormTest extends FormTestRunner {
         //String actualRegistrationSuccessMessage = page.getSuccessRegisteredMessage(); doesnt work on prod
         //softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
 
-        UbsPage ubsPage = openUbsPageInNewTab(homePage);
+        BasePageUbs ubsPage = openUbsPageInNewTab(homePage);
         RegistrationComponent ubsForm = ubsPage.openRegistrationFormInHeader();
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
@@ -100,7 +100,7 @@ public class RegistrationFormTest extends FormTestRunner {
 
     @Test(dataProvider = "testRegisteredUbs", dataProviderClass = RegistrationFormTestProvider.class)
     public void testRegisteredUbs(String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword){
-        UbsPage ubsPage = openUbsPage();
+        BasePageUbs ubsPage = openUbsPage();
         RegistrationComponent ubsForm = ubsPage.openRegistrationFormInHeader();
 
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
@@ -153,7 +153,7 @@ public class RegistrationFormTest extends FormTestRunner {
         homePage.openUrlInNewTab(mail.extractActivationLink());
         greenCityForm.sleep(5);
 
-        UbsPage ubsPage = openUbsPageInNewTab(homePage);
+        BasePageUbs ubsPage = openUbsPageInNewTab(homePage);
         RegistrationComponent ubsForm = ubsPage.openRegistrationFormInHeader();
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
@@ -165,7 +165,7 @@ public class RegistrationFormTest extends FormTestRunner {
 
     @Test(dataProvider = "testUbsRegisteredWithConfirmEmail", dataProviderClass = RegistrationFormTestProvider.class)
     public void testUbsRegisteredWithConfirmEmail(String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
-        UbsPage ubsPage = openUbsPage();
+        BasePageUbs ubsPage = openUbsPage();
         RegistrationComponent ubsForm = ubsPage.openRegistrationFormInHeader();
 
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
@@ -187,19 +187,19 @@ public class RegistrationFormTest extends FormTestRunner {
 
 
 
-    private UbsPage openUbsPageInNewTab(HomePage homePage) {
+    private BasePageUbs openUbsPageInNewTab(HomePage homePage) {
         homePage.openUrlInNewTab(configProperties.getBaseUrl() + "/#/ubs");
-        return new UbsPage(driver);
+        return new BasePageUbs(driver);
     }
 
-    private HomePage openHomePageInNewTab(UbsPage ubsPage) {
+    private HomePage openHomePageInNewTab(BasePageUbs ubsPage) {
         ubsPage.openUrlInNewTab(configProperties.getBaseUrl() + "/#/greenCity");
         return new HomePage(driver);
     }
 
-    private UbsPage openUbsPage() {
+    private BasePageUbs openUbsPage() {
         driver.get(configProperties.getBaseUrl() + "/#/ubs");
-        return new UbsPage(driver).setLanguage(language);
+        return new BasePageUbs(driver).setLanguage(language);
     }
 
     private HomePage openHomePage() {

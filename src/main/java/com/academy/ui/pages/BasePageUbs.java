@@ -1,14 +1,17 @@
 package com.academy.ui.pages;
 
+import com.academy.ui.Base;
 import com.academy.ui.components.RegistrationComponent;
 import com.academy.ui.components.UbsHeaderComponent;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
 
-public class UbsPage extends BasePage {
+public class BasePageUbs extends Base {
     private final UbsHeaderComponent headerComponent;
 
-    public UbsPage(WebDriver driver) {
+    public BasePageUbs(WebDriver driver) {
         super(driver);
+        PageFactory.initElements(driver, this);
         this.headerComponent = new UbsHeaderComponent(driver, findElement(".//header[@role='banner']"));
     }
 
@@ -16,7 +19,7 @@ public class UbsPage extends BasePage {
         return headerComponent.openRegistrationForm();
     }
 
-    public UbsPage setLanguage(String language) {
+    public BasePageUbs setLanguage(String language) {
         this.headerComponent.setLanguage(language);
         return this;
     }

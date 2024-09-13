@@ -8,8 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BasePage extends Base {
-    public BasePage(WebDriver driver) {
+public class BasePageGreenCity extends Base {
+    public BasePageGreenCity(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }

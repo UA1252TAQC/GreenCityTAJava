@@ -1,12 +1,12 @@
 package com.academy.ui.components;
 
-import com.academy.ui.pages.BasePage;
+import com.academy.ui.pages.BasePageGreenCity;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class GoogleAuthComponent extends BasePage {
+public class GoogleAuthComponent extends BasePageGreenCity {
 
     @FindBy(how = How.XPATH, using = ".//*[@id=\"identifierId\"]")
     private WebElement emailInput;
