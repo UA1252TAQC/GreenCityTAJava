@@ -31,6 +31,10 @@ public class BasePageGreenCity extends Base {
         return headerComponent.clickSignInLink();
     }
 
+    public void openUrl(String url) {
+        this.driver.get(url);
+    }
+
     public String getUserNameInHeader() {
      return headerComponent.getUserName();
     }
