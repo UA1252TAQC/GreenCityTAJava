@@ -2,6 +2,8 @@ package com.academy.ui.components;
 
 import com.academy.ui.components.sub.form.EmailField;
 import com.academy.ui.components.sub.form.PasswordField;
+import com.academy.ui.pages.HomePage;
+import com.academy.ui.pages.NewsPage;
 import com.academy.ui.pages.ProfilePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -42,9 +44,9 @@ public class LoginModalComponent extends BaseComponent{
         return new ProfilePage(driver);
     }
 
-    public LoginModalComponent clickSignInButtonUnsuccessfulLogin() {
-        clickSignInButton();
-        return this;
+    public boolean clickSignInButtonUnsuccessfulLogin() {
+        return signInButton.isEnabled();
+
     }
 
 
