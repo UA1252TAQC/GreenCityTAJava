@@ -19,6 +19,10 @@ public class Base {
         this.driver = driver;
     }
 
+    public void openUrl(String url) {
+        this.driver.get(url);
+    }
+
     public Actions getActions() {
         return new Actions(driver);
     }
@@ -69,6 +73,10 @@ public class Base {
         }
 
         return element.isEnabled();
+    }
+
+    public String textOf(WebElement element) {
+            return element.getText();
     }
 
 }

@@ -27,4 +27,9 @@ public class BasePageUbs extends Base {
     public String getAccountSubmitPopUpMessage() {
         return findWithWaitElement(".//div[@class='mat-mdc-snack-bar-label mdc-snackbar__label']").getText();
     }
+
+    // Temporary dumb method to resolve compile time error. Replace with appropriate method
+    public BasePageUbs openUrlInNewTab (String string) {
+        return new BasePageUbs(driver);
+    }
 }
