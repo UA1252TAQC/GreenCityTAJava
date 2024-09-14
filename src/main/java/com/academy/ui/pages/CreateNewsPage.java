@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 public class CreateNewsPage extends BasePageGreenCity {
 
-    private static final String CLOSE_TAG_BUTTON_XPATH = "//div[contains(@class, 'global-tag')]";
+    private static final String CLOSE_TAG_BUTTON_XPATH = "//div[contains(@class, 'global-tag-close-icon')]";
 
     @FindBy(how = How.XPATH, using = "//textarea[@formcontrolname='title']")
     protected WebElement newsTitle;
