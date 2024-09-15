@@ -40,7 +40,7 @@ public class Base {
     }
 
     public WebElement findWithWaitElement(String xPath) {
-        return getWait(8).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
+        return getWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
     }
 
     public void click(WebElement element) {

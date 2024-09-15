@@ -14,7 +14,7 @@ public class NewsPage extends BasePageGreenCity {
         super(driver);
     }
 
-    public CreateNewsPage clickNews() {
+    public CreateNewsPage clickCreateNews() {
         createNewsButton.click();
         return new CreateNewsPage(driver);
     }
