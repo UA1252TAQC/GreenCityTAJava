@@ -1,7 +1,5 @@
 package com.academy.ui.runners;
 
-import com.academy.ui.data.Page;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.BeforeClass;
@@ -40,23 +38,23 @@ public class LoginFormTestRunner extends BaseTestRunner{
         driver.get(pageUrl);
     }
 
-    protected String getProfilePageUrlByUserId(String userId) {
-        return Page.PROFILE.getUrl(configProperties) + userId;
-    }
-
-    protected String getHomePageUrl() {
-        return Page.HOME.getUrl(configProperties);
-    }
-
-    protected String getNewsPageUrl() {
-        return Page.NEWS.getUrl(configProperties);
-    }
-
-    protected String getProfilePageUrl() {
-        return Page.PROFILE.getUrl(configProperties);
-    }
-
     protected String getCurrentUrl() {
         return driver.getCurrentUrl();
+    }
+
+    protected static String baseUrl() {
+        return configProperties.getBaseUrl();
+    }
+
+    protected static String getHomePageUrl() {
+        return baseUrl() + configProperties.getHomePageUrlFragment();
+    }
+
+    protected static String getNewsPageUrl() {
+        return baseUrl() + configProperties.getNewsPageUrlFragment();
+    }
+
+    protected static String getProfilePageUrl() {
+        return baseUrl() + configProperties.getProfilePageUrlFragment();
     }
 }

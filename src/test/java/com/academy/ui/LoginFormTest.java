@@ -1,6 +1,5 @@
 package com.academy.ui;
 
-import com.academy.ui.data.Page;
 import com.academy.ui.pages.NewsPage;
 import com.academy.ui.pages.ProfilePage;
 import com.academy.ui.runners.LoginFormTestRunner;
@@ -22,14 +21,16 @@ public class LoginFormTest extends LoginFormTestRunner {
                 .enterPassword(user.get("password"))
                 .clickSignInButtonSuccessfulLogin();
 
-        profilePage.sleep(1);
+        profilePage.sleep(1);   //for presentation only
+
+        String expectedUserProfilePageUrl = getProfilePageUrl()+user.get("id");
 
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(getCurrentUrl(), getProfilePageUrlByUserId(user.get("id")), "Wrong user profile page url");
+        softAssert.assertEquals(getCurrentUrl(), expectedUserProfilePageUrl, "Wrong user profile page url");
         softAssert.assertTrue(profilePage.getUserNameInHeader().startsWith(user.get("name")),"User name doesn't match.");
         softAssert.assertAll();
 
-        profilePage.sleep(3);
+        profilePage.sleep(3);   //for presentation only
     }
 
 
