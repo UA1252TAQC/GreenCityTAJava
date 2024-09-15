@@ -3,10 +3,15 @@ package com.academy.ui.components;
 import com.academy.ui.components.sub.form.EmailField;
 import com.academy.ui.components.sub.form.PasswordField;
 import com.academy.ui.pages.ProfilePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class LoginModalComponent extends BaseComponent{
 
@@ -46,8 +51,12 @@ public class LoginModalComponent extends BaseComponent{
         clickSignInButton();
         return this;
     }
-
-
-
+    public Boolean containsMessage(String message){
+        String xpath = "//*[contains(text(),'" + message + "')]";
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+        driver.findElement(By.xpath(xpath));
+        return Boolean.TRUE;
+    }
 
 }

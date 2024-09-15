@@ -21,7 +21,7 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(how = How.XPATH, using = ".//ul[@class='header_lang-switcher-wrp header_navigation-menu-right-lang']")
     protected WebElement listLanguage;
 
-    @FindBy(how = How.XPATH, using = ".//li[@tabindex='0'][@class='lang-option'][@role='menuitem']")
+    @FindBy(how = How.XPATH, using = ".//li[contains(., 'En')]")
     protected WebElement english;
 
     @FindBy(how = How.XPATH, using = ".//a[contains(@class,'header_sign-in-link')]")

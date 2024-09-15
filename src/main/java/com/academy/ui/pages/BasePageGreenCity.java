@@ -57,4 +57,8 @@ public class BasePageGreenCity extends Base {
     public String getAuthToken() {
         return getLocalStorageItem("accessToken");
     }
+    public BasePageGreenCity setLanguage(String language) {
+        this.headerComponent.setLanguage(language);
+        return this;
+    }
 }
