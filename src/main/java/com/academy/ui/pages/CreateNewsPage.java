@@ -19,11 +19,14 @@ public class CreateNewsPage extends BasePageGreenCity {
     @FindBy(how = How.XPATH, using = "//textarea[@formcontrolname='title']")
     protected WebElement newsTitle;
 
-    @FindBy(how = How.XPATH, using = "//div[@class='ql-editor ql-blank']")
+    @FindBy(xpath = "//div[@style='position: relative;']")
     protected WebElement newsContent;
 
     @FindBy(how = How.XPATH, using = "//app-tags-select//button/a")
     protected List<WebElement> tagsButton;
+
+    @FindBy(how = How.XPATH, using = "//button[contains(@class, 'secondary-global-button')]")
+    protected WebElement newsPreviewButton;
 
     public CreateNewsPage(WebDriver driver) {
         super(driver);
@@ -43,7 +46,7 @@ public class CreateNewsPage extends BasePageGreenCity {
     public CreateNewsPage fillTheNewsForm(String title, NewsTags[] tags, String content, String language) {
         newsTitle.sendKeys(title);
         selectTags(tags, language);
-        newsContent.sendKeys(content);
+        enterDescription(content);
         return this;
     }
 
@@ -95,5 +98,25 @@ public class CreateNewsPage extends BasePageGreenCity {
             }
         }
         return selectedTags;
+    }
+
+    public String getTitleText() {
+        return newsTitle.getAttribute("value");
+    }
+
+
+    public String getDescriptionText() {
+        return newsContent.getAttribute("value");
+    }
+
+    public NewsPreviewPage clickPreviewButton() {
+        click(newsPreviewButton);
+        return new NewsPreviewPage(driver);
+    }
+
+    public CreateNewsPage enterDescription(String description) {
+        WebElement quillEditor = driver.findElement(By.cssSelector(".ql-editor"));
+        quillEditor.sendKeys(description);
+        return this;
     }
 }
