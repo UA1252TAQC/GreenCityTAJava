@@ -9,15 +9,15 @@ public class ConfigProperties extends BaseProperties {
         return properties.getProperty("base.url");
     }
 
-    public String getHomeUrlFragment() {
+    public String getHomePageUrlFragment() {
         return properties.getProperty("home.url.fragment");
     }
 
-    public String getNewsPageUrl() {
+    public String getNewsPageUrlFragment() {
         return properties.getProperty("news.url.fragment");
     }
 
-    public String getProfilePageUrl() {
+    public String getProfilePageUrlFragment() {
         return properties.getProperty("profile.url.fragment");
     }
 
@@ -33,12 +33,8 @@ public class ConfigProperties extends BaseProperties {
         return properties.getProperty("registered.user.id");
     }
 
-    public String getRegisteredUserFirstName() {
-        return properties.getProperty("registered.user.firstName");
-    }
-
-    public String getRegisteredUserLastName() {
-        return properties.getProperty("registered.user.lastName");
+    public String getRegisteredUserName() {
+        return properties.getProperty("registered.user.name");
     }
 
     public String getEmailToken() {
@@ -51,5 +47,9 @@ public class ConfigProperties extends BaseProperties {
 
     public String getGooglePassword() {
         return properties.getProperty("google.password");
+    }
+
+    public String getProperty(String key) {
+        return properties.getProperty(key);
     }
 }
