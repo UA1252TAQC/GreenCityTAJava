@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -80,5 +81,19 @@ public class CreateNewsPage extends BasePageGreenCity {
             }
         }
         return null;
+    }
+
+    private boolean isTagSelected(WebElement tagButton) {
+        return tagButton.getAttribute("class").contains("global-tag-clicked");
+    }
+
+    public List<WebElement> getSelectedTags() {
+        List<WebElement> selectedTags = new ArrayList<>();
+        for (WebElement tagButton : tagsButton) {
+            if (isTagSelected(tagButton)) {
+                selectedTags.add(tagButton);
+            }
+        }
+        return selectedTags;
     }
 }
