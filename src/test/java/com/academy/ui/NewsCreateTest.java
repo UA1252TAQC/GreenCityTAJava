@@ -26,7 +26,7 @@ public class NewsCreateTest extends BaseTestRunner {
                 .fillForm(email, password)
                 .getHeaderComponent()
                 .clickNewsButton()
-                .clickCreateNews();
+                .clickNews();
         createNewsPage = new CreateNewsPage(driver);
     }
     @Test(dataProvider = "tagsListSelect", dataProviderClass = CreateNewsProvider.class)

@@ -28,7 +28,7 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(how = How.XPATH, using = ".//li[@class='header_sign-up-link']//span")
     protected WebElement register;
 
-    @FindBy(xpath = "//div[@class='header_navigation-menu-right']//img[@class='ubs-header-sing-in-img ubs-header-sing-in-img-greencity']")
+    @FindBy(how = How.XPATH, using = "//a[contains(@class, 'header_sign-in-link')]")
     public WebElement signInButton;
 
     public HeaderComponent(WebDriver driver, WebElement rootElement) {
