@@ -47,8 +47,8 @@ public class LoginFormTest extends LoginFormTestRunner {
         loginModal.sleep(1);
 
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertFalse(loginModal.clickSignInButtonUnsuccessfulLogin(),
-                "Кнопка 'Войти' должна быть неактивна при вводе только пароля.");
+        softAssert.assertFalse(loginModal.isSignInButtonActive(),
+                "The 'Login' button should be inactive when entering only the password.");
         softAssert.assertAll();
         loginModal.sleep(3);
     }
@@ -62,8 +62,8 @@ public class LoginFormTest extends LoginFormTestRunner {
         loginModal.sleep(1);
 
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertFalse(loginModal.clickSignInButtonUnsuccessfulLogin(),
-                "Кнопка 'Войти' должна быть неактивна при вводе только пароля.");
+        softAssert.assertFalse(loginModal.isSignInButtonActive(),
+                "The 'Login' button should be inactive when entering only the email.");
         softAssert.assertAll();
         loginModal.sleep(3);
     }

@@ -44,12 +44,10 @@ public class LoginModalComponent extends BaseComponent{
         return new ProfilePage(driver);
     }
 
-    public boolean clickSignInButtonUnsuccessfulLogin() {
-        return signInButton.isEnabled();
+    public boolean isSignInButtonActive() {
+        return isEnabled(signInButton);
 
     }
-
-
 
 
 }
