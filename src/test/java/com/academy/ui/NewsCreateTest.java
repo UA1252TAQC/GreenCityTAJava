@@ -3,6 +3,7 @@ package com.academy.ui;
 import com.academy.ui.constants.NewsTags;
 import com.academy.ui.pages.CreateNewsPage;
 import com.academy.ui.pages.HomePage;
+import com.academy.ui.providers.CreateNewsProvider;
 import com.academy.ui.runners.BaseTestRunner;
 import com.academy.ui.styleConstants.Colors;
 import org.testng.annotations.*;
@@ -25,14 +26,11 @@ public class NewsCreateTest extends BaseTestRunner {
                 .fillForm(email, password)
                 .getHeaderComponent()
                 .clickNewsButton()
-                .clickNews();
+                .clickCreateNews();
         createNewsPage = new CreateNewsPage(driver);
     }
-
-    @Test
-    public void selectUnSelectTags() {
-        NewsTags[] tagsList1 = {NewsTags.NEWS, NewsTags.EDUCATION, NewsTags.EVENTS};
-        NewsTags[] tagsList2 = {NewsTags.INITIATIVES, NewsTags.ADS};
+    @Test(dataProvider = "tagsListSelect", dataProviderClass = CreateNewsProvider.class)
+    public void selectUnSelectTags(NewsTags[]tagsList1, NewsTags[]tagsList2) {
         createNewsPage = new CreateNewsPage(driver);
 
         createNewsPage.selectTags(tagsList1, "en");

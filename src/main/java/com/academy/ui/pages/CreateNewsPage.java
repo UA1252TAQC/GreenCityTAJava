@@ -28,13 +28,6 @@ public class CreateNewsPage extends BasePageGreenCity {
         super(driver);
     }
 
-    public CreateNewsPage fillTheNewsForm(String title, NewsTags[] tags, String content, String language) {
-        newsTitle.sendKeys(title);
-        selectTags(tags, language);
-        newsContent.sendKeys(content);
-        return this;
-    }
-
     public CreateNewsPage selectSingleTag(NewsTags tag, String languageCode){
         String tagText = tag.getText(languageCode);
         for (WebElement tagButton : tagsButton) {
@@ -45,6 +38,14 @@ public class CreateNewsPage extends BasePageGreenCity {
         }
         return this;
     }
+
+    public CreateNewsPage fillTheNewsForm(String title, NewsTags[] tags, String content, String language) {
+        newsTitle.sendKeys(title);
+        selectTags(tags, language);
+        newsContent.sendKeys(content);
+        return this;
+    }
+
 
     public CreateNewsPage selectTags(NewsTags[] tags, String languageCode) {
         for (NewsTags tag : tags) {
