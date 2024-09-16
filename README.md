@@ -6,9 +6,9 @@ create file `src/test/resources/credentials.properties`
 ```properties
 base.url=https://base.url
 
-#Registered user, verified email
-
-
+#Registered user credentials
+user.email=
+user.password=
 user.id=
 user.name=
 
