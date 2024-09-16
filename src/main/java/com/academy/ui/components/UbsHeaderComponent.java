@@ -14,13 +14,16 @@ public class UbsHeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//li[@class='header_sign-up-link ng-star-inserted']//span")
     protected WebElement register;
 
+    @FindBy(xpath = "//app-auth-modal")
+    protected WebElement registrationRootElement;
+
     public UbsHeaderComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
     }
 
     public RegistrationModalComponent openRegistrationForm() {
         click(register);
-        return new RegistrationModalComponent(driver, findElement(".//app-auth-modal"));
+        return new RegistrationModalComponent(driver, registrationRootElement);
     }
 
     public void setLanguage(String language) {

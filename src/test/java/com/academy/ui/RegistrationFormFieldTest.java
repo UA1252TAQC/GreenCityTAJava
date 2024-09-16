@@ -3,30 +3,27 @@ package com.academy.ui;
 import com.academy.ui.components.RegistrationModalComponent;
 import com.academy.ui.pages.greenCity.HomePage;
 import com.academy.ui.providers.RegistrationFormFieldTestProvider;
-import com.academy.ui.runners.FormFieldTestRunner;
-import com.academy.utils.LocalizationUtils;
+import com.academy.ui.runners.ClassDriverRunner;
 import com.google.common.collect.ImmutableMap;
 import org.testng.annotations.*;
-import org.testng.asserts.SoftAssert;
 
-public class RegistrationFormFieldTest extends FormFieldTestRunner {
+public class RegistrationFormFieldTest extends ClassDriverRunner {
     private ImmutableMap<String, String> localizedMessages;
-    private RegistrationModalComponent form;
-    private SoftAssert softAssert;
     private HomePage page;
+    private RegistrationModalComponent form;
 
     @BeforeClass
     @Parameters({"language"})
     public void setUp(@Optional("Ua") String language) {
-        page = new HomePage(driver).setLanguage(language);
-        LocalizationUtils properties = new LocalizationUtils();
-        localizedMessages = properties.getRegistrationMessages(language);
+        driver.get(configProperties.getBaseUrl() + "/#/greenCity");
+
+        this.page = new HomePage(driver).setLanguage(language);
+        this.localizedMessages = localizationUtils.getFormMessages(language);
     }
 
     @BeforeMethod
     public void setUpMethod() {
-        form = page.openRegistrationFormInHeader();
-        softAssert = new SoftAssert();
+        form = page.getHeaderComponent().openRegistrationForm();
     }
 
     @AfterMethod

@@ -1,38 +1,45 @@
-package com.academy.ui.runners;
+package com.academy.ui.runners.base;
 
 import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.asserts.SoftAssert;
+import com.academy.utils.LocalizationUtils;
 import com.academy.utils.props.ConfigProperties;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class FormFieldTestRunner {
-    protected static final long IMPLICITLY_WAIT_DURATION = 1;
+public class DriverRunner {
+    private static final long IMPLICITLY_WAIT_DURATION = 1;
     protected ConfigProperties configProperties;
     protected WebDriver driver;
+
+    protected LocalizationUtils localizationUtils;
+    protected SoftAssert softAssert;
 
     @BeforeSuite
     public void setUpWebDriver() {
         WebDriverManager.chromedriver().setup();
-        configProperties = new ConfigProperties();
-    }
-
-    @BeforeClass
-    public void baseSetUp() {
         ChromeOptions options = new ChromeOptions();
         //options.addArguments("--headless=new");
+        options.addArguments("--disable-blink-features=AutomationControlled");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPLICITLY_WAIT_DURATION));
-        driver.get(configProperties.getBaseUrl() + "/#/greenCity");
+
+        
+        configProperties = new ConfigProperties();
+        localizationUtils = new LocalizationUtils();
     }
 
-    @AfterClass
-    public void baseTearDown(){
+    @BeforeMethod
+    public void configureParamsMethod() {
+        softAssert = new SoftAssert();
+    }
+    
+    public void closeBrowser(){
         if(driver != null) {
             driver.quit();
         }

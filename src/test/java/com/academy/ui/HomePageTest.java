@@ -15,6 +15,11 @@ public class HomePageTest extends BaseTestRunner {
 
     @Test
     public void openRegistrationFormInHeader() {
-        page.openRegistrationFormInHeader();
+        page.getHeaderComponent().openRegistrationForm();
+    }
+
+    @Test
+    public void openNewsPageInHeader() {
+        page.getHeaderComponent().openNewsPage();
     }
 }
