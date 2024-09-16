@@ -1,9 +1,12 @@
 package com.academy.ui.pages;
 
 import com.academy.ui.constants.NewsTags;
+
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -93,4 +96,29 @@ public class CreateNewsPage extends BasePageGreenCity {
         click(newsPreviewButton);
         return new NewsPreviewPage(driver);
     }
+
+    private boolean isTagSelected(WebElement tagButton) {
+        return tagButton.getAttribute("class").contains("global-tag-clicked");
+    }
+
+    public List<WebElement> getSelectedTags() {
+        List<WebElement> selectedTags = new ArrayList<>();
+        for (WebElement tagButton : tagsButton) {
+            if (isTagSelected(tagButton)) {
+                selectedTags.add(tagButton);
+            }
+        }
+        return selectedTags;
+    }
+
+    public String getTitleText() {
+        return newsTitle.getAttribute("value");
+    }
+
+
+    public String getContentText() {
+        WebElement editor = driver.findElement(By.cssSelector("quill-editor .ql-editor"));
+        return (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].innerText;", editor);
+    }
+
 }
