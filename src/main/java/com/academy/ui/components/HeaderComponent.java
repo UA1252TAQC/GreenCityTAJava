@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.academy.ui.pages.greenCity.NewsPage;
+
 public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//*[@class='header_logo']")
     protected WebElement logo;
@@ -29,13 +31,21 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//li[contains(@class, 'body-2 user-name') or contains(@class, 'body-2 ubs-user-name')]")
     protected WebElement username;
 
+    @FindBy(xpath = "//app-auth-modal")
+    protected WebElement registrationRootElement;
+
     public HeaderComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
     }
 
     public RegistrationModalComponent openRegistrationForm() {
         click(register);
-        return new RegistrationModalComponent(driver, findElement("//app-auth-modal"));
+        return new RegistrationModalComponent(driver, registrationRootElement);
+    }
+    
+    public NewsPage openNewsPage() {
+        click(news);
+        return new NewsPage(driver);
     }
 
     public void setLanguage(String language) {

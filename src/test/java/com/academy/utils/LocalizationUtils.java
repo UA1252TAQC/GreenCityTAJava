@@ -12,10 +12,10 @@ public class LocalizationUtils extends BaseJsonUtils {
         super("localization.json");
     }
 
-    public ImmutableMap<String, String> getRegistrationMessages(String language) {
+    public ImmutableMap<String, String> getFormMessages(String language) {
         Map<String, String> localizedMessages = new HashMap<>();
 
-        JsonNode formNode = rootNode.path(language).path("form");
+        JsonNode formNode = rootNode.path("form").path(language);
         formNode.fieldNames().forEachRemaining(key -> {
             JsonNode messageNode = formNode.path(key);
             if (!messageNode.isMissingNode()) {

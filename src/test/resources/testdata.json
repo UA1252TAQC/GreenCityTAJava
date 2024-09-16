@@ -63,5 +63,12 @@
 
     "testUbsRegisteredWithConfirmEmail" : [
         ["REGISTERED_POP_UP_MESSAGE", "ACCOUNT_SUBMIT_POP_UP_MESSAGE", "EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
+    ],
+
+
+
+
+    "allTagsDisplayedCorrectly": [
+        [{"buttonColor": [255, 255, 255, 1], "buttonSize": [83, 32], "text": "Новини", "textColor": [0, 0, 0, 1], "location": [555, 193]}]
     ]
 }
