@@ -7,8 +7,8 @@ create file `src/test/resources/credentials.properties`
 base.url=https://base.url
 
 #Registered user, verified email
-user.email=
-user.password=
+
+
 user.id=
 user.name=
 
