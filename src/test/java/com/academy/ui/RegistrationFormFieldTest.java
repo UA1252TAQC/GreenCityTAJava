@@ -3,11 +3,11 @@ package com.academy.ui;
 import com.academy.ui.components.RegistrationModalComponent;
 import com.academy.ui.pages.greenCity.HomePage;
 import com.academy.ui.providers.RegistrationFormFieldTestProvider;
-import com.academy.ui.runners.ClassDriverRunner;
+import com.academy.ui.runners.TestRunnerClassInitDriver;
 import com.google.common.collect.ImmutableMap;
 import org.testng.annotations.*;
 
-public class RegistrationFormFieldTest extends ClassDriverRunner {
+public class RegistrationFormFieldTest extends TestRunnerClassInitDriver {
     private ImmutableMap<String, String> localizedMessages;
     private HomePage page;
     private RegistrationModalComponent form;
@@ -15,7 +15,7 @@ public class RegistrationFormFieldTest extends ClassDriverRunner {
     @BeforeClass
     @Parameters({"language"})
     public void setUp(@Optional("Ua") String language) {
-        driver.get(configProperties.getBaseUrl() + "/#/greenCity");
+        driver.get(configProperties.getHomePageGreenCityUrl());
 
         this.page = new HomePage(driver).setLanguage(language);
         this.localizedMessages = localizationUtils.getFormMessages(language);

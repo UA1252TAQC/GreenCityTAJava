@@ -6,14 +6,14 @@ import com.academy.ui.pages.greenCity.HomePage;
 import com.academy.ui.pages.greenCity.ProfilePage;
 import com.academy.ui.pages.ubs.HomePageUbs;
 import com.academy.ui.providers.RegistrationFormTestProvider;
-import com.academy.ui.runners.MethodDriverRunner;
+import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
 import com.academy.utils.MailUtils;
 import com.academy.utils.mail.Mail;
 import com.academy.utils.mail.MailBoxCredentials;
 import com.google.common.collect.ImmutableMap;
 import org.testng.annotations.*;
 
-public class RegistrationFormTest extends MethodDriverRunner {
+public class RegistrationFormTest extends TestRunnerMethodInitDriverHomePage {
     private ImmutableMap<String, String> localizedMessages;
     private MailUtils mailUtils;
     private String language;

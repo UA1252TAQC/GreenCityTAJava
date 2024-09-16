@@ -8,6 +8,12 @@ public class ConfigProperties extends BaseProperties {
     public String getBaseUrl() {
         return properties.getProperty("base.url");
     }
+    public String getHomePageGreenCityUrl() {
+        return getBaseUrl() + "/#/greenCity";
+    }
+    public String getNewsPageGreenCityUrl() {
+        return getBaseUrl() + "/#/news";
+    }
 
     public String getEmailToken() {
         return properties.getProperty("email.token");

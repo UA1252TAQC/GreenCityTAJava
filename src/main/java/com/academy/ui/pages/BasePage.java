@@ -46,4 +46,8 @@ public class BasePage extends Base {
     public String getAuthToken() {
         return getLocalStorageItem("accessToken");
     }
+
+    protected String getCurrentUrl() {
+        return driver.getCurrentUrl();
+    }
 }

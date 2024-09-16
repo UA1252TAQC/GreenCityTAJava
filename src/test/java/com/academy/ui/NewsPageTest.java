@@ -1,12 +1,13 @@
 package com.academy.ui;
 
+import com.academy.ui.runners.TestRunnerClassInitDriver;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import com.academy.ui.components.NewsFilterComponent;
 import com.academy.ui.pages.greenCity.NewsPage;
-import com.academy.ui.runners.MethodDriverRunner;
 
-public class NewsPageTest extends MethodDriverRunner {
+public class NewsPageTest extends TestRunnerClassInitDriver {
     private NewsPage page;
     private NewsFilterComponent filter;
 
@@ -18,6 +19,16 @@ public class NewsPageTest extends MethodDriverRunner {
         this.filter = page.getFilterComponent();
     }
 
+    @BeforeClass
+    public void initDriver(){
+        super.initDriver();
+        driver.get(configProperties.getBaseUrl() + "/#/news");
+    }
+
+    @BeforeMethod()
+    public void goToNews(){
+        driver.get(configProperties.getBaseUrl() + "/#/news");
+    }
 
     @Test()
     public void allTagsDisplayedCorrectly() {
