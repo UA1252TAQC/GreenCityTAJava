@@ -28,14 +28,24 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//li[@class='header_sign-up-link']//span")
     protected WebElement register;
 
+    @FindBy(xpath = "")
+    protected WebElement userName;
+
     @FindBy(xpath = ".//li[contains(@class, 'body-2 user-name') or contains(@class, 'body-2 ubs-user-name')]")
     protected WebElement username;
+
+    @FindBy(xpath = "")
+    protected WebElement loginRootElement;
 
     @FindBy(xpath = "//app-auth-modal")
     protected WebElement registrationRootElement;
 
     public HeaderComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
+    }
+
+    public LoginModalComponent clickSignInButtonAndGetLoginForm() {
+        return new LoginModalComponent(driver, loginRootElement);
     }
 
     public RegistrationModalComponent openRegistrationForm() {
@@ -57,5 +67,9 @@ public class HeaderComponent extends BaseComponent {
 
     public String getUsername(){
         return username.getText();
+    }
+
+    public String getUserNameText(){
+        return "";
     }
 }
