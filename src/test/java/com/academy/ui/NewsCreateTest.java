@@ -69,13 +69,13 @@ public class NewsCreateTest extends BaseTestRunner {
         createNewsPage.fillTheNewsForm(title, tagNames, description, "en");
 
         String titleBefore = createNewsPage.getTitleText();
-        String descriptionBefore = createNewsPage.getDescriptionText();
+        String descriptionBefore = createNewsPage.getContentText();
         List<WebElement> selectedTagsBefore = createNewsPage.getSelectedTags();
 
         createNewsPage.clickPreviewButton().clickBackToEditing();
 
         String titleAfter = createNewsPage.getTitleText();
-        String descriptionAfter = createNewsPage.getDescriptionText();
+        String descriptionAfter = createNewsPage.getContentText();
         List<WebElement> selectedTagsAfter = createNewsPage.getSelectedTags();
 
         Assert.assertEquals(titleBefore, titleAfter);
