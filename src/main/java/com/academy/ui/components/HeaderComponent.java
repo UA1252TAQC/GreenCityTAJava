@@ -52,7 +52,7 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public NewsPage clickNewsButton() {
-        news.click();
+        click(news);
         return new NewsPage(driver);
     }
 

@@ -6,8 +6,12 @@ import com.academy.ui.pages.HomePage;
 import com.academy.ui.providers.CreateNewsProvider;
 import com.academy.ui.runners.BaseTestRunner;
 import com.academy.ui.styleConstants.Colors;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
+
+import java.util.List;
 
 public class NewsCreateTest extends BaseTestRunner {
 
@@ -59,4 +63,24 @@ public class NewsCreateTest extends BaseTestRunner {
 
         softAssert.assertAll();
     }
+
+    @Test(dataProvider = "validData", dataProviderClass = CreateNewsProvider.class)
+    public void testBackToEditing(String title, NewsTags[] tagNames, String description) {
+        createNewsPage.fillTheNewsForm(title, tagNames, description, "en");
+
+        String titleBefore = createNewsPage.getTitleText();
+        String descriptionBefore = createNewsPage.getDescriptionText();
+        List<WebElement> selectedTagsBefore = createNewsPage.getSelectedTags();
+
+        createNewsPage.clickPreviewButton().clickBackToEditing();
+
+        String titleAfter = createNewsPage.getTitleText();
+        String descriptionAfter = createNewsPage.getDescriptionText();
+        List<WebElement> selectedTagsAfter = createNewsPage.getSelectedTags();
+
+        Assert.assertEquals(titleBefore, titleAfter);
+        Assert.assertEquals(descriptionBefore, descriptionAfter);
+        Assert.assertEquals(selectedTagsBefore, selectedTagsAfter);
+    }
+
 }
