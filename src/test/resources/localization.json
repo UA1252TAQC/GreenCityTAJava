@@ -1,5 +1,5 @@
 {
-  "ua": {
+  "Ua": {
     "form": {
       "EMAIL_INVALID": "Перевірте, чи правильно вказано вашу адресу електронної пошти",
       "EMAIL_REQUIRED": "Введіть пошту",
@@ -24,7 +24,7 @@
       "ACCOUNT_SUBMIT_POP_UP_MESSAGE": "Ваша електронна адреса підтверджена."
     }
   },
-  "en": {
+  "En": {
     "form": {
       "EMAIL_INVALID": "Please check that your e-mail address is indicated correctly",
       "EMAIL_REQUIRED": "Email is required",

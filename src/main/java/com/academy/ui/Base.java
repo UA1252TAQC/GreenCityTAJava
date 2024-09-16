@@ -9,11 +9,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.NoSuchElementException;
 
 public class Base {
     protected final WebDriver driver;
-
 
     public Base(WebDriver driver) {
         this.driver = driver;
@@ -40,15 +38,15 @@ public class Base {
     }
 
     public WebElement findWithWaitElement(String xPath) {
-        return getWait(8).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
+        return getWait(5).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
+    }
+
+    public WebElement findWithWaitElement(String xPath, long seconds) {
+        return getWait(seconds).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
     }
 
     public void click(WebElement element) {
-        if (isDisplayed(element)) {
-            getActions().moveToElement(element).click().perform();
-        } else {
-            throw new NoSuchElementException("Element is not visible.");
-        }
+        getActions().moveToElement(element).click().perform();
     }
 
     public void clear(WebElement element) {

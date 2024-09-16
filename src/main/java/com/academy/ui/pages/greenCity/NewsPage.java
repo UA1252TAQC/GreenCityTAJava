@@ -1,13 +1,12 @@
-package com.academy.ui.pages;
+package com.academy.ui.pages.greenCity;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 
 public class NewsPage extends BasePageGreenCity {
 
-    @FindBy(how = How.XPATH, using = "./[@id='create-button']")
+    @FindBy(xpath = ".//*[@id='create-button']")
     protected WebElement createNewsButton;
 
     public NewsPage(WebDriver driver) {

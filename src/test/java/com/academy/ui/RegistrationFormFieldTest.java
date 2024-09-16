@@ -1,7 +1,7 @@
 package com.academy.ui;
 
 import com.academy.ui.components.RegistrationModalComponent;
-import com.academy.ui.pages.HomePage;
+import com.academy.ui.pages.greenCity.HomePage;
 import com.academy.ui.providers.RegistrationFormFieldTestProvider;
 import com.academy.ui.runners.FormFieldTestRunner;
 import com.academy.utils.LocalizationUtils;
@@ -17,7 +17,7 @@ public class RegistrationFormFieldTest extends FormFieldTestRunner {
 
     @BeforeClass
     @Parameters({"language"})
-    public void setUp(@Optional("ua") String language) {
+    public void setUp(@Optional("Ua") String language) {
         page = new HomePage(driver).setLanguage(language);
         LocalizationUtils properties = new LocalizationUtils();
         localizedMessages = properties.getRegistrationMessages(language);
@@ -70,10 +70,8 @@ public class RegistrationFormFieldTest extends FormFieldTestRunner {
         softAssert.assertAll(errorMessage);
     }
 
-    @Test(dataProvider = "testUsernameValidation",
-            dataProviderClass = RegistrationFormFieldTestProvider.class)
-    public void testUsernameValidation(boolean isExpectedValid, String expectedErrorMessage,
-            String errorMessage, String username) {
+    @Test(dataProvider = "testUsernameValidation", dataProviderClass = RegistrationFormFieldTestProvider.class)
+    public void testUsernameValidation(boolean isExpectedValid, String expectedErrorMessage, String errorMessage, String username) {
         form.enterUsername(username).clickTitle();
         boolean isActualValid = form.getUsername().isValid();
         String actualErrorMessage = form.getUsername().getErrorMessage();
@@ -84,10 +82,8 @@ public class RegistrationFormFieldTest extends FormFieldTestRunner {
         softAssert.assertAll(errorMessage);
     }
 
-    @Test(dataProvider = "testPasswordValidation",
-            dataProviderClass = RegistrationFormFieldTestProvider.class)
-    public void testPasswordValidation(boolean isExpectedValid, String expectedErrorMessage,
-            String errorMessage, String password) {
+    @Test(dataProvider = "testPasswordValidation", dataProviderClass = RegistrationFormFieldTestProvider.class)
+    public void testPasswordValidation(boolean isExpectedValid, String expectedErrorMessage, String errorMessage, String password) {
         form.enterPassword(password).clickTitle();
         boolean isActualValid = form.getPassword().isValid();
         String actualErrorMessage = form.getPassword().getErrorMessage();
@@ -98,10 +94,8 @@ public class RegistrationFormFieldTest extends FormFieldTestRunner {
         softAssert.assertAll(errorMessage);
     }
 
-    @Test(dataProvider = "testRepeatPasswordValidation",
-            dataProviderClass = RegistrationFormFieldTestProvider.class)
-    public void testRepeatPasswordValidation(boolean isExpectedValid, String expectedErrorMessage,
-            String errorMessage, String password, String repeatPassword) {
+    @Test(dataProvider = "testRepeatPasswordValidation", dataProviderClass = RegistrationFormFieldTestProvider.class)
+    public void testRepeatPasswordValidation(boolean isExpectedValid, String expectedErrorMessage, String errorMessage, String password, String repeatPassword) {
         form.enterPassword(password).enterRepeatPassword(repeatPassword).clickTitle();
         boolean isActualValid = form.getRepeatPassword().isValid();
         String actualErrorMessage = form.getRepeatPassword().getErrorMessage();
@@ -111,5 +105,4 @@ public class RegistrationFormFieldTest extends FormFieldTestRunner {
 
         softAssert.assertAll(errorMessage);
     }
-
 }

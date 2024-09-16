@@ -1,6 +1,6 @@
 package com.academy.ui;
 
-import com.academy.ui.pages.HomePage;
+import com.academy.ui.pages.greenCity.HomePage;
 import com.academy.ui.runners.BaseTestRunner;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

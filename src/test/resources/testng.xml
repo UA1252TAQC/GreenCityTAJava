@@ -1,15 +1,17 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="tests" thread-count="2">
     <test name="Registration Tests">
-        <parameter name="language" value="en"/>
+        <parameter name="language" value="En"/>
         <classes>
             <class name="com.academy.ui.RegistrationFormFieldTest"/>
+            <class name="com.academy.ui.RegistrationFormTest"/>
         </classes>
     </test>
     <test name="Registration Tests in Ukrainian">
-        <parameter name="language" value="ua"/>
+        <parameter name="language" value="Ua"/>
         <classes>
             <class name="com.academy.ui.RegistrationFormFieldTest"/>
+            <class name="com.academy.ui.RegistrationFormTest"/>
         </classes>
     </test>
 </suite>

@@ -10,8 +10,8 @@ import org.testng.annotations.BeforeSuite;
 import com.academy.utils.props.ConfigProperties;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class FormFieldTestRunner extends BaseTestRunner{
-    private static final long IMPLICITLY_WAIT_DURATION = 1;
+public class FormFieldTestRunner {
+    protected static final long IMPLICITLY_WAIT_DURATION = 1;
     protected ConfigProperties configProperties;
     protected WebDriver driver;
 
@@ -22,7 +22,6 @@ public class FormFieldTestRunner extends BaseTestRunner{
     }
 
     @BeforeClass
-    @Override
     public void baseSetUp() {
         ChromeOptions options = new ChromeOptions();
         //options.addArguments("--headless=new");
