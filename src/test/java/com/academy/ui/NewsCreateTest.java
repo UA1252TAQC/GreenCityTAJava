@@ -1,32 +1,28 @@
 package com.academy.ui;
 
 import com.academy.ui.constants.NewsTags;
-import com.academy.ui.pages.CreateNewsPage;
-import com.academy.ui.pages.HomePage;
+import com.academy.ui.pages.greenCity.CreateNewsPage;
 import com.academy.ui.providers.CreateNewsProvider;
-import com.academy.ui.runners.BaseTestRunner;
+import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
 import com.academy.ui.styleConstants.Colors;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
-public class NewsCreateTest extends BaseTestRunner {
+public class NewsCreateTest extends TestRunnerMethodInitDriverHomePage {
 
-    private HomePage homePage;
     private CreateNewsPage createNewsPage;
-    private SoftAssert softAssert;
 
     @BeforeMethod
     public void setUpPage() {
-        softAssert = new SoftAssert();
         String email = configProperties.getEmail();
         String password = configProperties.getPassword();
-        homePage = new HomePage(driver);
-        homePage.switchLanguage("en")
-                .openLoginFormInHeader()
+        page.getHeaderComponent()
+                .setLanguage("en");
+        page.getHeaderComponent()
+                .openLoginForm()
                 .fillForm(email, password)
                 .getHeaderComponent()
                 .clickNewsButton()

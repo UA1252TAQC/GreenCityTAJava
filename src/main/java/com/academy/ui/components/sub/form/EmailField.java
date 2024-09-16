@@ -4,17 +4,12 @@ import com.academy.ui.components.BaseComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 
 public class EmailField extends BaseComponent {
-    @FindBy(how = How.XPATH, using = ".//input[@id='email']")
-    protected WebElement input;
-    @FindBy(how = How.XPATH, using = ".//div[@id='email-err-msg']//div")
-    protected WebElement error;
-    @FindBy(how = How.XPATH, using = ".//div[@class='error-message error-message-show']")
-    protected WebElement dynamicError;
-    @FindBy(how = How.XPATH, using = ".//div[@class='error-message error-message-show ng-star-inserted']")
-    protected WebElement dynamicErrorUbs;
+    @FindBy(xpath = ".//input[@id='email']")
+    private WebElement input;
+    @FindBy(xpath = ".//div[contains(@class, 'error-message') or contains(@class, 'error-message-show')]")
+    private WebElement error;
 
     public EmailField(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
@@ -29,20 +24,15 @@ public class EmailField extends BaseComponent {
     }
 
     public String getErrorMessage() {
-        if (isDisplayed(dynamicError)) {
-            return dynamicError.getText();
-        }
         if (isDisplayed(error)) {
             return error.getText();
         }
-        if (isDisplayed(dynamicErrorUbs)) {
-            return dynamicErrorUbs.getText();
-        }
+
         return null;
     }
 
     public boolean isValid() {
-        return !((isDisplayed(error)) || (isDisplayed(dynamicError)));
+        return !isDisplayed(error);
     }
 
     public void clear() {

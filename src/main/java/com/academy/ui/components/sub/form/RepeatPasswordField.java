@@ -4,12 +4,11 @@ import com.academy.ui.components.BaseComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 
 public class RepeatPasswordField extends BaseComponent {
-    @FindBy(how = How.XPATH, using = ".//input[@id='repeatPassword']")
+    @FindBy(xpath = ".//input[@id='repeatPassword']")
     private WebElement input;
-    @FindBy(how = How.XPATH, using = ".//div[@id='confirm-err-msg']//div")
+    @FindBy(xpath = ".//div[@id='confirm-err-msg']//div")
     private WebElement error;
 
     public RepeatPasswordField(WebDriver driver, WebElement rootElement) {
