@@ -39,9 +39,9 @@ public class HeaderComponent extends BaseComponent {
         return new RegistrationModalComponent(driver, findElement("//app-auth-modal"));
     }
 
-    public SignInModalComponent openSignInForm() {
+    public LoginModalComponent openSignInForm() {
         click(signIn);
-        return  new SignInModalComponent(driver, findElement("//app-auth-modal"));
+        return  new LoginModalComponent(driver, findElement("//app-auth-modal"));
     }
 
     public void setLanguage(String language) {

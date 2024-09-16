@@ -2,7 +2,7 @@ package com.academy.ui.pages;
 
 import com.academy.ui.components.HeaderComponent;
 import com.academy.ui.components.RegistrationModalComponent;
-import com.academy.ui.components.SignInModalComponent;
+import com.academy.ui.components.LoginModalComponent;
 import org.openqa.selenium.WebDriver;
 
 public class HomePage extends BasePageGreenCity {
@@ -17,7 +17,7 @@ public class HomePage extends BasePageGreenCity {
         return headerComponent.openRegistrationForm();
     }
 
-    public SignInModalComponent openSignInFormInHeader() {
+    public LoginModalComponent openSignInFormInHeader() {
         return headerComponent.openSignInForm();
     }
 
