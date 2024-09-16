@@ -118,7 +118,7 @@ public class CreateNewsPage extends BasePageGreenCity {
 
     public String getContentText() {
         WebElement editor = driver.findElement(By.cssSelector("quill-editor .ql-editor"));
-        return (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].innerHTML;", editor);
+        return (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].innerText;", editor);
     }
 
 }
