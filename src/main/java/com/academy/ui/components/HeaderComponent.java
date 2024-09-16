@@ -24,6 +24,9 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(how = How.XPATH, using = ".//li[@tabindex='0'][@class='lang-option'][@role='menuitem']")
     protected WebElement english;
 
+    @FindBy(how = How.XPATH, using = ".//a[contains(@class,'header_sign-in-link')]")
+    protected WebElement signIn;
+
     @FindBy(how = How.XPATH, using = ".//li[@class='header_sign-up-link']//span")
     protected WebElement register;
 
@@ -34,6 +37,11 @@ public class HeaderComponent extends BaseComponent {
     public RegistrationModalComponent openRegistrationForm() {
         click(register);
         return new RegistrationModalComponent(driver, findElement("//app-auth-modal"));
+    }
+
+    public SignInModalComponent openSignInForm() {
+        click(signIn);
+        return  new SignInModalComponent(driver, findElement("//app-auth-modal"));
     }
 
     public void setLanguage(String language) {

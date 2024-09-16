@@ -9,6 +9,10 @@ public class ConfigProperties extends BaseProperties {
         return properties.getProperty("base.url");
     }
 
+    public String getUserEmail() {return properties.getProperty("user.email");}
+
+    public String getUserPassword() {return properties.getProperty("user.password");}
+
     public String getEmailToken() {
         return properties.getProperty("email.token");
     }

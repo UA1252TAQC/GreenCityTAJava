@@ -2,6 +2,7 @@ package com.academy.ui.pages;
 
 import com.academy.ui.components.HeaderComponent;
 import com.academy.ui.components.RegistrationModalComponent;
+import com.academy.ui.components.SignInModalComponent;
 import org.openqa.selenium.WebDriver;
 
 public class HomePage extends BasePageGreenCity {
@@ -15,6 +16,11 @@ public class HomePage extends BasePageGreenCity {
     public RegistrationModalComponent openRegistrationFormInHeader() {
         return headerComponent.openRegistrationForm();
     }
+
+    public SignInModalComponent openSignInFormInHeader() {
+        return headerComponent.openSignInForm();
+    }
+
 
     public HomePage setLanguage(String language) {
         this.headerComponent.setLanguage(language);
