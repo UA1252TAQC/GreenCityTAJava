@@ -17,4 +17,9 @@ public class LoginFormTestProvider {
     public Iterator<Object[]> verifyErrorMessageForExceedingPasswordLengthInUA(Method method) {
         return testUtils.getTestCases(method);
     }
+
+    @DataProvider(name = "verifyErrorMessageForInvalidPasswordUA")
+    public Iterator<Object[]> verifyErrorMessageForInvalidPasswordUA(Method method) {
+        return testUtils.getTestCases(method);
+    }
 }

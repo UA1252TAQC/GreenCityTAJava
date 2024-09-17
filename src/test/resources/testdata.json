@@ -69,6 +69,10 @@
         ["email@gmail.com", "passworddddddddddddddddddddddddddddddddddddddddddd", "Пароль повинен містити менше 20 символів без пробілів."]
     ],
 
+    "verifyErrorMessageForInvalidPasswordUA": [
+        ["email@gmail.com", "Password1233!", "Введено невірний email або пароль"]
+    ],
+
     "allTagsDisplayedCorrectly": [
         [{"buttonColor": [255, 255, 255, 1], "buttonSize": [83, 32], "text": "Новини", "textColor": [0, 0, 0, 1], "location": [555, 193]}]
     ]

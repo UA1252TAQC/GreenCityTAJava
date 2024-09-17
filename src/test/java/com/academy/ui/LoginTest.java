@@ -32,4 +32,18 @@ public class LoginTest extends TestRunnerMethodInitDriverHomePage {
 
         Assert.assertTrue(isDisplayed);
     }
+
+    @Test(dataProvider = "verifyErrorMessageForInvalidPasswordUA", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyErrorMessageForInvalidPasswordUA(String email, String password, String expectedErrorMessage){
+
+        String errorMessage = page.getHeaderComponent()
+                .openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickSignInButton()
+                .clickInsideForm()
+                .getPasswordField()
+                .getErrorMessage();
+        Assert.assertEquals(errorMessage, expectedErrorMessage);
+    }
 }

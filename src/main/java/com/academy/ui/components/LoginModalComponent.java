@@ -11,7 +11,7 @@ import org.openqa.selenium.support.FindBy;
 public class LoginModalComponent extends BaseComponent {
     private static final String FORGOT_PASSWORD_ROOT_ELEMENT = "//div[@class='restore-password-container']";
 
-    @FindBy(xpath = "")
+    @FindBy(xpath = ".//button[@type='submit']")
     protected WebElement signInButton;
     @FindBy(xpath = ".//img[@class='main-picture']")
     protected WebElement mainPicture;
@@ -44,6 +44,7 @@ public class LoginModalComponent extends BaseComponent {
     }
 
     public LoginModalComponent clickSignInButton() {
+        click(signInButton);
         return this;
     }
 
