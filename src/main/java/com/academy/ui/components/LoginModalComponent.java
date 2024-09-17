@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginModalComponent extends BaseComponent {
 
-    @FindBy(xpath = "")
+    @FindBy(xpath = ".//button[@class='greenStyle']")
     protected WebElement signInButton;
 
     private EmailField emailField;
@@ -17,8 +17,8 @@ public class LoginModalComponent extends BaseComponent {
 
     public LoginModalComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
-        emailField = new EmailField(driver, rootElement);
-        passwordField = new PasswordField(driver, rootElement);
+        this.emailField = new EmailField(driver, rootElement);
+        this.passwordField = new PasswordField(driver, rootElement);
     }
 
     public String getLoginErrorText() {
@@ -26,22 +26,27 @@ public class LoginModalComponent extends BaseComponent {
     }
 
     public LoginModalComponent enterEmail(String email) {
+        emailField.enter(email);
         return this;
     }
 
     public LoginModalComponent enterPassword(String password) {
+        passwordField.enter(password);
         return this;
     }
 
     public LoginModalComponent clickSignInButton() {
+        click(signInButton);
         return this;
     }
 
     public ProfilePage clickSignInButtonSuccessfulLogin() {
+        clickSignInButton();
         return new ProfilePage(driver);
     }
 
     public LoginModalComponent clickSignInButtonUnsuccessfulLogin() {
+        clickSignInButton();
         return this;
     }
 

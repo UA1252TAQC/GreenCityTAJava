@@ -1,5 +1,6 @@
 package com.academy.ui.components;
 
+import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -25,16 +26,19 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//li[@tabindex='0'][@class='lang-option']")
     protected WebElement english;
 
+    @FindBy(xpath = ".//a[contains(@class, 'header_sign-in-link')]")
+    protected WebElement signInLink;
+
     @FindBy(xpath = ".//li[@class='header_sign-up-link']//span")
     protected WebElement register;
 
-    @FindBy(xpath = "")
+    @FindBy(xpath = ".//ul[@id='header_user-wrp']/li[contains(@class, 'user-name')]")
     protected WebElement userName;
 
     @FindBy(xpath = ".//li[contains(@class, 'body-2 user-name') or contains(@class, 'body-2 ubs-user-name')]")
     protected WebElement username;
 
-    @FindBy(xpath = "")
+    @FindBy(xpath = "//app-auth-modal")
     protected WebElement loginRootElement;
 
     @FindBy(xpath = "//app-auth-modal")
@@ -44,7 +48,8 @@ public class HeaderComponent extends BaseComponent {
         super(driver, rootElement);
     }
 
-    public LoginModalComponent clickSignInButtonAndGetLoginForm() {
+    public LoginModalComponent clickSignInLink() {
+        click(signInLink);
         return new LoginModalComponent(driver, loginRootElement);
     }
 
@@ -70,6 +75,7 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public String getUserNameText(){
-        return "";
+        sleep(1);
+        return getText(userName);
     }
 }
