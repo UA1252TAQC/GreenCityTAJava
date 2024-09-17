@@ -65,8 +65,9 @@
         ["REGISTERED_POP_UP_MESSAGE", "ACCOUNT_SUBMIT_POP_UP_MESSAGE", "EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
     ],
 
-
-
+    "verifyErrorMessageForExceedingPasswordLengthInUA": [
+        ["email@gmail.com", "passworddddddddddddddddddddddddddddddddddddddddddd", "Пароль повинен містити менше 20 символів без пробілів."]
+    ],
 
     "allTagsDisplayedCorrectly": [
         [{"buttonColor": [255, 255, 255, 1], "buttonSize": [83, 32], "text": "Новини", "textColor": [0, 0, 0, 1], "location": [555, 193]}]

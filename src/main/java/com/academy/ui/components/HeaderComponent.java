@@ -16,7 +16,7 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//div[@class='header_navigation-menu']//li[2]/a")
     protected WebElement places;
 
-    @FindBy(xpath = ".//div[@class='header_navigation-menu']//li[3]/a")
+    @FindBy(xpath = ".//a[contains(@class, 'header_sign-in-link')]")
     protected WebElement profile;
 
     @FindBy(xpath = ".//ul[@aria-label='language switcher']")
@@ -34,7 +34,7 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//li[contains(@class, 'body-2 user-name') or contains(@class, 'body-2 ubs-user-name')]")
     protected WebElement username;
 
-    @FindBy(xpath = "")
+    @FindBy(xpath = ".//div[@class='wrapper']")
     protected WebElement loginRootElement;
 
     @FindBy(xpath = "//app-auth-modal")
@@ -51,6 +51,12 @@ public class HeaderComponent extends BaseComponent {
     public RegistrationModalComponent openRegistrationForm() {
         click(register);
         return new RegistrationModalComponent(driver, registrationRootElement);
+    }
+
+    public LoginModalComponent openLoginForm() {
+        click(profile);
+        loginRootElement = findWithWaitElement(".//div[@class='wrapper']");
+        return new LoginModalComponent(driver, loginRootElement);
     }
     
     public NewsPage openNewsPage() {
