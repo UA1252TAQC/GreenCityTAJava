@@ -3,17 +3,24 @@ package com.academy.ui.components;
 import com.academy.ui.components.sub.form.EmailField;
 import com.academy.ui.components.sub.form.PasswordField;
 import com.academy.ui.pages.greenCity.ProfilePage;
+import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class LoginModalComponent extends BaseComponent {
 
-    @FindBy(xpath = "")
-    protected WebElement signInButton;
+//    @FindBy(xpath = "")
+//    protected WebElement signInButton;
 
-    private EmailField emailField;
-    private PasswordField passwordField;
+    @Getter
+    @FindBy(xpath = "//button[@type='submit']")
+    private WebElement submitButton;
+
+    @Getter
+    private final EmailField emailField;
+    @Getter
+    private final PasswordField passwordField;
 
     public LoginModalComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
@@ -26,10 +33,13 @@ public class LoginModalComponent extends BaseComponent {
     }
 
     public LoginModalComponent enterEmail(String email) {
+        this.emailField.enter(email);
         return this;
     }
 
+
     public LoginModalComponent enterPassword(String password) {
+        this.passwordField.enter(password);
         return this;
     }
 
@@ -38,6 +48,8 @@ public class LoginModalComponent extends BaseComponent {
     }
 
     public ProfilePage clickSignInButtonSuccessfulLogin() {
+        click(submitButton);
+//        submitButton.click();
         return new ProfilePage(driver);
     }
 
@@ -45,5 +57,8 @@ public class LoginModalComponent extends BaseComponent {
         return this;
     }
 
-
+    public LoginModalComponent fillForm(String email, String password) {
+        enterEmail(email).enterPassword(password);
+        return this;
+    }
 }

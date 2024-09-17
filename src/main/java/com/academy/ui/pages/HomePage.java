@@ -2,6 +2,7 @@ package com.academy.ui.pages;
 
 import com.academy.ui.components.HeaderComponent;
 import com.academy.ui.components.RegistrationModalComponent;
+import com.academy.ui.pages.greenCity.BasePageGreenCity;
 import org.openqa.selenium.WebDriver;
 
 public class HomePage extends BasePageGreenCity {
@@ -9,7 +10,7 @@ public class HomePage extends BasePageGreenCity {
 
     public HomePage(WebDriver driver) {
         super(driver);
-        headerComponent = new HeaderComponent(driver, findElement(".//header[@role='banner']"));
+        headerComponent = new HeaderComponent(driver, findWithWaitElement(".//header[@role='banner']",10));
     }
 
     public RegistrationModalComponent openRegistrationFormInHeader() {
@@ -22,6 +23,6 @@ public class HomePage extends BasePageGreenCity {
     }
 
     public String getSuccessRegisteredPopUpMessage() {
-        return findWithWaitElement("//snack-bar-container//span").getText();
+        return findWithWaitElement("//snack-bar-container//span", 10).getText();
     }
 }

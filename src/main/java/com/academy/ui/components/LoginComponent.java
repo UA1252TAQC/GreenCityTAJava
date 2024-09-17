@@ -13,8 +13,8 @@ public class LoginComponent extends BaseComponent {
 
     private PasswordField passwordField;
 
-    @FindBy(xpath = "//button[@type='submit']")
     @Getter
+    @FindBy(xpath = "//button[@type='submit']")
     private WebElement submitButton;
 
     public LoginComponent(WebDriver driver, WebElement rootElement) {

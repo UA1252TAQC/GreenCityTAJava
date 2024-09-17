@@ -1,15 +1,16 @@
+
 package com.academy.ui;
 
 import com.academy.ui.constants.NewsTags;
-import com.academy.ui.pages.CreateNewsPage;
+import com.academy.ui.pages.greenCity.CreateNewsPage;
 import com.academy.ui.pages.HomePage;
-import com.academy.ui.pages.NewsPage;
-import com.academy.ui.runners.BaseTestRunner;
+import com.academy.ui.pages.greenCity.NewsPage;
+import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class NewsPreviewTest extends BaseTestRunner {
+public class NewsPreviewTest extends TestRunnerMethodInitDriverHomePage {
 
     private static final String NEWS_TITLE = "Workshop to educate your customers about eco-friendly living";
     private static final String NEWS_CONTENT = "Workshop to educate your customers about eco-friendly living";
@@ -22,26 +23,29 @@ public class NewsPreviewTest extends BaseTestRunner {
     public void setUpPage() {
         newsPage = new NewsPage(driver);
         softAssert = new SoftAssert();
-        String email = configProperties.getEmail();
-        String password = configProperties.getPassword();
+        String email = configProperties.getUserEmail();
+        String password = configProperties.getUserPassword();
         homePage = new HomePage(driver);
-        homePage.switchLanguage("en")
-            .openLoginFormInHeader()
-            .fillForm(email, password)
-            .openNewsInHeader();
+        homePage.setLanguage("en");
+        homePage.getHeaderComponent()
+                .clickSignInButtonAndGetLoginForm()
+                .fillForm(email, password)
+                .clickSignInButtonSuccessfulLogin()
+                .getHeaderComponent()
+                .clickNewsLInk();
         createNewsPage = new CreateNewsPage(driver);
     }
 
     @Test
     public void previewPageAfterPreviewButton() {
         newsPage.clickCreateNews()
-            .fillTheNewsForm(NEWS_TITLE, new NewsTags[]{NewsTags.NEWS}, NEWS_CONTENT, "en");
+                .fillTheNewsForm(NEWS_TITLE, new NewsTags[]{NewsTags.NEWS}, NEWS_CONTENT, "en");
 
         boolean isPreviewButtonEnabled = createNewsPage.newsPreviewButtonIsEnabled();
         softAssert.assertTrue(isPreviewButtonEnabled);
 
         boolean isPreviewPageDisplayed = createNewsPage.clickPreviewButton()
-            .isPreviewPageDisplayed();
+                .isPreviewPageDisplayed();
         softAssert.assertTrue(isPreviewPageDisplayed);
 
         softAssert.assertAll();

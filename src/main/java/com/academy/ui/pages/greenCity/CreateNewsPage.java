@@ -1,14 +1,17 @@
 package com.academy.ui.pages.greenCity;
 
 import com.academy.ui.constants.NewsTags;
-import com.academy.ui.pages.greenCity.BasePageGreenCity;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Getter;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-
-import java.util.List;
 
 @Getter
 public class CreateNewsPage extends BasePageGreenCity {
@@ -41,8 +44,7 @@ public class CreateNewsPage extends BasePageGreenCity {
         return this;
     }
 
-    public CreateNewsPage fillTheNewsForm(String title, NewsTags[] tags, String content,
-        String language) {
+    public CreateNewsPage fillTheNewsForm(String title, NewsTags[] tags, String content, String language) {
         newsTitle.sendKeys(title);
         selectTags(tags, language);
         newsContent.sendKeys(content);
@@ -78,7 +80,7 @@ public class CreateNewsPage extends BasePageGreenCity {
     public String getTagButtonBackgroundColor(NewsTags tag) {
         for (WebElement tagButton : tagsButton) {
             if (tagButton.getText().equalsIgnoreCase(tag.getText("en"))
-                || tagButton.getText().equalsIgnoreCase(tag.getText("ua"))) {
+                    || tagButton.getText().equalsIgnoreCase(tag.getText("ua"))) {
                 return tagButton.getCssValue("background-color");
             }
         }
@@ -89,10 +91,10 @@ public class CreateNewsPage extends BasePageGreenCity {
         return isEnabled(newsPreviewButton);
     }
 
-    public NewsPreviewPage clickPreviewButton() {
-        findWithWaitElement("//button[contains(@class, 'secondary-global-button')]");
+    public ProfilePage.NewsPreviewPage clickPreviewButton() {
+        findWithWaitElement("//button[contains(@class, 'secondary-global-button')]",10);
         click(newsPreviewButton);
-        return new NewsPreviewPage(driver);
+        return new ProfilePage.NewsPreviewPage(driver);
     }
 
     private boolean isTagSelected(WebElement tagButton) {

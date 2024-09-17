@@ -9,7 +9,9 @@ import org.openqa.selenium.support.How;
 
 public class HeaderComponent extends BaseComponent {
 
-    @FindBy(how = How.XPATH, using = "//a[contains(@class, 'header_sign-in-link')]")
+    final String NEWS_LINK_XPATH = ".//div[@class='header_navigation-menu']//li[1]/a";
+
+    @FindBy(how = How.XPATH, using = "//a[contains(@class, 'header_sign-in-link')]//following-sibling::img")
     public WebElement signInButton;
 
     @FindBy(xpath = ".//*[@class='header_logo']")
@@ -24,10 +26,10 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//div[@class='header_navigation-menu']//li[3]/a")
     protected WebElement profile;
 
-    @FindBy(xpath = ".//ul[@aria-label='language switcher']")
+    @FindBy(xpath = ".//ul[@aria-label='language switcher']//li[@aria-label='english']")
     protected WebElement listLanguage;
 
-    @FindBy(xpath = ".//li[@tabindex='0'][@class='lang-option']")
+    @FindBy(xpath = ".//span[text()='En']")
     protected WebElement english;
 
     @FindBy(xpath = ".//li[@class='header_sign-up-link']//span")
@@ -39,7 +41,7 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//li[contains(@class, 'body-2 user-name') or contains(@class, 'body-2 ubs-user-name')]")
     protected WebElement username;
 
-    @FindBy(xpath = "")
+    @FindBy(xpath = "//app-auth-modal")
     protected WebElement loginRootElement;
 
     @FindBy(xpath = "//app-auth-modal")
@@ -50,6 +52,7 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public LoginModalComponent clickSignInButtonAndGetLoginForm() {
+        click(signInButton);
         return new LoginModalComponent(driver, loginRootElement);
     }
 
@@ -58,8 +61,8 @@ public class HeaderComponent extends BaseComponent {
         return new RegistrationModalComponent(driver, registrationRootElement);
     }
 
-    public NewsPage openNewsPage() {
-        click(news);
+    public NewsPage clickNewsLInk() {
+        findWithWaitElement(NEWS_LINK_XPATH,10).click();
         return new NewsPage(driver);
     }
 
@@ -76,16 +79,6 @@ public class HeaderComponent extends BaseComponent {
 
     public String getUserNameText(){
         return "";
-    }
-
-    public LoginComponent openLoginForm() {
-        click(signInButton);
-        return new LoginComponent(driver, findElement(".//app-auth-modal"));
-    }
-
-    public NewsPage clickNewsButton() {
-        click(news);
-        return new NewsPage(driver);
     }
 
 }

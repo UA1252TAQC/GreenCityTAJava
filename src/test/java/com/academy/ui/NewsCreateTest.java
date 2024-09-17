@@ -1,40 +1,37 @@
 package com.academy.ui;
 
 import com.academy.ui.constants.NewsTags;
-import com.academy.ui.pages.CreateNewsPage;
-import com.academy.ui.pages.HomePage;
+import com.academy.ui.pages.greenCity.CreateNewsPage;
 import com.academy.ui.providers.CreateNewsProvider;
-import com.academy.ui.runners.BaseTestRunner;
+import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
 import com.academy.ui.styleConstants.Colors;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
-public class NewsCreateTest extends BaseTestRunner {
+public class NewsCreateTest extends TestRunnerMethodInitDriverHomePage {
 
-    private HomePage homePage;
     private CreateNewsPage createNewsPage;
-    private SoftAssert softAssert;
 
     @BeforeMethod
     public void setUpPage() {
-        softAssert = new SoftAssert();
-        String email = configProperties.getEmail();
-        String password = configProperties.getPassword();
-        homePage = new HomePage(driver);
-        homePage.switchLanguage("en")
-                .openLoginFormInHeader()
+        String email = configProperties.getUserEmail();
+        String password = configProperties.getUserPassword();
+        page.getHeaderComponent()
+                .setLanguage("en");
+        page.getHeaderComponent()
+                .clickSignInButtonAndGetLoginForm()
                 .fillForm(email, password)
+                .clickSignInButtonSuccessfulLogin()
                 .getHeaderComponent()
-                .clickNewsButton()
+                .clickNewsLInk()
                 .clickCreateNews();
         createNewsPage = new CreateNewsPage(driver);
     }
     @Test(dataProvider = "tagsListSelect", dataProviderClass = CreateNewsProvider.class)
-    public void selectUnSelectTags(NewsTags[]tagsList1, NewsTags[]tagsList2) {
+    public void selectUnSelectTags(NewsTags[] tagsList1, NewsTags[] tagsList2) {
         createNewsPage = new CreateNewsPage(driver);
 
         createNewsPage.selectTags(tagsList1, "en");
