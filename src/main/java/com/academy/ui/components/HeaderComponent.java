@@ -27,6 +27,9 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//li[@aria-label='En']")
     protected WebElement english;
 
+    @FindBy(xpath = ".//a[contains(@class, 'header_sign-in-link')]")
+    protected WebElement login;
+
     @FindBy(xpath = ".//li[@class='header_sign-up-link']//span")
     protected WebElement register;
 
@@ -36,7 +39,7 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//li[contains(@class, 'body-2 user-name') or contains(@class, 'body-2 ubs-user-name')]")
     protected WebElement username;
 
-    @FindBy(xpath = ".//div[@class='wrapper']")
+    @FindBy(xpath = "//app-auth-modal")
     protected WebElement loginRootElement;
 
     @FindBy(xpath = "//app-auth-modal")
@@ -47,6 +50,12 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public LoginModalComponent clickSignInButtonAndGetLoginForm() {
+
+        return new LoginModalComponent(driver, loginRootElement);
+    }
+
+    public LoginModalComponent openLoginForm() {
+        click(login);
         return new LoginModalComponent(driver, loginRootElement);
     }
 

@@ -30,7 +30,15 @@ public class LoginModalComponent extends BaseComponent {
     }
 
     public String getLoginErrorText() {
-        return "";
+        String errorMessageXpath = ".//div[contains(@class, 'alert-general-error')]";
+        if (isPresent(errorMessageXpath))
+        {
+            WebElement errorMessage = findWithWaitElement(errorMessageXpath);
+            return getText(errorMessage);
+        }
+        else{
+            return "Element not found: " + errorMessageXpath;
+        }
     }
 
     public LoginModalComponent enterEmail(String email) {
@@ -53,6 +61,7 @@ public class LoginModalComponent extends BaseComponent {
     }
 
     public LoginModalComponent clickSignInButtonUnsuccessfulLogin() {
+        clickSignInButton();
         return this;
     }
 
