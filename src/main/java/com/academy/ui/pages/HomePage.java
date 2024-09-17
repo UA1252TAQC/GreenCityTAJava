@@ -1,7 +1,6 @@
 package com.academy.ui.pages;
 
 import com.academy.ui.components.HeaderComponent;
-import com.academy.ui.components.LoginComponent;
 import com.academy.ui.components.RegistrationModalComponent;
 import org.openqa.selenium.WebDriver;
 
@@ -24,22 +23,5 @@ public class HomePage extends BasePageGreenCity {
 
     public String getSuccessRegisteredPopUpMessage() {
         return findWithWaitElement("//snack-bar-container//span").getText();
-    }
-
-    public LoginComponent openLoginFormInHeader() {
-        return headerComponent.openLoginForm();
-    }
-
-    public NewsPage openNewsInHeader() {
-        return headerComponent.clickNewsButton();
-    }
-
-    public HomePage switchLanguage(String lang) {
-        headerComponent.setLanguage(lang);
-        return this;
-    }
-
-    public HeaderComponent getHeaderComponent() {
-        return headerComponent;
     }
 }

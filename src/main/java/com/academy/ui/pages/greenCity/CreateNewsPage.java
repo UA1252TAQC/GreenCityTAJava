@@ -1,16 +1,14 @@
-package com.academy.ui.pages;
+package com.academy.ui.pages.greenCity;
 
 import com.academy.ui.constants.NewsTags;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.academy.ui.pages.greenCity.BasePageGreenCity;
 import lombok.Getter;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+
+import java.util.List;
 
 @Getter
 public class CreateNewsPage extends BasePageGreenCity {

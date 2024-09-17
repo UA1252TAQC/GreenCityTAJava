@@ -8,23 +8,22 @@ import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RegistrationModalComponent extends BaseComponent {
-    @FindBy(how = How.XPATH, using = ".//h1[@class='title-text']")
+    @FindBy(xpath = ".//h1[@class='title-text']")
     private WebElement title;
 
-    @FindBy(how = How.XPATH, using = ".//button[@type='submit']")
+    @FindBy(xpath = ".//button[@type='submit']")
     private WebElement registerButton;
-    @FindBy(how = How.XPATH, using = ".//button[@class='google-sign-in']")
+    @FindBy(xpath = ".//button[@class='google-sign-in']")
     private WebElement googleButton;
-    @FindBy(how = How.XPATH, using = ".//a[@aria-label='sign in modal window'][@class='green-link']")
+    @FindBy(xpath = ".//a[@aria-label='sign in modal window'][@class='green-link']")
     private WebElement signInLink;
 
-    @FindBy(how = How.XPATH, using = ".//img[@class='cross-btn'][@alt='close button']")
+    @FindBy(xpath = ".//img[@class='cross-btn'][@alt='close button']")
     private WebElement closeButton;
 
     @Getter
