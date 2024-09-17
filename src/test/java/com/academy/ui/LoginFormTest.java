@@ -3,6 +3,7 @@ package com.academy.ui;
 import com.academy.ui.components.ForgotPasswordModalComponent;
 import com.academy.ui.components.LoginModalComponent;
 import com.academy.ui.pages.greenCity.HomePage;
+import com.academy.ui.pages.greenCity.NewsPage;
 import com.academy.ui.providers.LoginFormTestProvider;
 import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
 import org.testng.Assert;
@@ -103,5 +104,24 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertEquals(errorMessage, expectedErrorMessage + email);
         softAssert.assertTrue(isHighlightedInRed);
         softAssert.assertAll();
+    }
+
+    @Test
+    public void testErrorForInvalidPasswordEn(){
+        String expectedMessage = "Bad email or password.";
+        this.setLanguage("En");
+        LoginModalComponent loginForm = this.openLoginForm();
+        String errorMessage = loginForm.enterEmail(configProperties.getRegisteredUserEmail())
+                .enterPassword("******************")
+                .clickSignInButton()
+                .getPasswordErrorMessage();
+        Assert.assertEquals(errorMessage, expectedMessage);
+    }
+
+    private void setLanguage(String language){
+        new HomePage(driver).setLanguage(language);
+    }
+    private LoginModalComponent openLoginForm(){
+        return new NewsPage(driver).getHeaderComponent().openLoginForm();
     }
 }
