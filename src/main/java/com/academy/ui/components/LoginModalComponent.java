@@ -19,9 +19,9 @@ public class LoginModalComponent extends BaseComponent {
     protected WebElement forgotPasswordLink;
 
     @Getter
-    private EmailField emailField;
+    private final EmailField emailField;
     @Getter
-    private PasswordField passwordField;
+    private final PasswordField passwordField;
 
     public LoginModalComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
