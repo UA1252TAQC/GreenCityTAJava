@@ -1,4 +1,4 @@
-package com.academy.ui.pages;
+package com.academy.ui.pages.greenCity;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
