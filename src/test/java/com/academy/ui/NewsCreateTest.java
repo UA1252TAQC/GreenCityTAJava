@@ -3,7 +3,7 @@ package com.academy.ui;
 import com.academy.ui.constants.NewsTags;
 import com.academy.ui.pages.greenCity.CreateNewsPage;
 import com.academy.ui.providers.CreateNewsProvider;
-import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
+import com.academy.ui.runners.TestRunnerMethodInitDriverLoginCreateNews;
 import com.academy.ui.styleConstants.Colors;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -11,25 +11,12 @@ import org.testng.annotations.*;
 
 import java.util.List;
 
-public class NewsCreateTest extends TestRunnerMethodInitDriverHomePage {
+public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
 
-    private CreateNewsPage createNewsPage;
+//    private CreateNewsPage createNewsPage;
 
-    @BeforeMethod
-    public void setUpPage() {
-        String email = configProperties.getUserEmail();
-        String password = configProperties.getUserPassword();
-        page.getHeaderComponent()
-                .setLanguage("en");
-        page.getHeaderComponent()
-                .clickSignInButtonAndGetLoginForm()
-                .fillForm(email, password)
-                .clickSignInButtonSuccessfulLogin()
-                .getHeaderComponent()
-                .clickNewsLInk()
-                .clickCreateNews();
-        createNewsPage = new CreateNewsPage(driver);
-    }
+
+
     @Test(dataProvider = "tagsListSelect", dataProviderClass = CreateNewsProvider.class)
     public void selectUnSelectTags(NewsTags[] tagsList1, NewsTags[] tagsList2) {
         createNewsPage = new CreateNewsPage(driver);
