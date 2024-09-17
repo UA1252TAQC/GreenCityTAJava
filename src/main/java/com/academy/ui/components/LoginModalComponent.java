@@ -85,4 +85,8 @@ public class LoginModalComponent extends BaseComponent {
         passwordField.clear();
         return this;
     }
+
+    public String getPasswordErrorMessage() {
+        return this.passwordField.getErrorMessage();
+    }
 }
