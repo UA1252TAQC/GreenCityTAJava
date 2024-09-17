@@ -66,4 +66,14 @@ public class LoginModalComponent extends BaseComponent {
         WebElement forgetPasswordRootElement = findWithWaitElement(FORGOT_PASSWORD_ROOT_ELEMENT);
         return new ForgotPasswordModalComponent(driver, forgetPasswordRootElement);
     }
+
+    public LoginModalComponent clearEmail() {
+        emailField.clear();
+        return this;
+    }
+
+    public LoginModalComponent clearPassword() {
+        passwordField.clear();
+        return this;
+    }
 }

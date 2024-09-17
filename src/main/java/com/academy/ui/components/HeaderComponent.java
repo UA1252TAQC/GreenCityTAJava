@@ -24,7 +24,7 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//ul[@aria-label='language switcher']")
     protected WebElement listLanguage;
 
-    @FindBy(xpath = ".//li[@tabindex='0'][@class='lang-option']")
+    @FindBy(xpath = ".//li[@aria-label='En']")
     protected WebElement english;
 
     @FindBy(xpath = ".//li[@class='header_sign-up-link']//span")
@@ -69,7 +69,7 @@ public class HeaderComponent extends BaseComponent {
     public void setLanguage(String language) {
         if (language.equalsIgnoreCase("En")) {
             click(this.listLanguage);
-            click(this.english);
+            click(english);
         }
     }
 

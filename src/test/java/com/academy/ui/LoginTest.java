@@ -46,4 +46,19 @@ public class LoginTest extends TestRunnerMethodInitDriverHomePage {
                 .getErrorMessage();
         Assert.assertEquals(errorMessage, expectedErrorMessage);
     }
+
+    @Test(dataProvider = "verifyErrorMessageForEmptyEmailAndPasswordEng", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyErrorMessageForEmptyEmailAndPasswordEng(String email, String password , String expectedErrorMessage) {
+        String errorMessage = page.setLanguage("en")
+                .getHeaderComponent()
+                .openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickInsideForm()
+                .clickSignInButton()
+                .getPasswordField()
+                .getErrorMessage();
+
+        Assert.assertEquals(errorMessage, expectedErrorMessage);
+    }
 }
