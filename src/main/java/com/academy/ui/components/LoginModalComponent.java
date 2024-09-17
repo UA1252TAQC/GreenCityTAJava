@@ -25,8 +25,8 @@ public class LoginModalComponent extends BaseComponent {
 
     public LoginModalComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
-        emailField = new EmailField(driver, rootElement);
-        passwordField = new PasswordField(driver, rootElement);
+        this.emailField = new EmailField(driver, rootElement);
+        this.passwordField = new PasswordField(driver, rootElement);
     }
 
     public String getLoginErrorText() {
@@ -42,12 +42,12 @@ public class LoginModalComponent extends BaseComponent {
     }
 
     public LoginModalComponent enterEmail(String email) {
-        this.emailField.enter(email);
+        emailField.enter(email);
         return this;
     }
 
     public LoginModalComponent enterPassword(String password) {
-        this.passwordField.enter(password);
+        passwordField.enter(password);
         return this;
     }
 
@@ -57,6 +57,7 @@ public class LoginModalComponent extends BaseComponent {
     }
 
     public ProfilePage clickSignInButtonSuccessfulLogin() {
+        clickSignInButton();
         return new ProfilePage(driver);
     }
 
@@ -67,6 +68,7 @@ public class LoginModalComponent extends BaseComponent {
 
     public LoginModalComponent clickInsideForm() {
         click(mainPicture);
+        clickSignInButton();
         return this;
     }
 

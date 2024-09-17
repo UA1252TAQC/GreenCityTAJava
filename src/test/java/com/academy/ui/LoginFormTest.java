@@ -5,9 +5,14 @@ import com.academy.ui.components.LoginModalComponent;
 import com.academy.ui.pages.greenCity.HomePage;
 import com.academy.ui.pages.greenCity.NewsPage;
 import com.academy.ui.providers.LoginFormTestProvider;
+import com.academy.ui.pages.greenCity.ProfilePage;
 import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
+import java.util.HashMap;
 
 public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     @Test(dataProvider = "emptyFields", dataProviderClass = LoginFormTestProvider.class)
@@ -23,8 +28,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyErrorMessageForExceedingPasswordLengthInUA", dataProviderClass = LoginFormTestProvider.class)
-    public void verifyErrorMessageForExceedingPasswordLengthInUA(String email, String password,
-                                                                 String expectedErrorMessage) {
+    public void verifyErrorMessageForExceedingPasswordLengthInUA(String email, String password, String expectedErrorMessage) {
 
         String errorMessage = page.getHeaderComponent()
                 .openLoginForm()
@@ -49,7 +53,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyErrorMessageForInvalidPasswordUA", dataProviderClass = LoginFormTestProvider.class)
-    public void verifyErrorMessageForInvalidPasswordUA(String email, String password, String expectedErrorMessage){
+    public void verifyErrorMessageForInvalidPasswordUA(String email, String password, String expectedErrorMessage) {
 
         String errorMessage = page.getHeaderComponent()
                 .openLoginForm()
@@ -62,32 +66,26 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         Assert.assertEquals(errorMessage, expectedErrorMessage);
     }
 
-    @Test(dataProvider = "verifyErrorMessageForEmptyEmailAndPasswordEng", dataProviderClass = LoginFormTestProvider.class)
-    public void verifyErrorMessageForEmptyEmailAndPasswordEng(String email, String password , String expectedErrorMessage) {
-        LoginModalComponent loginForm = page.setLanguage("en")
-                .getHeaderComponent()
-                .openLoginForm();
+    @Test
+    public void testErrorForInvalidPasswordEn() {
+        String expectedMessage = "Bad email or password.";
 
-        loginForm.enterEmail(email)
-                .enterPassword(password)
-                .clickInsideForm()
-                .clickSignInButton();
+        LoginModalComponent logInModalComponent = new HomePage(driver)
+                .setLanguage("En")
+                .getHeaderComponent().openLoginForm()
+                .enterEmail(configProperties.getRegisteredUserEmail())
+                .enterPassword("******************")
+                .clickSignInButtonUnsuccessfulLogin();
 
-        String errorMessage = "";
+        String errorMessage = logInModalComponent.getPasswordErrorMessage();
 
-        if (email.isEmpty()) {
-            errorMessage = loginForm.getEmailField().getErrorMessage();
-        } else if (password.isEmpty()) {
-            errorMessage = loginForm.getPasswordField().getErrorMessage();
-        }
-
-        Assert.assertEquals(errorMessage, expectedErrorMessage);
+        Assert.assertEquals(errorMessage, expectedMessage);
     }
 
     @Test(dataProvider = "verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail", dataProviderClass = LoginFormTestProvider.class)
-    public void verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail (String email, String expectedErrorMessage) {
+    public void verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail(String email, String expectedErrorMessage) {
 
-        ForgotPasswordModalComponent forgotPasswordModal= page
+        ForgotPasswordModalComponent forgotPasswordModal = page
                 .getHeaderComponent()
                 .openLoginForm()
                 .clickForgotPasswordLink();
@@ -106,22 +104,27 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-    @Test
-    public void testErrorForInvalidPasswordEn(){
-        String expectedMessage = "Bad email or password.";
-        this.setLanguage("En");
-        LoginModalComponent loginForm = this.openLoginForm();
-        String errorMessage = loginForm.enterEmail(configProperties.getRegisteredUserEmail())
-                .enterPassword("******************")
-                .clickSignInButton()
-                .getPasswordErrorMessage();
-        Assert.assertEquals(errorMessage, expectedMessage);
-    }
+    @Test(dataProvider="checkSuccessfulSignInWithValidCredentials", dataProviderClass = LoginFormTestProvider.class)
+    public void checkSuccessfulSignInWithValidCredentials(HashMap<String, String> user) {
 
-    private void setLanguage(String language){
-        new HomePage(driver).setLanguage(language);
-    }
-    private LoginModalComponent openLoginForm(){
-        return new NewsPage(driver).getHeaderComponent().openLoginForm();
+        ProfilePage profilePage = page
+                .getHeaderComponent()
+                .openLoginForm()
+                .enterEmail(user.get("email"))
+                .enterPassword(user.get("password"))
+                .clickSignInButtonSuccessfulLogin();
+
+
+        String expectedUserName = user.get("name");
+        String actualUserName = profilePage.getHeaderComponent().getUserNameText();
+        String actualUrl = profilePage.getCurrentUrl();
+        String expectedUrl = configProperties.getProfilePageGreenCityUrl() + "/" + user.get("id");
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(actualUrl, expectedUrl, "Wrong user profile page url");
+        softAssert.assertEquals(actualUserName, expectedUserName,"User name doesn't match.");
+        softAssert.assertAll();
+
+        //profilePage.sleep(3);   //for presentation only
     }
 }

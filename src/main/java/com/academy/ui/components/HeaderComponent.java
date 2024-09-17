@@ -7,7 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import com.academy.ui.pages.greenCity.NewsPage;
 
 public class HeaderComponent extends BaseComponent {
-
     @FindBy(xpath = ".//*[@class='header_logo']")
     protected WebElement logo;
 
@@ -32,7 +31,7 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//li[@class='header_sign-up-link']//span")
     protected WebElement register;
 
-    @FindBy(xpath = "")
+    @FindBy(xpath = ".//ul[@id='header_user-wrp']/li[contains(@class, 'user-name')]")
     protected WebElement userName;
 
     @FindBy(xpath = ".//li[contains(@class, 'body-2 user-name') or contains(@class, 'body-2 ubs-user-name')]")
@@ -63,7 +62,6 @@ public class HeaderComponent extends BaseComponent {
         return new RegistrationModalComponent(driver, registrationRootElement);
     }
 
-    
     public NewsPage openNewsPage() {
         click(news);
         return new NewsPage(driver);
@@ -81,6 +79,7 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public String getUserNameText(){
-        return "";
+        sleep(1);
+        return getText(userName);
     }
 }
