@@ -27,4 +27,9 @@ public class LoginFormTestProvider {
     public Iterator<Object[]> verifyErrorMessageForEmptyEmailAndPasswordEng(Method method) {
         return testUtils.getTestCases(method);
     }
+
+    @DataProvider(name = "verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail")
+    public Iterator<Object[]> verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail(Method method) {
+        return testUtils.getTestCases(method);
+    }
 }

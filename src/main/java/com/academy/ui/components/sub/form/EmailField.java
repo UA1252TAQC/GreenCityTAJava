@@ -8,10 +8,9 @@ import org.openqa.selenium.support.FindBy;
 public class EmailField extends BaseComponent {
     @FindBy(xpath = ".//input[@id='email']")
     private WebElement input;
-    @FindBy(xpath = ".//div[contains(@class, 'error-message') or contains(@class, 'error-message-show')]")
+    @FindBy(xpath = ".//div[contains(@class, 'error-message') or contains(@class, 'error-message-show')" +
+            "or contains(@class, 'alert-general-error') or contains(@class, 'validation-email-error')]")
     private WebElement error;
-    @FindBy(xpath = ".//div[contains(@class, 'alert-general-error')]")
-    private WebElement invalidCredentialsError;
 
     public EmailField(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
@@ -28,10 +27,13 @@ public class EmailField extends BaseComponent {
     public String getErrorMessage() {
         if (isDisplayed(error)) {
             return error.getText();
-        } else if(isDisplayed(invalidCredentialsError)){
-            return invalidCredentialsError.getText();
         }
         return null;
+    }
+
+    public boolean isHighlightedInRed() {
+        String borderColor = input.getCssValue("border-color");
+        return borderColor.equals("rgb(240, 49, 39)");
     }
 
     public boolean isValid() {

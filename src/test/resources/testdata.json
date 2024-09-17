@@ -74,7 +74,12 @@
     ],
 
     "verifyErrorMessageForEmptyEmailAndPasswordEng": [
-        ["email@gmail.com", "", "Password is required"]
+        ["email@gmail.com", "", "Password is required"],
+        ["", "Password124!", "Email is required"]
+    ],
+
+    "verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail": [
+        ["invalidemail@gmail.com", "Користувач не існує за цією електронною адресою: "]
     ],
 
     "allTagsDisplayedCorrectly": [
