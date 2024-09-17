@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 
 public class BasePageGreenCity extends BasePage {
 
-
     public BasePageGreenCity(WebDriver driver) {
         super(driver);
     }
@@ -15,13 +14,4 @@ public class BasePageGreenCity extends BasePage {
     public HeaderComponent getHeaderComponent() {
         return new HeaderComponent(driver, headerRootElement);
     }
-
-    public LoginModalComponent clickSignInLinkAndGetLoginForm() {
-        return getHeaderComponent().clickSignInLink();
-    }
-
-
-
-
-
 }

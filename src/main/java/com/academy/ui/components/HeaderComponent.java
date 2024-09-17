@@ -1,6 +1,5 @@
 package com.academy.ui.components;
 
-import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,17 +16,17 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//div[@class='header_navigation-menu']//li[2]/a")
     protected WebElement places;
 
-    @FindBy(xpath = ".//div[@class='header_navigation-menu']//li[3]/a")
+    @FindBy(xpath = "")
     protected WebElement profile;
 
     @FindBy(xpath = ".//ul[@aria-label='language switcher']")
     protected WebElement listLanguage;
 
-    @FindBy(xpath = ".//li[@tabindex='0'][@class='lang-option']")
+    @FindBy(xpath = ".//li[@aria-label='En']")
     protected WebElement english;
 
     @FindBy(xpath = ".//a[contains(@class, 'header_sign-in-link')]")
-    protected WebElement signInLink;
+    protected WebElement login;
 
     @FindBy(xpath = ".//li[@class='header_sign-up-link']//span")
     protected WebElement register;
@@ -48,8 +47,13 @@ public class HeaderComponent extends BaseComponent {
         super(driver, rootElement);
     }
 
-    public LoginModalComponent clickSignInLink() {
-        click(signInLink);
+    public LoginModalComponent clickSignInButtonAndGetLoginForm() {
+
+        return new LoginModalComponent(driver, loginRootElement);
+    }
+
+    public LoginModalComponent openLoginForm() {
+        click(login);
         return new LoginModalComponent(driver, loginRootElement);
     }
 
@@ -57,7 +61,7 @@ public class HeaderComponent extends BaseComponent {
         click(register);
         return new RegistrationModalComponent(driver, registrationRootElement);
     }
-    
+
     public NewsPage openNewsPage() {
         click(news);
         return new NewsPage(driver);
@@ -66,7 +70,7 @@ public class HeaderComponent extends BaseComponent {
     public void setLanguage(String language) {
         if (language.equalsIgnoreCase("En")) {
             click(this.listLanguage);
-            click(this.english);
+            click(english);
         }
     }
 

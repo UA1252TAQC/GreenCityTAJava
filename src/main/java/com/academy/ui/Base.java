@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class Base {
     protected final WebDriver driver;
@@ -93,6 +94,12 @@ public class Base {
         }
 
         return element.isEnabled();
+    }
+
+    public  boolean isPresent(String xPath)
+    {
+        List<WebElement> element = driver.findElements(By.xpath(xPath));
+        return !element.isEmpty();
     }
 
 }

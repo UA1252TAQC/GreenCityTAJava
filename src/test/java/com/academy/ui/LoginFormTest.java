@@ -1,7 +1,13 @@
 package com.academy.ui;
 
+import com.academy.ui.components.ForgotPasswordModalComponent;
+import com.academy.ui.components.LoginModalComponent;
+import com.academy.ui.pages.greenCity.HomePage;
+import com.academy.ui.pages.greenCity.NewsPage;
+import com.academy.ui.providers.LoginFormTestProvider;
 import com.academy.ui.pages.greenCity.ProfilePage;
 import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -9,24 +15,101 @@ import org.testng.asserts.SoftAssert;
 import java.util.HashMap;
 
 public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
+    @Test(dataProvider = "emptyFields", dataProviderClass = LoginFormTestProvider.class)
+    public void testErrorForEmptyFields(String language, String email, String password, String expected) {
+        LoginModalComponent logInModalComponent = new HomePage(driver)
+                .setLanguage(language)
+                .getHeaderComponent().openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickSignInButtonUnsuccessfulLogin();
 
-    @DataProvider(name = "checkSuccessfulSignInWithValidCredentials")
-    public Object[][] validUserDataProvider() {
-        HashMap<String, String> validUserData = new <String, String>HashMap();
-        validUserData.put("email", configProperties.getUserEmail());
-        validUserData.put("password", configProperties.getUserPassword());
-        validUserData.put("id", configProperties.getUserId());
-        validUserData.put("name", configProperties.getUserName());
-        return new Object[][]{
-                {validUserData}
-        };
+        Assert.assertEquals(logInModalComponent.getLoginErrorText(), expected);
     }
 
-    @Test(dataProvider="checkSuccessfulSignInWithValidCredentials")
+    @Test(dataProvider = "verifyErrorMessageForExceedingPasswordLengthInUA", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyErrorMessageForExceedingPasswordLengthInUA(String email, String password, String expectedErrorMessage) {
+
+        String errorMessage = page.getHeaderComponent()
+                .openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickInsideForm()
+                .getPasswordField()
+                .getErrorMessage();
+
+        Assert.assertEquals(errorMessage, expectedErrorMessage);
+    }
+
+    @Test
+    public void verifyOpeningForgotPasswordFormAfterClick() {
+
+        boolean isDisplayed = page.getHeaderComponent()
+                .openLoginForm()
+                .clickForgotPasswordLink()
+                .isForgotPasswordWindowDisplayed();
+
+        Assert.assertTrue(isDisplayed);
+    }
+
+    @Test(dataProvider = "verifyErrorMessageForInvalidPasswordUA", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyErrorMessageForInvalidPasswordUA(String email, String password, String expectedErrorMessage) {
+
+        String errorMessage = page.getHeaderComponent()
+                .openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickSignInButton()
+                .clickInsideForm()
+                .getPasswordField()
+                .getErrorMessage();
+        Assert.assertEquals(errorMessage, expectedErrorMessage);
+    }
+
+    @Test
+    public void testErrorForInvalidPasswordEn() {
+        String expectedMessage = "Bad email or password.";
+
+        LoginModalComponent logInModalComponent = new HomePage(driver)
+                .setLanguage("En")
+                .getHeaderComponent().openLoginForm()
+                .enterEmail(configProperties.getRegisteredUserEmail())
+                .enterPassword("******************")
+                .clickSignInButtonUnsuccessfulLogin();
+
+        String errorMessage = logInModalComponent.getPasswordErrorMessage();
+
+        Assert.assertEquals(errorMessage, expectedMessage);
+    }
+
+    @Test(dataProvider = "verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail(String email, String expectedErrorMessage) {
+
+        ForgotPasswordModalComponent forgotPasswordModal = page
+                .getHeaderComponent()
+                .openLoginForm()
+                .clickForgotPasswordLink();
+
+        String errorMessage = forgotPasswordModal.enterEmail(email)
+                .clickSignInButton()
+                .getEmailField()
+                .getErrorMessage();
+
+        boolean isHighlightedInRed = forgotPasswordModal
+                .getEmailField()
+                .isHighlightedInRed();
+
+        softAssert.assertEquals(errorMessage, expectedErrorMessage + email);
+        softAssert.assertTrue(isHighlightedInRed);
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider="checkSuccessfulSignInWithValidCredentials", dataProviderClass = LoginFormTestProvider.class)
     public void checkSuccessfulSignInWithValidCredentials(HashMap<String, String> user) {
 
         ProfilePage profilePage = page
-                .clickSignInLinkAndGetLoginForm()
+                .getHeaderComponent()
+                .openLoginForm()
                 .enterEmail(user.get("email"))
                 .enterPassword(user.get("password"))
                 .clickSignInButtonSuccessfulLogin();
@@ -42,8 +125,6 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertEquals(actualUserName, expectedUserName,"User name doesn't match.");
         softAssert.assertAll();
 
-        profilePage.sleep(3);   //for presentation only
-
+        //profilePage.sleep(3);   //for presentation only
     }
-
 }
