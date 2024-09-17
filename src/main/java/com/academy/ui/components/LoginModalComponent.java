@@ -9,11 +9,11 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginModalComponent extends BaseComponent {
 
-    @FindBy(xpath = "")
+    @FindBy(xpath = ".//button[@type='submit']")
     protected WebElement signInButton;
 
-    private EmailField emailField;
-    private PasswordField passwordField;
+    private final EmailField emailField;
+    private final PasswordField passwordField;
 
     public LoginModalComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
@@ -22,18 +22,30 @@ public class LoginModalComponent extends BaseComponent {
     }
 
     public String getLoginErrorText() {
-        return "";
+        String errorMessageXpath = ".//div[contains(@class, 'alert-general-error')]";
+        if (isPresent(errorMessageXpath))
+        {
+            WebElement errorMessage = findWithWaitElement(errorMessageXpath);
+            return getText(errorMessage);
+        }
+        else{
+            return "Element not found: " + errorMessageXpath;
+        }
     }
 
     public LoginModalComponent enterEmail(String email) {
+        this.emailField.enter(email);
         return this;
     }
 
     public LoginModalComponent enterPassword(String password) {
+        this.passwordField.enter(password);
         return this;
     }
 
     public LoginModalComponent clickSignInButton() {
+        click(signInButton);
+        sleep(1);
         return this;
     }
 
@@ -42,6 +54,7 @@ public class LoginModalComponent extends BaseComponent {
     }
 
     public LoginModalComponent clickSignInButtonUnsuccessfulLogin() {
+        clickSignInButton();
         return this;
     }
 
