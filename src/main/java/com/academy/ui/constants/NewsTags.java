@@ -19,7 +19,7 @@ public enum NewsTags {
 
     public String getText(String languageCode) {
         switch (languageCode) {
-            case "ua":
+            case "uk":
                 return ukrainianText;
             case "en":
             default:

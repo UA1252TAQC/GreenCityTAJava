@@ -8,12 +8,6 @@ public class ConfigProperties extends BaseProperties {
     public String getBaseUrl() {
         return properties.getProperty("base.url");
     }
-    public String getHomePageGreenCityUrl() {
-        return getBaseUrl() + "/#/greenCity";
-    }
-    public String getNewsPageGreenCityUrl() {
-        return getBaseUrl() + "/#/news";
-    }
 
     public String getEmailToken() {
         return properties.getProperty("email.token");
@@ -27,11 +21,11 @@ public class ConfigProperties extends BaseProperties {
         return properties.getProperty("google.password");
     }
 
-    public String getGoogleName() {
-        return properties.getProperty("google.name");
+    public String getEmail() {
+        return properties.getProperty("valid.email");
     }
 
-    public String getEmail() { return properties.getProperty("valid.email"); }
-
-    public String getPassword() { return properties.getProperty("valid.password"); }
+    public String getPassword() {
+        return properties.getProperty("valid.password");
+    }
 }

@@ -1,9 +1,7 @@
 package com.academy.ui;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -21,11 +19,11 @@ public class Base {
         this.driver = driver;
     }
 
-    protected Actions getActions() {
+    public Actions getActions() {
         return new Actions(driver);
     }
 
-    protected WebDriverWait getWait(long seconds) {
+    public WebDriverWait getWait(long seconds) {
         return new WebDriverWait(driver, Duration.ofSeconds(seconds));
     }
 
@@ -37,41 +35,20 @@ public class Base {
         }
     }
 
-    public String getText(WebElement element) {
-        return element.getText();
+    public WebElement findElement(String xPath) {
+        return driver.findElement(By.xpath(xPath));
     }
 
-    public String getCssValue(WebElement element, String property) {
-        if (isDisplayed(element)) {
-            return element.getCssValue(property);
-        }
-
-        return null;
-    }
-
-    public Dimension getSize(WebElement element) {
-        if (isDisplayed(element)) {
-            return element.getSize();
-        }
-
-        return null;
-    }
-
-    public Point getLocation(WebElement element) {
-        if (isDisplayed(element)) {
-            return element.getLocation();
-        }
-
-        return null;
-    }
-
-
-    public WebElement findWithWaitElement(String xPath, long seconds) {
-        return getWait(seconds).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
+    public WebElement findWithWaitElement(String xPath) {
+        return getWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
     }
 
     public void click(WebElement element) {
-        getActions().moveToElement(element).click().perform();
+        if (isDisplayed(element)) {
+            getActions().moveToElement(element).click().perform();
+        } else {
+            throw new NoSuchElementException("Element is not visible.");
+        }
     }
 
     public void clear(WebElement element) {

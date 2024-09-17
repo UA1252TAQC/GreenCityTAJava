@@ -1,22 +1,23 @@
 package com.academy.ui.components;
 
-import com.academy.ui.pages.greenCity.BasePageGreenCity;
+import com.academy.ui.pages.BasePageGreenCity;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 
 public class GoogleAuthComponent extends BasePageGreenCity {
 
-    @FindBy(xpath = ".//*[@id='identifierId']")
+    @FindBy(how = How.XPATH, using = ".//*[@id=\"identifierId\"]")
     private WebElement emailInput;
 
-    @FindBy(xpath = ".//*[@id='identifierNext']/div/button")
+    @FindBy(how = How.XPATH, using = ".//*[@id=\"identifierNext\"]/div/button")
     private WebElement emailNextButton;
 
-    @FindBy(xpath = ".//*[@id='password']/div[1]/div/div[1]/input")
+    @FindBy(how = How.XPATH, using = ".//*[@id=\"password\"]/div[1]/div/div[1]/input")
     private WebElement passwordInput;
 
-    @FindBy(xpath = ".//*[@id='passwordNext']/div/button")
+    @FindBy(how = How.XPATH, using = ".//*[@id=\"passwordNext\"]/div/button")
     private WebElement passwordNextButton;
 
     public GoogleAuthComponent(WebDriver driver) {
@@ -39,8 +40,16 @@ public class GoogleAuthComponent extends BasePageGreenCity {
         return this;
     }
 
-    public void clickPasswordSubmitButton() {
+    public GoogleAuthComponent clickPasswordSubmitButton() {
         click(passwordNextButton);
         sleep(1);
+        return this;
     }
+
+    public void signInWithGoogle(String email, String password) {
+        enterEmail(email);
+        enterPassword(password);
+    }
+
+
 }

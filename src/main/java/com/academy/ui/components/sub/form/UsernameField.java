@@ -4,11 +4,12 @@ import com.academy.ui.components.BaseComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 
 public class UsernameField extends BaseComponent {
-    @FindBy(xpath = ".//input[@id='firstName']")
+    @FindBy(how = How.XPATH, using = ".//input[@id='firstName']")
     private WebElement input;
-    @FindBy(xpath = ".//div[@id='firstname-err-msg']//div")
+    @FindBy(how = How.XPATH, using = ".//div[@id='firstname-err-msg']//div")
     private WebElement error;
 
     public UsernameField(WebDriver driver, WebElement rootElement) {

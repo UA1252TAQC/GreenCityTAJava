@@ -1,11 +1,9 @@
-package com.academy.ui.pages.greenCity;
+package com.academy.ui.pages;
 
 import com.academy.ui.constants.NewsTags;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.academy.ui.pages.greenCity.BasePageGreenCity;
 import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -94,7 +92,7 @@ public class CreateNewsPage extends BasePageGreenCity {
     }
 
     public NewsPreviewPage clickPreviewButton() {
-        findWithWaitElement("//button[contains(@class, 'secondary-global-button')]",10);
+        findWithWaitElement("//button[contains(@class, 'secondary-global-button')]");
         click(newsPreviewButton);
         return new NewsPreviewPage(driver);
     }

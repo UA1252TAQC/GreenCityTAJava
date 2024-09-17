@@ -13,10 +13,18 @@ public class MailUtils {
 	}
 
 	public MailBoxCredentials createNewMailCredentials() {
-		return mailHttpClient.createInbox();
+		try {
+			return mailHttpClient.createInbox();
+		} catch (Exception e) {
+			throw new RuntimeException("Error while creating new inbox: " + e.getMessage());
+		}
 	}
 
 	public Mail getLastEmail(String inboxId) {
-		return mailHttpClient.getLastMail(inboxId, TIMEOUT_MILLIS);
+		try {
+			return mailHttpClient.getLastMail(inboxId, TIMEOUT_MILLIS);
+		} catch (Exception e) {
+			throw new RuntimeException("Error while retrieving last email: " + e.getMessage());
+		}
 	}
 }

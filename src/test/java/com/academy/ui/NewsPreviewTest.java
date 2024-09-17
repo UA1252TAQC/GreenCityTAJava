@@ -1,35 +1,34 @@
 package com.academy.ui;
 
 import com.academy.ui.constants.NewsTags;
-import com.academy.ui.pages.greenCity.CreateNewsPage;
-import com.academy.ui.pages.greenCity.HomePage;
-import com.academy.ui.pages.greenCity.NewsPage;
-import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
+import com.academy.ui.pages.CreateNewsPage;
+import com.academy.ui.pages.HomePage;
+import com.academy.ui.pages.NewsPage;
+import com.academy.ui.runners.BaseTestRunner;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class NewsPreviewTest extends TestRunnerMethodInitDriverHomePage {
+public class NewsPreviewTest extends BaseTestRunner {
 
     private static final String NEWS_TITLE = "Workshop to educate your customers about eco-friendly living";
     private static final String NEWS_CONTENT = "Workshop to educate your customers about eco-friendly living";
+    private HomePage homePage;
     private CreateNewsPage createNewsPage;
+    private SoftAssert softAssert;
     private NewsPage newsPage;
 
     @BeforeMethod
     public void setUpPage() {
         newsPage = new NewsPage(driver);
+        softAssert = new SoftAssert();
         String email = configProperties.getEmail();
         String password = configProperties.getPassword();
-        page = new HomePage(driver);
-        page.getHeaderComponent()
-                .setLanguage("en");
-        page.getHeaderComponent()
-                .openLoginForm()
-                .fillForm(email, password)
-                .getHeaderComponent()
-                .clickNewsButton();
-
+        homePage = new HomePage(driver);
+        homePage.switchLanguage("en")
+            .openLoginFormInHeader()
+            .fillForm(email, password)
+            .openNewsInHeader();
         createNewsPage = new CreateNewsPage(driver);
     }
 

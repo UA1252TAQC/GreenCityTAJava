@@ -2,7 +2,7 @@ package com.academy.ui.components;
 
 import com.academy.ui.components.sub.form.EmailField;
 import com.academy.ui.components.sub.form.PasswordField;
-import com.academy.ui.pages.greenCity.HomePage;
+import com.academy.ui.pages.HomePage;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

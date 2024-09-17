@@ -39,36 +39,30 @@
     ],
 
     "testPopUpSignUpValidation": [
-        ["REGISTERED_POP_UP_MESSAGE", "ACCOUNT_SUBMIT_POP_UP_MESSAGE", "GENERATE_TEMPORARY_EMAIL", "TestUser", "Password1!", "Password1!"]
+        ["REGISTERED_POP_UP_MESSAGE", "ACCOUNT_SUBMIT_POP_UP_MESSAGE","GENERATE_TEMPORARY_EMAIL", "TestUser", "Password1!", "Password1!"]
     ],
 
     "testGoogleSignUp": [
-        ["EXTRACT_GOOGLE_EMAIL","EXTRACT_GOOGLE_PASSWORD","EXTRACT_GOOGLE_NAME"]
+        ["EXTRACT_GOOGLE_EMAIL","EXTRACT_GOOGLE_PASSWORD"]
+    ],
+
+    "testRegisteredGreenCity" : [
+        ["EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","Sakldsan","Solandkad12*","Solandkad12*"]
+    ],
+
+    "testRegisteredUbs" : [
+        ["EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
     ],
 
     "testEmailAlreadyExists" : [
         ["REGISTERED_POP_UP_MESSAGE","EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
     ],
 
-    "testRegisteredGreenCity" : [
-        ["REGISTERED_POP_UP_MESSAGE","EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
-    ],
-    "testRegisteredUbs" : [
-        ["REGISTERED_POP_UP_MESSAGE","EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
-    ],
-
     "testGreenCityRegisteredWithConfirmEmail" : [
-        ["REGISTERED_POP_UP_MESSAGE", "ACCOUNT_SUBMIT_POP_UP_MESSAGE", "EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
+            ["EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
     ],
 
     "testUbsRegisteredWithConfirmEmail" : [
-        ["REGISTERED_POP_UP_MESSAGE", "ACCOUNT_SUBMIT_POP_UP_MESSAGE", "EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
-    ],
-
-
-
-
-    "allTagsDisplayedCorrectly": [
-        [{"buttonColor": [255, 255, 255, 1], "buttonSize": [83, 32], "text": "Новини", "textColor": [0, 0, 0, 1], "location": [555, 193]}]
+        ["EMAIL_ALREADY_EXIST","GENERATE_TEMPORARY_EMAIL","UserName","Password1!","Password1!"]
     ]
 }
