@@ -13,10 +13,6 @@ import java.util.List;
 
 public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
 
-//    private CreateNewsPage createNewsPage;
-
-
-
     @Test(dataProvider = "tagsListSelect", dataProviderClass = CreateNewsProvider.class)
     public void selectUnSelectTags(NewsTags[] tagsList1, NewsTags[] tagsList2) {
         createNewsPage = new CreateNewsPage(driver);
