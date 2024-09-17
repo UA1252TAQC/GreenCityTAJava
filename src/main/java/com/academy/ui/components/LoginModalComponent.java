@@ -9,9 +9,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class LoginModalComponent extends BaseComponent {
+    private static final String FORGOT_PASSWORD_ROOT_ELEMENT = "//div[@class='restore-password-container']";
 
     @FindBy(xpath = ".//button[@type='submit']")
     protected WebElement signInButton;
+    @FindBy(xpath = ".//img[@class='main-picture']")
+    protected WebElement mainPicture;
+    @FindBy(xpath = ".//a[@class='forgot-password']")
+    protected WebElement forgotPasswordLink;
 
     @Getter
     private EmailField emailField;
@@ -60,5 +65,24 @@ public class LoginModalComponent extends BaseComponent {
         return this;
     }
 
+    public LoginModalComponent clickInsideForm() {
+        click(mainPicture);
+        return this;
+    }
 
+    public ForgotPasswordModalComponent clickForgotPasswordLink(){
+        click(forgotPasswordLink);
+        WebElement forgetPasswordRootElement = findWithWaitElement(FORGOT_PASSWORD_ROOT_ELEMENT);
+        return new ForgotPasswordModalComponent(driver, forgetPasswordRootElement);
+    }
+
+    public LoginModalComponent clearEmail() {
+        emailField.clear();
+        return this;
+    }
+
+    public LoginModalComponent clearPassword() {
+        passwordField.clear();
+        return this;
+    }
 }

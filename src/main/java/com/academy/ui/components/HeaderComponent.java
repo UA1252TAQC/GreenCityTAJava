@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import com.academy.ui.pages.greenCity.NewsPage;
 
 public class HeaderComponent extends BaseComponent {
+    private static final String LOGIN_ROOT_XPATH = ".//div[@class='wrapper']";
+
     @FindBy(xpath = ".//*[@class='header_logo']")
     protected WebElement logo;
 
@@ -16,13 +18,13 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//div[@class='header_navigation-menu']//li[2]/a")
     protected WebElement places;
 
-    @FindBy(xpath = ".//div[@class='header_navigation-menu']//li[3]/a")
+    @FindBy(xpath = ".//a[contains(@class, 'header_sign-in-link')]")
     protected WebElement profile;
 
     @FindBy(xpath = ".//ul[@aria-label='language switcher']")
     protected WebElement listLanguage;
 
-    @FindBy(xpath = ".//li[@tabindex='0'][@class='lang-option']")
+    @FindBy(xpath = ".//li[@aria-label='En']")
     protected WebElement english;
 
     @FindBy(xpath = ".//a[contains(@class, 'header_sign-in-link')]")
@@ -61,6 +63,12 @@ public class HeaderComponent extends BaseComponent {
         click(register);
         return new RegistrationModalComponent(driver, registrationRootElement);
     }
+
+    public LoginModalComponent openLoginForm() {
+        click(profile);
+        loginRootElement = findWithWaitElement(LOGIN_ROOT_XPATH);
+        return new LoginModalComponent(driver, loginRootElement);
+    }
     
     public NewsPage openNewsPage() {
         click(news);
@@ -70,7 +78,7 @@ public class HeaderComponent extends BaseComponent {
     public void setLanguage(String language) {
         if (language.equalsIgnoreCase("En")) {
             click(this.listLanguage);
-            click(this.english);
+            click(english);
         }
     }
 

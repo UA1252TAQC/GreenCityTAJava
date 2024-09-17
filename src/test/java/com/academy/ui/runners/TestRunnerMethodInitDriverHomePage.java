@@ -9,7 +9,6 @@ import java.util.List;
 public class TestRunnerMethodInitDriverHomePage extends BaseTestRunner {
     protected HomePage page;
 
-
     @BeforeMethod
     public void initDriver(){
         initChromeDriver(List.of());
