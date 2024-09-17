@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import com.academy.ui.pages.greenCity.NewsPage;
 
 public class HeaderComponent extends BaseComponent {
+    private static final String LOGIN_ROOT_XPATH = ".//div[@class='wrapper']";
+
     @FindBy(xpath = ".//*[@class='header_logo']")
     protected WebElement logo;
 
@@ -55,7 +57,7 @@ public class HeaderComponent extends BaseComponent {
 
     public LoginModalComponent openLoginForm() {
         click(profile);
-        loginRootElement = findWithWaitElement(".//div[@class='wrapper']");
+        loginRootElement = findWithWaitElement(LOGIN_ROOT_XPATH);
         return new LoginModalComponent(driver, loginRootElement);
     }
     

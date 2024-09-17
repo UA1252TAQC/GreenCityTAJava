@@ -21,4 +21,15 @@ public class LoginTest extends TestRunnerMethodInitDriverHomePage {
 
         Assert.assertEquals(errorMessage, expectedErrorMessage);
     }
+
+    @Test
+    public void verifyOpeningForgotPasswordFormAfterClick() {
+
+        boolean isDisplayed = page.getHeaderComponent()
+                .openLoginForm()
+                .clickForgotPasswordLink()
+                .isForgotPasswordWindowDisplayed();
+
+        Assert.assertTrue(isDisplayed);
+    }
 }
