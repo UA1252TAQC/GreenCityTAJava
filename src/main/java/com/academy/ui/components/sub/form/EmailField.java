@@ -10,6 +10,8 @@ public class EmailField extends BaseComponent {
     private WebElement input;
     @FindBy(xpath = ".//div[contains(@class, 'error-message') or contains(@class, 'error-message-show')]")
     private WebElement error;
+    @FindBy(xpath = ".//div[contains(@class, 'alert-general-error')]")
+    private WebElement invalidCredentialsError;
 
     public EmailField(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
@@ -26,8 +28,9 @@ public class EmailField extends BaseComponent {
     public String getErrorMessage() {
         if (isDisplayed(error)) {
             return error.getText();
+        } else if(isDisplayed(invalidCredentialsError)){
+            return invalidCredentialsError.getText();
         }
-
         return null;
     }
 

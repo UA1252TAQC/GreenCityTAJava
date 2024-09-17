@@ -22,4 +22,9 @@ public class LoginFormTestProvider {
     public Iterator<Object[]> verifyErrorMessageForInvalidPasswordUA(Method method) {
         return testUtils.getTestCases(method);
     }
+
+    @DataProvider(name = "verifyErrorMessageForEmptyEmailAndPasswordEng")
+    public Iterator<Object[]> verifyErrorMessageForEmptyEmailAndPasswordEng(Method method) {
+        return testUtils.getTestCases(method);
+    }
 }
