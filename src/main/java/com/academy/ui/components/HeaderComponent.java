@@ -3,11 +3,10 @@ package com.academy.ui.components;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
 import com.academy.ui.pages.greenCity.NewsPage;
 
 public class HeaderComponent extends BaseComponent {
-    @FindBy(xpath = "//a[contains(@class, 'header_sign-in-link')]//following-sibling::img")
+    @FindBy(xpath = "//a[contains(@class, 'header_sign-in-link')]")
     public WebElement signInButton;
 
     @FindBy(xpath = ".//*[@class='header_logo']")
@@ -22,10 +21,10 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//div[@class='header_navigation-menu']//li[3]/a")
     protected WebElement profile;
 
-    @FindBy(xpath = ".//ul[@aria-label='language switcher']")
+    @FindBy(xpath = ".//ul[@aria-label='language switcher']//li[@aria-label='english']")
     protected WebElement listLanguage;
 
-    @FindBy(xpath = ".//li[@tabindex='0'][@class='lang-option']")
+    @FindBy(xpath = ".//span[text()='En']")
     protected WebElement english;
 
     @FindBy(xpath = ".//li[@class='header_sign-up-link']//span")
