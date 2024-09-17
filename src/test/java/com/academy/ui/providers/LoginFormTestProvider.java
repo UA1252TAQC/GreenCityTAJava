@@ -57,4 +57,18 @@ public class LoginFormTestProvider {
                 {validUserData}
         };
     }
+
+    @DataProvider(name = "checkSignInButtonRemainedInactivePassword")
+    public Object[][] FieldsDataProviderPassword() {
+        return new Object[][] {
+                {"password", configProperties.getRegisteredUserPassword()},
+        };
+    }
+
+    @DataProvider(name = "checkInSignInButtonRemainedInactiveEmail")
+    public Object[][] FieldsDataProviderEmail() {
+        return new Object[][] {
+                {"email", configProperties.getRegisteredUserPassword()},
+        };
+    }
 }
