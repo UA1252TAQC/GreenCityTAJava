@@ -5,7 +5,6 @@ import com.academy.utils.props.ConfigProperties;
 import org.testng.annotations.DataProvider;
 
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Iterator;
 
 public class LoginFormTestProvider {
@@ -50,7 +49,7 @@ public class LoginFormTestProvider {
     public Object[][] checkSuccessfulSignInDataProvider() {
         return new Object[][] {
                 {configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword(),
-                configProperties.getUserName(), configProperties.getUserId()}
+                configProperties.getRegisteredUserName(), configProperties.getRegisteredUserId()}
 
         };
     }
