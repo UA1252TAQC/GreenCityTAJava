@@ -1,11 +1,9 @@
 package com.academy.ui.components;
 
-import com.academy.ui.components.sub.ForgotPasswordModalComponent;
 import com.academy.ui.components.sub.form.EmailField;
 import com.academy.ui.components.sub.form.PasswordField;
 import com.academy.ui.pages.greenCity.ProfilePage;
 import lombok.Getter;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
