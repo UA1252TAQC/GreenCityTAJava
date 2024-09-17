@@ -1,0 +1,24 @@
+package com.academy.ui;
+
+import com.academy.ui.providers.LoginFormTestProvider;
+import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+public class LoginTest extends TestRunnerMethodInitDriverHomePage {
+
+    @Test(dataProvider = "verifyErrorMessageForExceedingPasswordLengthInUA", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyErrorMessageForExceedingPasswordLengthInUA(String email, String password,
+                                                                 String expectedErrorMessage) {
+
+        String errorMessage = page.getHeaderComponent()
+                .openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickInsideForm()
+                .getPasswordField()
+                .getErrorMessage();
+
+        Assert.assertEquals(errorMessage, expectedErrorMessage);
+    }
+}
