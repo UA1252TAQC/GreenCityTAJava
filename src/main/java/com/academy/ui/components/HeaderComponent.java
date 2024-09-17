@@ -5,13 +5,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.academy.ui.pages.greenCity.NewsPage;
-import org.openqa.selenium.support.How;
 
 public class HeaderComponent extends BaseComponent {
 
     final String NEWS_LINK_XPATH = ".//div[@class='header_navigation-menu']//li[1]/a";
 
-    @FindBy(how = How.XPATH, using = "//a[contains(@class, 'header_sign-in-link')]//following-sibling::img")
+    @FindBy(xpath  = "//a[contains(@class, 'header_sign-in-link')]")
     public WebElement signInButton;
 
     @FindBy(xpath = ".//*[@class='header_logo']")
@@ -62,7 +61,8 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public NewsPage clickNewsLInk() {
-        findWithWaitElement(NEWS_LINK_XPATH,10).click();
+        click(news);
+//        findWithWaitElement(NEWS_LINK_XPATH,10).click();
         return new NewsPage(driver);
     }
 

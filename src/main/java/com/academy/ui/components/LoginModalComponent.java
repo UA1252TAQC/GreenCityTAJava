@@ -10,8 +10,8 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginModalComponent extends BaseComponent {
 
-//    @FindBy(xpath = "")
-//    protected WebElement signInButton;
+    @FindBy(xpath = "")
+    protected WebElement signInButton;
 
     @Getter
     @FindBy(xpath = "//button[@type='submit']")
@@ -49,7 +49,6 @@ public class LoginModalComponent extends BaseComponent {
 
     public ProfilePage clickSignInButtonSuccessfulLogin() {
         click(submitButton);
-//        submitButton.click();
         return new ProfilePage(driver);
     }
 

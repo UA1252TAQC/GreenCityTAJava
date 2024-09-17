@@ -14,6 +14,6 @@ public class HomePageTest extends TestRunnerMethodInitDriverHomePage {
 
     @Test
     public void openNewsPageInHeader() {
-        page.getHeaderComponent().openNewsPage();
+        page.getHeaderComponent().clickNewsLInk();
     }
 }
