@@ -69,7 +69,7 @@ public class RegistrationFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "testRegisteredGreenCity", dataProviderClass = RegistrationFormTestProvider.class)
-    public void testRegisteredGreenCity(String expectedRegistrationSuccessMessage, String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword){
+    public void testRegisteredGreenCity(String expectedRegistrationSuccessMessage, String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
         HomePage homePage = openHomePage();
         var homeForm = homePage.getHeaderComponent().openRegistrationForm();
 
@@ -89,7 +89,7 @@ public class RegistrationFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "testRegisteredUbs", dataProviderClass = RegistrationFormTestProvider.class)
-    public void testRegisteredUbs(String expectedRegistrationSuccessMessage, String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword){
+    public void testRegisteredUbs(String expectedRegistrationSuccessMessage, String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
         HomePageUbs ubsPage = openUbsPage();
         var ubsForm = ubsPage.openRegistrationFormInHeader();
 
@@ -110,8 +110,8 @@ public class RegistrationFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-    @Test (dataProvider = "testEmailAlreadyExists" , dataProviderClass = RegistrationFormTestProvider.class)
-    public void testEmailAlreadyExists(String expectedRegistrationSuccessMessage, String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword){
+    @Test(dataProvider = "testEmailAlreadyExists", dataProviderClass = RegistrationFormTestProvider.class)
+    public void testEmailAlreadyExists(String expectedRegistrationSuccessMessage, String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
         HomePage homePage = openHomePage();
         var homeForm = homePage.getHeaderComponent().openRegistrationForm();
 
@@ -182,7 +182,6 @@ public class RegistrationFormTest extends TestRunnerMethodInitDriverHomePage {
 
         softAssert.assertAll();
     }
-
 
 
     private HomePageUbs openUbsPageInNewTab(HomePage homePage) {

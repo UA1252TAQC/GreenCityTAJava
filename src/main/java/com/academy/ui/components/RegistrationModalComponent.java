@@ -12,7 +12,6 @@ import org.openqa.selenium.support.FindBy;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class RegistrationModalComponent extends BaseComponent {
     @FindBy(xpath = ".//h1[@class='title-text']")
     private WebElement title;
