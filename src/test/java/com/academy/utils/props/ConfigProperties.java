@@ -27,12 +27,12 @@ public class ConfigProperties extends BaseProperties {
         return properties.getProperty("registered.user.password");
     }
 
-    public String getUserId() {
-        return properties.getProperty("user.id");
+    public String getRegisteredUserId() {
+        return properties.getProperty("registered.user.id");
     }
 
-    public String getUserName() {
-        return properties.getProperty("user.name");
+    public String getRegisteredUserName() {
+        return properties.getProperty("registered.user.name");
     }
 
     public String getEmailToken() {

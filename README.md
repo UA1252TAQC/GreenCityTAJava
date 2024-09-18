@@ -7,10 +7,10 @@ create file `src/test/resources/credentials.properties`
 base.url=https://base.url
 
 #Registered user credentials
-user.email=
-user.password=
-user.id=
-user.name=
+registered.user.email=
+registered.user.password=
+registered.user.id=
+registered.user.name=
 
 #Generating on https://mailslurp.com/login
 email.token=

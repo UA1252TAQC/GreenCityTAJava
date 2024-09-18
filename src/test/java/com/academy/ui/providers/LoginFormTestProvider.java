@@ -5,7 +5,6 @@ import com.academy.utils.props.ConfigProperties;
 import org.testng.annotations.DataProvider;
 
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Iterator;
 
 public class LoginFormTestProvider {
@@ -46,15 +45,12 @@ public class LoginFormTestProvider {
         };
     }
 
-    @DataProvider(name = "checkSuccessfulSignInWithValidCredentials")
-    public Object[][] validUserDataProvider() {
-        HashMap<String, String> validUserData = new <String, String>HashMap();
-        validUserData.put("email", configProperties.getRegisteredUserEmail());
-        validUserData.put("password", configProperties.getRegisteredUserPassword());
-        validUserData.put("id", configProperties.getUserId());
-        validUserData.put("name", configProperties.getUserName());
-        return new Object[][]{
-                {validUserData}
+    @DataProvider(name = "checkSuccessfulSignInDataProvider")
+    public Object[][] checkSuccessfulSignInDataProvider() {
+        return new Object[][] {
+                {configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword(),
+                configProperties.getRegisteredUserName(), configProperties.getRegisteredUserId()}
+
         };
     }
 }

@@ -104,25 +104,23 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-    @Test(dataProvider="checkSuccessfulSignInWithValidCredentials", dataProviderClass = LoginFormTestProvider.class)
-    public void checkSuccessfulSignInWithValidCredentials(HashMap<String, String> user) {
+    @Test(dataProvider="checkSuccessfulSignInDataProvider", dataProviderClass = LoginFormTestProvider.class)
+    public void checkSuccessfulSignIn(String email, String password, String name, String id) {
 
         ProfilePage profilePage = page
                 .getHeaderComponent()
                 .openLoginForm()
-                .enterEmail(user.get("email"))
-                .enterPassword(user.get("password"))
+                .enterEmail(email)
+                .enterPassword(password)
                 .clickSignInButtonSuccessfulLogin();
 
-
-        String expectedUserName = user.get("name");
         String actualUserName = profilePage.getHeaderComponent().getUserNameText();
         String actualUrl = profilePage.getCurrentUrl();
-        String expectedUrl = configProperties.getProfilePageGreenCityUrl() + "/" + user.get("id");
+        String expectedUrl = configProperties.getProfilePageGreenCityUrl() + "/" + id;
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(actualUrl, expectedUrl, "Wrong user profile page url");
-        softAssert.assertEquals(actualUserName, expectedUserName,"User name doesn't match.");
+        softAssert.assertEquals(actualUserName, name,"User name doesn't match.");
         softAssert.assertAll();
 
         //profilePage.sleep(3);   //for presentation only
