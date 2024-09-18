@@ -91,10 +91,10 @@ public class CreateNewsPage extends BasePageGreenCity {
         return isEnabled(newsPreviewButton);
     }
 
-    public ProfilePage.NewsPreviewPage clickPreviewButton() {
+    public NewsPreviewPage clickPreviewButton() {
         findWithWaitElement("//button[contains(@class, 'secondary-global-button')]",10);
         click(newsPreviewButton);
-        return new ProfilePage.NewsPreviewPage(driver);
+        return new NewsPreviewPage(driver);
     }
 
     private boolean isTagSelected(WebElement tagButton) {
