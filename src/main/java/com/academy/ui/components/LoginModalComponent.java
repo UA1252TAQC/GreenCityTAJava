@@ -17,6 +17,8 @@ public class LoginModalComponent extends BaseComponent {
     protected WebElement mainPicture;
     @FindBy(xpath = ".//a[@class='forgot-password']")
     protected WebElement forgotPasswordLink;
+    @FindBy(xpath = "//*[@id=\"pass-err-msg\"]/app-error/div")
+    private WebElement errorMessageElement;
 
     @Getter
     private final EmailField emailField;
@@ -98,4 +100,13 @@ public class LoginModalComponent extends BaseComponent {
         enterEmail(email).enterPassword(password);
         return this;
     }
+
+    public boolean isErrorMessageDisplayed() {
+        return errorMessageElement.isDisplayed();
+    }
+
+    public String getErrorMessageText() {
+        return errorMessageElement.getText();
+    }
+
 }
