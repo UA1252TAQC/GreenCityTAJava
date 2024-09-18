@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class RegistrationModalComponent extends BaseComponent {
     @FindBy(xpath = ".//h1[@class='title-text']")
     private WebElement title;
@@ -100,7 +99,7 @@ public class RegistrationModalComponent extends BaseComponent {
     }
 
     private static final String[] VALID_DATA =
-            new String[] {"mail@gmail.com", "Denys1", "Password1!", "Password1!"};
+            new String[]{"mail@gmail.com", "Denys1", "Password1!", "Password1!"};
 
     public void fillFormWithTestDataAndSubmitIf(boolean isShouldSubmitForm, String email, String username, String password, String repeatPassword) {
         if (isShouldSubmitForm) { // TODO move to data-provider & refactor

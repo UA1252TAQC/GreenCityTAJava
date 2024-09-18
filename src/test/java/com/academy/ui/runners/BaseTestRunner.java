@@ -6,7 +6,6 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
@@ -46,14 +45,14 @@ public class BaseTestRunner {
     }
 
     @AfterSuite(alwaysRun = true)
-    public void baseTearDown(){
+    public void baseTearDown() {
         closeBrowser();
     }
 
     public void initChromeDriver(List<String> chromeOptions) {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        for(String option : chromeOptions){
+        for (String option : chromeOptions) {
             options.addArguments(option);
         }
         driver = new ChromeDriver(options);
@@ -61,8 +60,8 @@ public class BaseTestRunner {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPLICITLY_WAIT_DURATION));
     }
 
-    public void closeBrowser(){
-        if(driver != null) {
+    public void closeBrowser() {
+        if (driver != null) {
             driver.quit();
         }
     }

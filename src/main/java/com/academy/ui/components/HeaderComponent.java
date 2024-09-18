@@ -1,10 +1,9 @@
 package com.academy.ui.components;
 
+import com.academy.ui.pages.greenCity.NewsPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
-import com.academy.ui.pages.greenCity.NewsPage;
 
 public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//*[@class='header_logo']")
@@ -71,7 +70,7 @@ public class HeaderComponent extends BaseComponent {
         }
     }
 
-    public String getUserNameText(){
+    public String getUserNameText() {
         sleep(1);
         return getText(userName);
     }

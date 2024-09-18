@@ -13,7 +13,7 @@ public class ForgotPasswordModalComponent extends BaseComponent {
     protected WebElement signInButton;
 
     @Getter
-    private EmailField emailField;
+    private final EmailField emailField;
 
     public ForgotPasswordModalComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);

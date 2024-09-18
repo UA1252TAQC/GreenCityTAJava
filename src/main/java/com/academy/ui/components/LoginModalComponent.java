@@ -31,12 +31,10 @@ public class LoginModalComponent extends BaseComponent {
 
     public String getLoginErrorText() {
         String errorMessageXpath = ".//div[contains(@class, 'alert-general-error')]";
-        if (isPresent(errorMessageXpath))
-        {
+        if (isPresent(errorMessageXpath)) {
             WebElement errorMessage = findWithWaitElement(errorMessageXpath);
             return getText(errorMessage);
-        }
-        else{
+        } else {
             return "Element not found: " + errorMessageXpath;
         }
     }
@@ -72,7 +70,7 @@ public class LoginModalComponent extends BaseComponent {
         return this;
     }
 
-    public ForgotPasswordModalComponent clickForgotPasswordLink(){
+    public ForgotPasswordModalComponent clickForgotPasswordLink() {
         click(forgotPasswordLink);
         WebElement forgetPasswordRootElement = findWithWaitElement(FORGOT_PASSWORD_ROOT_ELEMENT);
         return new ForgotPasswordModalComponent(driver, forgetPasswordRootElement);

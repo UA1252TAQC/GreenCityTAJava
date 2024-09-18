@@ -1,16 +1,16 @@
 package com.academy.ui.components;
 
+import com.academy.ui.components.sub.news.FilterTag;
+import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import com.academy.ui.components.sub.news.FilterTag;
-import lombok.Getter;
 
 public class NewsFilterComponent extends BaseComponent {
     public NewsFilterComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
     }
-    
+
     @Getter
     @FindBy(xpath = ".//span[@class='filter']")
     private WebElement title;
@@ -33,7 +33,7 @@ public class NewsFilterComponent extends BaseComponent {
     public FilterTag getNewsTag() {
         return new FilterTag(driver, newsRootElement);
     }
-    
+
     public FilterTag getEventsTag() {
         return new FilterTag(driver, eventsRootElement);
     }
