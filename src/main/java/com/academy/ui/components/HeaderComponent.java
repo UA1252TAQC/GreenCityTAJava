@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class HeaderComponent extends BaseComponent {
 
-    final String NEWS_LINK_XPATH = ".//div[@class='header_navigation-menu']//li[1]/a";
+    final String NAME_PROFILE = "//p[@class='name']";
 
     @FindBy(xpath = ".//*[@class='header_logo']")
     protected WebElement logo;
@@ -57,6 +57,7 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public NewsPage clickNewsLInk() {
+        findWithWaitElement(NAME_PROFILE, 10);
         click(news);
         return new NewsPage(driver);
     }

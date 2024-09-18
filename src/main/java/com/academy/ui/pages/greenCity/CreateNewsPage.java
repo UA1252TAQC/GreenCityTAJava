@@ -1,10 +1,8 @@
 package com.academy.ui.pages.greenCity;
 
 import com.academy.ui.constants.NewsTags;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -98,6 +96,16 @@ public class CreateNewsPage extends BasePageGreenCity {
         return isEnabled(newsPreviewButton);
     }
 
+    public boolean newsPublishButtonIsEnabled() {
+        return isEnabled(newsPublishButton);
+    }
+
+    public NewsPage clickPublishButton() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", newsPublishButton);
+        return new NewsPage(driver);
+    }
+
     public NewsPreviewPage clickPreviewButton() {
         findWithWaitElement("//button[contains(@class, 'secondary-global-button')]",10);
         click(newsPreviewButton);
@@ -126,12 +134,6 @@ public class CreateNewsPage extends BasePageGreenCity {
     public String getContentText() {
         WebElement editor = driver.findElement(By.cssSelector("quill-editor .ql-editor"));
         return (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].innerText;", editor);
-    }
-
-    public NewsPage clickPublishButton(){
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].click();", newsPublishButton);
-        return new NewsPage(driver);
     }
 
 }
