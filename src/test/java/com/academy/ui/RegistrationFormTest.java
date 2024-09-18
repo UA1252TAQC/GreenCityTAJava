@@ -1,16 +1,28 @@
 package com.academy.ui;
 
 import com.academy.ui.components.GoogleAuthComponent;
+import com.academy.ui.components.LoginModalComponent;
 import com.academy.ui.components.RegistrationModalComponent;
 import com.academy.ui.pages.greenCity.HomePage;
 import com.academy.ui.pages.greenCity.ProfilePage;
 import com.academy.ui.pages.ubs.HomePageUbs;
 import com.academy.ui.providers.RegistrationFormTestProvider;
 import com.academy.ui.runners.TestRunnerRegistrationForm;
+import com.academy.utils.jwt.JwtPayload;
 import com.academy.utils.mail.Mail;
 import com.academy.utils.mail.MailBoxCredentials;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lombok.extern.slf4j.Slf4j;
+
+import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.util.Base64;
+import java.util.Date;
+
 import org.testng.annotations.Test;
 
+@Slf4j
 public class RegistrationFormTest extends TestRunnerRegistrationForm {
 
     @Test(dataProvider = "testPopUpSignUpValidation", dataProviderClass = RegistrationFormTestProvider.class)
@@ -31,8 +43,33 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
         String actualAccountSubmitMessage = ubsPage.getPopUpMessage();
         softAssert.assertEquals(actualAccountSubmitMessage, localizedMessages.get(expectedAccountSubmitMessage));
 
-        // TODO add login page & parse jwt & add 24 hours validation check
+        LoginModalComponent loginForm = ubsPage.getHeaderComponent().getCurrentLoginForm();
+        ProfilePage profilePage = loginForm.fillForm(mailBox.getAddress(), password).clickSignInButtonSuccessfulLogin();
+
+        JwtPayload jwtPayload = parseJwt(profilePage.getAuthToken());
+        softAssert.assertTrue(jwtPayload.getIat().plus(Duration.ofHours(24)) == jwtPayload.getExp());
+
         softAssert.assertAll();
+    }
+
+    private JwtPayload parseJwt(String token) {
+        if (token == null) {
+            return null;
+        }
+
+        String[] parts = token.split("\\.");
+        
+        String payload = parts[1];
+        
+        byte[] decodedBytes = Base64.getUrlDecoder().decode(payload);
+        String decodedPayload = new String(decodedBytes, StandardCharsets.UTF_8);
+        
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.readValue(decodedPayload, JwtPayload.class);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     @Test(dataProvider = "testGoogleSignUp", dataProviderClass = RegistrationFormTestProvider.class)

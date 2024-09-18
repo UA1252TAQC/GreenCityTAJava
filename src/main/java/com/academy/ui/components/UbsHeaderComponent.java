@@ -18,15 +18,19 @@ public class UbsHeaderComponent extends BaseComponent {
     protected WebElement register;
 
     @FindBy(xpath = "//app-auth-modal")
-    protected WebElement registrationRootElement;
+    protected WebElement authRootElement;
 
     public UbsHeaderComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
     }
 
+    public LoginModalComponent getCurrentLoginForm() {
+        return new LoginModalComponent(driver, rootElement);
+    }
+
     public RegistrationModalComponent openRegistrationForm() {
         click(register);
-        return new RegistrationModalComponent(driver, registrationRootElement);
+        return new RegistrationModalComponent(driver, authRootElement);
     }
 
     public void setLanguage(String language) {

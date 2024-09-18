@@ -32,37 +32,8 @@ public class FilterTag extends BaseComponent {
         return isDisplayed(this.text);
     }
 
-    public Map<String, String> getAllCss() { //TODO move to base?
-        String script =
-                "var s = '';" +
-                        "var o = getComputedStyle(arguments[0]);" +
-                        "for(var i = 0; i < o.length; i++) {" +
-                        "s+=o[i] + ':' + o.getPropertyValue(o[i])+';'; " +
-                        "}" +
-                        "return s;";
-
-        String cssString = ((JavascriptExecutor) driver).executeScript(script, button).toString();
-        Map<String, String> map = new HashMap<>();
-
-        String[] pairs = cssString.split(";");
-
-        for (String pair : pairs) {
-            if (pair.isEmpty()) {
-                continue;
-            }
-
-            String[] keyValue = pair.split(":");
-
-            if (keyValue.length == 2) {
-                map.put(keyValue[0], keyValue[1]);
-            }
-        }
-
-        return map;
-    }
-
     public ButtonState getState() {
-        return ButtonState.builder() //each property should be to compare?
+        return ButtonState.builder()
                 .buttonColor(button.getCssValue("background-color"))
                 .buttonSize(button.getSize())
                 .text(getText(text))
