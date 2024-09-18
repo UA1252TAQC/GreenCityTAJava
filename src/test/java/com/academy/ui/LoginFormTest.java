@@ -199,4 +199,19 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
+    @Test(dataProvider = "checkSignInBtnBecomesGreenByValidCredsDataProvider", dataProviderClass = LoginFormTestProvider.class)
+    public void checkSignInBtnBecomesGreenByValidCreds(String email, String password) {
+        LoginModalComponent logInModalComponent = page.getHeaderComponent()
+                .openLoginForm();
+        softAssert.assertFalse(logInModalComponent.isSignInButtonActive());
+        logInModalComponent
+                .enterEmail(email)
+                .enterPassword(password);
+        softAssert.assertTrue(logInModalComponent.isSignInButtonActive());
+        softAssert.assertTrue(logInModalComponent.isHighlightedSignInBtnGreen());
+        softAssert.assertAll();
+    }
+
+
+
 }
