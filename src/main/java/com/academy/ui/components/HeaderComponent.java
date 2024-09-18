@@ -1,10 +1,9 @@
 package com.academy.ui.components;
 
+import com.academy.ui.pages.greenCity.NewsPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
-import com.academy.ui.pages.greenCity.NewsPage;
 
 public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//*[@class='header_logo']")
@@ -22,14 +21,20 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//ul[@aria-label='language switcher']")
     protected WebElement listLanguage;
 
-    @FindBy(xpath = ".//li[@tabindex='0'][@class='lang-option']")
+    @FindBy(xpath = ".//li[@aria-label='En']")
     protected WebElement english;
+
+    @FindBy(xpath = ".//a[contains(@class, 'header_sign-in-link')]")
+    protected WebElement login;
 
     @FindBy(xpath = ".//li[@class='header_sign-up-link']//span")
     protected WebElement register;
 
-    @FindBy(xpath = ".//li[contains(@class, 'body-2 user-name') or contains(@class, 'body-2 ubs-user-name')]")
-    protected WebElement username;
+    @FindBy(xpath = ".//ul[@id='header_user-wrp']/li[contains(@class, 'user-name')]")
+    protected WebElement userName;
+
+    @FindBy(xpath = "//app-auth-modal")
+    protected WebElement loginRootElement;
 
     @FindBy(xpath = "//app-auth-modal")
     protected WebElement registrationRootElement;
@@ -38,11 +43,21 @@ public class HeaderComponent extends BaseComponent {
         super(driver, rootElement);
     }
 
+    public LoginModalComponent clickSignInButtonAndGetLoginForm() {
+
+        return new LoginModalComponent(driver, loginRootElement);
+    }
+
+    public LoginModalComponent openLoginForm() {
+        click(login);
+        return new LoginModalComponent(driver, loginRootElement);
+    }
+
     public RegistrationModalComponent openRegistrationForm() {
         click(register);
         return new RegistrationModalComponent(driver, registrationRootElement);
     }
-    
+
     public NewsPage openNewsPage() {
         click(news);
         return new NewsPage(driver);
@@ -50,12 +65,13 @@ public class HeaderComponent extends BaseComponent {
 
     public void setLanguage(String language) {
         if (language.equalsIgnoreCase("En")) {
-            click(this.listLanguage);
-            click(this.english);
+            click(listLanguage);
+            click(english);
         }
     }
 
-    public String getUsername(){
-        return username.getText();
+    public String getUserNameText() {
+        sleep(1);
+        return getText(userName);
     }
 }

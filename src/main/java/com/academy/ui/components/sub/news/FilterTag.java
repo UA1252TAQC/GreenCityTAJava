@@ -1,14 +1,14 @@
 package com.academy.ui.components.sub.news;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.academy.ui.components.BaseComponent;
+import com.academy.ui.components.sub.ButtonState;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import com.academy.ui.components.BaseComponent;
-import com.academy.ui.components.sub.ButtonState;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class FilterTag extends BaseComponent {
     public FilterTag(WebDriver driver, WebElement rootElement) {
@@ -33,15 +33,15 @@ public class FilterTag extends BaseComponent {
     }
 
     public Map<String, String> getAllCss() { //TODO move to base?
-        String script = 
+        String script =
                 "var s = '';" +
-                "var o = getComputedStyle(arguments[0]);" +
-                "for(var i = 0; i < o.length; i++) {" +
-                    "s+=o[i] + ':' + o.getPropertyValue(o[i])+';'; " +
-                "}" +
-                "return s;";
+                        "var o = getComputedStyle(arguments[0]);" +
+                        "for(var i = 0; i < o.length; i++) {" +
+                        "s+=o[i] + ':' + o.getPropertyValue(o[i])+';'; " +
+                        "}" +
+                        "return s;";
 
-        String cssString = ((JavascriptExecutor)driver).executeScript(script, button).toString();
+        String cssString = ((JavascriptExecutor) driver).executeScript(script, button).toString();
         Map<String, String> map = new HashMap<>();
 
         String[] pairs = cssString.split(";");
@@ -50,9 +50,9 @@ public class FilterTag extends BaseComponent {
             if (pair.isEmpty()) {
                 continue;
             }
-            
+
             String[] keyValue = pair.split(":");
-            
+
             if (keyValue.length == 2) {
                 map.put(keyValue[0], keyValue[1]);
             }
@@ -63,11 +63,11 @@ public class FilterTag extends BaseComponent {
 
     public ButtonState getState() {
         return ButtonState.builder() //each property should be to compare?
-            .buttonColor(getCssValue(button, "background-color"))
-            .buttonSize(getSize(button))
-            .text(getText(text))
-            .textColor(getCssValue(text,"color"))
-            .location(getLocation(button))
-            .build();
+                .buttonColor(getCssValue(button, "background-color"))
+                .buttonSize(getSize(button))
+                .text(getText(text))
+                .textColor(getCssValue(text, "color"))
+                .location(getLocation(button))
+                .build();
     }
 }

@@ -15,6 +15,26 @@ public class ConfigProperties extends BaseProperties {
         return getBaseUrl() + "/#/news";
     }
 
+    public String getProfilePageGreenCityUrl() {
+        return getBaseUrl() + "/#/profile";
+    }
+
+    public String getRegisteredUserEmail() {
+        return properties.getProperty("registered.user.email");
+    }
+
+    public String getRegisteredUserPassword() {
+        return properties.getProperty("registered.user.password");
+    }
+
+    public String getRegisteredUserId() {
+        return properties.getProperty("registered.user.id");
+    }
+
+    public String getRegisteredUserName() {
+        return properties.getProperty("registered.user.name");
+    }
+
     public String getEmailToken() {
         return properties.getProperty("email.token");
     }
