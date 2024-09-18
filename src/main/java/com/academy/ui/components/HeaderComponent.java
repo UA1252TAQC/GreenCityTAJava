@@ -6,6 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class HeaderComponent extends BaseComponent {
+
+    final String NEWS_LINK_XPATH = ".//div[@class='header_navigation-menu']//li[1]/a";
+
     @FindBy(xpath = ".//*[@class='header_logo']")
     protected WebElement logo;
 
@@ -18,7 +21,7 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//div[@class='header_navigation-menu']//li[3]/a")
     protected WebElement profile;
 
-    @FindBy(xpath = ".//ul[@aria-label='language switcher']")
+    @FindBy(xpath = ".//ul[@aria-label='language switcher']//li[@aria-label='english']")
     protected WebElement listLanguage;
 
     @FindBy(xpath = ".//li[@aria-label='En']")
@@ -43,11 +46,6 @@ public class HeaderComponent extends BaseComponent {
         super(driver, rootElement);
     }
 
-    public LoginModalComponent clickSignInButtonAndGetLoginForm() {
-
-        return new LoginModalComponent(driver, loginRootElement);
-    }
-
     public LoginModalComponent openLoginForm() {
         click(login);
         return new LoginModalComponent(driver, loginRootElement);
@@ -58,7 +56,7 @@ public class HeaderComponent extends BaseComponent {
         return new RegistrationModalComponent(driver, registrationRootElement);
     }
 
-    public NewsPage openNewsPage() {
+    public NewsPage clickNewsLInk() {
         click(news);
         return new NewsPage(driver);
     }

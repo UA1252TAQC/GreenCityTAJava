@@ -25,14 +25,14 @@ public class LoginModalComponent extends BaseComponent {
 
     public LoginModalComponent(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
-        this.emailField = new EmailField(driver, rootElement);
-        this.passwordField = new PasswordField(driver, rootElement);
+        emailField = new EmailField(driver, rootElement);
+        passwordField = new PasswordField(driver, rootElement);
     }
 
     public String getLoginErrorText() {
         String errorMessageXpath = ".//div[contains(@class, 'alert-general-error')]";
         if (isPresent(errorMessageXpath)) {
-            WebElement errorMessage = findWithWaitElement(errorMessageXpath);
+            WebElement errorMessage = findWithWaitElement(errorMessageXpath, 5);
             return getText(errorMessage);
         } else {
             return "Element not found: " + errorMessageXpath;
@@ -72,7 +72,7 @@ public class LoginModalComponent extends BaseComponent {
 
     public ForgotPasswordModalComponent clickForgotPasswordLink() {
         click(forgotPasswordLink);
-        WebElement forgetPasswordRootElement = findWithWaitElement(FORGOT_PASSWORD_ROOT_ELEMENT);
+        WebElement forgetPasswordRootElement = findWithWaitElement(FORGOT_PASSWORD_ROOT_ELEMENT, 5);
         return new ForgotPasswordModalComponent(driver, forgetPasswordRootElement);
     }
 
@@ -93,5 +93,9 @@ public class LoginModalComponent extends BaseComponent {
 
     public String getPasswordErrorMessage() {
         return this.passwordField.getErrorMessage();
+    }
+    public LoginModalComponent fillForm(String email, String password) {
+        enterEmail(email).enterPassword(password);
+        return this;
     }
 }

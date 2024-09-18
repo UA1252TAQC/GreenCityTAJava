@@ -16,7 +16,7 @@ import java.util.List;
 
 public class BaseTestRunner {
     protected static final long IMPLICITLY_WAIT_DURATION = 1;
-    protected ConfigProperties configProperties;
+    protected static ConfigProperties configProperties;
     protected WebDriver driver;
 
 

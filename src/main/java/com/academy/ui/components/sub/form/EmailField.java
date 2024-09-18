@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class EmailField extends BaseComponent {
+
     @FindBy(xpath = ".//input[@id='email']")
     private WebElement input;
     @FindBy(xpath = ".//div[contains(@class, 'error-message') or contains(@class, 'error-message-show')" +

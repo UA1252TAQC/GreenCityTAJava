@@ -59,10 +59,6 @@ public class Base {
         return null;
     }
 
-    public WebElement findWithWaitElement(String xPath) {
-        return getWait(5).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
-    }
-
     public WebElement findWithWaitElement(String xPath, long seconds) {
         return getWait(seconds).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
     }

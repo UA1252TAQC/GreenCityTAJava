@@ -7,8 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class NewsPage extends BasePageGreenCity {
 
-    @FindBy(xpath = ".//*[@id='create-button']")
-    private WebElement createNewsButton;
+    String  CREATE_NEWS_BUTTON_XPATH = ".//a[contains(@class,'create')]//div[@id='create-button']";
 
     @FindBy(xpath = ".//h1[@class='main-header']")
     private WebElement title;
@@ -32,8 +31,8 @@ public class NewsPage extends BasePageGreenCity {
         super(driver);
     }
 
-    public CreateNewsPage openCreateNews() {
-        click(createNewsButton);
+    public CreateNewsPage clickCreateNews() {
+        findWithWaitElement(CREATE_NEWS_BUTTON_XPATH,10).click();
         return new CreateNewsPage(driver);
     }
 
