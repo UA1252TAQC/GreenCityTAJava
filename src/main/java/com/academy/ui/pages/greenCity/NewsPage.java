@@ -1,14 +1,13 @@
 package com.academy.ui.pages.greenCity;
 
+import com.academy.ui.components.NewsFilterComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import com.academy.ui.components.NewsFilterComponent;
 
 public class NewsPage extends BasePageGreenCity {
 
-    @FindBy(xpath = ".//*[@id='create-button']")
-    private WebElement createNewsButton;
+    String  CREATE_NEWS_BUTTON_XPATH = ".//a[contains(@class,'create')]//div[@id='create-button']";
 
     @FindBy(xpath = ".//h1[@class='main-header']")
     private WebElement title;
@@ -24,7 +23,7 @@ public class NewsPage extends BasePageGreenCity {
 
     //itemsComponent
 
-    
+
     @FindBy(xpath = ".//app-tag-filter")
     private WebElement rootFilterComponent;
 
@@ -32,8 +31,8 @@ public class NewsPage extends BasePageGreenCity {
         super(driver);
     }
 
-    public CreateNewsPage openCreateNews() {
-        click(createNewsButton);
+    public CreateNewsPage clickCreateNews() {
+        findWithWaitElement(CREATE_NEWS_BUTTON_XPATH,10).click();
         return new CreateNewsPage(driver);
     }
 

@@ -19,20 +19,20 @@ public class ConfigProperties extends BaseProperties {
         return getBaseUrl() + "/#/profile";
     }
 
-    public String getUserEmail() {
-        return properties.getProperty("user.email");
+    public String getRegisteredUserEmail() {
+        return properties.getProperty("registered.user.email");
     }
 
-    public String getUserPassword() {
-        return properties.getProperty("user.password");
+    public String getRegisteredUserPassword() {
+        return properties.getProperty("registered.user.password");
     }
 
-    public String getUserId() {
-        return properties.getProperty("user.id");
+    public String getRegisteredUserId() {
+        return properties.getProperty("registered.user.id");
     }
 
-    public String getUserName() {
-        return properties.getProperty("user.name");
+    public String getRegisteredUserName() {
+        return properties.getProperty("registered.user.name");
     }
 
     public String getEmailToken() {

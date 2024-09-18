@@ -1,11 +1,11 @@
 package com.academy.ui.components.sub;
 
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 
 @Getter
 @Builder

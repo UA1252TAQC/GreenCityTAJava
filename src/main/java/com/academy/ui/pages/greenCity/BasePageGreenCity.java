@@ -5,6 +5,7 @@ import com.academy.ui.pages.BasePage;
 import org.openqa.selenium.WebDriver;
 
 public class BasePageGreenCity extends BasePage {
+
     public BasePageGreenCity(WebDriver driver) {
         super(driver);
     }
