@@ -5,13 +5,13 @@ import com.academy.ui.pages.greenCity.CreateNewsPage;
 import com.academy.ui.providers.CreateNewsProvider;
 import com.academy.ui.runners.TestRunnerMethodInitDriverLoginCreateNews;
 import com.academy.ui.styleConstants.Colors;
+import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.*;
-
-import java.util.List;
+import org.testng.annotations.Test;
 
 public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
+
     private static final String NEWS_TITLE = "Workshop to educate your customers about eco-friendly living";
     private static final String NEWS_CONTENT = "Workshop to educate your customers about eco-friendly living";
 
@@ -21,26 +21,30 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
 
         createNewsPage.selectTags(tagsList1, "en");
         for (NewsTags tag : tagsList1) {
-            softAssert.assertEquals(createNewsPage.getTagButtonBackgroundColor(tag), Colors.PRIMARY_GREEN,
-                    "Tag color mismatch when tag is selected for: " + tag);
+            softAssert.assertEquals(createNewsPage.getTagButtonBackgroundColor(tag),
+                Colors.PRIMARY_GREEN,
+                "Tag color mismatch when tag is selected for: " + tag);
         }
 
         createNewsPage.unSelectTags(tagsList1, "en");
         for (NewsTags tag : tagsList1) {
-            softAssert.assertEquals(createNewsPage.getTagButtonBackgroundColor(tag), Colors.PRIMARY_WHITE,
-                    "Tag color mismatch when tag is unselected for: " + tag);
+            softAssert.assertEquals(createNewsPage.getTagButtonBackgroundColor(tag),
+                Colors.PRIMARY_WHITE,
+                "Tag color mismatch when tag is unselected for: " + tag);
         }
 
         createNewsPage.selectTags(tagsList2, "en");
         for (NewsTags tag : tagsList2) {
-            softAssert.assertEquals(createNewsPage.getTagButtonBackgroundColor(tag), Colors.PRIMARY_GREEN,
-                    "Tag color mismatch when tag is selected for: " + tag);
+            softAssert.assertEquals(createNewsPage.getTagButtonBackgroundColor(tag),
+                Colors.PRIMARY_GREEN,
+                "Tag color mismatch when tag is selected for: " + tag);
         }
 
         createNewsPage.unSelectTags(tagsList2, "en");
         for (NewsTags tag : tagsList2) {
-            softAssert.assertEquals(createNewsPage.getTagButtonBackgroundColor(tag), Colors.PRIMARY_WHITE,
-                    "Tag color mismatch when tag is unselected for: " + tag);
+            softAssert.assertEquals(createNewsPage.getTagButtonBackgroundColor(tag),
+                Colors.PRIMARY_WHITE,
+                "Tag color mismatch when tag is unselected for: " + tag);
         }
 
         softAssert.assertAll();
@@ -64,6 +68,7 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
         Assert.assertEquals(descriptionBefore, descriptionAfter);
         Assert.assertEquals(selectedTagsBefore, selectedTagsAfter);
     }
+
     @Test
     public void publishNews() {
         createNewsPage
@@ -71,11 +76,10 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
 
         boolean isPublishButtonEnabled = createNewsPage.newsPublishButtonIsEnabled();
         softAssert.assertTrue(isPublishButtonEnabled);
-        createNewsPage.closeMessagePopUp().clickPublishButton();
+        createNewsPage.clickPublishButton();
 
-//           boolean isNewsDisplayed = page.isNewsDisplayedWithTitle(NEWS_TITLE);
-//        softAssert.assertTrue(isNewsDisplayed, "News should be displayed with the title.");
-        
+        boolean isNewsDisplayed = page.isNewsDisplayedWithTitle(NEWS_TITLE);
+        softAssert.assertTrue(isNewsDisplayed);
 
         softAssert.assertAll();
 

@@ -42,10 +42,10 @@ public class NewsPage extends BasePageGreenCity {
         return new NewsFilterComponent(driver, rootFilterComponent);
     }
     public boolean isNewsDisplayedWithTitle(String title) {
-        findWithWaitElement("//img[@class='list-image-content']", 20);
-        List<WebElement> newsItems = driver.findElements(By.xpath("//img[@class='list-image-content']"));
+        findWithWaitElement("//img[@class='list-image-content']", 10);
+        List<WebElement> newsItems = driver.findElements(By.xpath("//div[@class='list-gallery']"));
         for (WebElement item : newsItems) {
-            WebElement titleElement = item.findElement(By.xpath(".//h"));
+            WebElement titleElement = item.findElement(By.xpath(".//h3"));
             if (titleElement.getText().equals(title)) {
                 return true;
             }

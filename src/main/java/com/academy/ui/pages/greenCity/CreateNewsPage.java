@@ -26,8 +26,6 @@ public class CreateNewsPage extends BasePageGreenCity {
     protected WebElement newsPreviewButton;
     @FindBy(how = How.XPATH, using = "//button[contains(@class, 'primary-global-button')]")
     protected WebElement newsPublishButton;
-    @FindBy(how = How.XPATH, using = "//div[@class='panel-account']")
-    protected WebElement messagePopUp;
 
     public CreateNewsPage(WebDriver driver) {
         super(driver);
@@ -96,15 +94,10 @@ public class CreateNewsPage extends BasePageGreenCity {
         return isEnabled(newsPublishButton);
     }
 
-    public NewsPage clickPublishButton() {
-        click(newsPublishButton);
+    public NewsPage clickPublishButton(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", newsPublishButton);
         return new NewsPage(driver);
-    }
-
-    public CreateNewsPage closeMessagePopUp() {
-        //findWithWaitElement("//button[contains(@class, 'secondary-global-button')]", 10);
-        click(messagePopUp);
-        return this;
     }
 
         public NewsPreviewPage clickPreviewButton () {
