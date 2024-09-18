@@ -22,6 +22,8 @@ public class CreateNewsPage extends BasePageGreenCity {
     protected WebElement newsTitle;
     @FindBy(how = How.XPATH, using = "//div[@class='ql-editor ql-blank']")
     protected WebElement newsContent;
+    @FindBy(xpath = "//div[contains(@class, 'left-form-column')]//label/input")
+    protected WebElement sourceLinkField;
     @FindBy(how = How.XPATH, using = "//app-tags-select//button/a")
     protected List<WebElement> tagsButton;
     @FindBy(how = How.XPATH, using = "//button[contains(@class, 'secondary-global-button')]")
@@ -48,6 +50,11 @@ public class CreateNewsPage extends BasePageGreenCity {
         newsTitle.sendKeys(title);
         selectTags(tags, language);
         newsContent.sendKeys(content);
+        return this;
+    }
+
+    public CreateNewsPage enterSourceLink (String content){
+        sourceLinkField.sendKeys(content);
         return this;
     }
 
@@ -119,6 +126,12 @@ public class CreateNewsPage extends BasePageGreenCity {
     public String getContentText() {
         WebElement editor = driver.findElement(By.cssSelector("quill-editor .ql-editor"));
         return (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].innerText;", editor);
+    }
+
+    public NewsPage clickPublishButton(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", newsPublishButton);
+        return new NewsPage(driver);
     }
 
 }

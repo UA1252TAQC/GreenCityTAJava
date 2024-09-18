@@ -2,6 +2,7 @@ package com.academy.ui;
 
 import com.academy.ui.constants.NewsTags;
 import com.academy.ui.pages.greenCity.CreateNewsPage;
+import com.academy.ui.pages.greenCity.NewsPage;
 import com.academy.ui.providers.CreateNewsProvider;
 import com.academy.ui.runners.TestRunnerMethodInitDriverLoginCreateNews;
 import com.academy.ui.styleConstants.Colors;
@@ -9,9 +10,11 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
+    NewsPage newsPage;
 
     @Test(dataProvider = "tagsListSelect", dataProviderClass = CreateNewsProvider.class)
     public void selectUnSelectTags(NewsTags[] tagsList1, NewsTags[] tagsList2) {
@@ -61,6 +64,17 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
         Assert.assertEquals(titleBefore, titleAfter);
         Assert.assertEquals(descriptionBefore, descriptionAfter);
         Assert.assertEquals(selectedTagsBefore, selectedTagsAfter);
+    }
+
+    @Test(dataProvider = "validDataSourceLink", dataProviderClass = CreateNewsProvider.class)
+    public void createNewsWithSourceLink(String title, NewsTags[] tags,String content,String sourceLink){
+        createNewsPage.fillTheNewsForm(title,tags,content,sourceLink)
+                .enterSourceLink(sourceLink)
+                .clickPublishButton();
+        newsPage = new NewsPage(driver);
+        boolean isNewsAdded = newsPage.isNewsCreated(title,content, Arrays.asList(tags));
+        softAssert.assertTrue(isNewsAdded);
+        softAssert.assertAll();
     }
 
 }
