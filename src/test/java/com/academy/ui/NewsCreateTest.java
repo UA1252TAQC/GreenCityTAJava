@@ -12,6 +12,8 @@ import org.testng.annotations.*;
 import java.util.List;
 
 public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
+    private static final String NEWS_TITLE = "Workshop to educate your customers about eco-friendly living";
+    private static final String NEWS_CONTENT = "Workshop to educate your customers about eco-friendly living";
 
     @Test(dataProvider = "tagsListSelect", dataProviderClass = CreateNewsProvider.class)
     public void selectUnSelectTags(NewsTags[] tagsList1, NewsTags[] tagsList2) {
@@ -61,6 +63,22 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
         Assert.assertEquals(titleBefore, titleAfter);
         Assert.assertEquals(descriptionBefore, descriptionAfter);
         Assert.assertEquals(selectedTagsBefore, selectedTagsAfter);
+    }
+    @Test
+    public void publishNews() {
+        createNewsPage
+            .fillTheNewsForm(NEWS_TITLE, new NewsTags[]{NewsTags.EVENTS}, NEWS_CONTENT, "en");
+
+        boolean isPublishButtonEnabled = createNewsPage.newsPublishButtonIsEnabled();
+        softAssert.assertTrue(isPublishButtonEnabled);
+        createNewsPage.closeMessagePopUp().clickPublishButton();
+
+//           boolean isNewsDisplayed = page.isNewsDisplayedWithTitle(NEWS_TITLE);
+//        softAssert.assertTrue(isNewsDisplayed, "News should be displayed with the title.");
+        
+
+        softAssert.assertAll();
+
     }
 
 }
