@@ -107,7 +107,6 @@ public class CreateNewsPage extends BasePageGreenCity {
     }
 
     public NewsPreviewPage clickPreviewButton() {
-        findWithWaitElement("//button[contains(@class, 'secondary-global-button')]",10);
         click(newsPreviewButton);
         return new NewsPreviewPage(driver);
     }

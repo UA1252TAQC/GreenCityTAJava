@@ -52,8 +52,7 @@ public class NewsPage extends BasePageGreenCity {
         return new NewsFilterComponent(driver, rootFilterComponent);
     }
 
-    public boolean isNewsCreated(String title, String content, List<NewsTags> tags) {
-        sleep(5);
+    public boolean isNewsDisplayed(String title, String content, List<NewsTags> tags) {
         for (WebElement item : driver.findElements(By.xpath(NEWS_ITEM_BOX))) {
             boolean titleMatch = !item.findElements(By.xpath(".//div[contains(@class, 'title-list')]//h3" + "[contains(text(), '" + title + "')]"))
                     .isEmpty();

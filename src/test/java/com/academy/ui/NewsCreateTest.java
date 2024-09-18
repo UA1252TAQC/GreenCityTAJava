@@ -15,7 +15,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
-    NewsPage newsPage;
 
     private static final String NEWS_TITLE = "Workshop to educate your customers about eco-friendly living";
     private static final String NEWS_CONTENT = "Workshop to educate your customers about eco-friendly living";
@@ -123,7 +122,7 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
                 .enterSourceLink(sourceLink)
                 .clickPublishButton();
         newsPage = new NewsPage(driver);
-        boolean isNewsAdded = newsPage.isNewsCreated(title,content, Arrays.asList(tags));
+        boolean isNewsAdded = newsPage.isNewsDisplayed(title,content, Arrays.asList(tags));
         softAssert.assertTrue(isNewsAdded);
         softAssert.assertAll();
     }
