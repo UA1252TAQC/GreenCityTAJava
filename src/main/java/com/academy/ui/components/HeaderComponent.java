@@ -16,7 +16,7 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//div[@class='header_navigation-menu']//li[2]/a")
     protected WebElement places;
 
-    @FindBy(xpath = "")
+    @FindBy(xpath = ".//div[@class='header_navigation-menu']//li[3]/a")
     protected WebElement profile;
 
     @FindBy(xpath = ".//ul[@aria-label='language switcher']")
@@ -33,9 +33,6 @@ public class HeaderComponent extends BaseComponent {
 
     @FindBy(xpath = ".//ul[@id='header_user-wrp']/li[contains(@class, 'user-name')]")
     protected WebElement userName;
-
-    @FindBy(xpath = ".//li[contains(@class, 'body-2 user-name') or contains(@class, 'body-2 ubs-user-name')]")
-    protected WebElement username;
 
     @FindBy(xpath = "//app-auth-modal")
     protected WebElement loginRootElement;
@@ -69,13 +66,9 @@ public class HeaderComponent extends BaseComponent {
 
     public void setLanguage(String language) {
         if (language.equalsIgnoreCase("En")) {
-            click(this.listLanguage);
+            click(listLanguage);
             click(english);
         }
-    }
-
-    public String getUsername(){
-        return username.getText();
     }
 
     public String getUserNameText(){

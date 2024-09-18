@@ -19,6 +19,4 @@ email.token=
 google.email=
 google.password=
 
-
-
 ```
