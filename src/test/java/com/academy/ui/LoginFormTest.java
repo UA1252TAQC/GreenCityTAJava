@@ -7,6 +7,7 @@ import com.academy.ui.pages.greenCity.NewsPage;
 import com.academy.ui.providers.LoginFormTestProvider;
 import com.academy.ui.pages.greenCity.ProfilePage;
 import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
+import org.openqa.selenium.devtools.v127.page.Page;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -125,4 +126,33 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
 
         //profilePage.sleep(3);   //for presentation only
     }
+
+    @Test(dataProvider = "checkSignInButtonRemainedInactivePassword", dataProviderClass = LoginFormTestProvider.class)
+    public void checkSignInButtonRemainedInactiveWithFilledPassword(String password, String expectedErrorMessage) {
+        LoginModalComponent logInModalComponent = new HomePage(driver)
+                .getHeaderComponent().openLoginForm()
+                .enterPassword(password)
+                .clickSignInButtonUnsuccessfulLogin();
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
+                "The 'Login' button should be inactive when entering only the email.");
+        softAssert.assertAll();
+        logInModalComponent.sleep(5);
+    }
+
+    @Test(dataProvider = "checkInSignInButtonRemainedInactiveEmail", dataProviderClass = LoginFormTestProvider.class)
+    public void checkSignInButtonRemainedInactiveWithFilledEmail(String email, String expected) {
+        LoginModalComponent logInModalComponent = page
+                .getHeaderComponent().openLoginForm()
+                .enterPassword(email)
+                .clickSignInButtonUnsuccessfulLogin();
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
+                "The 'Login' button should be inactive when entering only the password.");
+        softAssert.assertAll();
+        logInModalComponent.sleep(5);
+    }
+
 }

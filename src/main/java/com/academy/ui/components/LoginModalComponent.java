@@ -88,6 +88,11 @@ public class LoginModalComponent extends BaseComponent {
         return this;
     }
 
+    public boolean isSignInButtonActive() {
+        return isEnabled(signInButton);
+
+    }
+
     public String getPasswordErrorMessage() {
         return this.passwordField.getErrorMessage();
     }
