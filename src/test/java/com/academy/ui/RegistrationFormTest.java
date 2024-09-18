@@ -64,7 +64,7 @@ public class RegistrationFormTest extends TestRunnerMethodInitDriverHomePage {
         ProfilePage profilePage = new ProfilePage(driver);
         softAssert.assertNotNull(profilePage.getAuthToken());
         softAssert.assertTrue(driver.getCurrentUrl().startsWith(configProperties.getBaseUrl() + "/#/profile"));
-        softAssert.assertEquals(profilePage.getHeaderComponent().getUsername(), expectedGoogleName);
+        softAssert.assertEquals(profilePage.getHeaderComponent().getUserNameText(), expectedGoogleName);
         softAssert.assertAll();
     }
 
