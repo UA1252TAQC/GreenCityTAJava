@@ -108,5 +108,5 @@ public class LoginModalComponent extends BaseComponent {
     public String getErrorMessageText() {
         return errorMessageElement.getText();
     }
-
+// for commit
 }
