@@ -19,15 +19,22 @@ public class CreateNewsPage extends BasePageGreenCity {
     private static final String CLOSE_TAG_BUTTON_XPATH = "//div[contains(@class, 'global-tag-close-icon')]";
 
     @FindBy(how = How.XPATH, using = "//textarea[@formcontrolname='title']")
+    @Getter
     protected WebElement newsTitle;
     @FindBy(how = How.XPATH, using = "//div[@class='ql-editor ql-blank']")
+    @Getter
     protected WebElement newsContent;
     @FindBy(how = How.XPATH, using = "//app-tags-select//button/a")
+    @Getter
     protected List<WebElement> tagsButton;
     @FindBy(how = How.XPATH, using = "//button[contains(@class, 'secondary-global-button')]")
     protected WebElement newsPreviewButton;
     @FindBy(how = How.XPATH, using = "//button[contains(@class, 'primary-global-button')]")
     protected WebElement newsPublishButton;
+    @FindBy(how = How.XPATH, using = "//input[@formcontrolname='source']")
+    protected WebElement newsSource;
+    @FindBy(how = How.XPATH, using = "//div[@class='text-wrapper']")
+    protected WebElement newsPhoto;
 
     public CreateNewsPage(WebDriver driver) {
         super(driver);
@@ -121,4 +128,28 @@ public class CreateNewsPage extends BasePageGreenCity {
         return (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].innerText;", editor);
     }
 
+    public boolean areAllTagsAppeared() {
+        for (WebElement tag : tagsButton) {
+            if (!isDisplayed(tag)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isTitleFieldAppeared() {
+        return isDisplayed(newsTitle);
+    }
+
+    public boolean isContentFieldAppeared() {
+        return isDisplayed(newsContent);
+    }
+
+    public boolean isSourceFieldAppeared() {
+        return isDisplayed(newsSource);
+    }
+
+    public boolean isPhotoFieldAppeared() {
+        return isDisplayed(newsPhoto);
+    }
 }
