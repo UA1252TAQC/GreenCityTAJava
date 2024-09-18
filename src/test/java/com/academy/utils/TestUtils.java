@@ -43,6 +43,10 @@ public class TestUtils extends BaseJsonUtils {
 	}
 
 	private Object convertJsonToType(JsonNode cell, Class<?> type) {
+		if (cell == null || cell.isNull()) {
+			return null;
+		}
+
 		if (isShouldInjectData(cell,"GENERATE_TEMPORARY_EMAIL")) return mailUtils.createNewMailCredentials();
 		if (isShouldInjectData(cell,"EXTRACT_GOOGLE_EMAIL")) return configProperties.getGoogleEmail();
 		if (isShouldInjectData(cell,"EXTRACT_GOOGLE_PASSWORD")) return configProperties.getGooglePassword();

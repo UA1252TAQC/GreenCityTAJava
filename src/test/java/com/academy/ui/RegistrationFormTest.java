@@ -6,25 +6,12 @@ import com.academy.ui.pages.greenCity.HomePage;
 import com.academy.ui.pages.greenCity.ProfilePage;
 import com.academy.ui.pages.ubs.HomePageUbs;
 import com.academy.ui.providers.RegistrationFormTestProvider;
-import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
-import com.academy.utils.MailUtils;
+import com.academy.ui.runners.TestRunnerRegistrationForm;
 import com.academy.utils.mail.Mail;
 import com.academy.utils.mail.MailBoxCredentials;
-import com.google.common.collect.ImmutableMap;
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
 
-public class RegistrationFormTest extends TestRunnerMethodInitDriverHomePage {
-    private ImmutableMap<String, String> localizedMessages;
-    private MailUtils mailUtils;
-    private String language;
-
-    @BeforeClass
-    @Parameters({"language"})
-    public void setUp(@Optional("Ua") String language) {
-        this.localizedMessages = localizationUtils.getFormMessages(language);
-        this.mailUtils = new MailUtils();
-        this.language = language;
-    }
+public class RegistrationFormTest extends TestRunnerRegistrationForm {
 
     @Test(dataProvider = "testPopUpSignUpValidation", dataProviderClass = RegistrationFormTestProvider.class)
     public void testPopUpSignUpValidation(String expectedRegistrationSuccessMessage, String expectedAccountSubmitMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
@@ -183,18 +170,14 @@ public class RegistrationFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-
-
     private HomePageUbs openUbsPageInNewTab(HomePage homePage) {
         homePage.openUrlInNewTab(configProperties.getBaseUrl() + "/#/ubs");
-        HomePageUbs page = new HomePageUbs(driver);
-        return page;
+        return new HomePageUbs(driver);
     }
 
     private HomePage openHomePageInNewTab(HomePageUbs ubsPage) {
         ubsPage.openUrlInNewTab(configProperties.getBaseUrl() + "/#/greenCity");
-        HomePage page = new HomePage(driver);
-        return page;
+        return new HomePage(driver);
     }
 
     private HomePageUbs openUbsPage() {

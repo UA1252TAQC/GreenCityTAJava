@@ -19,8 +19,10 @@ public class RegistrationModalComponent extends BaseComponent {
 
     @FindBy(xpath = ".//button[@type='submit']")
     private WebElement registerButton;
+
     @FindBy(xpath = ".//button[@class='google-sign-in']")
     private WebElement googleButton;
+
     @FindBy(xpath = ".//a[@aria-label='sign in modal window'][@class='green-link']")
     private WebElement signInLink;
 
@@ -45,22 +47,22 @@ public class RegistrationModalComponent extends BaseComponent {
     }
 
     public RegistrationModalComponent enterEmail(String text) {
-        this.email.enter(text);
+        email.enter(text);
         return this;
     }
 
     public RegistrationModalComponent enterUsername(String text) {
-        this.username.enter(text);
+        username.enter(text);
         return this;
     }
 
     public RegistrationModalComponent enterPassword(String text) {
-        this.password.enter(text);
+        password.enter(text);
         return this;
     }
 
     public RegistrationModalComponent enterRepeatPassword(String text) {
-        this.repeatPassword.enter(text);
+        repeatPassword.enter(text);
         return this;
     }
 
@@ -73,7 +75,7 @@ public class RegistrationModalComponent extends BaseComponent {
     }
 
     public RegistrationModalComponent fillForm(String email, String username, String password, String repeatPassword) {
-        return this.enterEmail(email).enterUsername(username).enterPassword(password)
+        return enterEmail(email).enterUsername(username).enterPassword(password)
                 .enterRepeatPassword(repeatPassword).clickTitle();
     }
 
@@ -83,53 +85,33 @@ public class RegistrationModalComponent extends BaseComponent {
     }
 
     public boolean isRegistrationButtonDisplayed() {
-        return isDisplayed(this.registerButton);
+        return isDisplayed(registerButton);
     }
 
     public boolean isGoogleButtonDisplayed() {
-        return isDisplayed(this.googleButton);
+        return isDisplayed(googleButton);
     }
 
     public void submit() {
-        click(this.registerButton);
+        click(registerButton);
     }
 
     public boolean isRegistrationButtonEnabled() {
-        return isEnabled(this.registerButton);
+        return isEnabled(registerButton);
     }
 
-    private static final String[] VALID_DATA =
-            new String[]{"mail@gmail.com", "Denys1", "Password1!", "Password1!"};
-
-    public void fillFormWithTestDataAndSubmitIf(boolean isShouldSubmitForm, String email, String username, String password, String repeatPassword) {
-        if (isShouldSubmitForm) { // TODO move to data-provider & refactor
-            this.fillForm(email != null ? email : VALID_DATA[0],
-                    username != null ? username : VALID_DATA[1],
-                    password != null ? password : VALID_DATA[2],
-                    repeatPassword != null ? repeatPassword : VALID_DATA[3]).submit();
-            return;
-        }
-
-        if (email != null) {
-            this.enterEmail(email).clickTitle();
-        }
-        if (username != null) {
-            this.enterUsername(username).clickTitle();
-        }
-        if (password != null) {
-            this.enterPassword(password).clickTitle();
-        }
-        if (repeatPassword != null) {
-            this.enterRepeatPassword(repeatPassword).clickTitle();
+    public void submitIf(boolean isShouldSubmitForm) {
+        if (isShouldSubmitForm) {
+            this.submit();
         }
     }
 
     public boolean isSignInLinkDisplayed() {
-        return isDisplayed(this.signInLink);
+        return isDisplayed(signInLink);
     }
 
     public void close() {
-        click(this.closeButton);
+        click(closeButton);
         sleep(1);
     }
 

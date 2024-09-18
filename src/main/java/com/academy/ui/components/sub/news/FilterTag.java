@@ -63,11 +63,11 @@ public class FilterTag extends BaseComponent {
 
     public ButtonState getState() {
         return ButtonState.builder() //each property should be to compare?
-                .buttonColor(getCssValue(button, "background-color"))
-                .buttonSize(getSize(button))
+                .buttonColor(button.getCssValue("background-color"))
+                .buttonSize(button.getSize())
                 .text(getText(text))
-                .textColor(getCssValue(text, "color"))
-                .location(getLocation(button))
+                .textColor(text.getCssValue("color"))
+                .location(button.getLocation())
                 .build();
     }
 }

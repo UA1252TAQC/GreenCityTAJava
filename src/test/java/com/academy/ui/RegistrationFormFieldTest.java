@@ -1,37 +1,10 @@
 package com.academy.ui;
 
-import com.academy.ui.components.RegistrationModalComponent;
-import com.academy.ui.pages.greenCity.HomePage;
 import com.academy.ui.providers.RegistrationFormFieldTestProvider;
-import com.academy.ui.runners.TestRunnerClassInitDriver;
+import com.academy.ui.runners.TestRunnerRegistrationFormField;
+import org.testng.annotations.Test;
 
-import com.google.common.collect.ImmutableMap;
-import org.testng.annotations.*;
-
-public class RegistrationFormFieldTest extends TestRunnerClassInitDriver {
-    private ImmutableMap<String, String> localizedMessages;
-    private HomePage page;
-    private RegistrationModalComponent form;
-
-    @BeforeClass
-    @Parameters({"language"})
-    public void setUp(@Optional("Ua") String language) {
-        driver.get(configProperties.getHomePageGreenCityUrl());
-
-        this.page = new HomePage(driver).setLanguage(language);
-        this.localizedMessages = localizationUtils.getFormMessages(language);
-    }
-
-    @BeforeMethod
-    public void setUpMethod() {
-        form = page.getHeaderComponent().openRegistrationForm();
-    }
-
-    @AfterMethod
-    public void tearDownMethod() {
-        form.close();
-    }
-
+public class RegistrationFormFieldTest extends TestRunnerRegistrationFormField {
     @Test
     public void testFormIsDisplayedCorrectly() {
         softAssert.assertTrue(form.getEmail().isDisplayed());
@@ -56,8 +29,9 @@ public class RegistrationFormFieldTest extends TestRunnerClassInitDriver {
     }
 
     @Test(dataProvider = "testEmailValidation", dataProviderClass = RegistrationFormFieldTestProvider.class)
-    public void testEmailValidation(boolean isExpectedValid, String expectedErrorMessage, boolean isShouldSubmitForm, String errorMessage, String email) {
-        form.fillFormWithTestDataAndSubmitIf(isShouldSubmitForm, email, null, null, null);
+    public void testEmailValidation(boolean isExpectedValid, String expectedErrorMessage, boolean isShouldSubmitForm, String errorMessage,
+                                    String email, String username, String password, String repeatPassword) {
+        form.fillForm(email,username,password,repeatPassword).submitIf(isShouldSubmitForm);
 
         boolean isActualValid = form.getEmail().isValid();
         String actualErrorMessage = form.getEmail().getErrorMessage();

@@ -11,6 +11,9 @@ public class UbsHeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//li[@tabindex='0'][@class='lang-option ng-star-inserted'][@role='menuitem']")
     protected WebElement english;
 
+    @FindBy(xpath = ".//li[@aria-label='Ua']")
+    protected WebElement ukrainian;
+
     @FindBy(xpath = ".//li[@class='header_sign-up-link ng-star-inserted']//span")
     protected WebElement register;
 
@@ -28,8 +31,11 @@ public class UbsHeaderComponent extends BaseComponent {
 
     public void setLanguage(String language) {
         if (language.equalsIgnoreCase("En")) {
-            click(this.listLanguage);
-            click(this.english);
+            click(listLanguage);
+            click(english);
+        } else if (language.equalsIgnoreCase("Ua")) {
+            click(listLanguage);
+            click(ukrainian);
         }
     }
 }
