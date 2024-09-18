@@ -4,6 +4,7 @@ import com.academy.ui.components.RegistrationModalComponent;
 import com.academy.ui.pages.greenCity.HomePage;
 import com.academy.ui.providers.RegistrationFormFieldTestProvider;
 import com.academy.ui.runners.TestRunnerClassInitDriver;
+
 import com.google.common.collect.ImmutableMap;
 import org.testng.annotations.*;
 

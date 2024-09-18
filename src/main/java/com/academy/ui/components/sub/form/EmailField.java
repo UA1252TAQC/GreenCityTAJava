@@ -9,7 +9,8 @@ public class EmailField extends BaseComponent {
 
     @FindBy(xpath = ".//input[@id='email']")
     private WebElement input;
-    @FindBy(xpath = ".//div[contains(@class, 'error-message') or contains(@class, 'error-message-show')]")
+    @FindBy(xpath = ".//div[contains(@class, 'error-message') or contains(@class, 'error-message-show')" +
+            "or contains(@class, 'alert-general-error') or contains(@class, 'validation-email-error')]")
     private WebElement error;
 
     public EmailField(WebDriver driver, WebElement rootElement) {
@@ -28,8 +29,12 @@ public class EmailField extends BaseComponent {
         if (isDisplayed(error)) {
             return error.getText();
         }
-
         return null;
+    }
+
+    public boolean isHighlightedInRed() {
+        String borderColor = input.getCssValue("border-color");
+        return borderColor.equals("rgb(240, 49, 39)");
     }
 
     public boolean isValid() {

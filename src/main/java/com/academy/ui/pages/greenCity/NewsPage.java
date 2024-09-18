@@ -1,9 +1,9 @@
 package com.academy.ui.pages.greenCity;
 
+import com.academy.ui.components.NewsFilterComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import com.academy.ui.components.NewsFilterComponent;
 
 public class NewsPage extends BasePageGreenCity {
 
@@ -23,7 +23,7 @@ public class NewsPage extends BasePageGreenCity {
 
     //itemsComponent
 
-    
+
     @FindBy(xpath = ".//app-tag-filter")
     private WebElement rootFilterComponent;
 

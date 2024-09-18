@@ -1,17 +1,13 @@
 package com.academy.ui.components;
 
+import com.academy.ui.pages.greenCity.NewsPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.academy.ui.pages.greenCity.NewsPage;
-
 public class HeaderComponent extends BaseComponent {
 
     final String NEWS_LINK_XPATH = ".//div[@class='header_navigation-menu']//li[1]/a";
-
-    @FindBy(xpath  = "//a[contains(@class, 'header_sign-in-link')]")
-    public WebElement signInButton;
 
     @FindBy(xpath = ".//*[@class='header_logo']")
     protected WebElement logo;
@@ -28,17 +24,17 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//ul[@aria-label='language switcher']//li[@aria-label='english']")
     protected WebElement listLanguage;
 
-    @FindBy(xpath = ".//span[text()='En']")
+    @FindBy(xpath = ".//li[@aria-label='En']")
     protected WebElement english;
+
+    @FindBy(xpath = ".//a[contains(@class, 'header_sign-in-link')]")
+    protected WebElement login;
 
     @FindBy(xpath = ".//li[@class='header_sign-up-link']//span")
     protected WebElement register;
 
-    @FindBy(xpath = "")
+    @FindBy(xpath = ".//ul[@id='header_user-wrp']/li[contains(@class, 'user-name')]")
     protected WebElement userName;
-
-    @FindBy(xpath = ".//li[contains(@class, 'body-2 user-name') or contains(@class, 'body-2 ubs-user-name')]")
-    protected WebElement username;
 
     @FindBy(xpath = "//app-auth-modal")
     protected WebElement loginRootElement;
@@ -50,8 +46,8 @@ public class HeaderComponent extends BaseComponent {
         super(driver, rootElement);
     }
 
-    public LoginModalComponent clickSignInButtonAndGetLoginForm() {
-        click(signInButton);
+    public LoginModalComponent openLoginForm() {
+        click(login);
         return new LoginModalComponent(driver, loginRootElement);
     }
 
@@ -62,23 +58,18 @@ public class HeaderComponent extends BaseComponent {
 
     public NewsPage clickNewsLInk() {
         click(news);
-//        findWithWaitElement(NEWS_LINK_XPATH,10).click();
         return new NewsPage(driver);
     }
 
     public void setLanguage(String language) {
         if (language.equalsIgnoreCase("En")) {
-            click(this.listLanguage);
-            click(this.english);
+            click(listLanguage);
+            click(english);
         }
     }
 
-    public String getUsername(){
-        return username.getText();
+    public String getUserNameText() {
+        sleep(1);
+        return getText(userName);
     }
-
-    public String getUserNameText(){
-        return "";
-    }
-
 }

@@ -20,12 +20,12 @@ public class TestRunnerMethodInitDriverLoginCreateNews  extends  BaseTestRunner{
 
     @BeforeMethod
     public void setUpPage() {
-        String email = configProperties.getUserEmail();
-        String password = configProperties.getUserPassword();
+        String email = configProperties.getRegisteredUserEmail();
+        String password = configProperties.getRegisteredUserPassword();
         page.getHeaderComponent()
                 .setLanguage("en");
         page.getHeaderComponent()
-                .clickSignInButtonAndGetLoginForm()
+                .openLoginForm()
                 .fillForm(email, password)
                 .clickSignInButtonSuccessfulLogin()
                 .getHeaderComponent()
