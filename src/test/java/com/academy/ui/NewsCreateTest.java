@@ -14,6 +14,11 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
 
     private static final String NEWS_TITLE = "Workshop to educate your customers about eco-friendly living";
     private static final String NEWS_CONTENT = "Workshop to educate your customers about eco-friendly living";
+    private static final String NEWS_TITLE_LENGTH = "Celebrating World Water Day: The Coral Triangle. Water benefits not only humans but all animals and natural life that exists above and below the surface. Water benefits!!";
+    private static final String NEWS_CONTENT_LENGTH = "Celebrating World Water Day: The Coral Triangle";
+    private static final String NEWS_TITLE_AUTHOR = "Coffee takeaway with 40% discount";
+    private static final String NEWS_CONTENT_AUTHOR = "It's so healthy, fun and cool to bring eco habits into everyday life";
+
 
     @Test(dataProvider = "tagsListSelect", dataProviderClass = CreateNewsProvider.class)
     public void selectUnSelectTags(NewsTags[] tagsList1, NewsTags[] tagsList2) {
@@ -83,6 +88,32 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
 
         softAssert.assertAll();
 
+    }
+
+    @Test
+    public void checkLengthTitle() {
+        createNewsPage
+            .fillTheNewsForm(NEWS_TITLE_LENGTH, new NewsTags[]{NewsTags.EVENTS},
+                NEWS_CONTENT_LENGTH, "en")
+            .clickPublishButton();
+
+        boolean isNewsDisplayed = page.isNewsDisplayedWithTitle(NEWS_TITLE_LENGTH);
+        softAssert.assertTrue(isNewsDisplayed);
+
+        softAssert.assertAll();
+    }
+
+    @Test
+    public void AuthorFieldIsAutofilled() {
+        createNewsPage
+            .fillTheNewsForm(NEWS_TITLE_AUTHOR, new NewsTags[]{NewsTags.EVENTS},
+                NEWS_CONTENT_AUTHOR, "en")
+            .clickPublishButton()
+            .clickOnNewsWithTitle(NEWS_TITLE_AUTHOR);
+
+        String actualAuthorName = page.getAuthorName();
+        softAssert.assertEquals(actualAuthorName, "by " + configProperties.getRegisteredUserName());
+        softAssert.assertAll();
     }
 
 }
