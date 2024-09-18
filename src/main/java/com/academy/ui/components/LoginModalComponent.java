@@ -98,10 +98,4 @@ public class LoginModalComponent extends BaseComponent {
         enterEmail(email).enterPassword(password);
         return this;
     }
-
-    public boolean isHighlightedSignInBtnGreen() {
-        String backgroundColor = signInButton.getCssValue("background-color");
-        return backgroundColor.equals("rgba(19, 170, 87, 1)");
-    }
-
 }
