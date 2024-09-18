@@ -5,7 +5,9 @@ import com.academy.utils.props.ConfigProperties;
 import org.testng.annotations.DataProvider;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class LoginFormTestProvider {
     private final TestUtils testUtils;
@@ -79,6 +81,13 @@ public class LoginFormTestProvider {
     public Object[][] checkPasswordLessThan8CharactersUA() {
         return new Object[][]{
                 {"test@mail.com", "Test12", "Пароль повинен містити принаймні 8 символів без пробілів."}
+        };
+    }
+
+    @DataProvider(name = "checkScrollbarIsDisplayedOnTheSignInPage")
+    public Object[][] checkScrollbarIsDisplayedOnTheSignInPageDataProvider() {
+        return new Object[][] {
+                {320, new ArrayList<>(List.of(100, 125, 150, 200))}
         };
     }
 }
