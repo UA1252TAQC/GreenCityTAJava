@@ -3,17 +3,12 @@ package com.academy.ui;
 import com.academy.ui.components.ForgotPasswordModalComponent;
 import com.academy.ui.components.LoginModalComponent;
 import com.academy.ui.pages.greenCity.HomePage;
-import com.academy.ui.pages.greenCity.NewsPage;
 import com.academy.ui.providers.LoginFormTestProvider;
 import com.academy.ui.pages.greenCity.ProfilePage;
 import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
-import org.openqa.selenium.devtools.v127.page.Page;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
-import java.util.HashMap;
 
 public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     @Test(dataProvider = "emptyFields", dataProviderClass = LoginFormTestProvider.class)
@@ -26,6 +21,21 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 .clickSignInButtonUnsuccessfulLogin();
 
         Assert.assertEquals(logInModalComponent.getLoginErrorText(), expected);
+    }
+
+    @Test(dataProvider = "verifyErrorMessageForEmptyEmailAndPasswordEng", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyErrorMessageForEmptyEmailAndPasswordEng(String email, String password, String expectedErrorMessage) {
+        String errorMessage = page.setLanguage("en")
+                .getHeaderComponent()
+                .openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickInsideForm()
+                .clickSignInButton()
+                .getPasswordField()
+                .getErrorMessage();
+
+        Assert.assertEquals(errorMessage, expectedErrorMessage);
     }
 
     @Test(dataProvider = "verifyErrorMessageForExceedingPasswordLengthInUA", dataProviderClass = LoginFormTestProvider.class)
@@ -105,7 +115,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-    @Test(dataProvider="checkSuccessfulSignInDataProvider", dataProviderClass = LoginFormTestProvider.class)
+    @Test(dataProvider = "checkSuccessfulSignInDataProvider", dataProviderClass = LoginFormTestProvider.class)
     public void checkSuccessfulSignIn(String email, String password, String name, String id) {
 
         ProfilePage profilePage = page
@@ -121,7 +131,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(actualUrl, expectedUrl, "Wrong user profile page url");
-        softAssert.assertEquals(actualUserName, name,"User name doesn't match.");
+        softAssert.assertEquals(actualUserName, name, "User name doesn't match.");
         softAssert.assertAll();
 
         //profilePage.sleep(3);   //for presentation only
@@ -154,5 +164,4 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
         logInModalComponent.sleep(5);
     }
-
 }
