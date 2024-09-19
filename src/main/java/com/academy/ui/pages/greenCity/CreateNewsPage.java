@@ -30,6 +30,8 @@ public class CreateNewsPage extends BasePageGreenCity {
     protected WebElement newsPublishButton;
     @FindBy(how = How.XPATH, using = "//div[@class='text-wrapper']")
     protected WebElement newsPhoto;
+    @FindBy(how = How.XPATH, using = "(//div[@class='container'])[2]")
+    protected WebElement newsIsLoadingMessage;
 
     public CreateNewsPage(WebDriver driver) {
         super(driver);
@@ -132,6 +134,9 @@ public class CreateNewsPage extends BasePageGreenCity {
         return newsTitle.getAttribute("value");
     }
 
+    public String getNewsLoadingMessage() {
+        return newsIsLoadingMessage.getText();
+    }
 
     public String getContentText() {
         WebElement editor = driver.findElement(By.cssSelector("quill-editor .ql-editor"));
