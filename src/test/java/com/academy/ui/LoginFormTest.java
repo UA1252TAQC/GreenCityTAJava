@@ -212,6 +212,16 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-
+    @Test
+    public void verifySignInBtnIsEmptyByEmptyFields() {
+        LoginModalComponent logInModalComponent = page.getHeaderComponent()
+                .openLoginForm();
+        boolean isEmailEmpty = logInModalComponent.getEmailField().isEmailFieldEmpty();
+        boolean isPassEmpty = logInModalComponent.getPasswordField().isPasswordFieldEmpty();
+        softAssert.assertTrue(isEmailEmpty);
+        softAssert.assertTrue(isPassEmpty);
+        softAssert.assertFalse(logInModalComponent.isSignInButtonActive());
+        softAssert.assertAll();
+    }
 
 }
