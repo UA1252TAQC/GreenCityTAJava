@@ -89,4 +89,18 @@ public class LoginFormTestProvider {
         };
     }
 
+    @DataProvider(name = "checkLoginUnregisteredEmailDataEN")
+    public Object[][] checkLoginUnregisteredEmailDataEN() {
+        return new Object[][] {
+                {"test111@mail.com", "randomPassword", "Bad email or password."}
+        };
+    }
+
+    @DataProvider(name = "checkLoginUnregisteredEmailDataUA")
+    public Object[][] checkLoginUnregisteredEmailDataUA() {
+        return new Object[][] {
+                {"test111@mail.com", "randomPassword", "Введено невірний email або пароль."}
+        };
+    }
+
 }

@@ -19,6 +19,8 @@ public class LoginModalComponent extends BaseComponent {
     protected WebElement forgotPasswordLink;
     @FindBy(xpath = "//*[@id=\"pass-err-msg\"]/app-error/div")
     private WebElement errorMessageElement;
+    @FindBy(xpath = "//*[@id=\"mat-dialog-0\"]/app-auth-modal/div/div/div[2]/div/app-sign-in/form/div[3]\n")
+    private WebElement errorMessageElementUnregistered;
 
     @Getter
     private final EmailField emailField;
@@ -105,9 +107,19 @@ public class LoginModalComponent extends BaseComponent {
         return errorMessageElement.isDisplayed();
     }
 
+    public boolean isErrorMessageDisplayedUnregistered() {
+        return errorMessageElementUnregistered.isDisplayed();
+    }
+
+
     public String getErrorMessageText() {
         return errorMessageElement.getText();
     }
+
+    public String getErrorMessageTextUnregistered() {
+        return errorMessageElementUnregistered.getText();
+    }
+
 
     public boolean isHighlightedSignInBtnGreen() {
         String backgroundColor = signInButton.getCssValue("background-color");

@@ -212,6 +212,38 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
+    @Test(dataProvider = "checkLoginUnregisteredEmailDataEN", dataProviderClass = LoginFormTestProvider.class)
+    public void checkUnregisteredEmailTestEN(String email, String password, String expectedErrorMessage) {
+        LoginModalComponent logInModalComponent = page
+                .setLanguage("en")
+                .getHeaderComponent().openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickSignInButtonUnsuccessfulLogin();
 
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(logInModalComponent.isErrorMessageDisplayedUnregistered(),
+                "The error message should be displayed for unregistered email.");
+        softAssert.assertEquals(logInModalComponent.getErrorMessageTextUnregistered(), expectedErrorMessage,
+                "The displayed error message is incorrect.");
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "checkLoginUnregisteredEmailDataUA", dataProviderClass = LoginFormTestProvider.class)
+    public void checkUnregisteredEmailTestUA(String email, String password, String expectedErrorMessage) {
+        LoginModalComponent logInModalComponent = page
+                .setLanguage("ua")
+                .getHeaderComponent().openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickSignInButtonUnsuccessfulLogin();
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(logInModalComponent.isErrorMessageDisplayedUnregistered(),
+                "The error message should be displayed for unregistered email.");
+        softAssert.assertEquals(logInModalComponent.getErrorMessageTextUnregistered(), expectedErrorMessage,
+                "The displayed error message is incorrect.");
+        softAssert.assertAll();
+    }
 
 }
