@@ -12,15 +12,12 @@ import com.academy.utils.jwt.JwtPayload;
 import com.academy.utils.mail.Mail;
 import com.academy.utils.mail.MailBoxCredentials;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import lombok.extern.slf4j.Slf4j;
+import org.testng.annotations.Test;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Base64;
-import java.util.Date;
-
-import org.testng.annotations.Test;
 
 @Slf4j
 public class RegistrationFormTest extends TestRunnerRegistrationForm {
@@ -58,12 +55,12 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
         }
 
         String[] parts = token.split("\\.");
-        
+
         String payload = parts[1];
-        
+
         byte[] decodedBytes = Base64.getUrlDecoder().decode(payload);
         String decodedPayload = new String(decodedBytes, StandardCharsets.UTF_8);
-        
+
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             return objectMapper.readValue(decodedPayload, JwtPayload.class);
@@ -93,7 +90,7 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
     }
 
     @Test(dataProvider = "testRegisteredGreenCity", dataProviderClass = RegistrationFormTestProvider.class)
-    public void testRegisteredGreenCity(String expectedRegistrationSuccessMessage, String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword){
+    public void testRegisteredGreenCity(String expectedRegistrationSuccessMessage, String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
         HomePage homePage = openHomePage();
         var homeForm = homePage.getHeaderComponent().openRegistrationForm();
 
@@ -103,7 +100,7 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
         softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
 
         HomePageUbs ubsPage = openUbsPageInNewTab(homePage);
-        RegistrationModalComponent ubsForm = ubsPage.openRegistrationFormInHeader();
+        RegistrationModalComponent ubsForm = ubsPage.getHeaderComponent().openRegistrationForm();
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
         String actualRegistrationErrorMessage = ubsForm.getEmail().getErrorMessage();
@@ -113,9 +110,9 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
     }
 
     @Test(dataProvider = "testRegisteredUbs", dataProviderClass = RegistrationFormTestProvider.class)
-    public void testRegisteredUbs(String expectedRegistrationSuccessMessage, String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword){
+    public void testRegisteredUbs(String expectedRegistrationSuccessMessage, String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
         HomePageUbs ubsPage = openUbsPage();
-        var ubsForm = ubsPage.openRegistrationFormInHeader();
+        var ubsForm = ubsPage.getHeaderComponent().openRegistrationForm();
 
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
@@ -134,8 +131,8 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
         softAssert.assertAll();
     }
 
-    @Test (dataProvider = "testEmailAlreadyExists" , dataProviderClass = RegistrationFormTestProvider.class)
-    public void testEmailAlreadyExists(String expectedRegistrationSuccessMessage, String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword){
+    @Test(dataProvider = "testEmailAlreadyExists", dataProviderClass = RegistrationFormTestProvider.class)
+    public void testEmailAlreadyExists(String expectedRegistrationSuccessMessage, String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
         HomePage homePage = openHomePage();
         var homeForm = homePage.getHeaderComponent().openRegistrationForm();
 
@@ -171,7 +168,7 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
         softAssert.assertEquals(actualAccountSubmitMessage, localizedMessages.get(expectedAccountSubmitMessage));
 
         HomePageUbs ubsPage = openUbsPageInNewTab(homePage);
-        var ubsForm = ubsPage.openRegistrationFormInHeader();
+        var ubsForm = ubsPage.getHeaderComponent().openRegistrationForm();
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
         String actualRegistrationErrorMessage = ubsForm.getEmail().getErrorMessage();
@@ -183,7 +180,7 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
     @Test(dataProvider = "testUbsRegisteredWithConfirmEmail", dataProviderClass = RegistrationFormTestProvider.class)
     public void testUbsRegisteredWithConfirmEmail(String expectedRegistrationSuccessMessage, String expectedAccountSubmitMessage, String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
         HomePageUbs ubsPage = openUbsPage();
-        RegistrationModalComponent ubsForm = ubsPage.openRegistrationFormInHeader();
+        RegistrationModalComponent ubsForm = ubsPage.getHeaderComponent().openRegistrationForm();
 
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
