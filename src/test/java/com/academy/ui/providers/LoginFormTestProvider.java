@@ -54,16 +54,16 @@ public class LoginFormTestProvider {
     }
 
     @DataProvider(name = "checkSignInButtonRemainedInactivePassword")
-    public Object[][] FieldsDataProviderPassword() {
+    public Object[][] checkSignInButtonRemainedInactivePasswordDataProvider() {
         return new Object[][] {
-                {"password", configProperties.getRegisteredUserPassword()},
+                {configProperties.getRegisteredUserPassword()},
         };
     }
 
     @DataProvider(name = "checkInSignInButtonRemainedInactiveEmail")
-    public Object[][] FieldsDataProviderEmail() {
+    public Object[][] checkInSignInButtonRemainedInactiveEmailDataProvider() {
         return new Object[][] {
-                {"email", configProperties.getRegisteredUserPassword()},
+                {configProperties.getRegisteredUserEmail()},
         };
     }
 
@@ -85,6 +85,13 @@ public class LoginFormTestProvider {
     public Object[][] checkSignInBtnBecomesGreenByValidCredsDataProvider() {
         return new Object[][] {
                 {configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword()}
+        };
+    }
+
+    @DataProvider(name = "InvalidEmailPassword")
+    public Object[][] InvalidEmailPassword() {
+        return new Object[][] {
+                {"emailgmailcom", "pass"}
         };
     }
 
