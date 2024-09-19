@@ -50,7 +50,6 @@ public class LoginFormTestProvider {
         return new Object[][] {
                 {configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword(),
                 configProperties.getRegisteredUserName(), configProperties.getRegisteredUserId()}
-
         };
     }
 

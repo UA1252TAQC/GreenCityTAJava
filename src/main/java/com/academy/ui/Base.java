@@ -10,6 +10,7 @@ import java.util.List;
 
 public class Base {
     protected final WebDriver driver;
+    protected static final long EXPLICITLY_WAIT_DURATION_TEN_SECONDS = 10L;
 
     public Base(WebDriver driver) {
         this.driver = driver;
@@ -61,6 +62,13 @@ public class Base {
 
     public WebElement findWithWaitElement(String xPath, long seconds) {
         return getWait(seconds).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
+    }
+
+    public void waitStalenessOf(String xPath) {
+        List<WebElement> element = driver.findElements(By.xpath(xPath));
+        if (!element.isEmpty()) {
+            getWait(EXPLICITLY_WAIT_DURATION_TEN_SECONDS).until(ExpectedConditions.stalenessOf(element.getFirst()));
+        }
     }
 
     public void click(WebElement element) {
