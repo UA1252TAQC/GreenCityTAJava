@@ -25,7 +25,7 @@ public class UbsHeaderComponent extends BaseComponent {
     }
 
     public LoginModalComponent getCurrentLoginForm() {
-        return new LoginModalComponent(driver, rootElement);
+        return new LoginModalComponent(driver, authRootElement);
     }
 
     public RegistrationModalComponent openRegistrationForm() {
