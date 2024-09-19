@@ -10,11 +10,14 @@ import java.util.Iterator;
 public class LoginFormTestProvider {
     private final TestUtils testUtils;
 
+    ConfigProperties configProperties = new ConfigProperties();
+    String emptyFieldsErrorUA = "Потрібно заповнити всі обов'язкові поля.";
+    String emptyFieldsErrorEN = "Please fill all required fields.";
+
     public LoginFormTestProvider() {
         this.testUtils = new TestUtils();
     }
-    ConfigProperties configProperties = new ConfigProperties();
-    String emptyFieldsErrorUA = "Потрібно заповнити всі обов'язкові поля.";
+
 
     @DataProvider(name = "verifyErrorMessageForExceedingPasswordLengthInUA")
     public Iterator<Object[]> verifyErrorMessageForExceedingPasswordLengthInUA(Method method) {
@@ -36,12 +39,15 @@ public class LoginFormTestProvider {
         return testUtils.getTestCases(method);
     }
 
-    @DataProvider(name = "emptyFields")
+    @DataProvider(name = "verifyErrorMessageForEmptyEmailAndOrPassword")
     public Object[][] emptyFieldsDataProvider() {
         return new Object[][] {
                 {"Ua", configProperties.getRegisteredUserEmail(), "", emptyFieldsErrorUA},
                 {"Ua", "", configProperties.getRegisteredUserPassword(), emptyFieldsErrorUA},
                 {"Ua", "", "", emptyFieldsErrorUA},
+                {"En", configProperties.getRegisteredUserEmail(), "", emptyFieldsErrorEN},
+                {"En", "", configProperties.getRegisteredUserPassword(), emptyFieldsErrorEN},
+                {"En", "", "", emptyFieldsErrorEN}
         };
     }
 

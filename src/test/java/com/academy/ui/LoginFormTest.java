@@ -11,16 +11,16 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
-    @Test(dataProvider = "emptyFields", dataProviderClass = LoginFormTestProvider.class)
-    public void testErrorForEmptyFields(String language, String email, String password, String expected) {
-        LoginModalComponent logInModalComponent = new HomePage(driver)
-                .setLanguage(language)
+    @Test(dataProvider = "verifyErrorMessageForEmptyEmailAndOrPassword", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyErrorMessageForEmptyEmailAndOrPassword(String language, String email, String password, String expected) {
+        String errorMessage = page.setLanguage(language)
                 .getHeaderComponent().openLoginForm()
                 .enterEmail(email)
                 .enterPassword(password)
-                .clickSignInButtonUnsuccessfulLogin();
+                .clickSignInButtonUnsuccessfulLogin()
+                .getLoginErrorText();
 
-        Assert.assertEquals(logInModalComponent.getLoginErrorText(), expected);
+        Assert.assertEquals(errorMessage, expected);
     }
 
     @Test(dataProvider = "verifyErrorMessageForEmptyEmailAndPasswordEng", dataProviderClass = LoginFormTestProvider.class)
