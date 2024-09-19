@@ -81,11 +81,5 @@ public class LoginFormTestProvider {
         };
     }
 
-    @DataProvider(name = "checkSignInBtnBecomesGreenByValidCredsDataProvider")
-    public Object[][] checkSignInBtnBecomesGreenByValidCredsDataProvider() {
-        return new Object[][] {
-                {configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword()}
-        };
-    }
 
 }
