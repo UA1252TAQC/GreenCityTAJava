@@ -127,4 +127,14 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
         softAssert.assertAll();
     }
 
+    @Test(dataProvider = "validDataSourceLink", dataProviderClass = CreateNewsProvider.class)
+    public void createNewsWithoutImg(String title, NewsTags[] tags, String content,String sourceLink){
+        createNewsPage.fillTheNewsForm(title, tags, content, "en")
+                .clickPublishButton();
+        newsPage = new NewsPage(driver);
+        boolean isNewsAdded = newsPage.isNewsDisplayed(title,content, Arrays.asList(tags));
+        softAssert.assertTrue(isNewsAdded);
+        softAssert.assertAll();
+    }
+
 }
