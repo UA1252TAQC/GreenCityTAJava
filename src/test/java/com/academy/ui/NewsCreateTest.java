@@ -4,12 +4,10 @@ import com.academy.ui.constants.NewsTags;
 import com.academy.ui.providers.CreateNewsProvider;
 import com.academy.ui.runners.TestRunnerMethodInitDriverLoginCreateNews;
 import com.academy.ui.styleConstants.Colors;
-
 import java.util.Arrays;
 import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-
 import org.testng.annotations.Test;
 
 public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
@@ -20,6 +18,7 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
     private static final String NEWS_CONTENT_LENGTH = "Celebrating World Water Day: The Coral Triangle";
     private static final String NEWS_TITLE_AUTHOR = "Coffee takeaway with 40% discount";
     private static final String NEWS_CONTENT_AUTHOR = "It's so healthy, fun and cool to bring eco habits into everyday life";
+    private static final String EXPECTED_NEWS_LOADING_MESSAGE = "Please wait while loading...\nYour news is loading to website. Please wait until page refreshes.";
 
 
     @Test(dataProvider = "tagsListSelect", dataProviderClass = CreateNewsProvider.class)
@@ -27,26 +26,30 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
 
         createNewsPage.selectTags(tagsList1, "en");
         for (NewsTags tag : tagsList1) {
-            softAssert.assertEquals(createNewsPage.getTagButtonBackgroundColor(tag), Colors.PRIMARY_GREEN,
-                    "Tag color mismatch when tag is selected for: " + tag);
+            softAssert.assertEquals(createNewsPage.getTagButtonBackgroundColor(tag),
+                Colors.PRIMARY_GREEN,
+                "Tag color mismatch when tag is selected for: " + tag);
         }
 
         createNewsPage.unSelectTags(tagsList1, "en");
         for (NewsTags tag : tagsList1) {
-            softAssert.assertEquals(createNewsPage.getTagButtonBackgroundColor(tag), Colors.PRIMARY_WHITE,
-                    "Tag color mismatch when tag is unselected for: " + tag);
+            softAssert.assertEquals(createNewsPage.getTagButtonBackgroundColor(tag),
+                Colors.PRIMARY_WHITE,
+                "Tag color mismatch when tag is unselected for: " + tag);
         }
 
         createNewsPage.selectTags(tagsList2, "en");
         for (NewsTags tag : tagsList2) {
-            softAssert.assertEquals(createNewsPage.getTagButtonBackgroundColor(tag), Colors.PRIMARY_GREEN,
-                    "Tag color mismatch when tag is selected for: " + tag);
+            softAssert.assertEquals(createNewsPage.getTagButtonBackgroundColor(tag),
+                Colors.PRIMARY_GREEN,
+                "Tag color mismatch when tag is selected for: " + tag);
         }
 
         createNewsPage.unSelectTags(tagsList2, "en");
         for (NewsTags tag : tagsList2) {
-            softAssert.assertEquals(createNewsPage.getTagButtonBackgroundColor(tag), Colors.PRIMARY_WHITE,
-                    "Tag color mismatch when tag is unselected for: " + tag);
+            softAssert.assertEquals(createNewsPage.getTagButtonBackgroundColor(tag),
+                Colors.PRIMARY_WHITE,
+                "Tag color mismatch when tag is unselected for: " + tag);
         }
 
         softAssert.assertAll();
@@ -114,21 +117,43 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
     }
 
     @Test(dataProvider = "validDataSourceLink", dataProviderClass = CreateNewsProvider.class)
-    public void createNewsWithSourceLink(String title, NewsTags[] tags,String content,String sourceLink){
-        createNewsPage.fillTheNewsForm(title,tags,content,"en")
-                .enterSourceLink(sourceLink)
-                .clickPublishButton();
-        boolean isNewsAdded = newsPage.isNewsDisplayed(title,content, Arrays.asList(tags));
+    public void createNewsWithSourceLink(String title, NewsTags[] tags, String content,
+        String sourceLink) {
+        createNewsPage.fillTheNewsForm(title, tags, content, "en")
+            .enterSourceLink(sourceLink)
+            .clickPublishButton();
+        boolean isNewsAdded = newsPage.isNewsDisplayed(title, content, Arrays.asList(tags));
         softAssert.assertTrue(isNewsAdded);
         softAssert.assertAll();
     }
 
     @Test(dataProvider = "validDataSourceLink", dataProviderClass = CreateNewsProvider.class)
-    public void createNewsWithoutImg(String title, NewsTags[] tags, String content,String sourceLink){
+    public void createNewsWithoutImg(String title, NewsTags[] tags, String content,
+        String sourceLink) {
         createNewsPage.fillTheNewsForm(title, tags, content, "en")
-                .clickPublishButton();
-        boolean isNewsAdded = newsPage.isNewsDisplayed(title,content, Arrays.asList(tags));
+            .clickPublishButton();
+        boolean isNewsAdded = newsPage.isNewsDisplayed(title, content, Arrays.asList(tags));
         softAssert.assertTrue(isNewsAdded);
+        softAssert.assertAll();
+    }
+
+    @Test
+    public void isCreateNewsFormAppear() {
+        softAssert.assertEquals(createNewsPage.isTitleFieldAppeared(), true);
+        softAssert.assertEquals(createNewsPage.isContentFieldAppeared(), true);
+        softAssert.assertEquals(createNewsPage.isSourceFieldAppeared(), true);
+        softAssert.assertEquals(createNewsPage.isPhotoFieldAppeared(), true);
+    }
+
+    @Test
+    public void isNewsLoadingMessageAppear() {
+        createNewsPage
+            .fillTheNewsForm(NEWS_TITLE, new NewsTags[]{NewsTags.EVENTS},
+                NEWS_CONTENT, "en")
+            .clickPublishButton();
+
+        String loadingMessage = createNewsPage.getNewsLoadingMessage();
+        softAssert.assertEquals(loadingMessage, EXPECTED_NEWS_LOADING_MESSAGE);
         softAssert.assertAll();
     }
 
