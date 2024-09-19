@@ -5,7 +5,9 @@ import com.academy.utils.props.ConfigProperties;
 import org.testng.annotations.DataProvider;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class LoginFormTestProvider {
     private final TestUtils testUtils;
@@ -85,6 +87,13 @@ public class LoginFormTestProvider {
     public Object[][] checkSignInBtnBecomesGreenByValidCredsDataProvider() {
         return new Object[][] {
                 {configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword()}
+        };
+    }
+
+    @DataProvider(name = "resolutionAndZoomLevelValues")
+    public Object[][] checkScrollbarIsDisplayedAt320pxResolutionDataProvider() {
+        return new Object[][] {
+                {320, new ArrayList<>(List.of(100, 125, 150, 200))}
         };
     }
 

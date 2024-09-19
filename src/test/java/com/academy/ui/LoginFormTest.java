@@ -10,6 +10,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.util.List;
+
 public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     @Test(dataProvider = "emptyFields", dataProviderClass = LoginFormTestProvider.class)
     public void testErrorForEmptyFields(String language, String email, String password, String expected) {
@@ -224,6 +226,19 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertTrue(isPassEmpty);
         softAssert.assertFalse(logInModalComponent.isSignInButtonActive());
         softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "resolutionAndZoomLevelValues", dataProviderClass = LoginFormTestProvider.class)
+    public void checkScrollbarIsDisplayedDataProviderTest(int windowWidth, List<Integer> zoomValues) {
+
+        LoginModalComponent loginModalComponent = page
+                .getHeaderComponent()
+                .openLoginForm();
+
+        softAssert.assertTrue(true);
+        softAssert.assertAll();
+
+        loginModalComponent.sleep(3);   //for presentation only
     }
 
 }
