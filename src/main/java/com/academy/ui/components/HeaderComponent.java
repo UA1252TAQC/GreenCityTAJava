@@ -70,6 +70,6 @@ public class HeaderComponent extends BaseComponent {
 
     public String getUserNameText() {
         sleep(1);
-        return getText(userName);
+        return getText(userName).trim();
     }
 }
