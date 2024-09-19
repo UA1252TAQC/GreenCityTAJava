@@ -132,4 +132,14 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
         softAssert.assertAll();
     }
 
+    @Test(dataProvider = "validData", dataProviderClass = CreateNewsProvider.class)
+    public void createNewsWithContentLenght(String title, NewsTags[] tags,String content){
+        String str = "a".repeat(63206);
+        createNewsPage.fillTheNewsForm(title, tags, str, "en")
+                .clickPublishButton();
+        boolean isNewsAdded = newsPage.isNewsDisplayed(title,content, Arrays.asList(tags));
+        softAssert.assertTrue(isNewsAdded);
+        softAssert.assertAll();
+    }
+
 }
