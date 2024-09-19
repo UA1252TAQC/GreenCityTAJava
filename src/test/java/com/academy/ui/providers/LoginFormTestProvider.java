@@ -73,4 +73,26 @@ public class LoginFormTestProvider {
                 {"email", configProperties.getRegisteredUserPassword()},
         };
     }
+
+    @DataProvider(name = "checkPasswordLessThan8Characters")
+    public Object[][] checkPasswordLessThan8CharactersEN() {
+        return new Object[][] {
+                {"test@mail.com", "Test12", "Password must be at least 8 characters long without spaces."}
+        };
+    }
+
+    @DataProvider(name = "checkPasswordLessThan8CharactersUA")
+    public Object[][] checkPasswordLessThan8CharactersUA() {
+        return new Object[][]{
+                {"test@mail.com", "Test12", "Пароль повинен містити принаймні 8 символів без пробілів."}
+        };
+    }
+
+    @DataProvider(name = "checkSignInBtnBecomesGreenByValidCredsDataProvider")
+    public Object[][] checkSignInBtnBecomesGreenByValidCredsDataProvider() {
+        return new Object[][] {
+                {configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword()}
+        };
+    }
+
 }
