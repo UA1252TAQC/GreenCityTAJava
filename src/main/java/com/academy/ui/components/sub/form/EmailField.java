@@ -12,10 +12,6 @@ public class EmailField extends BaseComponent {
     @FindBy(xpath = ".//div[contains(@class, 'error-message') or contains(@class, 'error-message-show') or contains(@class, 'alert-general-error') or contains(@class, 'validation-email-error')]")
     private WebElement error;
 
-
-//   @FindBy(xpath = ".//div[contains(@class, 'error-message') or contains(@class, 'error-message-show')]")
-//   private WebElement error;
-
     public EmailField(WebDriver driver, WebElement rootElement) {
         super(driver, rootElement);
     }
