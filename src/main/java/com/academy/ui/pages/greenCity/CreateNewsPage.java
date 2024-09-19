@@ -20,6 +20,8 @@ public class CreateNewsPage extends BasePageGreenCity {
     protected WebElement newsTitle;
     @FindBy(how = How.XPATH, using = "//div[@class='ql-editor ql-blank']")
     protected WebElement newsContent;
+    @FindBy(xpath = "//div[contains(@class, 'left-form-column')]//label/input")
+    protected WebElement sourceLinkField;
     @FindBy(how = How.XPATH, using = "//app-tags-select//button/a")
     protected List<WebElement> tagsButton;
     @FindBy(how = How.XPATH, using = "//button[contains(@class, 'secondary-global-button')]")
@@ -42,11 +44,15 @@ public class CreateNewsPage extends BasePageGreenCity {
         return this;
     }
 
-    public CreateNewsPage fillTheNewsForm(String title, NewsTags[] tags, String content,
-        String language) {
+    public CreateNewsPage fillTheNewsForm(String title, NewsTags[] tags, String content, String language) {
         newsTitle.sendKeys(title);
         selectTags(tags, language);
         newsContent.sendKeys(content);
+        return this;
+    }
+
+    public CreateNewsPage enterSourceLink (String content){
+        sourceLinkField.sendKeys(content);
         return this;
     }
 
@@ -79,7 +85,7 @@ public class CreateNewsPage extends BasePageGreenCity {
     public String getTagButtonBackgroundColor(NewsTags tag) {
         for (WebElement tagButton : tagsButton) {
             if (tagButton.getText().equalsIgnoreCase(tag.getText("en"))
-                || tagButton.getText().equalsIgnoreCase(tag.getText("ua"))) {
+                    || tagButton.getText().equalsIgnoreCase(tag.getText("ua"))) {
                 return tagButton.getCssValue("background-color");
             }
         }
@@ -123,10 +129,10 @@ public class CreateNewsPage extends BasePageGreenCity {
         return newsTitle.getAttribute("value");
     }
 
+
     public String getContentText() {
         WebElement editor = driver.findElement(By.cssSelector("quill-editor .ql-editor"));
-        return (String) ((JavascriptExecutor) driver).executeScript(
-            "return arguments[0].innerText;", editor);
+        return (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].innerText;", editor);
     }
 
 }
