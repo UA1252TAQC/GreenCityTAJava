@@ -28,6 +28,8 @@ public class CreateNewsPage extends BasePageGreenCity {
     protected WebElement newsPreviewButton;
     @FindBy(how = How.XPATH, using = "//button[contains(@class, 'primary-global-button')]")
     protected WebElement newsPublishButton;
+    @FindBy(how = How.XPATH, using = "//div[@class='text-wrapper']")
+    protected WebElement newsPhoto;
 
     public CreateNewsPage(WebDriver driver) {
         super(driver);
@@ -44,14 +46,15 @@ public class CreateNewsPage extends BasePageGreenCity {
         return this;
     }
 
-    public CreateNewsPage fillTheNewsForm(String title, NewsTags[] tags, String content, String language) {
+    public CreateNewsPage fillTheNewsForm(String title, NewsTags[] tags, String content,
+        String language) {
         newsTitle.sendKeys(title);
         selectTags(tags, language);
         newsContent.sendKeys(content);
         return this;
     }
 
-    public CreateNewsPage enterSourceLink (String content){
+    public CreateNewsPage enterSourceLink(String content) {
         sourceLinkField.sendKeys(content);
         return this;
     }
@@ -85,7 +88,7 @@ public class CreateNewsPage extends BasePageGreenCity {
     public String getTagButtonBackgroundColor(NewsTags tag) {
         for (WebElement tagButton : tagsButton) {
             if (tagButton.getText().equalsIgnoreCase(tag.getText("en"))
-                    || tagButton.getText().equalsIgnoreCase(tag.getText("ua"))) {
+                || tagButton.getText().equalsIgnoreCase(tag.getText("ua"))) {
                 return tagButton.getCssValue("background-color");
             }
         }
@@ -132,7 +135,24 @@ public class CreateNewsPage extends BasePageGreenCity {
 
     public String getContentText() {
         WebElement editor = driver.findElement(By.cssSelector("quill-editor .ql-editor"));
-        return (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].innerText;", editor);
+        return (String) ((JavascriptExecutor) driver).executeScript(
+            "return arguments[0].innerText;", editor);
+    }
+
+    public boolean isTitleFieldAppeared() {
+        return isDisplayed(newsTitle);
+    }
+
+    public boolean isContentFieldAppeared() {
+        return isDisplayed(newsContent);
+    }
+
+    public boolean isSourceFieldAppeared() {
+        return isDisplayed(sourceLinkField);
+    }
+
+    public boolean isPhotoFieldAppeared() {
+        return isDisplayed(newsPhoto);
     }
 
 }

@@ -131,5 +131,12 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
         softAssert.assertTrue(isNewsAdded);
         softAssert.assertAll();
     }
+    @Test
+    public void isCreateNewsFormAppear() {
+        softAssert.assertEquals(createNewsPage.isTitleFieldAppeared(), true);
+        softAssert.assertEquals(createNewsPage.isContentFieldAppeared(), true);
+        softAssert.assertEquals(createNewsPage.isSourceFieldAppeared(), true);
+        softAssert.assertEquals(createNewsPage.isPhotoFieldAppeared(), true);
+    }
 
 }
