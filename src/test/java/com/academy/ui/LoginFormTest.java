@@ -141,7 +141,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
 
     @Test(dataProvider = "checkSignInButtonRemainedInactivePassword", dataProviderClass = LoginFormTestProvider.class)
     public void checkSignInButtonRemainedInactiveWithFilledPassword(String password) {
-        LoginModalComponent logInModalComponent = page
+        LoginModalComponent logInModalComponent = new HomePage(driver)
                 .getHeaderComponent().openLoginForm()
                 .enterPassword(password)
                 .clickSignInButtonUnsuccessfulLogin();
@@ -152,12 +152,11 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
                 "The 'Login' button should be inactive when entering only the email.");
         softAssert.assertAll();
-        logInModalComponent.sleep(5);
     }
 
     @Test(dataProvider = "checkInSignInButtonRemainedInactiveEmail", dataProviderClass = LoginFormTestProvider.class)
     public void checkSignInButtonRemainedInactiveWithFilledEmail(String email) {
-        LoginModalComponent logInModalComponent = page
+        LoginModalComponent logInModalComponent = new HomePage(driver)
                 .getHeaderComponent().openLoginForm()
                 .enterEmail(email)
                 .clickSignInButtonUnsuccessfulLogin();
@@ -168,7 +167,6 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
                 "The 'Login' button should be inactive when entering only the password.");
         softAssert.assertAll();
-        logInModalComponent.sleep(5);
     }
 
     @Test(dataProvider = "checkPasswordLessThan8Characters", dataProviderClass = LoginFormTestProvider.class)
@@ -232,7 +230,6 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
                 "The 'Login' button should be inactive when entering invalid email and password.");
         softAssert.assertAll();
-        logInModalComponent.sleep(5);
     }
 
 }
