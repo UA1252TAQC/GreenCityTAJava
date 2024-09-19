@@ -9,9 +9,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class LoginModalComponent extends BaseComponent {
+    private static final String SIGN_IN_BUTTON_XPATH = ".//button[@type='submit']";
     private static final String FORGOT_PASSWORD_ROOT_ELEMENT = "//div[@class='restore-password-container']";
 
-    @FindBy(xpath = ".//button[@type='submit']")
+    @FindBy(xpath = SIGN_IN_BUTTON_XPATH)
     protected WebElement signInButton;
     @FindBy(xpath = ".//img[@class='main-picture']")
     protected WebElement mainPicture;
@@ -58,6 +59,7 @@ public class LoginModalComponent extends BaseComponent {
 
     public ProfilePage clickSignInButtonSuccessfulLogin() {
         clickSignInButton();
+        waitStalenessOf(SIGN_IN_BUTTON_XPATH);
         return new ProfilePage(driver);
     }
 
@@ -107,6 +109,11 @@ public class LoginModalComponent extends BaseComponent {
 
     public String getErrorMessageText() {
         return errorMessageElement.getText();
+    }
+
+    public boolean isHighlightedSignInBtnGreen() {
+        String backgroundColor = signInButton.getCssValue("background-color");
+        return backgroundColor.equals("rgba(19, 170, 87, 1)");
     }
 
 }

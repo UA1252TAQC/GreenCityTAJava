@@ -10,8 +10,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import java.util.List;
-
 public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     @Test(dataProvider = "emptyFields", dataProviderClass = LoginFormTestProvider.class)
     public void testErrorForEmptyFields(String language, String email, String password, String expected) {
@@ -117,7 +115,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-    @Test(dataProvider = "checkSuccessfulSignIn", dataProviderClass = LoginFormTestProvider.class)
+    @Test(dataProvider = "registeredUserCredentials", dataProviderClass = LoginFormTestProvider.class)
     public void checkSuccessfulSignIn(String email, String password, String name, String id) {
 
         ProfilePage profilePage = page
@@ -127,11 +125,15 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 .enterPassword(password)
                 .clickSignInButtonSuccessfulLogin();
 
-        String actualUserName = profilePage.getHeaderComponent().getUserNameText();
-        String actualUrl = profilePage.getCurrentUrl();
+        String actualUserName = profilePage
+                .getHeaderComponent()
+                .getUserNameText();
+
+        String actualUrl = profilePage
+                .getCurrentUrl();
+
         String expectedUrl = configProperties.getProfilePageGreenCityUrl() + "/" + id;
 
-        SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(actualUrl, expectedUrl, "Wrong user profile page url");
         softAssert.assertEquals(actualUserName, name, "User name doesn't match.");
         softAssert.assertAll();
@@ -199,17 +201,19 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-    @Test(dataProvider = "checkScrollbarIsDisplayed", dataProviderClass = LoginFormTestProvider.class)
-    public void checkScrollbarIsDisplayedDataProviderTest(int windowWidth, List<Integer> zoomValues) {
-
-        LoginModalComponent loginModalComponent = page
-                .getHeaderComponent()
+    @Test(dataProvider = "checkSignInBtnBecomesGreenByValidCredsDataProvider", dataProviderClass = LoginFormTestProvider.class)
+    public void checkSignInBtnBecomesGreenByValidCreds(String email, String password) {
+        LoginModalComponent logInModalComponent = page.getHeaderComponent()
                 .openLoginForm();
-
-        softAssert.assertTrue(true);
+        softAssert.assertFalse(logInModalComponent.isSignInButtonActive());
+        logInModalComponent
+                .enterEmail(email)
+                .enterPassword(password);
+        softAssert.assertTrue(logInModalComponent.isSignInButtonActive());
+        softAssert.assertTrue(logInModalComponent.isHighlightedSignInBtnGreen());
         softAssert.assertAll();
-
-        loginModalComponent.sleep(3);   //for presentation only
     }
+
+
 
 }
