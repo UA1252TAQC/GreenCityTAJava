@@ -115,7 +115,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-    @Test(dataProvider = "checkSuccessfulSignInDataProvider", dataProviderClass = LoginFormTestProvider.class)
+    @Test(dataProvider = "registeredUserCredentials", dataProviderClass = LoginFormTestProvider.class)
     public void checkSuccessfulSignIn(String email, String password, String name, String id) {
 
         ProfilePage profilePage = page
@@ -125,16 +125,18 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 .enterPassword(password)
                 .clickSignInButtonSuccessfulLogin();
 
-        String actualUserName = profilePage.getHeaderComponent().getUserNameText();
-        String actualUrl = profilePage.getCurrentUrl();
+        String actualUserName = profilePage
+                .getHeaderComponent()
+                .getUserNameText();
+
+        String actualUrl = profilePage
+                .getCurrentUrl();
+
         String expectedUrl = configProperties.getProfilePageGreenCityUrl() + "/" + id;
 
-        SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(actualUrl, expectedUrl, "Wrong user profile page url");
         softAssert.assertEquals(actualUserName, name, "User name doesn't match.");
         softAssert.assertAll();
-
-        //profilePage.sleep(3);   //for presentation only
     }
 
     @Test(dataProvider = "checkSignInButtonRemainedInactivePassword", dataProviderClass = LoginFormTestProvider.class)

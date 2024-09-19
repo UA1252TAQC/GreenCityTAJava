@@ -45,12 +45,11 @@ public class LoginFormTestProvider {
         };
     }
 
-    @DataProvider(name = "checkSuccessfulSignInDataProvider")
-    public Object[][] checkSuccessfulSignInDataProvider() {
+    @DataProvider(name = "registeredUserCredentials")
+    public Object[][] registeredUserCredentialsDataProvider() {
         return new Object[][] {
                 {configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword(),
                 configProperties.getRegisteredUserName(), configProperties.getRegisteredUserId()}
-
         };
     }
 
