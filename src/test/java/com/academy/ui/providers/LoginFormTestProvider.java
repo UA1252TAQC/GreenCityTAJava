@@ -47,7 +47,7 @@ public class LoginFormTestProvider {
         };
     }
 
-    @DataProvider(name = "checkSuccessfulSignInDataProvider")
+    @DataProvider(name = "checkSuccessfulSignIn")
     public Object[][] checkSuccessfulSignInDataProvider() {
         return new Object[][] {
                 {configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword(),
@@ -84,8 +84,8 @@ public class LoginFormTestProvider {
         };
     }
 
-    @DataProvider(name = "checkScrollbarIsDisplayedOnTheSignInPage")
-    public Object[][] checkScrollbarIsDisplayedOnTheSignInPageDataProvider() {
+    @DataProvider(name = "checkScrollbarIsDisplayed")
+    public Object[][] checkScrollbarIsDisplayedDataProvider() {
         return new Object[][] {
                 {320, new ArrayList<>(List.of(100, 125, 150, 200))}
         };

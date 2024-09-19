@@ -10,6 +10,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.util.List;
+
 public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     @Test(dataProvider = "emptyFields", dataProviderClass = LoginFormTestProvider.class)
     public void testErrorForEmptyFields(String language, String email, String password, String expected) {
@@ -115,7 +117,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-    @Test(dataProvider = "checkSuccessfulSignInDataProvider", dataProviderClass = LoginFormTestProvider.class)
+    @Test(dataProvider = "checkSuccessfulSignIn", dataProviderClass = LoginFormTestProvider.class)
     public void checkSuccessfulSignIn(String email, String password, String name, String id) {
 
         ProfilePage profilePage = page
@@ -133,8 +135,6 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertEquals(actualUrl, expectedUrl, "Wrong user profile page url");
         softAssert.assertEquals(actualUserName, name, "User name doesn't match.");
         softAssert.assertAll();
-
-        //profilePage.sleep(3);   //for presentation only
     }
 
     @Test(dataProvider = "checkSignInButtonRemainedInactivePassword", dataProviderClass = LoginFormTestProvider.class)
@@ -197,6 +197,19 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertEquals(logInModalComponent.getErrorMessageText(), expectedErrorMessage,
                 "The error message in UA localization is incorrect.");
         softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "checkScrollbarIsDisplayed", dataProviderClass = LoginFormTestProvider.class)
+    public void checkScrollbarIsDisplayedDataProviderTest(int windowWidth, List<Integer> zoomValues) {
+
+        LoginModalComponent loginModalComponent = page
+                .getHeaderComponent()
+                .openLoginForm();
+
+        softAssert.assertTrue(true);
+        softAssert.assertAll();
+
+        loginModalComponent.sleep(3);   //for presentation only
     }
 
 }
