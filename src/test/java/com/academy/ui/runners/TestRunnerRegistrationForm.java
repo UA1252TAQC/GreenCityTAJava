@@ -20,7 +20,7 @@ public class TestRunnerRegistrationForm extends BaseTestRunner {
     }
 
     @BeforeMethod
-    public void setUpMethod(){
+    public void setUpMethod() {
         initChromeDriver(List.of());
         driver.get(configProperties.getHomePageGreenCityUrl());
     }

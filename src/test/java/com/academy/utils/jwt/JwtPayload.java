@@ -17,13 +17,13 @@ public class JwtPayload {
     private final Instant iat;
 
     @JsonCreator
-	public JwtPayload(@JsonProperty("sub") String sub,
-			@JsonProperty("role") List<String> role,
-			@JsonProperty("exp") String exp,
-            @JsonProperty("iat") String iat) {
-		this.sub = sub;
-		this.role = role;
-		this.exp = Instant.ofEpochSecond(Long.parseLong(exp));
-		this.iat = Instant.ofEpochSecond(Long.parseLong(iat));
-	}
+    public JwtPayload(@JsonProperty("sub") String sub,
+                      @JsonProperty("role") List<String> role,
+                      @JsonProperty("exp") String exp,
+                      @JsonProperty("iat") String iat) {
+        this.sub = sub;
+        this.role = role;
+        this.exp = Instant.ofEpochSecond(Long.parseLong(exp));
+        this.iat = Instant.ofEpochSecond(Long.parseLong(iat));
+    }
 }

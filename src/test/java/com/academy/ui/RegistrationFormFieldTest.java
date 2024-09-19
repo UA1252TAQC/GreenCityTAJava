@@ -31,7 +31,7 @@ public class RegistrationFormFieldTest extends TestRunnerRegistrationFormField {
     @Test(dataProvider = "testEmailValidation", dataProviderClass = RegistrationFormFieldTestProvider.class)
     public void testEmailValidation(boolean isExpectedValid, String expectedErrorMessage, boolean isShouldSubmitForm, String errorMessage,
                                     String email, String username, String password, String repeatPassword) {
-        form.fillForm(email,username,password,repeatPassword).submitIf(isShouldSubmitForm);
+        form.fillForm(email, username, password, repeatPassword).submitIf(isShouldSubmitForm);
 
         boolean isActualValid = form.getEmail().isValid();
         String actualErrorMessage = form.getEmail().getErrorMessage();

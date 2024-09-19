@@ -7,7 +7,7 @@ import org.testng.annotations.*;
 
 import java.util.List;
 
-public class TestRunnerRegistrationFormField extends BaseTestRunner{
+public class TestRunnerRegistrationFormField extends BaseTestRunner {
     protected ImmutableMap<String, String> localizedMessages;
     protected HomePage page;
     protected RegistrationModalComponent form;
