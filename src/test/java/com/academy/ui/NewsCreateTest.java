@@ -1,8 +1,6 @@
 package com.academy.ui;
 
 import com.academy.ui.constants.NewsTags;
-import com.academy.ui.pages.greenCity.CreateNewsPage;
-import com.academy.ui.pages.greenCity.NewsPage;
 import com.academy.ui.providers.CreateNewsProvider;
 import com.academy.ui.runners.TestRunnerMethodInitDriverLoginCreateNews;
 import com.academy.ui.styleConstants.Colors;
@@ -26,7 +24,6 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
 
     @Test(dataProvider = "tagsListSelect", dataProviderClass = CreateNewsProvider.class)
     public void selectUnSelectTags(NewsTags[] tagsList1, NewsTags[] tagsList2) {
-        createNewsPage = new CreateNewsPage(driver);
 
         createNewsPage.selectTags(tagsList1, "en");
         for (NewsTags tag : tagsList1) {
@@ -83,7 +80,7 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
         softAssert.assertTrue(isPublishButtonEnabled);
         createNewsPage.clickPublishButton();
 
-        boolean isNewsDisplayed = page.isNewsDisplayedWithTitle(NEWS_TITLE);
+        boolean isNewsDisplayed = newsPage.isNewsDisplayedWithTitle(NEWS_TITLE);
         softAssert.assertTrue(isNewsDisplayed);
 
         softAssert.assertAll();
@@ -97,7 +94,7 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
                 NEWS_CONTENT_LENGTH, "en")
             .clickPublishButton();
 
-        boolean isNewsDisplayed = page.isNewsDisplayedWithTitle(NEWS_TITLE_LENGTH);
+        boolean isNewsDisplayed = newsPage.isNewsDisplayedWithTitle(NEWS_TITLE_LENGTH);
         softAssert.assertTrue(isNewsDisplayed);
 
         softAssert.assertAll();
@@ -111,17 +108,25 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
             .clickPublishButton()
             .clickOnNewsWithTitle(NEWS_TITLE_AUTHOR);
 
-        String actualAuthorName = page.getAuthorName();
+        String actualAuthorName = newsPage.getAuthorName();
         softAssert.assertEquals(actualAuthorName, "by " + configProperties.getRegisteredUserName());
         softAssert.assertAll();
     }
 
     @Test(dataProvider = "validDataSourceLink", dataProviderClass = CreateNewsProvider.class)
     public void createNewsWithSourceLink(String title, NewsTags[] tags,String content,String sourceLink){
-        createNewsPage.fillTheNewsForm(title,tags,content,sourceLink)
+        createNewsPage.fillTheNewsForm(title,tags,content,"en")
                 .enterSourceLink(sourceLink)
                 .clickPublishButton();
-        newsPage = new NewsPage(driver);
+        boolean isNewsAdded = newsPage.isNewsDisplayed(title,content, Arrays.asList(tags));
+        softAssert.assertTrue(isNewsAdded);
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "validDataSourceLink", dataProviderClass = CreateNewsProvider.class)
+    public void createNewsWithoutImg(String title, NewsTags[] tags, String content,String sourceLink){
+        createNewsPage.fillTheNewsForm(title, tags, content, "en")
+                .clickPublishButton();
         boolean isNewsAdded = newsPage.isNewsDisplayed(title,content, Arrays.asList(tags));
         softAssert.assertTrue(isNewsAdded);
         softAssert.assertAll();
