@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 public class HeaderComponent extends BaseComponent {
 
     final String NEWS_LINK_XPATH = ".//div[@class='header_navigation-menu']//li[1]/a";
+    private static final String USER_NAME_XPATH = ".//ul[@id='header_user-wrp']/li[contains(@class, 'user-name')]";
 
     @FindBy(xpath = ".//*[@class='header_logo']")
     protected WebElement logo;
@@ -33,7 +34,7 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//li[@class='header_sign-up-link']//span")
     protected WebElement register;
 
-    @FindBy(xpath = ".//ul[@id='header_user-wrp']/li[contains(@class, 'user-name')]")
+    @FindBy(xpath = USER_NAME_XPATH)
     protected WebElement userName;
 
     @FindBy(xpath = "//app-auth-modal")
@@ -69,7 +70,6 @@ public class HeaderComponent extends BaseComponent {
     }
 
     public String getUserNameText() {
-        sleep(1);
-        return getText(userName).trim();
+        return getText(findWithWaitElement(USER_NAME_XPATH, EXPLICITLY_WAIT_DURATION_FIVE_SECONDS)).trim();
     }
 }

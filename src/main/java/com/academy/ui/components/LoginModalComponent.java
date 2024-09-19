@@ -9,14 +9,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class LoginModalComponent extends BaseComponent {
-    private static final String MAIN_PICTURE_XPATH = ".//a[@class='forgot-password']";
+    private static final String SIGN_IN_BUTTON_XPATH = ".//button[@type='submit']";
     private static final String FORGOT_PASSWORD_ROOT_ELEMENT = "//div[@class='restore-password-container']";
 
-    @FindBy(xpath = ".//button[@type='submit']")
+    @FindBy(xpath = SIGN_IN_BUTTON_XPATH)
     protected WebElement signInButton;
     @FindBy(xpath = ".//img[@class='main-picture']")
     protected WebElement mainPicture;
-    @FindBy(xpath = MAIN_PICTURE_XPATH)
+    @FindBy(xpath = ".//a[@class='forgot-password']")
     protected WebElement forgotPasswordLink;
     @FindBy(xpath = "//*[@id=\"pass-err-msg\"]/app-error/div")
     private WebElement errorMessageElement;
@@ -59,7 +59,7 @@ public class LoginModalComponent extends BaseComponent {
 
     public ProfilePage clickSignInButtonSuccessfulLogin() {
         clickSignInButton();
-        waitStalenessOf(MAIN_PICTURE_XPATH);
+        waitStalenessOf(SIGN_IN_BUTTON_XPATH);
         return new ProfilePage(driver);
     }
 
