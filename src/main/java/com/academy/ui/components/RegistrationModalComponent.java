@@ -102,7 +102,7 @@ public class RegistrationModalComponent extends BaseComponent {
 
     public void submitIf(boolean isShouldSubmitForm) {
         if (isShouldSubmitForm) {
-            this.submit();
+Dek            submit();
         }
     }
 
