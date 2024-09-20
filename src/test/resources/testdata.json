@@ -4,15 +4,15 @@
         [false, true, "test@gmail.com", "Denys", "Password1!", "Password1!"]
     ],
     "testEmailValidation": [
-        [false, "EMAIL_REQUIRED", false, "'Електронна пошта' with empty field", ""],
-        [true, null, false, "'Електронна пошта' with spaces around", " test@gmail.com "],
-        [false, "EMAIL_WITH_SPACES", false, "'Електронна пошта' with spaces", "tes t@gmail.com"],
-        [true, null, false, "'Електронна пошта' with “@” is valid", "test@gmail.com"],
-        [false, "EMAIL_INVALID", false, "'Електронна пошта' with “@” is valid", "test@gmailcom"],
-        [false, "EMAIL_INVALID", false, "'Електронна пошта' field require “@”", "testgmail.com"],
-        [false, "EMAIL_INVALID", true, "'Електронна пошта' field can't contain more than 72 characters", "emailemailemailemailemailemailemailemailemailemailemai2emailema1@gmail.com"],
-        [true, null, true, "'Електронна пошта' field can contain max 72 characters", "emailemailemailemailemailemailemailemailemailemailemailemailem@gmail.com"],
-        [true, null, true, "'Електронна пошта' field can contain max 72 characters", "emailemailemailemailemailemailemailemailemailemailemailemaile@gmail.com"]
+        [false, "EMAIL_REQUIRED", false, "'Електронна пошта' with empty field", "", null, null, null],
+        [true, null, false, "'Електронна пошта' with spaces around", " test@gmail.com ", null, null, null],
+        [false, "EMAIL_WITH_SPACES", false, "'Електронна пошта' with spaces", "tes t@gmail.com", null, null, null],
+        [true, null, false, "'Електронна пошта' with “@” is valid", "test@gmail.com", null, null, null],
+        [false, "EMAIL_INVALID", false, "'Електронна пошта' with “@” is valid", "test@gmailcom", null, null, null],
+        [false, "EMAIL_INVALID", false, "'Електронна пошта' field require “@”", "testgmail.com", null, null, null],
+        [false, "EMAIL_INVALID", true, "'Електронна пошта' field can't contain more than 72 characters", "emailemailemailemailemailemailemailemailemailemailemai2emailema1@gmail.com", "Denys1", "Password1!", "Password1!"],
+        [true, null, true, "'Електронна пошта' field can contain max 72 characters", "emailemailemailemailemailemailemailemailemailemailemailemailem@gmail.com", "Denys1", "Password1!", "Password1!"],
+        [true, null, true, "'Електронна пошта' field can contain max 72 characters", "emailemailemailemailemailemailemailemailemailemailemailemaile@gmail.com", "Denys1", "Password1!", "Password1!"]
     ],
     "testUsernameValidation": [
         [false, "USERNAME_REQUIRED", "User name empty", ""],
@@ -74,7 +74,7 @@
     ],
 
     "verifyErrorMessageForEmptyEmailAndPasswordEng": [
-        ["email@gmail.com", "", "Password is required"]
+        ["email@gmail.com", "", "Please fill all required fields."]
     ],
 
     "verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail": [
