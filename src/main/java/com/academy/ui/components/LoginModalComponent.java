@@ -21,10 +21,10 @@ public class LoginModalComponent extends BaseComponent {
     protected WebElement forgotPasswordLink;
     @FindBy(xpath = "//*[@id=\"pass-err-msg\"]/app-error/div")
     private WebElement errorMessageElement;
+
     @Getter
     @FindBy(xpath = "./div[@class='main']")
     private WebElement mainWindow;
-
 
     @Getter
     private final EmailField emailField;
