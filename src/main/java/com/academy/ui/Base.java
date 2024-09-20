@@ -1,6 +1,9 @@
 package com.academy.ui;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -10,6 +13,7 @@ import java.util.List;
 
 public class Base {
     protected final WebDriver driver;
+    protected static final long EXPLICITLY_WAIT_DURATION_FIVE_SECONDS = 5L;
 
     public Base(WebDriver driver) {
         this.driver = driver;
@@ -35,32 +39,15 @@ public class Base {
         return element.getText();
     }
 
-    public String getCssValue(WebElement element, String property) {
-        if (isDisplayed(element)) {
-            return element.getCssValue(property);
-        }
-
-        return null;
-    }
-
-    public Dimension getSize(WebElement element) {
-        if (isDisplayed(element)) {
-            return element.getSize();
-        }
-
-        return null;
-    }
-
-    public Point getLocation(WebElement element) {
-        if (isDisplayed(element)) {
-            return element.getLocation();
-        }
-
-        return null;
-    }
-
     public WebElement findWithWaitElement(String xPath, long seconds) {
         return getWait(seconds).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
+    }
+
+    public void waitStalenessOf(String xPath) {
+        List<WebElement> element = driver.findElements(By.xpath(xPath));
+        if (!element.isEmpty()) {
+            getWait(EXPLICITLY_WAIT_DURATION_FIVE_SECONDS).until(ExpectedConditions.stalenessOf(element.getFirst()));
+        }
     }
 
     public void click(WebElement element) {

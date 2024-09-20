@@ -4,13 +4,15 @@ public class ConfigProperties extends BaseProperties {
     public ConfigProperties() {
         super("credentials.properties");
     }
-    
+
     public String getBaseUrl() {
         return properties.getProperty("base.url");
     }
+
     public String getHomePageGreenCityUrl() {
         return getBaseUrl() + "/#/greenCity";
     }
+
     public String getNewsPageGreenCityUrl() {
         return getBaseUrl() + "/#/news";
     }

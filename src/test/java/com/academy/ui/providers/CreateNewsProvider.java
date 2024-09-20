@@ -49,4 +49,30 @@ public class CreateNewsProvider {
 
         return data.iterator();
     }
+
+    @DataProvider(name = "validDataSourceLink")
+    public Iterator<Object[]> dpTestSourceLink() {
+        List<Object[]> data = new ArrayList<>();
+        data.add(new Object[] {
+                "Test Title 11",
+                new NewsTags[]{NewsTags.INITIATIVES, NewsTags.ADS},
+                "Test Content 11,Test Content 11,Test Content 11,Test Content 11,Test Content 11",
+                "https://www.greencity.cx.ua/#/events/3001"
+        });
+        data.add(new Object[] {
+                "Test Title 22",
+                new NewsTags[]{NewsTags.INITIATIVES, NewsTags.ADS},
+                "Test Content 22,Test Content 2,Test Content 2,Test Content 2,Test Content 2",
+                "https://www.greencity.cx.ua/#/events/3092"
+        });
+        data.add(new Object[] {
+                "Test Title 33",
+                new NewsTags[]{ NewsTags.ADS},
+                "Test Content 33,Test Content 3,Test Content 3,Test Content 3,Test Content 3",
+                "https://www.greencity.social/#/greenCity"
+        });
+
+        return data.iterator();
+    }
+
 }

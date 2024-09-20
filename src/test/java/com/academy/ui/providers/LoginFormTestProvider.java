@@ -5,7 +5,9 @@ import com.academy.utils.props.ConfigProperties;
 import org.testng.annotations.DataProvider;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class LoginFormTestProvider {
     private final TestUtils testUtils;
@@ -51,12 +53,11 @@ public class LoginFormTestProvider {
         };
     }
 
-    @DataProvider(name = "checkSuccessfulSignInDataProvider")
-    public Object[][] checkSuccessfulSignInDataProvider() {
+    @DataProvider(name = "registeredUserCredentials")
+    public Object[][] registeredUserCredentialsDataProvider() {
         return new Object[][] {
                 {configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword(),
                 configProperties.getRegisteredUserName(), configProperties.getRegisteredUserId()}
-
         };
     }
 
@@ -88,10 +89,11 @@ public class LoginFormTestProvider {
         };
     }
 
-    @DataProvider(name = "checkSignInBtnBecomesGreenByValidCredsDataProvider")
-    public Object[][] checkSignInBtnBecomesGreenByValidCredsDataProvider() {
+
+    @DataProvider(name = "screenResolution320pxAndZoomLevelValuesPercentage")
+    public Object[][] checkScrollbarIsDisplayedAt320pxResolutionDataProvider() {
         return new Object[][] {
-                {configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword()}
+                {320, new ArrayList<>(List.of(100, 125, 150, 200))}
         };
     }
 

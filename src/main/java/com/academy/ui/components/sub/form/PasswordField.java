@@ -16,7 +16,9 @@ public class PasswordField extends BaseComponent {
     }
 
     public void enter(String text) {
-        input.sendKeys(text);
+        if (text != null) {
+            input.sendKeys(text);
+        }
     }
 
     public boolean isDisplayed() {
@@ -37,5 +39,9 @@ public class PasswordField extends BaseComponent {
     public void clear() {
         click(input);
         clear(input);
+    }
+
+    public boolean isPasswordFieldEmpty(){
+        return input.getAttribute("class").contains("ng-pristine");
     }
 }
