@@ -9,8 +9,7 @@ public class EmailField extends BaseComponent {
 
     @FindBy(xpath = ".//input[@id='email']")
     private WebElement input;
-    @FindBy(xpath = ".//div[contains(@class, 'error-message') or contains(@class, 'error-message-show')" +
-            "or contains(@class, 'alert-general-error') or contains(@class, 'validation-email-error')]")
+    @FindBy(xpath = ".//div[contains(@class, 'error-message') or contains(@class, 'error-message-show') or contains(@class, 'alert-general-error') or contains(@class, 'validation-email-error')]")
     private WebElement error;
 
     public EmailField(WebDriver driver, WebElement rootElement) {
@@ -18,7 +17,9 @@ public class EmailField extends BaseComponent {
     }
 
     public void enter(String text) {
-        input.sendKeys(text);
+        if (text != null) {
+            input.sendKeys(text);
+        }
     }
 
     public boolean isDisplayed() {

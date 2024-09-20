@@ -29,7 +29,7 @@ public class TestRunnerMethodInitDriverLoginCreateNews  extends  BaseTestRunner{
                 .fillForm(email, password)
                 .clickSignInButtonSuccessfulLogin()
                 .getHeaderComponent()
-                .clickNewsLInk()
+                .openNewsLink()
                 .clickCreateNews();
         createNewsPage = new CreateNewsPage(driver);
     }

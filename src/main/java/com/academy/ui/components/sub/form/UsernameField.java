@@ -16,7 +16,9 @@ public class UsernameField extends BaseComponent {
     }
 
     public void enter(String text) {
-        input.sendKeys(text);
+        if (text != null) {
+            input.sendKeys(text);
+        }
     }
 
     public boolean isDisplayed() {
