@@ -90,7 +90,7 @@ public class LoginFormTestProvider {
         };
     }
 
-    @DataProvider(name = "resolutionAndZoomLevelValues")
+    @DataProvider(name = "screenResolution320pxAndZoomLevelValuesPercentage")
     public Object[][] checkScrollbarIsDisplayedAt320pxResolutionDataProvider() {
         return new Object[][] {
                 {320, new ArrayList<>(List.of(100, 125, 150, 200))}
