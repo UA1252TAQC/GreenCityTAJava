@@ -1,6 +1,7 @@
 package com.academy.ui;
 
 import com.academy.ui.components.ForgotPasswordModalComponent;
+import com.academy.ui.components.GoogleAuthComponent;
 import com.academy.ui.components.LoginModalComponent;
 import com.academy.ui.pages.greenCity.HomePage;
 import com.academy.ui.providers.LoginFormTestProvider;
@@ -284,5 +285,15 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                     zoomLevelPercentage + "% zoom level");
         }
 
+    }
+
+    @Test
+    public void verifyLinkSignInWithGoogle() {
+        GoogleAuthComponent googleAuthComponent = page.getHeaderComponent()
+                .openLoginForm()
+                .clickSignInWithGoogleBtn();
+        softAssert.assertTrue(googleAuthComponent.getCurrentUrl().contains("accounts.google.com"), "Wrong url");
+        softAssert.assertTrue(googleAuthComponent.isEmailInputDisplayed(), "There is no element after following link");
+        softAssert.assertAll();
     }
 }
