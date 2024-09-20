@@ -2,6 +2,7 @@ package com.academy.ui.components;
 
 import com.academy.ui.components.sub.form.EmailField;
 import com.academy.ui.components.sub.form.PasswordField;
+import com.academy.ui.pages.BasePage;
 import com.academy.ui.pages.greenCity.ProfilePage;
 import lombok.Getter;
 import org.openqa.selenium.By;
@@ -23,6 +24,8 @@ public class LoginModalComponent extends BaseComponent {
     private WebElement errorMessageElement;
     @FindBy(xpath = "//*[@id=\"mat-dialog-0\"]/app-auth-modal/div/div/div[2]/div/app-sign-in/form/div[3]\n")
     private WebElement errorMessageElementUnregistered;
+    @FindBy(xpath = ".//button[@class='google-sign-in']")
+    private WebElement signInWithGoogleBtn;
 
     @Getter
     @FindBy(xpath = "./div[@class='main']")
@@ -85,6 +88,12 @@ public class LoginModalComponent extends BaseComponent {
         click(forgotPasswordLink);
         WebElement forgetPasswordRootElement = findWithWaitElement(FORGOT_PASSWORD_ROOT_ELEMENT, 5);
         return new ForgotPasswordModalComponent(driver, forgetPasswordRootElement);
+    }
+
+    public GoogleAuthComponent clickSignInWithGoogleBtn() {
+        click(signInWithGoogleBtn);
+        new BasePage(driver).switchToActiveTab();
+        return new GoogleAuthComponent(driver);
     }
 
     public LoginModalComponent clearEmail() {
