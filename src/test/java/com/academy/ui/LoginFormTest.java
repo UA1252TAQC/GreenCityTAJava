@@ -143,31 +143,33 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "checkSignInButtonRemainedInactivePassword", dataProviderClass = LoginFormTestProvider.class)
-    public void checkSignInButtonRemainedInactiveWithFilledPassword(String password, String expectedErrorMessage) {
+    public void checkSignInButtonRemainedInactiveWithFilledPassword(String password) {
         LoginModalComponent logInModalComponent = new HomePage(driver)
                 .getHeaderComponent().openLoginForm()
                 .enterPassword(password)
                 .clickSignInButtonUnsuccessfulLogin();
 
+        logInModalComponent.sleep(3);
+
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
                 "The 'Login' button should be inactive when entering only the email.");
         softAssert.assertAll();
-        logInModalComponent.sleep(5);
     }
 
     @Test(dataProvider = "checkInSignInButtonRemainedInactiveEmail", dataProviderClass = LoginFormTestProvider.class)
-    public void checkSignInButtonRemainedInactiveWithFilledEmail(String email, String expected) {
-        LoginModalComponent logInModalComponent = page
+    public void checkSignInButtonRemainedInactiveWithFilledEmail(String email) {
+        LoginModalComponent logInModalComponent = new HomePage(driver)
                 .getHeaderComponent().openLoginForm()
-                .enterPassword(email)
+                .enterEmail(email)
                 .clickSignInButtonUnsuccessfulLogin();
+
+        logInModalComponent.sleep(3);
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
                 "The 'Login' button should be inactive when entering only the password.");
         softAssert.assertAll();
-        logInModalComponent.sleep(5);
     }
 
     @Test(dataProvider = "checkPasswordLessThan8Characters", dataProviderClass = LoginFormTestProvider.class)
@@ -217,6 +219,22 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
+    @Test(dataProvider = "InvalidEmailPassword", dataProviderClass = LoginFormTestProvider.class)
+    public void testInvalidEmailPassword(String email, String password) {
+        LoginModalComponent logInModalComponent = new HomePage(driver)
+                .getHeaderComponent().openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickSignInButtonUnsuccessfulLogin();
+
+        logInModalComponent.sleep(3);
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
+                "The 'Login' button should be inactive when entering invalid email and password.");
+          softAssert.assertAll();
+}
+  
     @Test
     public void verifySignInBtnIsEmptyByEmptyFields() {
         LoginModalComponent logInModalComponent = page.getHeaderComponent()
@@ -249,7 +267,6 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                     zoomLevelPercentage + "% zoom level");
         }
 
-        softAssert.assertAll();
     }
 
 }

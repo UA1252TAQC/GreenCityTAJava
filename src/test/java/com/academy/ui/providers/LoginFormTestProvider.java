@@ -62,16 +62,16 @@ public class LoginFormTestProvider {
     }
 
     @DataProvider(name = "checkSignInButtonRemainedInactivePassword")
-    public Object[][] FieldsDataProviderPassword() {
+    public Object[][] checkSignInButtonRemainedInactivePasswordDataProvider() {
         return new Object[][] {
-                {"password", configProperties.getRegisteredUserPassword()},
+                {configProperties.getRegisteredUserPassword()},
         };
     }
 
     @DataProvider(name = "checkInSignInButtonRemainedInactiveEmail")
-    public Object[][] FieldsDataProviderEmail() {
+    public Object[][] checkInSignInButtonRemainedInactiveEmailDataProvider() {
         return new Object[][] {
-                {"email", configProperties.getRegisteredUserPassword()},
+                {configProperties.getRegisteredUserEmail()},
         };
     }
 
@@ -94,6 +94,13 @@ public class LoginFormTestProvider {
     public Object[][] checkScrollbarIsDisplayedAt320pxResolutionDataProvider() {
         return new Object[][] {
                 {320, new ArrayList<>(List.of(100, 125, 150, 200))}
+        };
+    }
+
+    @DataProvider(name = "InvalidEmailPassword")
+    public Object[][] InvalidEmailPassword() {
+        return new Object[][] {
+                {"emailgmailcom", "pass"}
         };
     }
 
