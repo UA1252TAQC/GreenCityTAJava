@@ -7,8 +7,16 @@ import org.openqa.selenium.support.FindBy;
 
 public class HeaderComponent extends BaseComponent {
 
+    final String NAME_PROFILE = "//p[@class='name']";
+
+    @FindBy(xpath = ".//*[@class='header_logo']")
+    protected WebElement logo;
+
     @FindBy(xpath = ".//div[@class='header_navigation-menu']//li[1]/a")
     protected WebElement news;
+
+    @FindBy(xpath = ".//ul[@aria-label='language switcher']")
+    protected WebElement currentLanguage;
 
     @FindBy(xpath = ".//ul[@aria-label='language switcher']//li[@aria-label='english']")
     protected WebElement listLanguage;
@@ -48,12 +56,18 @@ public class HeaderComponent extends BaseComponent {
         return new RegistrationModalComponent(driver, registrationRootElement);
     }
 
+
     public NewsPage openNewsLink() {
+        sleep(2);
         click(news);
         return new NewsPage(driver);
     }
 
     public void setLanguage(String language) {
+        String cLanguage = currentLanguage.getText();
+        if (cLanguage.equalsIgnoreCase(language)) {
+            return;
+        }
         if (language.equalsIgnoreCase("En")) {
             click(listLanguage);
             click(english);

@@ -8,23 +8,23 @@ import org.testng.annotations.BeforeMethod;
 import java.util.List;
 
 public class TestRunnerMethodInitDriverLoginCreateNews  extends  BaseTestRunner{
-    protected NewsPage page;
+    protected NewsPage newsPage;
     protected CreateNewsPage createNewsPage;
 
     @BeforeMethod
     public void initDriver(){
         initChromeDriver(List.of());
         driver.get(configProperties.getNewsPageGreenCityUrl());
-        page = new NewsPage(driver);
+        newsPage = new NewsPage(driver);
     }
 
     @BeforeMethod
     public void setUpPage() {
         String email = configProperties.getRegisteredUserEmail();
         String password = configProperties.getRegisteredUserPassword();
-        page.getHeaderComponent()
+        newsPage.getHeaderComponent()
                 .setLanguage("en");
-        page.getHeaderComponent()
+        newsPage.getHeaderComponent()
                 .openLoginForm()
                 .fillForm(email, password)
                 .clickSignInButtonSuccessfulLogin()

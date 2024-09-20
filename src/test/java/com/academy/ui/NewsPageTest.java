@@ -1,5 +1,6 @@
 package com.academy.ui;
 
+import com.academy.ui.runners.TestRunnerClassInitDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -43,7 +44,7 @@ public class NewsPageTest extends TestRunnerClassInitDriver {
         softAssert.assertEquals(filter.getEducationTag().getState(), null);
         softAssert.assertEquals(filter.getInitiativesTag().getState(), null);
         softAssert.assertEquals(filter.getAdsTag().getState(), null);
-        softAssert.assertEquals(filter.getNewsTag().getAllCss(), null);
+        softAssert.assertEquals(filter.getNewsTag().getRootElement().getAttribute("style"), null);
         softAssert.assertAll();
     }
 }
