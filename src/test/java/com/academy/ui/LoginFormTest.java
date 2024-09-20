@@ -187,7 +187,6 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertEquals(logInModalComponent.getErrorMessageText(), expectedErrorMessage,
                 "The displayed error message is incorrect.");
         softAssert.assertAll();
-//        for commit
     }
 
     @Test(dataProvider = "checkPasswordLessThan8CharactersUA", dataProviderClass = LoginFormTestProvider.class)
@@ -221,12 +220,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "checkLoginUnregisteredEmailDataEN", dataProviderClass = LoginFormTestProvider.class)
-    public void checkUnregisteredEmailTestEN(String email, String password, String expectedErrorMessage) {
+    public void checkUnregisteredEmailTestEN(String email, String password, String expectedErrorMessage)  {
         LoginModalComponent logInModalComponent = page
                 .setLanguage("en")
-    @Test(dataProvider = "InvalidEmailPassword", dataProviderClass = LoginFormTestProvider.class)
-    public void testInvalidEmailPassword(String email, String password) {
-        LoginModalComponent logInModalComponent = new HomePage(driver)
                 .getHeaderComponent().openLoginForm()
                 .enterEmail(email)
                 .enterPassword(password)
