@@ -40,4 +40,8 @@ public class PasswordField extends BaseComponent {
         click(input);
         clear(input);
     }
+
+    public boolean isPasswordFieldEmpty(){
+        return input.getAttribute("class").contains("ng-pristine");
+    }
 }

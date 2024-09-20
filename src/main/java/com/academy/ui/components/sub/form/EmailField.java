@@ -46,4 +46,8 @@ public class EmailField extends BaseComponent {
         click(input);
         clear(input);
     }
+
+    public boolean isEmailFieldEmpty(){
+        return input.getAttribute("class").contains("ng-pristine");
+    }
 }

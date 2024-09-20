@@ -5,7 +5,9 @@ import com.academy.utils.props.ConfigProperties;
 import org.testng.annotations.DataProvider;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class LoginFormTestProvider {
     private final TestUtils testUtils;
@@ -45,12 +47,11 @@ public class LoginFormTestProvider {
         };
     }
 
-    @DataProvider(name = "checkSuccessfulSignInDataProvider")
-    public Object[][] checkSuccessfulSignInDataProvider() {
+    @DataProvider(name = "registeredUserCredentials")
+    public Object[][] registeredUserCredentialsDataProvider() {
         return new Object[][] {
                 {configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword(),
                 configProperties.getRegisteredUserName(), configProperties.getRegisteredUserId()}
-
         };
     }
 
@@ -67,4 +68,27 @@ public class LoginFormTestProvider {
                 {"email", configProperties.getRegisteredUserPassword()},
         };
     }
+
+    @DataProvider(name = "checkPasswordLessThan8Characters")
+    public Object[][] checkPasswordLessThan8CharactersEN() {
+        return new Object[][] {
+                {"test@mail.com", "Test12", "Password must be at least 8 characters long without spaces."}
+        };
+    }
+
+    @DataProvider(name = "checkPasswordLessThan8CharactersUA")
+    public Object[][] checkPasswordLessThan8CharactersUA() {
+        return new Object[][]{
+                {"test@mail.com", "Test12", "Пароль повинен містити принаймні 8 символів без пробілів."}
+        };
+    }
+
+
+    @DataProvider(name = "screenResolution320pxAndZoomLevelValuesPercentage")
+    public Object[][] checkScrollbarIsDisplayedAt320pxResolutionDataProvider() {
+        return new Object[][] {
+                {320, new ArrayList<>(List.of(100, 125, 150, 200))}
+        };
+    }
+
 }

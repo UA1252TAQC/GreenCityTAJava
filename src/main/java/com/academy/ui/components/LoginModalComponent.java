@@ -4,19 +4,27 @@ import com.academy.ui.components.sub.form.EmailField;
 import com.academy.ui.components.sub.form.PasswordField;
 import com.academy.ui.pages.greenCity.ProfilePage;
 import lombok.Getter;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class LoginModalComponent extends BaseComponent {
+    private static final String SIGN_IN_BUTTON_XPATH = ".//button[@type='submit']";
     private static final String FORGOT_PASSWORD_ROOT_ELEMENT = "//div[@class='restore-password-container']";
 
-    @FindBy(xpath = ".//button[@type='submit']")
+    @FindBy(xpath = SIGN_IN_BUTTON_XPATH)
     protected WebElement signInButton;
     @FindBy(xpath = ".//img[@class='main-picture']")
     protected WebElement mainPicture;
     @FindBy(xpath = ".//a[@class='forgot-password']")
     protected WebElement forgotPasswordLink;
+    @FindBy(xpath = "//*[@id=\"pass-err-msg\"]/app-error/div")
+    private WebElement errorMessageElement;
+
+    @Getter
+    @FindBy(xpath = "./div[@class='main']")
+    private WebElement mainWindow;
 
     @Getter
     private final EmailField emailField;
@@ -56,6 +64,7 @@ public class LoginModalComponent extends BaseComponent {
 
     public ProfilePage clickSignInButtonSuccessfulLogin() {
         clickSignInButton();
+        waitStalenessOf(SIGN_IN_BUTTON_XPATH);
         return new ProfilePage(driver);
     }
 
@@ -97,5 +106,22 @@ public class LoginModalComponent extends BaseComponent {
     public LoginModalComponent fillForm(String email, String password) {
         enterEmail(email).enterPassword(password);
         return this;
+    }
+
+    public boolean isErrorMessageDisplayed() {
+        return errorMessageElement.isDisplayed();
+    }
+
+    public String getErrorMessageText() {
+        return errorMessageElement.getText();
+    }
+
+    public boolean isHighlightedSignInBtnGreen() {
+        String backgroundColor = signInButton.getCssValue("background-color");
+        return backgroundColor.equals("rgba(19, 170, 87, 1)");
+    }
+
+    public int getWidth() {
+        return mainWindow.getSize().width;
     }
 }

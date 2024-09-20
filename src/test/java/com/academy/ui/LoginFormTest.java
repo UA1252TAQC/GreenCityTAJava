@@ -6,9 +6,12 @@ import com.academy.ui.pages.greenCity.HomePage;
 import com.academy.ui.providers.LoginFormTestProvider;
 import com.academy.ui.pages.greenCity.ProfilePage;
 import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import java.util.List;
 
 public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     @Test(dataProvider = "emptyFields", dataProviderClass = LoginFormTestProvider.class)
@@ -115,7 +118,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-    @Test(dataProvider = "checkSuccessfulSignInDataProvider", dataProviderClass = LoginFormTestProvider.class)
+    @Test(dataProvider = "registeredUserCredentials", dataProviderClass = LoginFormTestProvider.class)
     public void checkSuccessfulSignIn(String email, String password, String name, String id) {
 
         ProfilePage profilePage = page
@@ -125,16 +128,18 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 .enterPassword(password)
                 .clickSignInButtonSuccessfulLogin();
 
-        String actualUserName = profilePage.getHeaderComponent().getUserNameText();
-        String actualUrl = profilePage.getCurrentUrl();
+        String actualUserName = profilePage
+                .getHeaderComponent()
+                .getUserNameText();
+
+        String actualUrl = profilePage
+                .getCurrentUrl();
+
         String expectedUrl = configProperties.getProfilePageGreenCityUrl() + "/" + id;
 
-        SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(actualUrl, expectedUrl, "Wrong user profile page url");
         softAssert.assertEquals(actualUserName, name, "User name doesn't match.");
         softAssert.assertAll();
-
-        //profilePage.sleep(3);   //for presentation only
     }
 
     @Test(dataProvider = "checkSignInButtonRemainedInactivePassword", dataProviderClass = LoginFormTestProvider.class)
@@ -164,4 +169,87 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
         logInModalComponent.sleep(5);
     }
+
+    @Test(dataProvider = "checkPasswordLessThan8Characters", dataProviderClass = LoginFormTestProvider.class)
+    public void checkPasswordLessThan8CharactersTest(String email, String password, String expectedErrorMessage) {
+        LoginModalComponent logInModalComponent = page
+                .setLanguage("en")
+                .getHeaderComponent().openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickSignInButtonUnsuccessfulLogin();
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(logInModalComponent.isErrorMessageDisplayed(),
+                "The error message should be displayed for a password with less than 8 characters.");
+        softAssert.assertEquals(logInModalComponent.getErrorMessageText(), expectedErrorMessage,
+                "The displayed error message is incorrect.");
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "checkPasswordLessThan8CharactersUA", dataProviderClass = LoginFormTestProvider.class)
+    public void checkPasswordLessThan8CharactersUATest(String email, String password, String expectedErrorMessage) {
+        LoginModalComponent logInModalComponent = page
+                .setLanguage("ua")
+                .getHeaderComponent().openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickSignInButtonUnsuccessfulLogin();
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(logInModalComponent.isErrorMessageDisplayed(),
+                "The error message should be displayed for a password with less than 8 characters in UA localization.");
+        softAssert.assertEquals(logInModalComponent.getErrorMessageText(), expectedErrorMessage,
+                "The error message in UA localization is incorrect.");
+        softAssert.assertAll();
+    }
+
+    @Test
+    public void checkSignInBtnBecomesGreenByValidCreds() {
+        LoginModalComponent logInModalComponent = page.getHeaderComponent()
+                .openLoginForm();
+        softAssert.assertFalse(logInModalComponent.isSignInButtonActive());
+        logInModalComponent
+                .enterEmail(configProperties.getRegisteredUserEmail())
+                .enterPassword(configProperties.getRegisteredUserPassword());
+        softAssert.assertTrue(logInModalComponent.isSignInButtonActive());
+        softAssert.assertTrue(logInModalComponent.isHighlightedSignInBtnGreen());
+        softAssert.assertAll();
+    }
+
+    @Test
+    public void verifySignInBtnIsEmptyByEmptyFields() {
+        LoginModalComponent logInModalComponent = page.getHeaderComponent()
+                .openLoginForm();
+        boolean isEmailEmpty = logInModalComponent.getEmailField().isEmailFieldEmpty();
+        boolean isPassEmpty = logInModalComponent.getPasswordField().isPasswordFieldEmpty();
+        softAssert.assertTrue(isEmailEmpty);
+        softAssert.assertTrue(isPassEmpty);
+        softAssert.assertFalse(logInModalComponent.isSignInButtonActive());
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "screenResolution320pxAndZoomLevelValuesPercentage", dataProviderClass = LoginFormTestProvider.class)
+    public void checkScrollbarIsDisplayedOnPageAt320pxResolutionTest(int windowWidth, List<Integer> zoomValuesPercentage) {
+
+        LoginModalComponent loginModalComponent = page
+                .getHeaderComponent()
+                .openLoginForm();
+
+        setWindowWidth(windowWidth);
+
+        for (int zoomLevelPercentage : zoomValuesPercentage) {
+            setZoomTo(zoomLevelPercentage);
+            WebElement element = loginModalComponent.getMainWindow();
+            boolean hasHorizontalScrollbar = hasHorizontalScrollbar(element);
+            boolean shouldHaveHorizontalScrollBar = loginModalComponent.getWidth()*zoomLevelPercentage/100 > windowWidth;
+
+            softAssert.assertEquals(hasHorizontalScrollbar, shouldHaveHorizontalScrollBar,
+                    "Horizontal scrollbar should be displayed on page at " + windowWidth + "px resolution with " +
+                    zoomLevelPercentage + "% zoom level");
+        }
+
+        softAssert.assertAll();
+    }
+
 }
