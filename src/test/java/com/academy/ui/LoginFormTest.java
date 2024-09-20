@@ -249,7 +249,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 "The error message should be displayed for unregistered email.");
         softAssert.assertEquals(logInModalComponent.getErrorMessageTextUnregistered(), expectedErrorMessage,
                 "The displayed error message is incorrect.");
-        softAssert.assertAll();
+        softAssert.assertAll(); // fixed
     }
   
     @Test
