@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class HeaderComponent extends BaseComponent {
 
-    final String NEWS_LINK_XPATH = ".//div[@class='header_navigation-menu']//li[1]/a";
+    private static final String USER_NAME_XPATH = ".//ul[@id='header_user-wrp']/li[contains(@class, 'user-name')]";
 
     @FindBy(xpath = ".//*[@class='header_logo']")
     protected WebElement logo;
@@ -15,11 +15,8 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//div[@class='header_navigation-menu']//li[1]/a")
     protected WebElement news;
 
-    @FindBy(xpath = ".//div[@class='header_navigation-menu']//li[2]/a")
-    protected WebElement places;
-
-    @FindBy(xpath = ".//div[@class='header_navigation-menu']//li[3]/a")
-    protected WebElement profile;
+    @FindBy(xpath = ".//ul[@aria-label='language switcher']")
+    protected WebElement currentLanguage;
 
     @FindBy(xpath = ".//ul[@aria-label='language switcher']//li[@aria-label='english']")
     protected WebElement listLanguage;
@@ -27,13 +24,16 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//li[@aria-label='En']")
     protected WebElement english;
 
+    @FindBy(xpath = ".//li[@aria-label='Ua']")
+    protected WebElement ukrainian;
+
     @FindBy(xpath = ".//a[contains(@class, 'header_sign-in-link')]")
     protected WebElement login;
 
     @FindBy(xpath = ".//li[@class='header_sign-up-link']//span")
     protected WebElement register;
 
-    @FindBy(xpath = ".//ul[@id='header_user-wrp']/li[contains(@class, 'user-name')]")
+    @FindBy(xpath = USER_NAME_XPATH)
     protected WebElement userName;
 
     @FindBy(xpath = "//app-auth-modal")
@@ -56,20 +56,28 @@ public class HeaderComponent extends BaseComponent {
         return new RegistrationModalComponent(driver, registrationRootElement);
     }
 
-    public NewsPage clickNewsLInk() {
+
+    public NewsPage openNewsLink() {
+        sleep(2);
         click(news);
         return new NewsPage(driver);
     }
 
     public void setLanguage(String language) {
+        String cLanguage = currentLanguage.getText();
+        if (cLanguage.equalsIgnoreCase(language)) {
+            return;
+        }
         if (language.equalsIgnoreCase("En")) {
             click(listLanguage);
             click(english);
+        } else if (language.equalsIgnoreCase("Ua")) {
+            click(listLanguage);
+            click(ukrainian);
         }
     }
 
     public String getUserNameText() {
-        sleep(1);
-        return getText(userName);
+        return getText(findWithWaitElement(USER_NAME_XPATH, EXPLICITLY_WAIT_DURATION_FIVE_SECONDS)).trim();
     }
 }

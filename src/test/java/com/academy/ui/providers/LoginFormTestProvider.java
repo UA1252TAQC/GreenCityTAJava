@@ -5,16 +5,21 @@ import com.academy.utils.props.ConfigProperties;
 import org.testng.annotations.DataProvider;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class LoginFormTestProvider {
     private final TestUtils testUtils;
 
+    ConfigProperties configProperties = new ConfigProperties();
+    String emptyFieldsErrorUA = "Потрібно заповнити всі обов'язкові поля.";
+    String emptyFieldsErrorEN = "Please fill all required fields.";
+
     public LoginFormTestProvider() {
         this.testUtils = new TestUtils();
     }
-    ConfigProperties configProperties = new ConfigProperties();
-    String emptyFieldsErrorUA = "Потрібно заповнити всі обов'язкові поля.";
+
 
     @DataProvider(name = "verifyErrorMessageForExceedingPasswordLengthInUA")
     public Iterator<Object[]> verifyErrorMessageForExceedingPasswordLengthInUA(Method method) {
@@ -36,35 +41,37 @@ public class LoginFormTestProvider {
         return testUtils.getTestCases(method);
     }
 
-    @DataProvider(name = "emptyFields")
+    @DataProvider(name = "verifyErrorMessageForEmptyEmailAndOrPassword")
     public Object[][] emptyFieldsDataProvider() {
         return new Object[][] {
                 {"Ua", configProperties.getRegisteredUserEmail(), "", emptyFieldsErrorUA},
                 {"Ua", "", configProperties.getRegisteredUserPassword(), emptyFieldsErrorUA},
                 {"Ua", "", "", emptyFieldsErrorUA},
+                {"En", configProperties.getRegisteredUserEmail(), "", emptyFieldsErrorEN},
+                {"En", "", configProperties.getRegisteredUserPassword(), emptyFieldsErrorEN},
+                {"En", "", "", emptyFieldsErrorEN}
         };
     }
 
-    @DataProvider(name = "checkSuccessfulSignInDataProvider")
-    public Object[][] checkSuccessfulSignInDataProvider() {
+    @DataProvider(name = "registeredUserCredentials")
+    public Object[][] registeredUserCredentialsDataProvider() {
         return new Object[][] {
                 {configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword(),
                 configProperties.getRegisteredUserName(), configProperties.getRegisteredUserId()}
-
         };
     }
 
     @DataProvider(name = "checkSignInButtonRemainedInactivePassword")
-    public Object[][] FieldsDataProviderPassword() {
+    public Object[][] checkSignInButtonRemainedInactivePasswordDataProvider() {
         return new Object[][] {
-                {"password", configProperties.getRegisteredUserPassword()},
+                {configProperties.getRegisteredUserPassword()},
         };
     }
 
     @DataProvider(name = "checkInSignInButtonRemainedInactiveEmail")
-    public Object[][] FieldsDataProviderEmail() {
+    public Object[][] checkInSignInButtonRemainedInactiveEmailDataProvider() {
         return new Object[][] {
-                {"email", configProperties.getRegisteredUserPassword()},
+                {configProperties.getRegisteredUserEmail()},
         };
     }
 
@@ -81,5 +88,21 @@ public class LoginFormTestProvider {
                 {"test@mail.com", "Test12", "Пароль повинен містити принаймні 8 символів без пробілів."}
         };
     }
-    // for commit
+
+
+
+    @DataProvider(name = "screenResolution320pxAndZoomLevelValuesPercentage")
+    public Object[][] checkScrollbarIsDisplayedAt320pxResolutionDataProvider() {
+        return new Object[][] {
+                {320, new ArrayList<>(List.of(100, 125, 150, 200))}
+        };
+    }
+
+    @DataProvider(name = "InvalidEmailPassword")
+    public Object[][] InvalidEmailPassword() {
+        return new Object[][] {
+                {"emailgmailcom", "pass"}
+        };
+    }
+
 }

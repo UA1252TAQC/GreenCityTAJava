@@ -9,25 +9,4 @@ public class ProfilePage extends BasePageGreenCity {
     public ProfilePage(WebDriver driver) {
         super(driver);
     }
-
-    public static class NewsPreviewPage extends BasePageGreenCity {
-
-        @FindBy(how = How.XPATH, using = ".//div[@class='news-title word-wrap']")
-        protected WebElement previewPageTitle;
-        @FindBy(xpath = "//div[@class = 'back-button']/a")
-        private WebElement backToEditingButton;
-
-        public NewsPreviewPage(WebDriver driver) {
-            super(driver);
-        }
-
-        public NewsPreviewPage clickBackToEditing() {
-            backToEditingButton.click();
-            return this;
-        }
-
-        public boolean isPreviewPageDisplayed() {
-            return isDisplayed(previewPageTitle);
-        }
-    }
 }
