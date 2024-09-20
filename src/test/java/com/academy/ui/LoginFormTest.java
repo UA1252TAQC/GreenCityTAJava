@@ -251,7 +251,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 "The displayed error message is incorrect.");
         softAssert.assertAll(); // fixed
     }
-  
+
     @Test
     public void verifySignInBtnIsEmptyByEmptyFields() {
         LoginModalComponent logInModalComponent = page.getHeaderComponent()
