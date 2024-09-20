@@ -75,7 +75,7 @@ public class LoginFormTestProvider {
         };
     }
 
-    @DataProvider(name = "checkPasswordLessThan8Characters")
+    @DataProvider(name = "checkPasswordLessThan8CharactersEN")
     public Object[][] checkPasswordLessThan8CharactersEN() {
         return new Object[][] {
                 {"test@mail.com", "Test12", "Password must be at least 8 characters long without spaces."}
@@ -88,6 +88,7 @@ public class LoginFormTestProvider {
                 {"test@mail.com", "Test12", "Пароль повинен містити принаймні 8 символів без пробілів."}
         };
     }
+
 
 
     @DataProvider(name = "screenResolution320pxAndZoomLevelValuesPercentage")
