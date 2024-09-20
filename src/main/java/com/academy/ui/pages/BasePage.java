@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BasePage extends Base {
+    private static final int TIME_TO_WAIT = 10;
+
     @FindBy(xpath = ".//header[@role='banner']")
     protected WebElement headerRootElement;
 
@@ -20,7 +22,7 @@ public class BasePage extends Base {
     }
 
     public String getPopUpMessage() {
-        return super.findWithWaitElement("//div[@matsnackbarlabel]", 10).getText();
+        return super.findWithWaitElement("//div[@matsnackbarlabel]", TIME_TO_WAIT).getText();
     }
 
     public void openUrl(String url) {
