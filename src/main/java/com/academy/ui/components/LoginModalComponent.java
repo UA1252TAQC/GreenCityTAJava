@@ -4,6 +4,7 @@ import com.academy.ui.components.sub.form.EmailField;
 import com.academy.ui.components.sub.form.PasswordField;
 import com.academy.ui.pages.greenCity.ProfilePage;
 import lombok.Getter;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,6 +21,10 @@ public class LoginModalComponent extends BaseComponent {
     protected WebElement forgotPasswordLink;
     @FindBy(xpath = "//*[@id=\"pass-err-msg\"]/app-error/div")
     private WebElement errorMessageElement;
+
+    @Getter
+    @FindBy(xpath = "./div[@class='main']")
+    private WebElement mainWindow;
 
     @Getter
     private final EmailField emailField;
@@ -116,4 +121,7 @@ public class LoginModalComponent extends BaseComponent {
         return backgroundColor.equals("rgba(19, 170, 87, 1)");
     }
 
+    public int getWidth() {
+        return getSize(mainWindow).width;
+    }
 }

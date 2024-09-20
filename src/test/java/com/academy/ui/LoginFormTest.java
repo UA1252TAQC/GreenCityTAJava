@@ -6,9 +6,12 @@ import com.academy.ui.pages.greenCity.HomePage;
 import com.academy.ui.providers.LoginFormTestProvider;
 import com.academy.ui.pages.greenCity.ProfilePage;
 import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import java.util.List;
 
 public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     @Test(dataProvider = "emptyFields", dataProviderClass = LoginFormTestProvider.class)
@@ -223,6 +226,29 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertTrue(isEmailEmpty);
         softAssert.assertTrue(isPassEmpty);
         softAssert.assertFalse(logInModalComponent.isSignInButtonActive());
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "screenResolution320pxAndZoomLevelValuesPercentage", dataProviderClass = LoginFormTestProvider.class)
+    public void checkScrollbarIsDisplayedOnPageAt320pxResolutionTest(int windowWidth, List<Integer> zoomValuesPercentage) {
+
+        LoginModalComponent loginModalComponent = page
+                .getHeaderComponent()
+                .openLoginForm();
+
+        setWindowWidth(windowWidth);
+
+        for (int zoomLevelPercentage : zoomValuesPercentage) {
+            setZoomTo(zoomLevelPercentage);
+            WebElement element = loginModalComponent.getMainWindow();
+            boolean hasHorizontalScrollbar = hasHorizontalScrollbar(element);
+            boolean shouldHaveHorizontalScrollBar = loginModalComponent.getWidth()*zoomLevelPercentage/100 > windowWidth;
+
+            softAssert.assertEquals(hasHorizontalScrollbar, shouldHaveHorizontalScrollBar,
+                    "Horizontal scrollbar should be displayed on page at " + windowWidth + "px resolution with " +
+                    zoomLevelPercentage + "% zoom level");
+        }
+
         softAssert.assertAll();
     }
 
