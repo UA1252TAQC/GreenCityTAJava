@@ -6,9 +6,12 @@ import com.academy.ui.pages.greenCity.HomePage;
 import com.academy.ui.providers.LoginFormTestProvider;
 import com.academy.ui.pages.greenCity.ProfilePage;
 import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import java.util.List;
 
 public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     @Test(dataProvider = "emptyFields", dataProviderClass = LoginFormTestProvider.class)
@@ -203,14 +206,14 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-    @Test(dataProvider = "checkSignInBtnBecomesGreenByValidCredsDataProvider", dataProviderClass = LoginFormTestProvider.class)
-    public void checkSignInBtnBecomesGreenByValidCreds(String email, String password) {
+    @Test
+    public void checkSignInBtnBecomesGreenByValidCreds() {
         LoginModalComponent logInModalComponent = page.getHeaderComponent()
                 .openLoginForm();
         softAssert.assertFalse(logInModalComponent.isSignInButtonActive());
         logInModalComponent
-                .enterEmail(email)
-                .enterPassword(password);
+                .enterEmail(configProperties.getRegisteredUserEmail())
+                .enterPassword(configProperties.getRegisteredUserPassword());
         softAssert.assertTrue(logInModalComponent.isSignInButtonActive());
         softAssert.assertTrue(logInModalComponent.isHighlightedSignInBtnGreen());
         softAssert.assertAll();
@@ -229,7 +232,41 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
                 "The 'Login' button should be inactive when entering invalid email and password.");
+          softAssert.assertAll();
+}
+  
+    @Test
+    public void verifySignInBtnIsEmptyByEmptyFields() {
+        LoginModalComponent logInModalComponent = page.getHeaderComponent()
+                .openLoginForm();
+        boolean isEmailEmpty = logInModalComponent.getEmailField().isEmailFieldEmpty();
+        boolean isPassEmpty = logInModalComponent.getPasswordField().isPasswordFieldEmpty();
+        softAssert.assertTrue(isEmailEmpty);
+        softAssert.assertTrue(isPassEmpty);
+        softAssert.assertFalse(logInModalComponent.isSignInButtonActive());
         softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "screenResolution320pxAndZoomLevelValuesPercentage", dataProviderClass = LoginFormTestProvider.class)
+    public void checkScrollbarIsDisplayedOnPageAt320pxResolutionTest(int windowWidth, List<Integer> zoomValuesPercentage) {
+
+        LoginModalComponent loginModalComponent = page
+                .getHeaderComponent()
+                .openLoginForm();
+
+        setWindowWidth(windowWidth);
+
+        for (int zoomLevelPercentage : zoomValuesPercentage) {
+            setZoomTo(zoomLevelPercentage);
+            WebElement element = loginModalComponent.getMainWindow();
+            boolean hasHorizontalScrollbar = hasHorizontalScrollbar(element);
+            boolean shouldHaveHorizontalScrollBar = loginModalComponent.getWidth()*zoomLevelPercentage/100 > windowWidth;
+
+            softAssert.assertEquals(hasHorizontalScrollbar, shouldHaveHorizontalScrollBar,
+                    "Horizontal scrollbar should be displayed on page at " + windowWidth + "px resolution with " +
+                    zoomLevelPercentage + "% zoom level");
+        }
+
     }
 
 }
