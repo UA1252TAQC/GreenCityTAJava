@@ -26,7 +26,7 @@ public class CreateNewsPage extends BasePageGreenCity {
     protected List<WebElement> tagsButton;
     @FindBy(how = How.XPATH, using = "//button[contains(@class, 'secondary-global-button')]")
     protected WebElement newsPreviewButton;
-    @FindBy(how = How.XPATH, using = "//button[contains(@class, 'primary-global-button')]")
+    @FindBy(how = How.XPATH, using = "//button[@type='submit']")
     protected WebElement newsPublishButton;
     @FindBy(how = How.XPATH, using = "//div[@class='text-wrapper']")
     protected WebElement newsPhoto;
@@ -106,8 +106,7 @@ public class CreateNewsPage extends BasePageGreenCity {
     }
 
     public NewsPage clickPublishButton() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].click();", newsPublishButton);
+        click(newsPublishButton);
         return new NewsPage(driver);
     }
 
