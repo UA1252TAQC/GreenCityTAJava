@@ -50,4 +50,8 @@ public class EmailField extends BaseComponent {
     public boolean isEmailFieldEmpty(){
         return input.getAttribute("class").contains("ng-pristine");
     }
+
+    public boolean isHighlightedInColor(String color) {
+        return input.getCssValue("border-color").equals(color);
+    }
 }

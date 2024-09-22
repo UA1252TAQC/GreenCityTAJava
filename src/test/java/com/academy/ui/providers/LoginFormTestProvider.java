@@ -120,4 +120,12 @@ public class LoginFormTestProvider {
         };
     }
 
+    @DataProvider(name = "verifyMessageAfterRecoverPassDataProvider")
+    public Object[][] verifyMessageAfterRecoverPassDataProvider() {
+        return new Object[][] {
+                {configProperties.getRegisteredUserEmail(), "Password restore link already sent, please check your email:"}
+        };
+    }
+
+
 }

@@ -3,10 +3,12 @@ package com.academy.ui;
 import com.academy.ui.components.ForgotPasswordModalComponent;
 import com.academy.ui.components.GoogleAuthComponent;
 import com.academy.ui.components.LoginModalComponent;
+import com.academy.ui.components.sub.form.EmailField;
 import com.academy.ui.pages.greenCity.HomePage;
 import com.academy.ui.providers.LoginFormTestProvider;
 import com.academy.ui.pages.greenCity.ProfilePage;
 import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
+import com.academy.ui.styleConstants.Colors;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -216,7 +218,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 .enterEmail(configProperties.getRegisteredUserEmail())
                 .enterPassword(configProperties.getRegisteredUserPassword());
         softAssert.assertTrue(logInModalComponent.isSignInButtonActive());
-        softAssert.assertTrue(logInModalComponent.isHighlightedSignInBtnGreen());
+        softAssert.assertTrue(logInModalComponent.isHighlightedSignInBtnInColor(Colors.PRIMARY_GREEN));
         softAssert.assertAll();
     }
 
@@ -296,4 +298,31 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertTrue(googleAuthComponent.isEmailInputDisplayed(), "There is no element after following link");
         softAssert.assertAll();
     }
+
+    @Test(dataProvider = "verifyMessageAfterRecoverPassDataProvider", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyMessageAfterRecoverPass(String email, String expectedMessage) {
+        page.setLanguage("en")
+                .getHeaderComponent()
+                .openLoginForm()
+                .clickForgotPasswordLink()
+                .enterEmail(email)
+                .clickSignInButton();
+        driver.navigate().refresh();
+
+        EmailField emailField = page.setLanguage("en")
+                .getHeaderComponent()
+                .openLoginForm()
+                .clickForgotPasswordLink()
+                .enterEmail(email)
+                .clickSignInButton().getEmailField();
+
+        String message = emailField.getErrorMessage();
+        softAssert.assertEquals(message, expectedMessage + " " + email);
+
+        boolean isHighlightedInRed = emailField
+                .isHighlightedInColor(Colors.PRIMARY_RED);
+        softAssert.assertTrue(isHighlightedInRed, "The color of email field is not " + Colors.PRIMARY_RED);
+        softAssert.assertAll();
+    }
+
 }
