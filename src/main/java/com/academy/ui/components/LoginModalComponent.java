@@ -136,9 +136,9 @@ public class LoginModalComponent extends BaseComponent {
         return errorMessageElementUnregistered.getText();
     }
   
-    public boolean isHighlightedSignInBtnGreen() {
+    public boolean isHighlightedSignInBtnInColor(String color) {
         String backgroundColor = signInButton.getCssValue("background-color");
-        return backgroundColor.equals("rgba(19, 170, 87, 1)");
+        return backgroundColor.equals(color);
     }
 
     public int getWidth() {
