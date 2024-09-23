@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 public class PasswordField extends BaseComponent {
     @FindBy(xpath = ".//input[@id='password']")
     private WebElement input;
-    @FindBy(xpath = ".//div[contains(@class, 'alert-general-error')] | .//div[@id='pass-err-msg']//div")
+    @FindBy(xpath = ".//div[contains(@class, 'alert-general-error')] | .//div[@id='password-err-msg']/app-error")
     private WebElement error;
 
     public PasswordField(WebDriver driver, WebElement rootElement) {
