@@ -33,11 +33,6 @@ public class EmailField extends BaseComponent {
         return null;
     }
 
-    public boolean isHighlightedInRed() {
-        String borderColor = input.getCssValue("border-color");
-        return borderColor.equals("rgb(240, 49, 39)");
-    }
-
     public boolean isValid() {
         return !isDisplayed(error);
     }
