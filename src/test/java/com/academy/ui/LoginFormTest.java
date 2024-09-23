@@ -53,10 +53,11 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         Assert.assertEquals(errorMessage, expected);
     }
 
-    @Test(dataProvider = "verifyErrorMessageForExceedingPasswordLengthInUA", dataProviderClass = LoginFormTestProvider.class)
-    public void verifyErrorMessageForExceedingPasswordLengthInUA(String email, String password, String expectedErrorMessage) {
+    @Test(dataProvider = "verifyErrorMessageForExceedingPasswordLength", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyErrorMessageForExceedingPasswordLength(String language, String email, String password, String expected) {
 
-        String errorMessage = page.getHeaderComponent()
+        String errorMessage = page.setLanguage(language)
+                .getHeaderComponent()
                 .openLoginForm()
                 .enterEmail(email)
                 .enterPassword(password)
@@ -64,7 +65,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 .getPasswordField()
                 .getErrorMessage();
 
-        Assert.assertEquals(errorMessage, expectedErrorMessage);
+        Assert.assertEquals(errorMessage, expected);
     }
 
     @Test
@@ -334,18 +335,6 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-    @Test(dataProvider = "verifyErrorMessageForExceedingPasswordLengthInEN", dataProviderClass = LoginFormTestProvider.class)
-    public void verifyErrorMessageForExceedingPasswordLengthInEN(String email, String password, String expectedErrorMessage) {
-        String errorMessage = page.setLanguage("en")
-                .getHeaderComponent()
-                .openLoginForm()
-                .enterEmail(email)
-                .enterPassword(password)
-                .clickInsideForm()
-                .getPasswordField()
-                .getErrorMessage();
-        Assert.assertEquals(errorMessage, expectedErrorMessage, "Error message doesn't match.");
-    }
 
     @Test(dataProvider = "InvalidEmailPassword", dataProviderClass = LoginFormTestProvider.class)
     public void testInvalidEmailPassword(String email, String password) {
