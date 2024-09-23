@@ -10,16 +10,21 @@ import java.util.Iterator;
 import java.util.List;
 
 public class LoginFormTestProvider {
-    private final TestUtils testUtils;
+    private final String EMPTY_FIELDS_ERROR_UA = "Потрібно заповнити всі обов'язкові поля.";
+    private final String EMPTY_FIELDS_ERROR_EN = "Please fill all required fields.";
+    private final String EMPTY_FIELD_EMAIL_ERROR_UA = "Введіть пошту.";
+    private final String EMPTY_FIELD_EMAIL_ERROR_EN = "Email is required.";
+    private final String EMPTY_FIELD_PASSWORD_ERROR_UA = "Будь ласка введіть пароль.";
+    private final String EMPTY_FIELD_PASSWORD_ERROR_EN = "Password is required.";
+    private final String EXCEEDING_PASSWORD_ERROR_UA = "Пароль повинен містити менше 20 символів без пробілів.";
+    private final String EXCEEDING_PASSWORD_ERROR_EN = "Password must be less than 20 characters long without spaces.";
 
+    private final TestUtils testUtils;
     ConfigProperties configProperties = new ConfigProperties();
-    String emptyFieldsErrorUA = "Потрібно заповнити всі обов'язкові поля.";
-    String emptyFieldsErrorEN = "Please fill all required fields.";
 
     public LoginFormTestProvider() {
         this.testUtils = new TestUtils();
     }
-
 
     @DataProvider(name = "verifyErrorMessageForExceedingPasswordLengthInUA")
     public Iterator<Object[]> verifyErrorMessageForExceedingPasswordLengthInUA(Method method) {
@@ -42,14 +47,42 @@ public class LoginFormTestProvider {
     }
 
     @DataProvider(name = "verifyErrorMessageForEmptyEmailAndOrPassword")
-    public Object[][] emptyFieldsDataProvider() {
+    public Object[][] verifyErrorMessageForEmptyEmailAndOrPassword() {
         return new Object[][] {
-                {"Ua", configProperties.getRegisteredUserEmail(), "", emptyFieldsErrorUA},
-                {"Ua", "", configProperties.getRegisteredUserPassword(), emptyFieldsErrorUA},
-                {"Ua", "", "", emptyFieldsErrorUA},
-                {"En", configProperties.getRegisteredUserEmail(), "", emptyFieldsErrorEN},
-                {"En", "", configProperties.getRegisteredUserPassword(), emptyFieldsErrorEN},
-                {"En", "", "", emptyFieldsErrorEN}
+                {"Ua", configProperties.getRegisteredUserEmail(), "", EMPTY_FIELDS_ERROR_UA},
+                {"Ua", "", configProperties.getRegisteredUserPassword(), EMPTY_FIELDS_ERROR_UA},
+                {"Ua", "", "", EMPTY_FIELDS_ERROR_UA},
+                {"En", configProperties.getRegisteredUserEmail(), "", EMPTY_FIELDS_ERROR_EN},
+                {"En", "", configProperties.getRegisteredUserPassword(), EMPTY_FIELDS_ERROR_EN},
+                {"En", "", "", EMPTY_FIELDS_ERROR_EN}
+        };
+    }
+
+    @DataProvider(name = "verifyErrorMessageForEmptyEmail")
+    public Object[][] verifyErrorMessageForEmptyEmail() {
+        return new Object[][] {
+                {"Ua", "", EMPTY_FIELD_EMAIL_ERROR_UA},
+                {"En", "", EMPTY_FIELD_EMAIL_ERROR_EN},
+        };
+    }
+
+    @DataProvider(name = "verifyErrorMessageForExceedingPasswordLength")
+    public Object[][] verifyErrorMessageForExceedingPasswordLength() {
+        return new Object[][] {
+                {"Ua", configProperties.getRegisteredUserEmail(),
+                        configProperties.getRegisteredUserPassword() + "12345678901234567890",
+                        EXCEEDING_PASSWORD_ERROR_UA},
+                {"En", configProperties.getRegisteredUserEmail(),
+                        configProperties.getRegisteredUserPassword() + "12345678901234567890",
+                        EXCEEDING_PASSWORD_ERROR_EN},
+        };
+    }
+
+    @DataProvider(name = "verifyErrorMessageForEmptyPassword")
+    public Object[][] verifyErrorMessageForEmptyPassword() {
+        return new Object[][] {
+                {"Ua", "", EMPTY_FIELD_PASSWORD_ERROR_UA},
+                {"En", "", EMPTY_FIELD_PASSWORD_ERROR_EN},
         };
     }
 
@@ -88,8 +121,6 @@ public class LoginFormTestProvider {
                 {"test@mail.com", "Test12", "Пароль повинен містити принаймні 8 символів без пробілів."}
         };
     }
-
-
 
     @DataProvider(name = "widthResolutionPxAndZoomLevelsPercentage")
     public Object[][] widthResolutionPxAndZoomLevelsPercentageDataProvider() {
@@ -130,5 +161,17 @@ public class LoginFormTestProvider {
         };
     }
 
+    @DataProvider(name = "checkInSignInButtonRemainedInactiveValidEmailInvalidPassword")
+    public Object[][] checkInSignInButtonValidEmailInvalidPasswordProvider() {
+        return new Object[][] {
+                {configProperties.getRegisteredUserEmail(), "aaa"},
+        };
+    }
 
+    @DataProvider(name = "checkInSignInButtonRemainedInactiveValidPasswordInvalidEmail")
+    public Object[][] checkInSignInButtonValidPasswordInvalidEmailProvider() {
+        return new Object[][] {
+                {"gkefjefefgmailcom", configProperties.getRegisteredUserPassword()},
+        };
+    }
 }

@@ -29,33 +29,43 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         Assert.assertEquals(errorMessage, expected);
     }
 
-    @Test(dataProvider = "verifyErrorMessageForEmptyEmailAndPasswordEng", dataProviderClass = LoginFormTestProvider.class)
-    public void verifyErrorMessageForEmptyEmailAndPasswordEng(String email, String password, String expectedErrorMessage) {
-        String errorMessage = page.setLanguage("en")
+    @Test(dataProvider = "verifyErrorMessageForEmptyEmail", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyErrorMessageForEmptyEmail(String language, String email, String expected) {
+        String errorMessage = page.setLanguage(language)
+                .getHeaderComponent().openLoginForm()
+                .enterEmail(email)
+                .clickInsideForm()
+                .getEmailField()
+                .getErrorMessage();
+
+        Assert.assertEquals(errorMessage, expected);
+    }
+
+    @Test(dataProvider = "verifyErrorMessageForEmptyPassword", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyErrorMessageForEmptyPassword(String language, String password, String expected) {
+        String errorMessage = page.setLanguage(language)
+                .getHeaderComponent().openLoginForm()
+                .enterPassword(password)
+                .clickInsideForm()
+                .getPasswordField()
+                .getErrorMessage();
+
+        Assert.assertEquals(errorMessage, expected);
+    }
+
+    @Test(dataProvider = "verifyErrorMessageForExceedingPasswordLength", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyErrorMessageForExceedingPasswordLength(String language, String email, String password, String expected) {
+
+        String errorMessage = page.setLanguage(language)
                 .getHeaderComponent()
                 .openLoginForm()
                 .enterEmail(email)
                 .enterPassword(password)
                 .clickInsideForm()
-                .clickSignInButton()
                 .getPasswordField()
                 .getErrorMessage();
 
-        Assert.assertEquals(errorMessage, expectedErrorMessage);
-    }
-
-    @Test(dataProvider = "verifyErrorMessageForExceedingPasswordLengthInUA", dataProviderClass = LoginFormTestProvider.class)
-    public void verifyErrorMessageForExceedingPasswordLengthInUA(String email, String password, String expectedErrorMessage) {
-
-        String errorMessage = page.getHeaderComponent()
-                .openLoginForm()
-                .enterEmail(email)
-                .enterPassword(password)
-                .clickInsideForm()
-                .getPasswordField()
-                .getErrorMessage();
-
-        Assert.assertEquals(errorMessage, expectedErrorMessage);
+        Assert.assertEquals(errorMessage, expected);
     }
 
     @Test
@@ -114,7 +124,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
 
         boolean isHighlightedInRed = forgotPasswordModal
                 .getEmailField()
-                .isHighlightedInRed();
+                .isHighlightedInColor(Colors.PRIMARY_RED);
 
         softAssert.assertEquals(errorMessage, expectedErrorMessage + email);
         softAssert.assertTrue(isHighlightedInRed);
@@ -330,4 +340,51 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
+    @Test(dataProvider = "InvalidEmailPassword", dataProviderClass = LoginFormTestProvider.class)
+    public void testInvalidEmailPassword(String email, String password) {
+        LoginModalComponent logInModalComponent = new HomePage(driver)
+                .getHeaderComponent().openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickSignInButtonUnsuccessfulLogin();
+
+        logInModalComponent.sleep(3);
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
+                "The 'Login' button should be inactive when entering invalid email and password.");
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "checkInSignInButtonRemainedInactiveValidEmailInvalidPassword", dataProviderClass = LoginFormTestProvider.class)
+    public void testValidEmailInvalidPassword(String email, String password) {
+        LoginModalComponent logInModalComponent = new HomePage(driver)
+                .getHeaderComponent().openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickSignInButtonUnsuccessfulLogin();
+
+        logInModalComponent.sleep(3);
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
+                "The 'Login' button should be inactive when entering invalid email and valid password.");
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "checkInSignInButtonRemainedInactiveValidPasswordInvalidEmail", dataProviderClass = LoginFormTestProvider.class)
+    public void testValidPasswordInvalidEmail(String email, String password) {
+        LoginModalComponent logInModalComponent = new HomePage(driver)
+                .getHeaderComponent().openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickSignInButtonUnsuccessfulLogin();
+
+        logInModalComponent.sleep(3);
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
+                "The 'Login' button should be inactive when entering valid email and invalid password.");
+        softAssert.assertAll();
+    }
 }
