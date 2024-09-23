@@ -427,4 +427,13 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 "The displayed error message is incorrect.");
         softAssert.assertAll();
     }
+
+    @Test
+    public void verifyForgotPasswordFormIsDisplayed(){
+        ForgotPasswordModalComponent forgotPasswordModalComponent = new NewsPage(driver)
+                .getHeaderComponent()
+                .openLoginForm()
+                .clickForgotPasswordLink();
+        Assert.assertTrue(forgotPasswordModalComponent.isForgotPasswordWindowDisplayed(), "Forgot Password is not displayed");
+    }
 }

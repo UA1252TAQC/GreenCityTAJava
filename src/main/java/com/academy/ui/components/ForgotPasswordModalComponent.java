@@ -38,6 +38,7 @@ public class ForgotPasswordModalComponent extends BaseComponent {
     public String getErrorFieldMessage(){
         return isForgotPasswordWindowDisplayed()?emailField.getErrorMessage():"";
     }
+
     public boolean isHighlightedInColor(String color){
         return emailField.isHighlightedInColor(color);
     }
