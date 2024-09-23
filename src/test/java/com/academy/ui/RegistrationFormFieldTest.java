@@ -5,6 +5,8 @@ import com.academy.ui.runners.TestRunnerRegistrationFormField;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
+import io.qameta.allure.Issues;
 import io.qameta.allure.Step;
 
 import org.testng.annotations.Test;
@@ -15,6 +17,7 @@ public class RegistrationFormFieldTest extends TestRunnerRegistrationFormField {
     @Description("Verifies that the registration form is displayed correctly.")
     @Feature("Form Display")
     @Step("Verify registration form components are displayed")
+    @Issue("12")
     public void testFormIsDisplayedCorrectly() {
         softAssert.assertTrue(form.getEmail().isDisplayed(), "Email field is not displayed");
         softAssert.assertTrue(form.getUsername().isDisplayed(), "Username field is not displayed");
@@ -32,6 +35,7 @@ public class RegistrationFormFieldTest extends TestRunnerRegistrationFormField {
     @Description("Tests the state of the registration button based on form input.")
     @Feature("Button State")
     @Step("Test registration button state with email: {email}, username: {username}, password: {password}, repeat password: {repeatPassword}")
+    @Issue("12")
     public void testButtonState(boolean isExpectedButtonEnabled, boolean isShouldClearPassword, String email, String username, String password, String repeatPassword) {
         boolean isActualButtonEnabled = form.fillForm(email, username, password, repeatPassword)
                 .clearPasswordFieldIf(isShouldClearPassword).isRegistrationButtonEnabled();
@@ -44,6 +48,10 @@ public class RegistrationFormFieldTest extends TestRunnerRegistrationFormField {
     @Description("Validates the email field of the registration form.")
     @Feature("Email Validation")
     @Step("Test email validation with email: {email}")
+    @Issues({
+        @Issue("12"),
+        @Issue("60")
+    })
     public void testEmailValidation(boolean isExpectedValid, String expectedErrorMessage, boolean isShouldSubmitForm, String errorMessage,
                                     String email, String username, String password, String repeatPassword) {
         form.fillForm(email, username, password, repeatPassword).submitIf(isShouldSubmitForm);
@@ -61,6 +69,10 @@ public class RegistrationFormFieldTest extends TestRunnerRegistrationFormField {
     @Description("Validates the username field of the registration form.")
     @Feature("Username Validation")
     @Step("Test username validation with username: {username}")
+    @Issues({
+        @Issue("12"),
+        @Issue("60")
+    })
     public void testUsernameValidation(boolean isExpectedValid, String expectedErrorMessage, String errorMessage, String username) {
         form.enterUsername(username).clickTitle();
         boolean isActualValid = form.getUsername().isValid();
@@ -76,6 +88,10 @@ public class RegistrationFormFieldTest extends TestRunnerRegistrationFormField {
     @Description("Validates the password field of the registration form.")
     @Feature("Password Validation")
     @Step("Test password validation with password: {password}")
+    @Issues({
+        @Issue("12"),
+        @Issue("60")
+    })
     public void testPasswordValidation(boolean isExpectedValid, String expectedErrorMessage, String errorMessage, String password) {
         form.enterPassword(password).clickTitle();
         boolean isActualValid = form.getPassword().isValid();
@@ -90,6 +106,10 @@ public class RegistrationFormFieldTest extends TestRunnerRegistrationFormField {
     @Description("Validates the repeat password field of the registration form.")
     @Feature("Repeat Password Validation")
     @Step("Test repeat password validation with password: {password} and repeat password: {repeatPassword}")
+    @Issues({
+        @Issue("12"),
+        @Issue("60")
+    })
     public void testRepeatPasswordValidation(boolean isExpectedValid, String expectedErrorMessage, String errorMessage, String password, String repeatPassword) {
         form.enterPassword(password).enterRepeatPassword(repeatPassword).clickTitle();
         boolean isActualValid = form.getRepeatPassword().isValid();
