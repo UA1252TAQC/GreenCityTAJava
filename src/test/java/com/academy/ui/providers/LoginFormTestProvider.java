@@ -161,4 +161,18 @@ public class LoginFormTestProvider {
                 {configProperties.getRegisteredUserEmail(), "Password restore link already sent, please check your email:"}
         };
     }
+
+    @DataProvider(name = "checkInSignInButtonRemainedInactiveValidEmailInvalidPassword")
+    public Object[][] checkInSignInButtonValidEmailInvalidPasswordProvider() {
+        return new Object[][] {
+                {configProperties.getRegisteredUserEmail(), "aaa"},
+        };
+    }
+
+    @DataProvider(name = "checkInSignInButtonRemainedInactiveValidPasswordInvalidEmail")
+    public Object[][] checkInSignInButtonValidPasswordInvalidEmailProvider() {
+        return new Object[][] {
+                {"gkefjefefgmailcom", configProperties.getRegisteredUserPassword()},
+        };
+    }
 }

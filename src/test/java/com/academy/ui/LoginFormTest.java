@@ -335,4 +335,52 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
+
+    @Test(dataProvider = "InvalidEmailPassword", dataProviderClass = LoginFormTestProvider.class)
+    public void testInvalidEmailPassword(String email, String password) {
+        LoginModalComponent logInModalComponent = new HomePage(driver)
+                .getHeaderComponent().openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickSignInButtonUnsuccessfulLogin();
+
+        logInModalComponent.sleep(3);
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
+                "The 'Login' button should be inactive when entering invalid email and password.");
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "checkInSignInButtonRemainedInactiveValidEmailInvalidPassword", dataProviderClass = LoginFormTestProvider.class)
+    public void testValidEmailInvalidPassword(String email, String password) {
+        LoginModalComponent logInModalComponent = new HomePage(driver)
+                .getHeaderComponent().openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickSignInButtonUnsuccessfulLogin();
+
+        logInModalComponent.sleep(3);
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
+                "The 'Login' button should be inactive when entering invalid email and valid password.");
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "checkInSignInButtonRemainedInactiveValidPasswordInvalidEmail", dataProviderClass = LoginFormTestProvider.class)
+    public void testValidPasswordInvalidEmail(String email, String password) {
+        LoginModalComponent logInModalComponent = new HomePage(driver)
+                .getHeaderComponent().openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickSignInButtonUnsuccessfulLogin();
+
+        logInModalComponent.sleep(3);
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
+                "The 'Login' button should be inactive when entering valid email and invalid password.");
+        softAssert.assertAll();
+    }
 }
