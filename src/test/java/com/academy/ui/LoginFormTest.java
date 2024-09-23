@@ -277,8 +277,8 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-    @Test(dataProvider = "screenResolution320pxAndZoomLevelValuesPercentage", dataProviderClass = LoginFormTestProvider.class)
-    public void checkScrollbarIsDisplayedOnPageAt320pxResolutionTest(int windowWidth, List<Integer> zoomValuesPercentage) {
+    @Test(dataProvider = "widthResolutionPxAndZoomLevelsPercentage", dataProviderClass = LoginFormTestProvider.class)
+    public void checkScrollbarIsDisplayedOnPageTest(int windowWidth, List<Integer> zoomValuesPercentage) {
 
         LoginModalComponent loginModalComponent = page
                 .getHeaderComponent()
@@ -292,10 +292,15 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
             boolean hasHorizontalScrollbar = hasHorizontalScrollbar(element);
             boolean shouldHaveHorizontalScrollBar = loginModalComponent.getWidth()*zoomLevelPercentage/100 > windowWidth;
 
-            softAssert.assertEquals(hasHorizontalScrollbar, shouldHaveHorizontalScrollBar,
-                    "Horizontal scrollbar should be displayed on page at " + windowWidth + "px resolution with " +
-                    zoomLevelPercentage + "% zoom level");
+            softAssert.assertEquals(hasHorizontalScrollbar,
+                    shouldHaveHorizontalScrollBar,
+                    "Horizontal scrollbar should be displayed on page at " + windowWidth +
+                            "px resolution with " + zoomLevelPercentage + "% zoom level");
+
+            loginModalComponent.sleep(2);
         }
+
+        softAssert.assertAll();
 
     }
 
