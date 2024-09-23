@@ -12,6 +12,10 @@ import com.academy.utils.jwt.JwtPayload;
 import com.academy.utils.mail.Mail;
 import com.academy.utils.mail.MailBoxCredentials;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
 
@@ -23,6 +27,8 @@ import java.util.Base64;
 public class RegistrationFormTest extends TestRunnerRegistrationForm {
 
     @Test(dataProvider = "testPopUpSignUpValidation", dataProviderClass = RegistrationFormTestProvider.class)
+    @Description("Tests the validation of the pop-up sign-up process.")
+    @Feature("Registration")
     public void testPopUpSignUpValidation(String expectedRegistrationSuccessMessage, String expectedAccountSubmitMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
         HomePage homePage = openHomePage();
         var form = homePage.getHeaderComponent().openRegistrationForm();
@@ -70,6 +76,8 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
     }
 
     @Test(dataProvider = "testGoogleSignUp", dataProviderClass = RegistrationFormTestProvider.class)
+    @Description("Tests the Google sign-up process.")
+    @Feature("Registration")
     public void testGoogleSignUp(String googleEmail, String googlePassword, String expectedGoogleName) {
         HomePage homePage = openHomePage();
         var form = homePage.getHeaderComponent().openRegistrationForm();
@@ -90,6 +98,8 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
     }
 
     @Test(dataProvider = "testRegisteredGreenCity", dataProviderClass = RegistrationFormTestProvider.class)
+    @Description("Tests registration with already existing Green City account.")
+    @Feature("Registration")
     public void testRegisteredGreenCity(String expectedRegistrationSuccessMessage, String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
         HomePage homePage = openHomePage();
         var homeForm = homePage.getHeaderComponent().openRegistrationForm();
@@ -110,6 +120,8 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
     }
 
     @Test(dataProvider = "testRegisteredUbs", dataProviderClass = RegistrationFormTestProvider.class)
+    @Description("Tests registration with an already existing UBS account.")
+    @Feature("Registration")
     public void testRegisteredUbs(String expectedRegistrationSuccessMessage, String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
         HomePageUbs ubsPage = openUbsPage();
         var ubsForm = ubsPage.getHeaderComponent().openRegistrationForm();
@@ -132,6 +144,8 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
     }
 
     @Test(dataProvider = "testEmailAlreadyExists", dataProviderClass = RegistrationFormTestProvider.class)
+    @Description("Tests the behavior when attempting to register with an already existing email.")
+    @Feature("Registration")
     public void testEmailAlreadyExists(String expectedRegistrationSuccessMessage, String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
         HomePage homePage = openHomePage();
         var homeForm = homePage.getHeaderComponent().openRegistrationForm();
@@ -151,6 +165,8 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
     }
 
     @Test(dataProvider = "testGreenCityRegisteredWithConfirmEmail", dataProviderClass = RegistrationFormTestProvider.class)
+    @Description("Tests the registration process when confirming an email for a Green City account.")
+    @Feature("Registration")
     public void testGreenCityRegisteredWithConfirmEmail(String expectedRegistrationSuccessMessage, String expectedAccountSubmitMessage, String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
         HomePage homePage = openHomePage();
         var greenCityForm = homePage.getHeaderComponent().openRegistrationForm();
@@ -178,6 +194,8 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
     }
 
     @Test(dataProvider = "testUbsRegisteredWithConfirmEmail", dataProviderClass = RegistrationFormTestProvider.class)
+    @Description("Tests the registration process when confirming an email for a UBS account.")
+    @Feature("Registration")
     public void testUbsRegisteredWithConfirmEmail(String expectedRegistrationSuccessMessage, String expectedAccountSubmitMessage, String expectedRegistrationErrorMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
         HomePageUbs ubsPage = openUbsPage();
         RegistrationModalComponent ubsForm = ubsPage.getHeaderComponent().openRegistrationForm();
@@ -204,21 +222,25 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
         softAssert.assertAll();
     }
 
+    @Step("Open Ubs page in a new tab")
     private HomePageUbs openUbsPageInNewTab(HomePage homePage) {
         homePage.openUrlInNewTab(configProperties.getBaseUrl() + "/#/ubs");
         return new HomePageUbs(driver);
     }
 
+    @Step("Open Home page in a new tab")
     private HomePage openHomePageInNewTab(HomePageUbs ubsPage) {
         ubsPage.openUrlInNewTab(configProperties.getBaseUrl() + "/#/greenCity");
         return new HomePage(driver);
     }
 
+    @Step("Open Ubs page")
     private HomePageUbs openUbsPage() {
         driver.get(configProperties.getBaseUrl() + "/#/ubs");
         return new HomePageUbs(driver).setLanguage(language);
     }
 
+    @Step("Open Home page")
     private HomePage openHomePage() {
         driver.get(configProperties.getBaseUrl() + "/#/greenCity");
         return new HomePage(driver).setLanguage(language);
