@@ -240,6 +240,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 .enterEmail(email)
                 .enterPassword(password)
                 .clickSignInButtonUnsuccessfulLogin();
+
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(logInModalComponent.isErrorMessageDisplayedUnregistered(),
                 "The error message should be displayed for unregistered email.");
@@ -262,7 +263,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 "The error message should be displayed for unregistered email.");
         softAssert.assertEquals(logInModalComponent.getErrorMessageTextUnregistered(), expectedErrorMessage,
                 "The displayed error message is incorrect.");
-        softAssert.assertAll(); // fixed
+        softAssert.assertAll();
     }
 
     @Test
@@ -384,4 +385,24 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 "The 'Login' button should be inactive when entering valid email and invalid password.");
         softAssert.assertAll();
     }
+
+    @Test(dataProvider = "checkForgotPasswordUnregisteredEmailData", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyErrorForUnregisteredEmailInForgotPassword(String email, String expectedErrorMessage) {
+        ForgotPasswordModalComponent forgotPasswordModal = page
+                .setLanguage("en")
+                .getHeaderComponent()
+                .openLoginForm()
+                .clickForgotPasswordLink();
+
+        forgotPasswordModal.enterEmail(email)
+                .clickSignInButton();
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(forgotPasswordModal.getEmailField().isHighlightedInColor(Colors.PRIMARY_RED),
+                "The email field should be highlighted in red.");
+        softAssert.assertEquals(forgotPasswordModal.getEmailField().getErrorMessage(), expectedErrorMessage,
+                "The displayed error message is incorrect.");
+        softAssert.assertAll();
+    }
+
 }

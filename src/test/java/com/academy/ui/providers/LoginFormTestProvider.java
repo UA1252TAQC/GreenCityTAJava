@@ -174,4 +174,11 @@ public class LoginFormTestProvider {
                 {"gkefjefefgmailcom", configProperties.getRegisteredUserPassword()},
         };
     }
+
+    @DataProvider(name = "checkForgotPasswordUnregisteredEmailData")
+    public Object[][] checkForgotPasswordUnregisteredEmailData() {
+        return new Object[][]{
+                {"test1@gmail.com", "The user does not exist by this email: test1@gmail.com"}
+        };
+    }
 }
