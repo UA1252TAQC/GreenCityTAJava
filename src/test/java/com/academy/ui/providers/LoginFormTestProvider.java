@@ -20,7 +20,6 @@ public class LoginFormTestProvider {
         this.testUtils = new TestUtils();
     }
 
-
     @DataProvider(name = "verifyErrorMessageForExceedingPasswordLengthInUA")
     public Iterator<Object[]> verifyErrorMessageForExceedingPasswordLengthInUA(Method method) {
         return testUtils.getTestCases(method);
@@ -42,7 +41,7 @@ public class LoginFormTestProvider {
     }
 
     @DataProvider(name = "verifyErrorMessageForEmptyEmailAndOrPassword")
-    public Object[][] emptyFieldsDataProvider() {
+    public Object[][] verifyErrorMessageForEmptyEmailAndOrPassword() {
         return new Object[][] {
                 {"Ua", configProperties.getRegisteredUserEmail(), "", emptyFieldsErrorUA},
                 {"Ua", "", configProperties.getRegisteredUserPassword(), emptyFieldsErrorUA},
