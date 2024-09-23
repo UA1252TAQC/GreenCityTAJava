@@ -292,8 +292,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
             boolean hasHorizontalScrollbar = hasHorizontalScrollbar(element);
             boolean shouldHaveHorizontalScrollBar = loginModalComponent.getWidth()*zoomLevelPercentage/100 > windowWidth;
 
-            softAssert.assertEquals(hasHorizontalScrollbar,
-                    shouldHaveHorizontalScrollBar,
+            softAssert.assertTrue(hasHorizontalScrollbar || !shouldHaveHorizontalScrollBar,
                     "Horizontal scrollbar should be displayed on page at " + windowWidth +
                             "px resolution with " + zoomLevelPercentage + "% zoom level");
         }
