@@ -2,9 +2,13 @@ package com.academy.utils.mail;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.qameta.allure.Step;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class Mail {
     private final String id;
     private final String subject;
@@ -20,6 +24,7 @@ public class Mail {
         this.body = body;
     }
 
+    @Step("Extracting mail account activation link")
     public String extractActivationLink() {
         String startToken = "<p style=\"margin: 0;\">http";
         String endToken = "</p>";

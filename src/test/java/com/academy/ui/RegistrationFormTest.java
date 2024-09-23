@@ -15,9 +15,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.qameta.allure.*;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
 import java.nio.charset.StandardCharsets;
@@ -37,7 +34,8 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
 
         form.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
         String actualRegistrationSuccessMessage = homePage.getPopUpMessage();
-        softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
+        softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage), 
+            "Validating the success message after registration.");
 
         Mail mail = mailUtils.getLastEmail(mailBox.getId());
 
@@ -45,13 +43,15 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
         HomePageUbs ubsPage = new HomePageUbs(driver);
 
         String actualAccountSubmitMessage = ubsPage.getPopUpMessage();
-        softAssert.assertEquals(actualAccountSubmitMessage, localizedMessages.get(expectedAccountSubmitMessage));
+        softAssert.assertEquals(actualAccountSubmitMessage, localizedMessages.get(expectedAccountSubmitMessage), 
+            "Validating the account submission message after activation.");
 
         LoginModalComponent loginForm = ubsPage.getHeaderComponent().getCurrentLoginForm();
         ProfilePage profilePage = loginForm.fillForm(mailBox.getAddress(), password).clickSignInButtonSuccessfulLogin();
 
         JwtPayload jwtPayload = parseJwt(profilePage.getAuthToken());
-        softAssert.assertTrue(jwtPayload.getIat().plus(Duration.ofHours(24)) == jwtPayload.getExp());
+        softAssert.assertEquals(jwtPayload.getExp(), jwtPayload.getIat().plus(Duration.ofHours(24)), 
+            "Validating the JWT token expiration time is 24 hours.");
 
         softAssert.assertAll();
     }
@@ -93,9 +93,12 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
         homePage.switchToActiveTab();
 
         ProfilePage profilePage = new ProfilePage(driver);
-        softAssert.assertNotNull(profilePage.getAuthToken());
-        softAssert.assertTrue(driver.getCurrentUrl().startsWith(configProperties.getBaseUrl() + "/#/profile"));
-        softAssert.assertEquals(profilePage.getHeaderComponent().getUserNameText(), expectedGoogleName);
+        softAssert.assertNotNull(profilePage.getAuthToken(), 
+            "Validating that the JWT token is not null after Google sign-up.");
+        softAssert.assertTrue(driver.getCurrentUrl().startsWith(configProperties.getBaseUrl() + "/#/profile"), 
+            "Validating that the user is redirected to the profile page.");
+        softAssert.assertEquals(profilePage.getHeaderComponent().getUserNameText(), expectedGoogleName, 
+            "Validating that the Google account name matches the expected name.");
         softAssert.assertAll();
     }
 
@@ -110,14 +113,16 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
         homeForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
         String actualRegistrationSuccessMessage = homePage.getPopUpMessage();
-        softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
+        softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage), 
+            "Validating the success message after registration.");
 
         HomePageUbs ubsPage = openUbsPageInNewTab(homePage);
         RegistrationModalComponent ubsForm = ubsPage.getHeaderComponent().openRegistrationForm();
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
         String actualRegistrationErrorMessage = ubsForm.getEmail().getErrorMessage();
-        softAssert.assertEquals(actualRegistrationErrorMessage, localizedMessages.get(expectedRegistrationErrorMessage));
+        softAssert.assertEquals(actualRegistrationErrorMessage, localizedMessages.get(expectedRegistrationErrorMessage), 
+            "Validating the error message for already registered email.");
 
         softAssert.assertAll();
     }
@@ -133,7 +138,8 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
         String actualRegistrationSuccessMessage = ubsPage.getPopUpMessage();
-        softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
+        softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage), 
+            "Validating the success message after registration.");
 
         HomePage homePage = openHomePageInNewTab(ubsPage);
         RegistrationModalComponent homeForm = homePage.getHeaderComponent().openRegistrationForm();
@@ -141,7 +147,8 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
         homeForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
         String actualRegistrationErrorMessage = homeForm.getEmail().getErrorMessage();
-        softAssert.assertEquals(actualRegistrationErrorMessage, localizedMessages.get(expectedRegistrationErrorMessage));
+        softAssert.assertEquals(actualRegistrationErrorMessage, localizedMessages.get(expectedRegistrationErrorMessage), 
+            "Validating the error message for already registered email in UBS.");
 
         softAssert.assertAll();
     }
@@ -157,13 +164,15 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
         homeForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
         String actualRegistrationSuccessMessage = homePage.getPopUpMessage();
-        softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
+        softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage), 
+            "Validating the success message after registration.");
 
         homeForm = homePage.getHeaderComponent().openRegistrationForm();
         homeForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
         String actualErrorMessage = homeForm.getEmail().getErrorMessage();
-        softAssert.assertEquals(actualErrorMessage, localizedMessages.get(expectedRegistrationErrorMessage));
+        softAssert.assertEquals(actualErrorMessage, localizedMessages.get(expectedRegistrationErrorMessage), 
+            "Validating the error message for already registered email.");
 
         softAssert.assertAll();
     }
@@ -179,8 +188,8 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
         greenCityForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
         String actualRegistrationSuccessMessage = homePage.getPopUpMessage();
-        softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
-
+        softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage), 
+            "Validating the success message after registration.");
 
         Mail mail = mailUtils.getLastEmail(mailBox.getId());
         homePage.openUrlInNewTab(mail.extractActivationLink());
@@ -216,39 +225,17 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
         ubsPage.openUrlInNewTab(mail.extractActivationLink());
 
         String actualAccountSubmitMessage = ubsPage.getPopUpMessage();
-        softAssert.assertEquals(actualAccountSubmitMessage, localizedMessages.get(expectedAccountSubmitMessage));
+        softAssert.assertEquals(actualAccountSubmitMessage, localizedMessages.get(expectedAccountSubmitMessage), 
+            "Validating the account submission message after email confirmation.");
 
         HomePage homePage = openHomePageInNewTab(ubsPage);
         RegistrationModalComponent greenCityForm = homePage.getHeaderComponent().openRegistrationForm();
         greenCityForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
         String actualRegistrationErrorMessage = greenCityForm.getEmail().getErrorMessage();
-        softAssert.assertEquals(actualRegistrationErrorMessage, localizedMessages.get(expectedRegistrationErrorMessage));
+        softAssert.assertEquals(actualRegistrationErrorMessage, localizedMessages.get(expectedRegistrationErrorMessage), 
+            "Validating the error message for already registered email in Green City.");
 
         softAssert.assertAll();
-    }
-
-    @Step("Open Ubs page in a new tab")
-    private HomePageUbs openUbsPageInNewTab(HomePage homePage) {
-        homePage.openUrlInNewTab(configProperties.getBaseUrl() + "/#/ubs");
-        return new HomePageUbs(driver);
-    }
-
-    @Step("Open Home page in a new tab")
-    private HomePage openHomePageInNewTab(HomePageUbs ubsPage) {
-        ubsPage.openUrlInNewTab(configProperties.getBaseUrl() + "/#/greenCity");
-        return new HomePage(driver);
-    }
-
-    @Step("Open Ubs page")
-    private HomePageUbs openUbsPage() {
-        driver.get(configProperties.getBaseUrl() + "/#/ubs");
-        return new HomePageUbs(driver).setLanguage(language);
-    }
-
-    @Step("Open Home page")
-    private HomePage openHomePage() {
-        driver.get(configProperties.getBaseUrl() + "/#/greenCity");
-        return new HomePage(driver).setLanguage(language);
     }
 }

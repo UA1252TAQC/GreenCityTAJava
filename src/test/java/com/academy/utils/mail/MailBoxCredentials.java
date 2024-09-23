@@ -3,8 +3,10 @@ package com.academy.utils.mail;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class MailBoxCredentials {
     private final String id;
     private final String address;

@@ -41,7 +41,7 @@ public class GoogleAuthComponent extends BasePageGreenCity {
 
     public void clickPasswordSubmitButton() {
         click(passwordNextButton);
-        sleep(1);
+        sleep(7);
     }
 
     public boolean isEmailInputDisplayed(){

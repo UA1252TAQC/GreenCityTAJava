@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BasePage extends Base {
-    private static final int TIME_TO_WAIT = 10;
+    private static final int TIME_TO_WAIT = 15;
 
     @FindBy(xpath = ".//header[@role='banner']")
     protected WebElement headerRootElement;
@@ -35,7 +35,7 @@ public class BasePage extends Base {
     }
 
     public void switchToActiveTab() {
-        sleep(5);
+        sleep(1);
         List<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.getLast());
     }

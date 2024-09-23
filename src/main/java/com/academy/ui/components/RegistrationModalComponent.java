@@ -59,13 +59,13 @@ public class RegistrationModalComponent extends BaseComponent {
         return this;
     }
 
-    @Step("Enter password")
+    @Step("Enter password: {text}")
     public RegistrationModalComponent enterPassword(String text) {
         password.enter(text);
         return this;
     }
 
-    @Step("Enter repeat password")
+    @Step("Enter repeat password: {text}")
     public RegistrationModalComponent enterRepeatPassword(String text) {
         repeatPassword.enter(text);
         return this;
@@ -74,7 +74,7 @@ public class RegistrationModalComponent extends BaseComponent {
     @Step("Open Google Authentication Form")
     public GoogleAuthComponent openAuthGoogleForm() {
         click(googleButton);
-        sleep(1);
+        sleep(20);
         List<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.getLast());
         return new GoogleAuthComponent(driver);
