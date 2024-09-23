@@ -335,7 +335,6 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-
     @Test(dataProvider = "InvalidEmailPassword", dataProviderClass = LoginFormTestProvider.class)
     public void testInvalidEmailPassword(String email, String password) {
         LoginModalComponent logInModalComponent = new HomePage(driver)

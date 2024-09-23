@@ -86,8 +86,6 @@ public class LoginFormTestProvider {
         };
     }
 
-
-
     @DataProvider(name = "registeredUserCredentials")
     public Object[][] registeredUserCredentialsDataProvider() {
         return new Object[][] {
@@ -123,8 +121,6 @@ public class LoginFormTestProvider {
                 {"test@mail.com", "Test12", "Пароль повинен містити принаймні 8 символів без пробілів."}
         };
     }
-
-
 
     @DataProvider(name = "screenResolution320pxAndZoomLevelValuesPercentage")
     public Object[][] checkScrollbarIsDisplayedAt320pxResolutionDataProvider() {
