@@ -13,8 +13,8 @@ public class LoginFormTestProvider {
     private final TestUtils testUtils;
 
     ConfigProperties configProperties = new ConfigProperties();
-    String emptyFieldsErrorUA = "Потрібно заповнити всі обов'язкові поля.";
-    String emptyFieldsErrorEN = "Please fill all required fields.";
+    private final String EMPTY_FIELDS_ERROR_UA = "Потрібно заповнити всі обов'язкові поля.";
+    private final String EMPTY_FIELDS_ERROR_EN = "Please fill all required fields.";
 
     public LoginFormTestProvider() {
         this.testUtils = new TestUtils();
@@ -43,12 +43,12 @@ public class LoginFormTestProvider {
     @DataProvider(name = "verifyErrorMessageForEmptyEmailAndOrPassword")
     public Object[][] verifyErrorMessageForEmptyEmailAndOrPassword() {
         return new Object[][] {
-                {"Ua", configProperties.getRegisteredUserEmail(), "", emptyFieldsErrorUA},
-                {"Ua", "", configProperties.getRegisteredUserPassword(), emptyFieldsErrorUA},
-                {"Ua", "", "", emptyFieldsErrorUA},
-                {"En", configProperties.getRegisteredUserEmail(), "", emptyFieldsErrorEN},
-                {"En", "", configProperties.getRegisteredUserPassword(), emptyFieldsErrorEN},
-                {"En", "", "", emptyFieldsErrorEN}
+                {"Ua", configProperties.getRegisteredUserEmail(), "", EMPTY_FIELDS_ERROR_UA},
+                {"Ua", "", configProperties.getRegisteredUserPassword(), EMPTY_FIELDS_ERROR_UA},
+                {"Ua", "", "", EMPTY_FIELDS_ERROR_UA},
+                {"En", configProperties.getRegisteredUserEmail(), "", EMPTY_FIELDS_ERROR_EN},
+                {"En", "", configProperties.getRegisteredUserPassword(), EMPTY_FIELDS_ERROR_EN},
+                {"En", "", "", EMPTY_FIELDS_ERROR_EN}
         };
     }
 
