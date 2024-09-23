@@ -18,7 +18,7 @@ import java.util.List;
 
 public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     @Test(dataProvider = "verifyErrorMessageForEmptyEmailAndOrPassword", dataProviderClass = LoginFormTestProvider.class)
-    public void verifyErrorMessageForEmptyEmailAndOrPassword(String language, String email, String password, String expected) {
+    public void verifyErrorMessageForEmptyEmailAndPassword(String language, String email, String password, String expected) {
         String errorMessage = page.setLanguage(language)
                 .getHeaderComponent().openLoginForm()
                 .enterEmail(email)
@@ -27,21 +27,6 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 .getLoginErrorText();
 
         Assert.assertEquals(errorMessage, expected);
-    }
-
-    @Test(dataProvider = "verifyErrorMessageForEmptyEmailAndPasswordEng", dataProviderClass = LoginFormTestProvider.class)
-    public void verifyErrorMessageForEmptyEmailAndPasswordEng(String email, String password, String expectedErrorMessage) {
-        String errorMessage = page.setLanguage("en")
-                .getHeaderComponent()
-                .openLoginForm()
-                .enterEmail(email)
-                .enterPassword(password)
-                .clickInsideForm()
-                .clickSignInButton()
-                .getPasswordField()
-                .getErrorMessage();
-
-        Assert.assertEquals(errorMessage, expectedErrorMessage);
     }
 
     @Test(dataProvider = "verifyErrorMessageForExceedingPasswordLengthInUA", dataProviderClass = LoginFormTestProvider.class)
