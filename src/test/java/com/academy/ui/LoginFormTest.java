@@ -325,4 +325,17 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
+    @Test(dataProvider = "verifyErrorMessageForExceedingPasswordLengthInEN", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyErrorMessageForExceedingPasswordLengthInEN(String email, String password, String expectedErrorMessage) {
+        String errorMessage = page.setLanguage("en")
+                .getHeaderComponent()
+                .openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickInsideForm()
+                .getPasswordField()
+                .getErrorMessage();
+        Assert.assertEquals(errorMessage, expectedErrorMessage, "Error message doesn't match.");
+    }
+
 }

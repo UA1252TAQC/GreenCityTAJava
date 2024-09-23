@@ -127,5 +127,14 @@ public class LoginFormTestProvider {
         };
     }
 
+    @DataProvider(name = "verifyErrorMessageForExceedingPasswordLengthInEN")
+    public Object[][]verifyErrorMessageForExceedingPasswordLengthInEN() {
+        return new Object[][] {
+                {configProperties.getRegisteredUserEmail(),
+                        "AaBbCcDdEe1234567890!",
+                        "Password must be less than 20 characters long without spaces."}
+        };
+    }
+
 
 }
