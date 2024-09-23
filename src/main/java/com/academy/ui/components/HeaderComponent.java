@@ -33,9 +33,6 @@ public class HeaderComponent extends BaseComponent {
     @FindBy(xpath = ".//li[@class='header_sign-up-link']//span")
     protected WebElement register;
 
-    @FindBy(xpath = USER_NAME_XPATH)
-    protected WebElement userName;
-
     @FindBy(xpath = "//app-auth-modal")
     protected WebElement loginRootElement;
 
@@ -77,7 +74,7 @@ public class HeaderComponent extends BaseComponent {
         }
     }
 
-    public String getUserNameText() {
-        return getText(findWithWaitElement(USER_NAME_XPATH, EXPLICITLY_WAIT_DURATION_FIVE_SECONDS)).trim();
+    public String getUsername() {
+        return getText(findWithWaitElement(".//ul[@id='header_user-wrp']/li[contains(@class, 'user-name')]", DURATION_TEN_SECOND)).trim();
     }
 }

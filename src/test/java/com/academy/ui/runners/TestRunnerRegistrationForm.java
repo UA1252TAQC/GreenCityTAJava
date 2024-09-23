@@ -19,7 +19,7 @@ public class TestRunnerRegistrationForm extends BaseTestRunner {
 
     @BeforeClass
     @Parameters({"language"})
-    public void setUp(@Optional("Ua") String language) {
+    public void setUp(@Optional("En") String language) {
         this.localizedMessages = localizationUtils.getFormMessages(language);
         this.mailUtils = new MailUtils();
         this.language = language;
@@ -27,6 +27,7 @@ public class TestRunnerRegistrationForm extends BaseTestRunner {
 
     @BeforeMethod
     public void setUpMethod(ITestContext context) {
+//        initChromeDriver(List.of("--disable-blink-features=AutomationControlled","--headless=new"));
         initChromeDriver(List.of("--disable-blink-features=AutomationControlled"));
         context.setAttribute("webDriver", driver);
         driver.get(configProperties.getHomePageGreenCityUrl());

@@ -3,13 +3,13 @@
     <test name="Registration Tests in English">
         <parameter name="language" value="En"/>
         <classes>
-            <class name="com.academy.ui.RegistrationFormFieldTest"/>
+            <class name="com.academy.ui.RegistrationFormTest"/>
         </classes>
     </test>
     <test name="Registration Tests in Ukrainian">
         <parameter name="language" value="Ua"/>
         <classes>
-            <class name="com.academy.ui.RegistrationFormFieldTest"/>
+            <class name="com.academy.ui.RegistrationFormTest"/>
         </classes>
     </test>
 </suite>

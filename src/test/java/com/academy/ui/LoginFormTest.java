@@ -143,7 +143,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
 
         String actualUserName = profilePage
                 .getHeaderComponent()
-                .getUserNameText();
+                .getUsername();
 
         String actualUrl = profilePage
                 .getCurrentUrl();

@@ -19,7 +19,7 @@ public class TestRunnerRegistrationFormField extends BaseTestRunner {
     @Parameters({"language"})
     @Step("Open home page with language: {language}")
     public void setUp(@Optional("Ua") String language) {
-        initChromeDriver(List.of());
+        initChromeDriver(List.of("--headless=new"));
         driver.get(configProperties.getHomePageGreenCityUrl());
 
         this.page = new HomePage(driver).setLanguage(language);
