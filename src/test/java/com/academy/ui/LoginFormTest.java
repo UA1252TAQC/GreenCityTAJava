@@ -18,13 +18,37 @@ import java.util.List;
 
 public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     @Test(dataProvider = "verifyErrorMessageForEmptyEmailAndOrPassword", dataProviderClass = LoginFormTestProvider.class)
-    public void verifyErrorMessageForEmptyEmailAndPassword(String language, String email, String password, String expected) {
+    public void verifyErrorMessageForEmptyEmailAndOrPassword(String language, String email, String password, String expected) {
         String errorMessage = page.setLanguage(language)
                 .getHeaderComponent().openLoginForm()
                 .enterEmail(email)
                 .enterPassword(password)
                 .clickSignInButtonUnsuccessfulLogin()
                 .getLoginErrorText();
+
+        Assert.assertEquals(errorMessage, expected);
+    }
+
+    @Test(dataProvider = "verifyErrorMessageForEmptyEmail", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyErrorMessageForEmptyEmail(String language, String email, String expected) {
+        String errorMessage = page.setLanguage(language)
+                .getHeaderComponent().openLoginForm()
+                .enterEmail(email)
+                .clickInsideForm()
+                .getEmailField()
+                .getErrorMessage();
+
+        Assert.assertEquals(errorMessage, expected);
+    }
+
+    @Test(dataProvider = "verifyErrorMessageForEmptyPassword", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyErrorMessageForEmptyPassword(String language, String password, String expected) {
+        String errorMessage = page.setLanguage(language)
+                .getHeaderComponent().openLoginForm()
+                .enterPassword(password)
+                .clickInsideForm()
+                .getPasswordField()
+                .getErrorMessage();
 
         Assert.assertEquals(errorMessage, expected);
     }
