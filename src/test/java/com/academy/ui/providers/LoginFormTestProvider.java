@@ -10,11 +10,15 @@ import java.util.Iterator;
 import java.util.List;
 
 public class LoginFormTestProvider {
-    private final TestUtils testUtils;
-
-    ConfigProperties configProperties = new ConfigProperties();
     private final String EMPTY_FIELDS_ERROR_UA = "Потрібно заповнити всі обов'язкові поля.";
     private final String EMPTY_FIELDS_ERROR_EN = "Please fill all required fields.";
+    private final String EMPTY_FIELD_EMAIL_ERROR_UA = "Введіть пошту.";
+    private final String EMPTY_FIELD_EMAIL_ERROR_EN = "Email is required.";
+    private final String EMPTY_FIELD_PASSWORD_ERROR_UA = "Будь ласка введіть пароль.";
+    private final String EMPTY_FIELD_PASSWORD_ERROR_EN = "Password is required.";
+
+    private final TestUtils testUtils;
+    ConfigProperties configProperties = new ConfigProperties();
 
     public LoginFormTestProvider() {
         this.testUtils = new TestUtils();
@@ -51,6 +55,24 @@ public class LoginFormTestProvider {
                 {"En", "", "", EMPTY_FIELDS_ERROR_EN}
         };
     }
+
+    @DataProvider(name = "verifyErrorMessageForEmptyEmail")
+    public Object[][] verifyErrorMessageForEmptyEmail() {
+        return new Object[][] {
+                {"Ua", "", EMPTY_FIELD_EMAIL_ERROR_UA},
+                {"En", "", EMPTY_FIELD_EMAIL_ERROR_EN},
+        };
+    }
+
+    @DataProvider(name = "verifyErrorMessageForEmptyPassword")
+    public Object[][] verifyErrorMessageForEmptyPassword() {
+        return new Object[][] {
+                {"Ua", "", EMPTY_FIELD_PASSWORD_ERROR_UA},
+                {"En", "", EMPTY_FIELD_PASSWORD_ERROR_EN},
+        };
+    }
+
+
 
     @DataProvider(name = "registeredUserCredentials")
     public Object[][] registeredUserCredentialsDataProvider() {
