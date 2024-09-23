@@ -186,7 +186,7 @@ public class LoginFormTestProvider {
         return new Object[][] {
                 {"test.mail.comaaaa", english, localization.getFormMessages(english).get("EMAIL_INVALID"), color},
                 {"test.mail.comaaaa", ukrainian, localization.getFormMessages(ukrainian).get("EMAIL_INVALID"), color},
-        }
+        };
     }
     @DataProvider(name = "checkForgotPasswordUnregisteredEmailData")
     public Object[][] checkForgotPasswordUnregisteredEmailData() {
