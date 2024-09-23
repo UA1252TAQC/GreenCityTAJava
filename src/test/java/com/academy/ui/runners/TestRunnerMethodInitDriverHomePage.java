@@ -11,7 +11,7 @@ public class TestRunnerMethodInitDriverHomePage extends BaseTestRunner {
 
     @BeforeMethod
     public void initDriver(){
-        initChromeDriver(List.of());
+        initChromeDriver(List.of("--disable-search-engine-choice-screen"));
         driver.get(configProperties.getHomePageGreenCityUrl());
         page = new HomePage(driver);
     }

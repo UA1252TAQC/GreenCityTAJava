@@ -33,11 +33,6 @@ public class EmailField extends BaseComponent {
         return null;
     }
 
-    public boolean isHighlightedInRed() {
-        String borderColor = input.getCssValue("border-color");
-        return borderColor.equals("rgb(240, 49, 39)");
-    }
-
     public boolean isValid() {
         return !isDisplayed(error);
     }
@@ -49,5 +44,9 @@ public class EmailField extends BaseComponent {
 
     public boolean isEmailFieldEmpty(){
         return input.getAttribute("class").contains("ng-pristine");
+    }
+
+    public boolean isHighlightedInColor(String color) {
+        return input.getCssValue("border-color").equals(color);
     }
 }
