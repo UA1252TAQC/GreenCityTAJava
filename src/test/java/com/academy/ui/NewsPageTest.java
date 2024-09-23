@@ -1,6 +1,7 @@
 package com.academy.ui;
 
 import com.academy.ui.runners.TestRunnerClassInitDriver;
+import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -20,8 +21,8 @@ public class NewsPageTest extends TestRunnerClassInitDriver {
     }
 
     @BeforeClass
-    public void initDriver(){
-        super.initDriver();
+    public void initDriver(ITestContext context){
+        super.initDriver(context);
         driver.get(configProperties.getBaseUrl() + "/#/news");
     }
 

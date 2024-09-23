@@ -2,6 +2,7 @@ package com.academy.ui.runners;
 
 import com.academy.utils.MailUtils;
 import com.google.common.collect.ImmutableMap;
+import org.testng.ITestContext;
 import org.testng.annotations.*;
 
 import java.util.List;
@@ -20,8 +21,9 @@ public class TestRunnerRegistrationForm extends BaseTestRunner {
     }
 
     @BeforeMethod
-    public void setUpMethod() {
+    public void setUpMethod(ITestContext context) {
         initChromeDriver(List.of());
+        context.setAttribute("webDriver", driver);
         driver.get(configProperties.getHomePageGreenCityUrl());
     }
 

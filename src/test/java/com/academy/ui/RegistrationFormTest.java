@@ -13,10 +13,11 @@ import com.academy.utils.mail.Mail;
 import com.academy.utils.mail.MailBoxCredentials;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Step;
+import io.qameta.allure.*;
 import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
 import java.nio.charset.StandardCharsets;
@@ -29,12 +30,12 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
     @Test(dataProvider = "testPopUpSignUpValidation", dataProviderClass = RegistrationFormTestProvider.class)
     @Description("Tests the validation of the pop-up sign-up process.")
     @Feature("Registration")
+    @Issue("13")
     public void testPopUpSignUpValidation(String expectedRegistrationSuccessMessage, String expectedAccountSubmitMessage, MailBoxCredentials mailBox, String username, String password, String repeatPassword) {
         HomePage homePage = openHomePage();
         var form = homePage.getHeaderComponent().openRegistrationForm();
 
         form.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
-
         String actualRegistrationSuccessMessage = homePage.getPopUpMessage();
         softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
 

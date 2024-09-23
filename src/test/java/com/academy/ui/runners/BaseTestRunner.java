@@ -14,12 +14,15 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Listeners;
 import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
 import java.util.List;
 
-public class BaseTestRunner {
+
+@Listeners(TestNgListener.class)
+public class BaseTestRunner{
     protected static final long IMPLICITLY_WAIT_DURATION = 1;
     protected static ConfigProperties configProperties;
     protected static WebDriver driver;
