@@ -16,6 +16,8 @@ public class LoginFormTestProvider {
     private final String EMPTY_FIELD_EMAIL_ERROR_EN = "Email is required.";
     private final String EMPTY_FIELD_PASSWORD_ERROR_UA = "Будь ласка введіть пароль.";
     private final String EMPTY_FIELD_PASSWORD_ERROR_EN = "Password is required.";
+    private final String EXCEEDING_PASSWORD_ERROR_UA = "Пароль повинен містити менше 20 символів без пробілів.";
+    private final String EXCEEDING_PASSWORD_ERROR_EN = "Password must be less than 20 characters long without spaces.";
 
     private final TestUtils testUtils;
     ConfigProperties configProperties = new ConfigProperties();
@@ -61,6 +63,18 @@ public class LoginFormTestProvider {
         return new Object[][] {
                 {"Ua", "", EMPTY_FIELD_EMAIL_ERROR_UA},
                 {"En", "", EMPTY_FIELD_EMAIL_ERROR_EN},
+        };
+    }
+
+    @DataProvider(name = "verifyErrorMessageForExceedingPasswordLength")
+    public Object[][] verifyErrorMessageForExceedingPasswordLength() {
+        return new Object[][] {
+                {"Ua", configProperties.getRegisteredUserEmail(),
+                        configProperties.getRegisteredUserPassword() + "12345678901234567890",
+                        EXCEEDING_PASSWORD_ERROR_UA},
+                {"En", configProperties.getRegisteredUserEmail(),
+                        configProperties.getRegisteredUserPassword() + "12345678901234567890",
+                        EXCEEDING_PASSWORD_ERROR_EN},
         };
     }
 
@@ -147,15 +161,4 @@ public class LoginFormTestProvider {
                 {configProperties.getRegisteredUserEmail(), "Password restore link already sent, please check your email:"}
         };
     }
-
-    @DataProvider(name = "verifyErrorMessageForExceedingPasswordLengthInEN")
-    public Object[][]verifyErrorMessageForExceedingPasswordLengthInEN() {
-        return new Object[][] {
-                {configProperties.getRegisteredUserEmail(),
-                        "AaBbCcDdEe1234567890!",
-                        "Password must be less than 20 characters long without spaces."}
-        };
-    }
-
-
 }
