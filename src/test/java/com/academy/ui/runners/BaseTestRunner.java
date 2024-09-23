@@ -3,6 +3,8 @@ package com.academy.ui.runners;
 import com.academy.utils.LocalizationUtils;
 import com.academy.utils.props.ConfigProperties;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Step;
+
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -23,7 +25,7 @@ public class BaseTestRunner {
     protected static WebDriver driver;
 
 
-    protected LocalizationUtils localizationUtils;
+    protected static LocalizationUtils localizationUtils;
     protected SoftAssert softAssert;
 
     @BeforeSuite
@@ -42,6 +44,7 @@ public class BaseTestRunner {
         closeBrowser();
     }
 
+    @Step("Initialize Chrome WebDriver with options: {chromeOptions}")
     public void initChromeDriver(List<String> chromeOptions) {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
@@ -51,6 +54,13 @@ public class BaseTestRunner {
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPLICITLY_WAIT_DURATION));
+    }
+
+    @Step("Close the browser session")
+    public void closeBrowser() {
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
     public void setWindowWidth(int width) {
@@ -68,11 +78,5 @@ public class BaseTestRunner {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
         return (Boolean) jsExecutor.executeScript(
                 "return arguments[0].scrollWidth > arguments[0].clientWidth;", element);
-    }
-
-    public void closeBrowser() {
-        if (driver != null) {
-            driver.quit();
-        }
     }
 }

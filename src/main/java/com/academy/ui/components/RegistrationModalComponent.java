@@ -4,6 +4,8 @@ import com.academy.ui.components.sub.form.EmailField;
 import com.academy.ui.components.sub.form.PasswordField;
 import com.academy.ui.components.sub.form.RepeatPasswordField;
 import com.academy.ui.components.sub.form.UsernameField;
+
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -45,26 +47,31 @@ public class RegistrationModalComponent extends BaseComponent {
         repeatPassword = new RepeatPasswordField(driver, rootElement);
     }
 
+    @Step("Enter email: {text}")
     public RegistrationModalComponent enterEmail(String text) {
         email.enter(text);
         return this;
     }
 
+    @Step("Enter username: {text}")
     public RegistrationModalComponent enterUsername(String text) {
         username.enter(text);
         return this;
     }
 
+    @Step("Enter password")
     public RegistrationModalComponent enterPassword(String text) {
         password.enter(text);
         return this;
     }
 
+    @Step("Enter repeat password")
     public RegistrationModalComponent enterRepeatPassword(String text) {
         repeatPassword.enter(text);
         return this;
     }
 
+    @Step("Open Google Authentication Form")
     public GoogleAuthComponent openAuthGoogleForm() {
         click(googleButton);
         sleep(1);
@@ -73,28 +80,34 @@ public class RegistrationModalComponent extends BaseComponent {
         return new GoogleAuthComponent(driver);
     }
 
+    @Step("Fill registration form with email: {email}, username: {username}, password: {password}, repeat password: {repeatPassword}")
     public RegistrationModalComponent fillForm(String email, String username, String password, String repeatPassword) {
         return enterEmail(email).enterUsername(username).enterPassword(password)
                 .enterRepeatPassword(repeatPassword).clickTitle();
     }
 
+    @Step("Click title to remove focus")
     public RegistrationModalComponent clickTitle() {
         click(title);
         return this;
     }
 
+    @Step("Check if registration button is displayed")
     public boolean isRegistrationButtonDisplayed() {
         return isDisplayed(registerButton);
     }
 
+    @Step("Check if Google button is displayed")
     public boolean isGoogleButtonDisplayed() {
         return isDisplayed(googleButton);
     }
 
+    @Step("Submit registration form")
     public void submit() {
         click(registerButton);
     }
 
+    @Step("Check if registration button is enabled")
     public boolean isRegistrationButtonEnabled() {
         return isEnabled(registerButton);
     }
@@ -105,10 +118,12 @@ public class RegistrationModalComponent extends BaseComponent {
         }
     }
 
+    @Step("Check if sign-in link is displayed")
     public boolean isSignInLinkDisplayed() {
         return isDisplayed(signInLink);
     }
 
+    @Step("Close registration modal")
     public void close() {
         click(closeButton);
         sleep(1);
