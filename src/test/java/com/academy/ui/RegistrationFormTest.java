@@ -128,7 +128,6 @@ public class RegistrationFormTest extends TestRunnerRegistrationForm {
 
         ubsForm.fillForm(mailBox.getAddress(), username, password, repeatPassword).submit();
 
-
         String actualRegistrationSuccessMessage = ubsPage.getPopUpMessage();
         softAssert.assertEquals(actualRegistrationSuccessMessage, localizedMessages.get(expectedRegistrationSuccessMessage));
 
