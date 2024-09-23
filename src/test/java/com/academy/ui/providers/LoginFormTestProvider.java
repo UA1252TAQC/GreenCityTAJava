@@ -186,6 +186,12 @@ public class LoginFormTestProvider {
         return new Object[][] {
                 {"test.mail.comaaaa", english, localization.getFormMessages(english).get("EMAIL_INVALID"), color},
                 {"test.mail.comaaaa", ukrainian, localization.getFormMessages(ukrainian).get("EMAIL_INVALID"), color},
+        }
+    }
+    @DataProvider(name = "checkForgotPasswordUnregisteredEmailData")
+    public Object[][] checkForgotPasswordUnregisteredEmailData() {
+        return new Object[][]{
+                {"test1@gmail.com", "The user does not exist by this email: test1@gmail.com"}
         };
     }
 }
