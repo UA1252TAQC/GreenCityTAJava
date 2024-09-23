@@ -123,7 +123,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
 
         boolean isHighlightedInRed = forgotPasswordModal
                 .getEmailField()
-                .isHighlightedInRed();
+                .isHighlightedInColor(Colors.PRIMARY_RED);
 
         softAssert.assertEquals(errorMessage, expectedErrorMessage + email);
         softAssert.assertTrue(isHighlightedInRed);
