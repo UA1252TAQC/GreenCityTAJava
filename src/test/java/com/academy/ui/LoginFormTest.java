@@ -278,9 +278,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "widthResolutionPxAndZoomLevelsPercentage", dataProviderClass = LoginFormTestProvider.class)
-    public void checkScrollbarIsDisplayedOnPageTest(int windowWidth, List<Integer> zoomValuesPercentage) {
+    public void checkScrollbarIsDisplayedOnPageTest(String language, int windowWidth, List<Integer> zoomValuesPercentage) {
 
-        LoginModalComponent loginModalComponent = page
+        LoginModalComponent loginModalComponent = page.setLanguage(language)
                 .getHeaderComponent()
                 .openLoginForm();
 
@@ -296,8 +296,6 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                     shouldHaveHorizontalScrollBar,
                     "Horizontal scrollbar should be displayed on page at " + windowWidth +
                             "px resolution with " + zoomLevelPercentage + "% zoom level");
-
-            loginModalComponent.sleep(2);
         }
 
         softAssert.assertAll();
