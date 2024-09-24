@@ -104,15 +104,15 @@ public class LoginFormTestProvider {
         };
     }
 
-    @DataProvider(name = "checkSignInButtonRemainedInactivePassword")
-    public Object[][] checkSignInButtonRemainedInactivePasswordDataProvider() {
+    @DataProvider(name = "verifySignInButtonRemainedInactivePassword")
+    public Object[][] verifySignInButtonRemainedInactivePasswordDataProvider() {
         return new Object[][]{
                 {configProperties.getRegisteredUserPassword()},
         };
     }
 
-    @DataProvider(name = "checkInSignInButtonRemainedInactiveEmail")
-    public Object[][] checkInSignInButtonRemainedInactiveEmailDataProvider() {
+    @DataProvider(name = "verifyInSignInButtonRemainedInactiveEmail")
+    public Object[][] verifyInSignInButtonRemainedInactiveEmailDataProvider() {
         return new Object[][]{
                 {configProperties.getRegisteredUserEmail()},
         };
