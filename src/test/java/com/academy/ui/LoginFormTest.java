@@ -220,7 +220,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test
-    public void checkSignInBtnBecomesGreenByValidCreds() {
+    public void verifySignInBtnBecomesGreenByValidCreds() {
         LoginModalComponent logInModalComponent = page.getHeaderComponent()
                 .openLoginForm();
         softAssert.assertFalse(logInModalComponent.isSignInButtonActive());
@@ -266,7 +266,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test
-    public void verifySignInBtnIsEmptyByEmptyFields() {
+    public void verifySignInBtnIsInactiveByEmptyFields() {
         LoginModalComponent logInModalComponent = page.getHeaderComponent()
                 .openLoginForm();
         boolean isEmailEmpty = logInModalComponent.getEmailField().isEmailFieldEmpty();
