@@ -183,9 +183,17 @@ public class LoginFormTestProvider {
         String english = "En";
         String ukrainian = "Ua";
         String color = Colors.PRIMARY_RED;
+        String invalidEmail = "test.mail.comaaaa";
+        String invalidEmailMessage = "EMAIL_INVALID";
+
+        String emailNotRegisteredMessage = "EMAIL_NOT_REGISTERED";
+        String notRegisteredEmail = "test.peach.green.city@gmail.com";
         return new Object[][] {
-                {"test.mail.comaaaa", english, localization.getFormMessages(english).get("EMAIL_INVALID"), color},
-                {"test.mail.comaaaa", ukrainian, localization.getFormMessages(ukrainian).get("EMAIL_INVALID"), color},
+                {invalidEmail, english, localization.getFormMessages(english).get(invalidEmailMessage), color},
+                {invalidEmail, ukrainian, localization.getFormMessages(ukrainian).get(invalidEmailMessage), color},
+
+                {notRegisteredEmail, english, localization.getFormMessages(english).get(emailNotRegisteredMessage)+ " " + notRegisteredEmail, color},
+                {notRegisteredEmail, ukrainian, localization.getFormMessages(ukrainian).get(emailNotRegisteredMessage) + " " + notRegisteredEmail, color},
         };
     }
     @DataProvider(name = "checkForgotPasswordUnregisteredEmailData")
