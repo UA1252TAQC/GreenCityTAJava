@@ -18,6 +18,8 @@ public class LoginFormTestProvider {
     private final String EMPTY_FIELD_PASSWORD_ERROR_EN = "Password is required.";
     private final String EXCEEDING_PASSWORD_ERROR_UA = "Пароль повинен містити менше 20 символів без пробілів.";
     private final String EXCEEDING_PASSWORD_ERROR_EN = "Password must be less than 20 characters long without spaces.";
+    private final String INALID_PASSWORD_ERROR_UA = "Введено невірний email або пароль.";
+    private final String INALID_PASSWORD_ERROR_EN = "Bad email or password.";
 
     private final TestUtils testUtils;
     ConfigProperties configProperties = new ConfigProperties();
@@ -31,11 +33,6 @@ public class LoginFormTestProvider {
         return testUtils.getTestCases(method);
     }
 
-    @DataProvider(name = "verifyErrorMessageForInvalidPasswordUA")
-    public Iterator<Object[]> verifyErrorMessageForInvalidPasswordUA(Method method) {
-        return testUtils.getTestCases(method);
-    }
-
     @DataProvider(name = "verifyErrorMessageForEmptyEmailAndPasswordEng")
     public Iterator<Object[]> verifyErrorMessageForEmptyEmailAndPasswordEng(Method method) {
         return testUtils.getTestCases(method);
@@ -44,6 +41,16 @@ public class LoginFormTestProvider {
     @DataProvider(name = "verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail")
     public Iterator<Object[]> verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail(Method method) {
         return testUtils.getTestCases(method);
+    }
+
+    @DataProvider(name = "verifyErrorMessageForInvalidPassword")
+    public Object[][] verifyErrorMessageForInvalidPassword() {
+        return new Object[][] {
+                {"Ua", configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword() + "@123"
+                        , INALID_PASSWORD_ERROR_UA},
+                {"En", configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword() + "@123"
+                        , INALID_PASSWORD_ERROR_EN}
+        };
     }
 
     @DataProvider(name = "verifyErrorMessageForEmptyEmailAndOrPassword")

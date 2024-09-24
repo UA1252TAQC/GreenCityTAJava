@@ -79,10 +79,12 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         Assert.assertTrue(isDisplayed);
     }
 
-    @Test(dataProvider = "verifyErrorMessageForInvalidPasswordUA", dataProviderClass = LoginFormTestProvider.class)
-    public void verifyErrorMessageForInvalidPasswordUA(String email, String password, String expectedErrorMessage) {
+    @Test(dataProvider = "verifyErrorMessageForInvalidPassword", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyErrorMessageForInvalidPassword(String language, String email, String password, String expected) {
 
-        String errorMessage = page.getHeaderComponent()
+        String errorMessage = page
+                .setLanguage(language)
+                .getHeaderComponent()
                 .openLoginForm()
                 .enterEmail(email)
                 .enterPassword(password)
@@ -90,23 +92,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 .clickInsideForm()
                 .getPasswordField()
                 .getErrorMessage();
-        Assert.assertEquals(errorMessage, expectedErrorMessage);
-    }
-
-    @Test
-    public void testErrorForInvalidPasswordEn() {
-        String expectedMessage = "Bad email or password.";
-
-        LoginModalComponent logInModalComponent = new HomePage(driver)
-                .setLanguage("En")
-                .getHeaderComponent().openLoginForm()
-                .enterEmail(configProperties.getRegisteredUserEmail())
-                .enterPassword("******************")
-                .clickSignInButtonUnsuccessfulLogin();
-
-        String errorMessage = logInModalComponent.getPasswordErrorMessage();
-
-        Assert.assertEquals(errorMessage, expectedMessage);
+        Assert.assertEquals(errorMessage, expected);
     }
 
     @Test(dataProvider = "verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail", dataProviderClass = LoginFormTestProvider.class)
