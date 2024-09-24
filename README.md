@@ -19,4 +19,7 @@ email.token=
 google.email=
 google.password=
 
+#Invalid user credentials
+invalid.user.email=
+invalid.user.password=
 ```
