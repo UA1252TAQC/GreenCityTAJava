@@ -133,7 +133,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "registeredUserCredentials", dataProviderClass = LoginFormTestProvider.class)
-    public void checkSuccessfulSignIn(String email, String password, String name, String id) {
+    public void verifySuccessfulSignInPossibilityWithValidCredentials(String email, String password, String name, String id) {
 
         ProfilePage profilePage = page
                 .getHeaderComponent()
@@ -280,7 +280,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "widthResolutionPxAndZoomLevelsPercentage", dataProviderClass = LoginFormTestProvider.class)
-    public void checkScrollbarIsDisplayedOnPageTest(String language, int windowWidth, List<Integer> zoomValuesPercentage) {
+    public void verifyScrollbarIsDisplayedOnPageTest(String language, int windowWidth, List<Integer> zoomValuesPercentage) {
 
         LoginModalComponent loginModalComponent = page.setLanguage(language)
                 .getHeaderComponent()
