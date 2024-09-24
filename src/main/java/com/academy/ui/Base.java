@@ -47,10 +47,6 @@ public class Base {
         getWait(EXPLICITLY_WAIT_DURATION_FIVE_SECONDS).until(ExpectedConditions.invisibilityOf(element));
     }
 
-//    public void waitTillElementIsInvisible(WebElement element) {
-//        getWait(EXPLICITLY_WAIT_DURATION_FIVE_SECONDS).until(ExpectedConditions.invisibilityOf(element));
-//    }
-
     public void click(WebElement element) {
         getActions().moveToElement(element).click().perform();
     }
