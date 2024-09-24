@@ -7,10 +7,10 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
-public class BaseProperties {
+public class BasePropertiesParser {
     protected final Properties properties;
 
-    protected BaseProperties(String source) {
+    protected BasePropertiesParser(String source) {
         properties = new Properties();
         try {
             var fileInputStream = new BufferedReader(new InputStreamReader(new FileInputStream("src/test/resources/" + source), StandardCharsets.UTF_8));

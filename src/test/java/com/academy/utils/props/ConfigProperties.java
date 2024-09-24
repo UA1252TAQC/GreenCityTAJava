@@ -1,6 +1,6 @@
 package com.academy.utils.props;
 
-public class ConfigProperties extends BaseProperties {
+public class ConfigProperties extends BasePropertiesParser {
     public ConfigProperties() {
         super("credentials.properties");
     }

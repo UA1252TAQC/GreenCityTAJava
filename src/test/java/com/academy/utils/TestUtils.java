@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class TestUtils extends BaseJsonUtils {
+public class TestUtils extends BaseJsonParser {
     private final MailUtils mailUtils;
     private final ConfigProperties configProperties;
 
