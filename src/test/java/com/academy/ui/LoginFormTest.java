@@ -5,6 +5,7 @@ import com.academy.ui.components.GoogleAuthComponent;
 import com.academy.ui.components.LoginModalComponent;
 import com.academy.ui.components.sub.form.EmailField;
 import com.academy.ui.pages.greenCity.HomePage;
+import com.academy.ui.pages.greenCity.NewsPage;
 import com.academy.ui.providers.LoginFormTestProvider;
 import com.academy.ui.pages.greenCity.ProfilePage;
 import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
@@ -17,6 +18,59 @@ import org.testng.asserts.SoftAssert;
 import java.util.List;
 
 public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
+    @Test(dataProvider = "verifyPasswordLessThan8Characters", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyPasswordLessThan8CharactersTest(String language, String email, String password, String expectedErrorMessage) {
+        LoginModalComponent logInModalComponent = page
+                .setLanguage(language)
+                .getHeaderComponent().openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickSignInButtonUnsuccessfulLogin();
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(logInModalComponent.isErrorMessageDisplayed(),
+                "The error message should be displayed for a password with less than 8 characters.");
+        softAssert.assertEquals(logInModalComponent.getErrorMessageText(), expectedErrorMessage,
+                "The displayed error message is incorrect.");
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "verifyLoginUnregisteredEmailData", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyLoginUnregisteredEmailData(String language, String email, String password, String expectedErrorMessage) {
+        LoginModalComponent logInModalComponent = page
+                .setLanguage(language)
+                .getHeaderComponent().openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickSignInButtonUnsuccessfulLogin();
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(logInModalComponent.isErrorMessageDisplayedUnregistered(),
+                "The error message should be displayed for unregistered email.");
+        softAssert.assertEquals(logInModalComponent.getErrorMessageTextUnregistered(), expectedErrorMessage,
+                "The displayed error message is incorrect.");
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "checkForgotPasswordUnregisteredEmailData", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyErrorForUnregisteredEmailInForgotPassword(String email, String expectedErrorMessage) {
+        ForgotPasswordModalComponent forgotPasswordModal = page
+                .setLanguage("en")
+                .getHeaderComponent()
+                .openLoginForm()
+                .clickForgotPasswordLink();
+
+        forgotPasswordModal.enterEmail(email)
+                .clickSignInButton();
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(forgotPasswordModal.getEmailField().isHighlightedInColor(Colors.PRIMARY_RED),
+                "The email field should be highlighted in red.");
+        softAssert.assertEquals(forgotPasswordModal.getEmailField().getErrorMessage(), expectedErrorMessage,
+                "The displayed error message is incorrect.");
+        softAssert.assertAll();
+    }
+
     @Test(dataProvider = "verifyErrorMessageForEmptyEmailAndOrPassword", dataProviderClass = LoginFormTestProvider.class)
     public void verifyErrorMessageForEmptyEmailAndOrPassword(String language, String email, String password, String expected) {
         String errorMessage = page.setLanguage(language)
@@ -53,6 +107,41 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         Assert.assertEquals(errorMessage, expected);
     }
 
+    @Test(dataProvider = "verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail(String language, String email, String expected) {
+
+        ForgotPasswordModalComponent forgotPasswordModal = page
+                .setLanguage(language)
+                .getHeaderComponent()
+                .openLoginForm()
+                .clickForgotPasswordLink();
+
+        String errorMessage = forgotPasswordModal
+                .enterEmail(email)
+                .clickSignInButton()
+                .getEmailField()
+                .getErrorMessage();
+
+        boolean isHighlightedInRed = forgotPasswordModal
+                .getEmailField()
+                .isHighlightedInColor(Colors.PRIMARY_RED);
+
+        softAssert.assertEquals(errorMessage, expected + email);
+        softAssert.assertTrue(isHighlightedInRed);
+        softAssert.assertAll();
+    }
+
+    @Test
+    public void verifyOpeningForgotPasswordFormAfterClick() {
+
+        boolean isDisplayed = page.getHeaderComponent()
+                .openLoginForm()
+                .clickForgotPasswordLink()
+                .isForgotPasswordWindowDisplayed();
+
+        Assert.assertTrue(isDisplayed);
+    }
+
     @Test(dataProvider = "verifyErrorMessageForExceedingPasswordLength", dataProviderClass = LoginFormTestProvider.class)
     public void verifyErrorMessageForExceedingPasswordLength(String language, String email, String password, String expected) {
 
@@ -68,21 +157,12 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         Assert.assertEquals(errorMessage, expected);
     }
 
-    @Test
-    public void verifyOpeningForgotPasswordFormAfterClick() {
+    @Test(dataProvider = "verifyErrorMessageForInvalidPassword", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyErrorMessageForInvalidPassword(String language, String email, String password, String expected) {
 
-        boolean isDisplayed = page.getHeaderComponent()
-                .openLoginForm()
-                .clickForgotPasswordLink()
-                .isForgotPasswordWindowDisplayed();
-
-        Assert.assertTrue(isDisplayed);
-    }
-
-    @Test(dataProvider = "verifyErrorMessageForInvalidPasswordUA", dataProviderClass = LoginFormTestProvider.class)
-    public void verifyErrorMessageForInvalidPasswordUA(String email, String password, String expectedErrorMessage) {
-
-        String errorMessage = page.getHeaderComponent()
+        String errorMessage = page
+                .setLanguage(language)
+                .getHeaderComponent()
                 .openLoginForm()
                 .enterEmail(email)
                 .enterPassword(password)
@@ -90,137 +170,11 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 .clickInsideForm()
                 .getPasswordField()
                 .getErrorMessage();
-        Assert.assertEquals(errorMessage, expectedErrorMessage);
+        Assert.assertEquals(errorMessage, expected);
     }
 
     @Test
-    public void testErrorForInvalidPasswordEn() {
-        String expectedMessage = "Bad email or password.";
-
-        LoginModalComponent logInModalComponent = new HomePage(driver)
-                .setLanguage("En")
-                .getHeaderComponent().openLoginForm()
-                .enterEmail(configProperties.getRegisteredUserEmail())
-                .enterPassword("******************")
-                .clickSignInButtonUnsuccessfulLogin();
-
-        String errorMessage = logInModalComponent.getPasswordErrorMessage();
-
-        Assert.assertEquals(errorMessage, expectedMessage);
-    }
-
-    @Test(dataProvider = "verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail", dataProviderClass = LoginFormTestProvider.class)
-    public void verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail(String email, String expectedErrorMessage) {
-
-        ForgotPasswordModalComponent forgotPasswordModal = page
-                .getHeaderComponent()
-                .openLoginForm()
-                .clickForgotPasswordLink();
-
-        String errorMessage = forgotPasswordModal.enterEmail(email)
-                .clickSignInButton()
-                .getEmailField()
-                .getErrorMessage();
-
-        boolean isHighlightedInRed = forgotPasswordModal
-                .getEmailField()
-                .isHighlightedInColor(Colors.PRIMARY_RED);
-
-        softAssert.assertEquals(errorMessage, expectedErrorMessage + email);
-        softAssert.assertTrue(isHighlightedInRed);
-        softAssert.assertAll();
-    }
-
-    @Test(dataProvider = "registeredUserCredentials", dataProviderClass = LoginFormTestProvider.class)
-    public void checkSuccessfulSignIn(String email, String password, String name, String id) {
-
-        ProfilePage profilePage = page
-                .getHeaderComponent()
-                .openLoginForm()
-                .enterEmail(email)
-                .enterPassword(password)
-                .clickSignInButtonSuccessfulLogin();
-
-        String actualUserName = profilePage
-                .getHeaderComponent()
-                .getUserNameText();
-
-        String actualUrl = profilePage
-                .getCurrentUrl();
-
-        String expectedUrl = configProperties.getProfilePageGreenCityUrl() + "/" + id;
-
-        softAssert.assertEquals(actualUrl, expectedUrl, "Wrong user profile page url");
-        softAssert.assertEquals(actualUserName, name, "User name doesn't match.");
-        softAssert.assertAll();
-    }
-
-    @Test(dataProvider = "checkSignInButtonRemainedInactivePassword", dataProviderClass = LoginFormTestProvider.class)
-    public void checkSignInButtonRemainedInactiveWithFilledPassword(String password) {
-        LoginModalComponent logInModalComponent = new HomePage(driver)
-                .getHeaderComponent().openLoginForm()
-                .enterPassword(password)
-                .clickSignInButtonUnsuccessfulLogin();
-
-        logInModalComponent.sleep(3);
-
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
-                "The 'Login' button should be inactive when entering only the email.");
-        softAssert.assertAll();
-    }
-
-    @Test(dataProvider = "checkInSignInButtonRemainedInactiveEmail", dataProviderClass = LoginFormTestProvider.class)
-    public void checkSignInButtonRemainedInactiveWithFilledEmail(String email) {
-        LoginModalComponent logInModalComponent = new HomePage(driver)
-                .getHeaderComponent().openLoginForm()
-                .enterEmail(email)
-                .clickSignInButtonUnsuccessfulLogin();
-
-        logInModalComponent.sleep(3);
-
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
-                "The 'Login' button should be inactive when entering only the password.");
-        softAssert.assertAll();
-    }
-
-    @Test(dataProvider = "checkPasswordLessThan8CharactersEN", dataProviderClass = LoginFormTestProvider.class)
-    public void checkPasswordLessThan8CharactersTest(String email, String password, String expectedErrorMessage) {
-        LoginModalComponent logInModalComponent = page
-                .setLanguage("en")
-                .getHeaderComponent().openLoginForm()
-                .enterEmail(email)
-                .enterPassword(password)
-                .clickSignInButtonUnsuccessfulLogin();
-
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(logInModalComponent.isErrorMessageDisplayed(),
-                "The error message should be displayed for a password with less than 8 characters.");
-        softAssert.assertEquals(logInModalComponent.getErrorMessageText(), expectedErrorMessage,
-                "The displayed error message is incorrect.");
-        softAssert.assertAll();
-    }
-
-    @Test(dataProvider = "checkPasswordLessThan8CharactersUA", dataProviderClass = LoginFormTestProvider.class)
-    public void checkPasswordLessThan8CharactersUATest(String email, String password, String expectedErrorMessage) {
-        LoginModalComponent logInModalComponent = page
-                .setLanguage("ua")
-                .getHeaderComponent().openLoginForm()
-                .enterEmail(email)
-                .enterPassword(password)
-                .clickSignInButtonUnsuccessfulLogin();
-
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(logInModalComponent.isErrorMessageDisplayed(),
-                "The error message should be displayed for a password with less than 8 characters in UA localization.");
-        softAssert.assertEquals(logInModalComponent.getErrorMessageText(), expectedErrorMessage,
-                "The error message in UA localization is incorrect.");
-        softAssert.assertAll();
-    }
-
-    @Test
-    public void checkSignInBtnBecomesGreenByValidCreds() {
+    public void verifySignInBtnBecomesGreenByValidCreds() {
         LoginModalComponent logInModalComponent = page.getHeaderComponent()
                 .openLoginForm();
         softAssert.assertFalse(logInModalComponent.isSignInButtonActive());
@@ -232,41 +186,8 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-    @Test(dataProvider = "checkLoginUnregisteredEmailDataEN", dataProviderClass = LoginFormTestProvider.class)
-    public void checkUnregisteredEmailTestEN(String email, String password, String expectedErrorMessage)  {
-        LoginModalComponent logInModalComponent = page
-                .setLanguage("en")
-                .getHeaderComponent().openLoginForm()
-                .enterEmail(email)
-                .enterPassword(password)
-                .clickSignInButtonUnsuccessfulLogin();
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(logInModalComponent.isErrorMessageDisplayedUnregistered(),
-                "The error message should be displayed for unregistered email.");
-        softAssert.assertEquals(logInModalComponent.getErrorMessageTextUnregistered(), expectedErrorMessage,
-                "The displayed error message is incorrect.");
-        softAssert.assertAll();
-    }
-
-    @Test(dataProvider = "checkLoginUnregisteredEmailDataUA", dataProviderClass = LoginFormTestProvider.class)
-    public void checkUnregisteredEmailTestUA(String email, String password, String expectedErrorMessage) {
-        LoginModalComponent logInModalComponent = page
-                .setLanguage("ua")
-                .getHeaderComponent().openLoginForm()
-                .enterEmail(email)
-                .enterPassword(password)
-                .clickSignInButtonUnsuccessfulLogin();
-
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(logInModalComponent.isErrorMessageDisplayedUnregistered(),
-                "The error message should be displayed for unregistered email.");
-        softAssert.assertEquals(logInModalComponent.getErrorMessageTextUnregistered(), expectedErrorMessage,
-                "The displayed error message is incorrect.");
-        softAssert.assertAll(); // fixed
-    }
-
     @Test
-    public void verifySignInBtnIsEmptyByEmptyFields() {
+    public void verifySignInBtnIsInactiveByEmptyFields() {
         LoginModalComponent logInModalComponent = page.getHeaderComponent()
                 .openLoginForm();
         boolean isEmailEmpty = logInModalComponent.getEmailField().isEmailFieldEmpty();
@@ -275,30 +196,6 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertTrue(isPassEmpty);
         softAssert.assertFalse(logInModalComponent.isSignInButtonActive());
         softAssert.assertAll();
-    }
-
-    @Test(dataProvider = "widthResolutionPxAndZoomLevelsPercentage", dataProviderClass = LoginFormTestProvider.class)
-    public void checkScrollbarIsDisplayedOnPageTest(String language, int windowWidth, List<Integer> zoomValuesPercentage) {
-
-        LoginModalComponent loginModalComponent = page.setLanguage(language)
-                .getHeaderComponent()
-                .openLoginForm();
-
-        setWindowWidth(windowWidth);
-
-        for (int zoomLevelPercentage : zoomValuesPercentage) {
-            setZoomTo(zoomLevelPercentage);
-            WebElement element = loginModalComponent.getMainWindow();
-            boolean hasHorizontalScrollbar = hasHorizontalScrollbar(element);
-            boolean shouldHaveHorizontalScrollBar = loginModalComponent.getWidth()*zoomLevelPercentage/100 > windowWidth;
-
-            softAssert.assertTrue(hasHorizontalScrollbar || !shouldHaveHorizontalScrollBar,
-                    "Horizontal scrollbar should be displayed on page at " + windowWidth +
-                            "px resolution with " + zoomLevelPercentage + "% zoom level");
-        }
-
-        softAssert.assertAll();
-
     }
 
     @Test
@@ -337,8 +234,38 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-    @Test(dataProvider = "InvalidEmailPassword", dataProviderClass = LoginFormTestProvider.class)
-    public void testInvalidEmailPassword(String email, String password) {
+    @Test(dataProvider = "verifySignInButtonRemainedInactivePassword", dataProviderClass = LoginFormTestProvider.class)
+    public void verifySignInButtonRemainedInactiveWithFilledPassword(String password) {
+        LoginModalComponent logInModalComponent = new HomePage(driver)
+                .getHeaderComponent().openLoginForm()
+                .enterPassword(password)
+                .clickSignInButtonUnsuccessfulLogin();
+
+        logInModalComponent.sleep(3);
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
+                "The 'Login' button should be inactive when entering only the email.");
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "verifyInSignInButtonRemainedInactiveEmail", dataProviderClass = LoginFormTestProvider.class)
+    public void verifySignInButtonRemainedInactiveWithFilledEmail(String email) {
+        LoginModalComponent logInModalComponent = new HomePage(driver)
+                .getHeaderComponent().openLoginForm()
+                .enterEmail(email)
+                .clickSignInButtonUnsuccessfulLogin();
+
+        logInModalComponent.sleep(3);
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
+                "The 'Login' button should be inactive when entering only the password.");
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "verifyInvalidEmailPassword", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyInvalidEmailPassword(String email, String password) {
         LoginModalComponent logInModalComponent = new HomePage(driver)
                 .getHeaderComponent().openLoginForm()
                 .enterEmail(email)
@@ -353,8 +280,8 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-    @Test(dataProvider = "checkInSignInButtonRemainedInactiveValidEmailInvalidPassword", dataProviderClass = LoginFormTestProvider.class)
-    public void testValidEmailInvalidPassword(String email, String password) {
+    @Test(dataProvider = "verifyInSignInButtonRemainedInactiveValidEmailInvalidPassword", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyValidEmailInvalidPassword(String email, String password) {
         LoginModalComponent logInModalComponent = new HomePage(driver)
                 .getHeaderComponent().openLoginForm()
                 .enterEmail(email)
@@ -369,8 +296,8 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-    @Test(dataProvider = "checkInSignInButtonRemainedInactiveValidPasswordInvalidEmail", dataProviderClass = LoginFormTestProvider.class)
-    public void testValidPasswordInvalidEmail(String email, String password) {
+    @Test(dataProvider = "verifyInSignInButtonRemainedInactiveValidPasswordInvalidEmail", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyValidPasswordInvalidEmail(String email, String password) {
         LoginModalComponent logInModalComponent = new HomePage(driver)
                 .getHeaderComponent().openLoginForm()
                 .enterEmail(email)
@@ -382,6 +309,96 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertFalse(logInModalComponent.isSignInButtonActive(),
                 "The 'Login' button should be inactive when entering valid email and invalid password.");
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "registeredUserCredentials", dataProviderClass = LoginFormTestProvider.class)
+    public void verifySuccessfulSignInPossibilityWithValidCredentials(String email, String password, String name, String id) {
+
+        ProfilePage profilePage = page
+                .getHeaderComponent()
+                .openLoginForm()
+                .enterEmail(email)
+                .enterPassword(password)
+                .clickSignInButtonSuccessfulLogin();
+
+        String actualUserName = profilePage
+                .getHeaderComponent()
+                .getUserNameText();
+
+        String actualUrl = profilePage
+                .getCurrentUrl();
+
+        String expectedUrl = configProperties.getProfilePageGreenCityUrl() + "/" + id;
+
+        softAssert.assertEquals(actualUrl, expectedUrl, "Wrong user profile page url");
+        softAssert.assertEquals(actualUserName, name, "User name doesn't match.");
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "widthResolutionPxAndZoomLevelsPercentage", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyScrollbarIsDisplayedOnPageTest(String language, int windowWidth, List<Integer> zoomValuesPercentage) {
+
+        LoginModalComponent loginModalComponent = page.setLanguage(language)
+                .getHeaderComponent()
+                .openLoginForm();
+
+        setWindowWidth(windowWidth);
+
+        for (int zoomLevelPercentage : zoomValuesPercentage) {
+            setZoomTo(zoomLevelPercentage);
+            WebElement element = loginModalComponent.getMainWindow();
+            boolean hasHorizontalScrollbar = hasHorizontalScrollbar(element);
+            boolean shouldHaveHorizontalScrollBar = loginModalComponent.getWidth() * zoomLevelPercentage / 100 > windowWidth;
+
+            softAssert.assertTrue(hasHorizontalScrollbar || !shouldHaveHorizontalScrollBar,
+                    "Horizontal scrollbar should be displayed on page at " + windowWidth +
+                            "px resolution with " + zoomLevelPercentage + "% zoom level");
+        }
+
+        softAssert.assertAll();
+
+    }
+
+    @Test
+    public void verifyUserIsDirectedBackToSignInPageAfterClickingTheBackToSignInLinkTest() {
+        ForgotPasswordModalComponent forgotPasswordModalComponent = page
+                .getHeaderComponent()
+                .openLoginForm()
+                .clickForgotPasswordLink();
+
+        softAssert.assertTrue(forgotPasswordModalComponent.isForgotPasswordLinkDisplayed(),
+                "There is no 'Back to Sign in' link on 'Forgot Password' form");
+
+        LoginModalComponent loginModalComponent = forgotPasswordModalComponent
+                .clickBackToSignInLink();
+
+        softAssert.assertTrue(loginModalComponent.isForgotPasswordLinkDisplayed(),
+                "The User isn't directed back to Sign in page after clicking the 'Back to Sign in' link " +
+                        "on the Forgot Password page");
+
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "verifyInvalidEmailWarningProvider", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyInvalidEmailWarning(String email, String language, String expected, String color) {
+        NewsPage newsPage = new NewsPage(driver);
+        newsPage.getHeaderComponent().setLanguage(language);
+
+        ForgotPasswordModalComponent forgotPasswordModalComponent = newsPage.getHeaderComponent()
+                .openLoginForm()
+                .clickForgotPasswordLink()
+                .enterEmail(email)
+                .clickSignInButton();
+
+        String actual = forgotPasswordModalComponent
+                .getErrorFieldMessage();
+
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(forgotPasswordModalComponent.isHighlightedInColor(color), "Field is not highlighted");
+        softAssert.assertEquals(actual, expected, "Error message for invalid email does not match");
+
         softAssert.assertAll();
     }
 }
