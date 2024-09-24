@@ -405,4 +405,24 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
+    @Test
+    public void verifyUserIsDirectedBackToSignInPageAfterClickingTheBackToSignInLinkTest() {
+        ForgotPasswordModalComponent forgotPasswordModalComponent = page
+                .getHeaderComponent()
+                .openLoginForm()
+                .clickForgotPasswordLink();
+
+        softAssert.assertTrue(forgotPasswordModalComponent.isForgotPasswordLinkDisplayed(),
+                "There is no 'Back to Sign in' link on 'Forgot Password' form");
+
+        LoginModalComponent loginModalComponent = forgotPasswordModalComponent
+                .clickBackToSignInLink();
+
+        softAssert.assertTrue(loginModalComponent.isForgotPasswordLinkDisplayed(),
+                "The User isn't directed back to Sign in page after clicking the 'Back to Sign in' link " +
+                        "on the Forgot Password page");
+
+        softAssert.assertAll();
+    }
+
 }

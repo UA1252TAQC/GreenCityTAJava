@@ -8,9 +8,16 @@ import org.openqa.selenium.support.FindBy;
 
 public class ForgotPasswordModalComponent extends BaseComponent {
     private static final String FORGOT_PASSWORD_WINDOW_XPATH = ".//div[@class='restore-password-container']";
+    private static final String BACK_TO_SIGN_IN_LINK_XPATH = ".//div[@class='mentioned-password']//a[@class='green-link']";
 
     @FindBy(xpath = ".//button[@type='submit']")
     protected WebElement signInButton;
+
+    @FindBy(xpath = BACK_TO_SIGN_IN_LINK_XPATH)
+    protected WebElement backToSignInLink;
+
+    @FindBy(xpath = "//app-auth-modal")
+    protected WebElement loginRootElement;
 
     @Getter
     private final EmailField emailField;
@@ -28,6 +35,16 @@ public class ForgotPasswordModalComponent extends BaseComponent {
     public ForgotPasswordModalComponent clickSignInButton() {
         click(signInButton);
         return this;
+    }
+
+    public boolean isForgotPasswordLinkDisplayed() {
+        return isDisplayed(findWithWaitElement(BACK_TO_SIGN_IN_LINK_XPATH, EXPLICITLY_WAIT_DURATION_FIVE_SECONDS));
+    }
+
+    public LoginModalComponent clickBackToSignInLink() {
+        click(backToSignInLink);
+        waitStalenessOf(BACK_TO_SIGN_IN_LINK_XPATH);
+        return new LoginModalComponent(driver, loginRootElement);
     }
 
     public boolean isForgotPasswordWindowDisplayed() {
