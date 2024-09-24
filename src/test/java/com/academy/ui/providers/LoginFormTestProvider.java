@@ -115,8 +115,8 @@ public class LoginFormTestProvider {
         };
     }
 
-    @DataProvider(name = "checkPasswordLessThan8Characters")
-    public Object[][] checkPasswordLessThan8Characters() {
+    @DataProvider(name = "verifyPasswordLessThan8Characters")
+    public Object[][] verifyPasswordLessThan8Characters() {
         return new Object[][]{
                 {"Ua", "test@mail.com", "Test12", SHORT_PASSWORD_ERROR_UA},
                 {"En", "test@mail.com", "Test12", SHORT_PASSWORD_ERROR_EN}
@@ -134,8 +134,8 @@ public class LoginFormTestProvider {
         };
     }
 
-    @DataProvider(name = "InvalidEmailPassword")
-    public Object[][] InvalidEmailPassword() {
+    @DataProvider(name = "verifyInvalidEmailPassword")
+    public Object[][] verifyInvalidEmailPassword() {
         return new Object[][]{
                 {"emailgmailcom", "pass"}
         };
@@ -157,15 +157,15 @@ public class LoginFormTestProvider {
         };
     }
 
-    @DataProvider(name = "checkInSignInButtonRemainedInactiveValidEmailInvalidPassword")
-    public Object[][] checkInSignInButtonValidEmailInvalidPasswordProvider() {
+    @DataProvider(name = "verifyInSignInButtonRemainedInactiveValidEmailInvalidPassword")
+    public Object[][] verifyInSignInButtonValidEmailInvalidPasswordProvider() {
         return new Object[][]{
                 {configProperties.getRegisteredUserEmail(), "aaa"},
         };
     }
 
-    @DataProvider(name = "checkInSignInButtonRemainedInactiveValidPasswordInvalidEmail")
-    public Object[][] checkInSignInButtonValidPasswordInvalidEmailProvider() {
+    @DataProvider(name = "verifyInSignInButtonRemainedInactiveValidPasswordInvalidEmail")
+    public Object[][] verifyInSignInButtonValidPasswordInvalidEmailProvider() {
         return new Object[][]{
                 {"gkefjefefgmailcom", configProperties.getRegisteredUserPassword()},
         };
