@@ -172,7 +172,6 @@ public class CreateNewsPage extends BasePageGreenCity {
             e.printStackTrace();
         }
 
-        findWithWaitElement(SUBMIT_IMG_BUTTON_XPATH,10);
         click(findWithWaitElement(SUBMIT_IMG_BUTTON_XPATH,10));
         return this;
     }

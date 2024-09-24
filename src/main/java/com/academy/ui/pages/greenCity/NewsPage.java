@@ -53,7 +53,6 @@ public class NewsPage extends BasePageGreenCity {
     }
 
     public boolean isNewsDisplayed(String title, String content, List<NewsTags> tags) {
-        sleep(5);
         for (WebElement item : driver.findElements(By.xpath(NEWS_ITEM_BOX))) {
             boolean titleMatch = !item.findElements(By.xpath(".//div[contains(@class, 'title-list')]//h3" + "[contains(text(), '" + title + "')]"))
                     .isEmpty();
