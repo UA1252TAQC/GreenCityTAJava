@@ -26,6 +26,8 @@ public class LoginFormTestProvider {
     private final String UNREGISTERED_EMAIL_ERROR_UA = "Введено невірний email або пароль.";
     private final String UNREGISTERED_EMAIL_ERROR_EN = "Bad email or password.";
     private final String INVALID_EMAIL_RECOVERY_ERROR = "Please check that your e-mail address is indicated correctly";
+    private final String SHORT_PASSWORD_ERROR_UA = "Пароль повинен містити принаймні 8 символів без пробілів.";
+    private final String SHORT_PASSWORD_ERROR_EN = "Password must be at least 8 characters long without spaces.";
 
     private final TestUtils testUtils;
     ConfigProperties configProperties = new ConfigProperties();
@@ -113,17 +115,11 @@ public class LoginFormTestProvider {
         };
     }
 
-    @DataProvider(name = "checkPasswordLessThan8CharactersEN")
-    public Object[][] checkPasswordLessThan8CharactersEN() {
+    @DataProvider(name = "checkPasswordLessThan8Characters")
+    public Object[][] checkPasswordLessThan8Characters() {
         return new Object[][]{
-                {"test@mail.com", "Test12", "Password must be at least 8 characters long without spaces."}
-        };
-    }
-
-    @DataProvider(name = "checkPasswordLessThan8CharactersUA")
-    public Object[][] checkPasswordLessThan8CharactersUA() {
-        return new Object[][]{
-                {"test@mail.com", "Test12", "Пароль повинен містити принаймні 8 символів без пробілів."}
+                {"Ua", "test@mail.com", "Test12", SHORT_PASSWORD_ERROR_UA},
+                {"En", "test@mail.com", "Test12", SHORT_PASSWORD_ERROR_EN}
         };
     }
 

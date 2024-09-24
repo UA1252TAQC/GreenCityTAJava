@@ -174,10 +174,10 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
-    @Test(dataProvider = "checkPasswordLessThan8CharactersEN", dataProviderClass = LoginFormTestProvider.class)
-    public void checkPasswordLessThan8CharactersTest(String email, String password, String expectedErrorMessage) {
+    @Test(dataProvider = "checkPasswordLessThan8Characters", dataProviderClass = LoginFormTestProvider.class)
+    public void checkPasswordLessThan8CharactersTest(String language, String email, String password, String expectedErrorMessage) {
         LoginModalComponent logInModalComponent = page
-                .setLanguage("en")
+                .setLanguage(language)
                 .getHeaderComponent().openLoginForm()
                 .enterEmail(email)
                 .enterPassword(password)
@@ -188,23 +188,6 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 "The error message should be displayed for a password with less than 8 characters.");
         softAssert.assertEquals(logInModalComponent.getErrorMessageText(), expectedErrorMessage,
                 "The displayed error message is incorrect.");
-        softAssert.assertAll();
-    }
-
-    @Test(dataProvider = "checkPasswordLessThan8CharactersUA", dataProviderClass = LoginFormTestProvider.class)
-    public void checkPasswordLessThan8CharactersUATest(String email, String password, String expectedErrorMessage) {
-        LoginModalComponent logInModalComponent = page
-                .setLanguage("ua")
-                .getHeaderComponent().openLoginForm()
-                .enterEmail(email)
-                .enterPassword(password)
-                .clickSignInButtonUnsuccessfulLogin();
-
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(logInModalComponent.isErrorMessageDisplayed(),
-                "The error message should be displayed for a password with less than 8 characters in UA localization.");
-        softAssert.assertEquals(logInModalComponent.getErrorMessageText(), expectedErrorMessage,
-                "The error message in UA localization is incorrect.");
         softAssert.assertAll();
     }
 
