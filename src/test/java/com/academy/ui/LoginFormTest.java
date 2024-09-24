@@ -404,5 +404,4 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 "The displayed error message is incorrect.");
         softAssert.assertAll();
     }
-
 }

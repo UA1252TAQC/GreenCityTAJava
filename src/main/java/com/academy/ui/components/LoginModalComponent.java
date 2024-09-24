@@ -114,6 +114,7 @@ public class LoginModalComponent extends BaseComponent {
     public String getPasswordErrorMessage() {
         return this.passwordField.getErrorMessage();
     }
+
     public LoginModalComponent fillForm(String email, String password) {
         enterEmail(email).enterPassword(password);
         return this;
@@ -127,7 +128,6 @@ public class LoginModalComponent extends BaseComponent {
         return errorMessageElementUnregistered.isDisplayed();
     }
 
-
     public String getErrorMessageText() {
         return errorMessageElement.getText();
     }
@@ -135,7 +135,7 @@ public class LoginModalComponent extends BaseComponent {
     public String getErrorMessageTextUnregistered() {
         return errorMessageElementUnregistered.getText();
     }
-  
+
     public boolean isHighlightedSignInBtnInColor(String color) {
         String backgroundColor = signInButton.getCssValue("background-color");
         return backgroundColor.equals(color);
