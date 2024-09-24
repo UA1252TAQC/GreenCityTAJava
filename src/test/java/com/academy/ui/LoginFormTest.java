@@ -5,6 +5,7 @@ import com.academy.ui.components.GoogleAuthComponent;
 import com.academy.ui.components.LoginModalComponent;
 import com.academy.ui.components.sub.form.EmailField;
 import com.academy.ui.pages.greenCity.HomePage;
+import com.academy.ui.pages.greenCity.NewsPage;
 import com.academy.ui.providers.LoginFormTestProvider;
 import com.academy.ui.pages.greenCity.ProfilePage;
 import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
@@ -386,6 +387,28 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
+    @Test(dataProvider = "verifyInvalidEmailWarningProvider", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyInvalidEmailWarning(String email, String language, String expected, String color){
+        NewsPage newsPage = new NewsPage(driver);
+        newsPage.getHeaderComponent().setLanguage(language);
+
+        ForgotPasswordModalComponent forgotPasswordModalComponent = newsPage.getHeaderComponent()
+                .openLoginForm()
+                .clickForgotPasswordLink()
+                .enterEmail(email)
+                .clickSignInButton();
+
+        String actual = forgotPasswordModalComponent
+                .getErrorFieldMessage();
+
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(forgotPasswordModalComponent.isHighlightedInColor(color), "Field is not highlighted");
+        softAssert.assertEquals(actual, expected, "Error message for invalid email does not match");
+
+        softAssert.assertAll();
+    }
+
     @Test(dataProvider = "checkForgotPasswordUnregisteredEmailData", dataProviderClass = LoginFormTestProvider.class)
     public void verifyErrorForUnregisteredEmailInForgotPassword(String email, String expectedErrorMessage) {
         ForgotPasswordModalComponent forgotPasswordModal = page
@@ -405,4 +428,12 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
+    @Test
+    public void verifyForgotPasswordFormIsDisplayed(){
+        ForgotPasswordModalComponent forgotPasswordModalComponent = new NewsPage(driver)
+                .getHeaderComponent()
+                .openLoginForm()
+                .clickForgotPasswordLink();
+        Assert.assertTrue(forgotPasswordModalComponent.isForgotPasswordWindowDisplayed(), "Forgot Password is not displayed");
+    }
 }

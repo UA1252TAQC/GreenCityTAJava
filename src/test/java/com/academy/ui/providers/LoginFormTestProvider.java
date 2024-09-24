@@ -1,5 +1,7 @@
 package com.academy.ui.providers;
 
+import com.academy.ui.styleConstants.Colors;
+import com.academy.utils.LocalizationUtils;
 import com.academy.utils.TestUtils;
 import com.academy.utils.props.ConfigProperties;
 import org.testng.annotations.DataProvider;
@@ -10,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class LoginFormTestProvider {
+    private final LocalizationUtils localization = new LocalizationUtils();
     private final String EMPTY_FIELDS_ERROR_UA = "Потрібно заповнити всі обов'язкові поля.";
     private final String EMPTY_FIELDS_ERROR_EN = "Please fill all required fields.";
     private final String EMPTY_FIELD_EMAIL_ERROR_UA = "Введіть пошту.";
@@ -175,6 +178,16 @@ public class LoginFormTestProvider {
         };
     }
 
+    @DataProvider(name = "verifyInvalidEmailWarningProvider")
+    public Object[][] verifyInvalidEmailWarningProvider() {
+        String english = "En";
+        String ukrainian = "Ua";
+        String color = Colors.PRIMARY_RED;
+        return new Object[][] {
+                {"test.mail.comaaaa", english, localization.getFormMessages(english).get("EMAIL_INVALID"), color},
+                {"test.mail.comaaaa", ukrainian, localization.getFormMessages(ukrainian).get("EMAIL_INVALID"), color},
+        };
+    }
     @DataProvider(name = "checkForgotPasswordUnregisteredEmailData")
     public Object[][] checkForgotPasswordUnregisteredEmailData() {
         return new Object[][]{
