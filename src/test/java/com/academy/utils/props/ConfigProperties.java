@@ -29,6 +29,10 @@ public class ConfigProperties extends BaseProperties {
         return properties.getProperty("registered.user.password");
     }
 
+    public String getInvalidUserEmail(){
+        return properties.getProperty("invalid.user.password");
+    }
+
     public String getRegisteredUserId() {
         return properties.getProperty("registered.user.id");
     }

@@ -97,14 +97,16 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail", dataProviderClass = LoginFormTestProvider.class)
-    public void verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail(String email, String expectedErrorMessage) {
+    public void verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail(String language, String email, String expected) {
 
         ForgotPasswordModalComponent forgotPasswordModal = page
+                .setLanguage(language)
                 .getHeaderComponent()
                 .openLoginForm()
                 .clickForgotPasswordLink();
 
-        String errorMessage = forgotPasswordModal.enterEmail(email)
+        String errorMessage = forgotPasswordModal
+                .enterEmail(email)
                 .clickSignInButton()
                 .getEmailField()
                 .getErrorMessage();
@@ -113,7 +115,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 .getEmailField()
                 .isHighlightedInColor(Colors.PRIMARY_RED);
 
-        softAssert.assertEquals(errorMessage, expectedErrorMessage + email);
+        softAssert.assertEquals(errorMessage, expected + email);
         softAssert.assertTrue(isHighlightedInRed);
         softAssert.assertAll();
     }

@@ -25,6 +25,7 @@ public class LoginFormTestProvider {
     private final String INALID_PASSWORD_ERROR_EN = "Bad email or password.";
     private final String UNREGISTERED_EMAIL_ERROR_UA = "Введено невірний email або пароль.";
     private final String UNREGISTERED_EMAIL_ERROR_EN = "Bad email or password.";
+    private final String INVALID_EMAIL_RECOVERY_ERROR = "Please check that your e-mail address is indicated correctly";
 
     private final TestUtils testUtils;
     ConfigProperties configProperties = new ConfigProperties();
@@ -34,8 +35,10 @@ public class LoginFormTestProvider {
     }
 
     @DataProvider(name = "verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail")
-    public Iterator<Object[]> verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail(Method method) {
-        return testUtils.getTestCases(method);
+    public Object[][] verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail() {
+        return new Object[][]{
+                {"En", configProperties.getInvalidUserEmail(), INVALID_EMAIL_RECOVERY_ERROR},
+        };
     }
 
     @DataProvider(name = "verifyErrorMessageForInvalidPassword")
