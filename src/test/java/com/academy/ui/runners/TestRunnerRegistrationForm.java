@@ -4,9 +4,7 @@ import com.academy.ui.pages.greenCity.HomePage;
 import com.academy.ui.pages.ubs.HomePageUbs;
 import com.academy.utils.MailUtils;
 import com.google.common.collect.ImmutableMap;
-
 import io.qameta.allure.Step;
-
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 
@@ -27,7 +25,6 @@ public class TestRunnerRegistrationForm extends BaseTestRunner {
 
     @BeforeMethod
     public void setUpMethod(ITestContext context) {
-//        initChromeDriver(List.of("--disable-blink-features=AutomationControlled","--headless=new"));
         initChromeDriver(List.of("--disable-blink-features=AutomationControlled"));
         context.setAttribute("webDriver", driver);
         driver.get(configProperties.getHomePageGreenCityUrl());
