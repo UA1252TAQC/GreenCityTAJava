@@ -43,12 +43,13 @@ public class Base {
         return getWait(seconds).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
     }
 
-    public void waitStalenessOf(String xPath) {
-        List<WebElement> element = driver.findElements(By.xpath(xPath));
-        if (!element.isEmpty()) {
-            getWait(EXPLICITLY_WAIT_DURATION_FIVE_SECONDS).until(ExpectedConditions.stalenessOf(element.getFirst()));
-        }
+    public void waitTillElementIsInvisible(WebElement element) {
+        getWait(EXPLICITLY_WAIT_DURATION_FIVE_SECONDS).until(ExpectedConditions.invisibilityOf(element));
     }
+
+//    public void waitTillElementIsInvisible(WebElement element) {
+//        getWait(EXPLICITLY_WAIT_DURATION_FIVE_SECONDS).until(ExpectedConditions.invisibilityOf(element));
+//    }
 
     public void click(WebElement element) {
         getActions().moveToElement(element).click().perform();

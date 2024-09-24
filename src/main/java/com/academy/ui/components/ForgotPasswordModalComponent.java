@@ -44,7 +44,7 @@ public class ForgotPasswordModalComponent extends BaseComponent {
 
     public LoginModalComponent clickBackToSignInLink() {
         click(backToSignInLink);
-        waitStalenessOf(BACK_TO_SIGN_IN_LINK_XPATH);
+        waitTillElementIsInvisible(backToSignInLink);
         return new LoginModalComponent(driver, loginRootElement);
     }
 

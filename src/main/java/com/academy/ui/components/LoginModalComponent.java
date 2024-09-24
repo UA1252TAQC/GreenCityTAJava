@@ -70,7 +70,7 @@ public class LoginModalComponent extends BaseComponent {
 
     public ProfilePage clickSignInButtonSuccessfulLogin() {
         clickSignInButton();
-        waitStalenessOf(SIGN_IN_BUTTON_XPATH);
+        waitTillElementIsInvisible(signInButton);
         return new ProfilePage(driver);
     }
 
