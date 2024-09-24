@@ -28,6 +28,7 @@ public class LoginFormTestProvider {
     private final String INVALID_EMAIL_RECOVERY_ERROR = "Please check that your e-mail address is indicated correctly";
     private final String SHORT_PASSWORD_ERROR_UA = "Пароль повинен містити принаймні 8 символів без пробілів.";
     private final String SHORT_PASSWORD_ERROR_EN = "Password must be at least 8 characters long without spaces.";
+    private final String PASSWORD_RESTORE_MESSAGE_SENT = "Password restore link already sent, please check your email:";
 
     private final TestUtils testUtils;
     ConfigProperties configProperties = new ConfigProperties();
@@ -36,20 +37,27 @@ public class LoginFormTestProvider {
         this.testUtils = new TestUtils();
     }
 
-    @DataProvider(name = "verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail")
-    public Object[][] verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail() {
+    @DataProvider(name = "verifyPasswordLessThan8Characters")
+    public Object[][] verifyPasswordLessThan8Characters() {
         return new Object[][]{
-                {"En", configProperties.getInvalidUserPassword(), INVALID_EMAIL_RECOVERY_ERROR},
+                {"Ua", "test@mail.com", "Test12", SHORT_PASSWORD_ERROR_UA},
+                {"En", "test@mail.com", "Test12", SHORT_PASSWORD_ERROR_EN}
         };
     }
 
-    @DataProvider(name = "verifyErrorMessageForInvalidPassword")
-    public Object[][] verifyErrorMessageForInvalidPassword() {
-        return new Object[][] {
-                {"Ua", configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword() + "@123"
-                        , INALID_PASSWORD_ERROR_UA},
-                {"En", configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword() + "@123"
-                        , INALID_PASSWORD_ERROR_EN}
+    @DataProvider(name = "verifyLoginUnregisteredEmailData")
+    public Object[][] verifyLoginUnregisteredEmailData() {
+        return new Object[][]{
+                {"Ua", "test111@mail.com", "randomPassword", UNREGISTERED_EMAIL_ERROR_UA},
+                {"En", "test111@mail.com", "randomPassword", UNREGISTERED_EMAIL_ERROR_EN}
+
+        };
+    }
+
+    @DataProvider(name = "checkForgotPasswordUnregisteredEmailData")
+    public Object[][] checkForgotPasswordUnregisteredEmailData() {
+        return new Object[][]{
+                {"test1@gmail.com", "The user does not exist by this email: test1@gmail.com"}
         };
     }
 
@@ -73,6 +81,21 @@ public class LoginFormTestProvider {
         };
     }
 
+    @DataProvider(name = "verifyErrorMessageForEmptyPassword")
+    public Object[][] verifyErrorMessageForEmptyPassword() {
+        return new Object[][]{
+                {"Ua", "", EMPTY_FIELD_PASSWORD_ERROR_UA},
+                {"En", "", EMPTY_FIELD_PASSWORD_ERROR_EN},
+        };
+    }
+
+    @DataProvider(name = "verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail")
+    public Object[][] verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail() {
+        return new Object[][]{
+                {"En", configProperties.getInvalidUserPassword(), INVALID_EMAIL_RECOVERY_ERROR},
+        };
+    }
+
     @DataProvider(name = "verifyErrorMessageForExceedingPasswordLength")
     public Object[][] verifyErrorMessageForExceedingPasswordLength() {
         return new Object[][]{
@@ -85,19 +108,20 @@ public class LoginFormTestProvider {
         };
     }
 
-    @DataProvider(name = "verifyErrorMessageForEmptyPassword")
-    public Object[][] verifyErrorMessageForEmptyPassword() {
+    @DataProvider(name = "verifyErrorMessageForInvalidPassword")
+    public Object[][] verifyErrorMessageForInvalidPassword() {
         return new Object[][]{
-                {"Ua", "", EMPTY_FIELD_PASSWORD_ERROR_UA},
-                {"En", "", EMPTY_FIELD_PASSWORD_ERROR_EN},
+                {"Ua", configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword() + "@123"
+                        , INALID_PASSWORD_ERROR_UA},
+                {"En", configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword() + "@123"
+                        , INALID_PASSWORD_ERROR_EN}
         };
     }
 
-    @DataProvider(name = "registeredUserCredentials")
-    public Object[][] registeredUserCredentialsDataProvider() {
+    @DataProvider(name = "verifyMessageAfterRecoverPassDataProvider")
+    public Object[][] verifyMessageAfterRecoverPassDataProvider() {
         return new Object[][]{
-                {configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword(),
-                        configProperties.getRegisteredUserName(), configProperties.getRegisteredUserId()}
+                {configProperties.getRegisteredUserEmail(), PASSWORD_RESTORE_MESSAGE_SENT}
         };
     }
 
@@ -115,45 +139,10 @@ public class LoginFormTestProvider {
         };
     }
 
-    @DataProvider(name = "verifyPasswordLessThan8Characters")
-    public Object[][] verifyPasswordLessThan8Characters() {
-        return new Object[][]{
-                {"Ua", "test@mail.com", "Test12", SHORT_PASSWORD_ERROR_UA},
-                {"En", "test@mail.com", "Test12", SHORT_PASSWORD_ERROR_EN}
-        };
-    }
-
-    @DataProvider(name = "widthResolutionPxAndZoomLevelsPercentage")
-    public Object[][] widthResolutionPxAndZoomLevelsPercentageDataProvider() {
-        return new Object[][]{
-                {"En", 320, new ArrayList<>(List.of(100, 125, 150, 200))},
-                {"En", 576, new ArrayList<>(List.of(100, 125, 150, 200))},
-                {"En", 768, new ArrayList<>(List.of(100, 125, 150, 200))},
-                {"En", 1024, new ArrayList<>(List.of(100, 125, 150, 200))},
-                {"En", 1440, new ArrayList<>(List.of(100, 125, 150, 200))}
-        };
-    }
-
     @DataProvider(name = "verifyInvalidEmailPassword")
     public Object[][] verifyInvalidEmailPassword() {
         return new Object[][]{
                 {"emailgmailcom", "pass"}
-        };
-    }
-
-    @DataProvider(name = "verifyLoginUnregisteredEmailData")
-    public Object[][] verifyLoginUnregisteredEmailData() {
-        return new Object[][]{
-                {"Ua", "test111@mail.com", "randomPassword", UNREGISTERED_EMAIL_ERROR_UA},
-                {"En", "test111@mail.com", "randomPassword", UNREGISTERED_EMAIL_ERROR_EN}
-
-        };
-    }
-
-    @DataProvider(name = "verifyMessageAfterRecoverPassDataProvider")
-    public Object[][] verifyMessageAfterRecoverPassDataProvider() {
-        return new Object[][]{
-                {configProperties.getRegisteredUserEmail(), "Password restore link already sent, please check your email:"}
         };
     }
 
@@ -171,6 +160,25 @@ public class LoginFormTestProvider {
         };
     }
 
+    @DataProvider(name = "registeredUserCredentials")
+    public Object[][] registeredUserCredentialsDataProvider() {
+        return new Object[][]{
+                {configProperties.getRegisteredUserEmail(), configProperties.getRegisteredUserPassword(),
+                        configProperties.getRegisteredUserName(), configProperties.getRegisteredUserId()}
+        };
+    }
+
+    @DataProvider(name = "widthResolutionPxAndZoomLevelsPercentage")
+    public Object[][] widthResolutionPxAndZoomLevelsPercentageDataProvider() {
+        return new Object[][]{
+                {"En", 320, new ArrayList<>(List.of(100, 125, 150, 200))},
+                {"En", 576, new ArrayList<>(List.of(100, 125, 150, 200))},
+                {"En", 768, new ArrayList<>(List.of(100, 125, 150, 200))},
+                {"En", 1024, new ArrayList<>(List.of(100, 125, 150, 200))},
+                {"En", 1440, new ArrayList<>(List.of(100, 125, 150, 200))}
+        };
+    }
+
     @DataProvider(name = "verifyInvalidEmailWarningProvider")
     public Object[][] verifyInvalidEmailWarningProvider() {
         String english = "En";
@@ -181,19 +189,12 @@ public class LoginFormTestProvider {
 
         String emailNotRegisteredMessage = "EMAIL_NOT_REGISTERED";
         String notRegisteredEmail = "test.peach.green.city@gmail.com";
-        return new Object[][] {
+        return new Object[][]{
                 {invalidEmail, english, localization.getFormMessages(english).get(invalidEmailMessage), color},
                 {invalidEmail, ukrainian, localization.getFormMessages(ukrainian).get(invalidEmailMessage), color},
 
-                {notRegisteredEmail, english, localization.getFormMessages(english).get(emailNotRegisteredMessage)+ " " + notRegisteredEmail, color},
+                {notRegisteredEmail, english, localization.getFormMessages(english).get(emailNotRegisteredMessage) + " " + notRegisteredEmail, color},
                 {notRegisteredEmail, ukrainian, localization.getFormMessages(ukrainian).get(emailNotRegisteredMessage) + " " + notRegisteredEmail, color},
-        };
-    }
-
-    @DataProvider(name = "checkForgotPasswordUnregisteredEmailData")
-    public Object[][] checkForgotPasswordUnregisteredEmailData() {
-        return new Object[][]{
-                {"test1@gmail.com", "The user does not exist by this email: test1@gmail.com"}
         };
     }
 }
