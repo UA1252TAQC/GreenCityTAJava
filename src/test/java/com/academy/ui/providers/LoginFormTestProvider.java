@@ -37,7 +37,7 @@ public class LoginFormTestProvider {
     @DataProvider(name = "verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail")
     public Object[][] verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail() {
         return new Object[][]{
-                {"En", configProperties.getInvalidUserEmail(), INVALID_EMAIL_RECOVERY_ERROR},
+                {"En", configProperties.getInvalidUserPassword(), INVALID_EMAIL_RECOVERY_ERROR},
         };
     }
 

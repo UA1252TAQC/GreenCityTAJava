@@ -30,6 +30,10 @@ public class ConfigProperties extends BaseProperties {
     }
 
     public String getInvalidUserEmail(){
+        return properties.getProperty("invalid.user.email");
+    }
+
+    public String getInvalidUserPassword(){
         return properties.getProperty("invalid.user.password");
     }
 
