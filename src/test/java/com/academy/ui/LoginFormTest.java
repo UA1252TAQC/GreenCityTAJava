@@ -5,6 +5,7 @@ import com.academy.ui.components.GoogleAuthComponent;
 import com.academy.ui.components.LoginModalComponent;
 import com.academy.ui.components.sub.form.EmailField;
 import com.academy.ui.pages.greenCity.HomePage;
+import com.academy.ui.pages.greenCity.NewsPage;
 import com.academy.ui.providers.LoginFormTestProvider;
 import com.academy.ui.pages.greenCity.ProfilePage;
 import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
@@ -220,7 +221,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test
-    public void checkSignInBtnBecomesGreenByValidCreds() {
+    public void verifySignInBtnBecomesGreenByValidCreds() {
         LoginModalComponent logInModalComponent = page.getHeaderComponent()
                 .openLoginForm();
         softAssert.assertFalse(logInModalComponent.isSignInButtonActive());
@@ -233,7 +234,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "checkLoginUnregisteredEmailDataEN", dataProviderClass = LoginFormTestProvider.class)
-    public void checkUnregisteredEmailTestEN(String email, String password, String expectedErrorMessage)  {
+    public void checkUnregisteredEmailTestEN(String email, String password, String expectedErrorMessage) {
         LoginModalComponent logInModalComponent = page
                 .setLanguage("en")
                 .getHeaderComponent().openLoginForm()
@@ -267,7 +268,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test
-    public void verifySignInBtnIsEmptyByEmptyFields() {
+    public void verifySignInBtnIsInactiveByEmptyFields() {
         LoginModalComponent logInModalComponent = page.getHeaderComponent()
                 .openLoginForm();
         boolean isEmailEmpty = logInModalComponent.getEmailField().isEmailFieldEmpty();
@@ -291,7 +292,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
             setZoomTo(zoomLevelPercentage);
             WebElement element = loginModalComponent.getMainWindow();
             boolean hasHorizontalScrollbar = hasHorizontalScrollbar(element);
-            boolean shouldHaveHorizontalScrollBar = loginModalComponent.getWidth()*zoomLevelPercentage/100 > windowWidth;
+            boolean shouldHaveHorizontalScrollBar = loginModalComponent.getWidth() * zoomLevelPercentage / 100 > windowWidth;
 
             softAssert.assertTrue(hasHorizontalScrollbar || !shouldHaveHorizontalScrollBar,
                     "Horizontal scrollbar should be displayed on page at " + windowWidth +
@@ -386,6 +387,28 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
+    @Test(dataProvider = "verifyInvalidEmailWarningProvider", dataProviderClass = LoginFormTestProvider.class)
+    public void verifyInvalidEmailWarning(String email, String language, String expected, String color) {
+        NewsPage newsPage = new NewsPage(driver);
+        newsPage.getHeaderComponent().setLanguage(language);
+
+        ForgotPasswordModalComponent forgotPasswordModalComponent = newsPage.getHeaderComponent()
+                .openLoginForm()
+                .clickForgotPasswordLink()
+                .enterEmail(email)
+                .clickSignInButton();
+
+        String actual = forgotPasswordModalComponent
+                .getErrorFieldMessage();
+
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(forgotPasswordModalComponent.isHighlightedInColor(color), "Field is not highlighted");
+        softAssert.assertEquals(actual, expected, "Error message for invalid email does not match");
+
+        softAssert.assertAll();
+    }
+
     @Test(dataProvider = "checkForgotPasswordUnregisteredEmailData", dataProviderClass = LoginFormTestProvider.class)
     public void verifyErrorForUnregisteredEmailInForgotPassword(String email, String expectedErrorMessage) {
         ForgotPasswordModalComponent forgotPasswordModal = page
@@ -403,5 +426,14 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertEquals(forgotPasswordModal.getEmailField().getErrorMessage(), expectedErrorMessage,
                 "The displayed error message is incorrect.");
         softAssert.assertAll();
+    }
+
+    @Test
+    public void verifyForgotPasswordFormIsDisplayed() {
+        ForgotPasswordModalComponent forgotPasswordModalComponent = new NewsPage(driver)
+                .getHeaderComponent()
+                .openLoginForm()
+                .clickForgotPasswordLink();
+        Assert.assertTrue(forgotPasswordModalComponent.isForgotPasswordWindowDisplayed(), "Forgot Password is not displayed");
     }
 }

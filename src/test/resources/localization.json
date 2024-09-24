@@ -1,6 +1,7 @@
 {
   "form": {
       "Ua": {
+        "EMAIL_NOT_REGISTERED": "Користувач не існує за цією електронною адресою:",
         "EMAIL_INVALID": "Перевірте, чи правильно вказано вашу адресу електронної пошти",
         "EMAIL_REQUIRED": "Введіть пошту",
         "EMAIL_WITH_SPACES": "Перевірте, чи правильно вказано вашу адресу електронної пошти",
@@ -24,6 +25,7 @@
         "ACCOUNT_SUBMIT_POP_UP_MESSAGE": "Ваша електронна адреса підтверджена."
       },
       "En": {
+        "EMAIL_NOT_REGISTERED": "The user with this email does not exist:",
         "EMAIL_INVALID": "Please check that your e-mail address is indicated correctly",
         "EMAIL_REQUIRED": "Email is required",
         "EMAIL_WITH_SPACES": "Please check that your e-mail address is indicated correctly",

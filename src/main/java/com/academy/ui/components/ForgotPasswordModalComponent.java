@@ -5,6 +5,7 @@ import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.w3c.dom.css.RGBColor;
 
 public class ForgotPasswordModalComponent extends BaseComponent {
     private static final String FORGOT_PASSWORD_WINDOW_XPATH = ".//div[@class='restore-password-container']";
@@ -32,5 +33,13 @@ public class ForgotPasswordModalComponent extends BaseComponent {
 
     public boolean isForgotPasswordWindowDisplayed() {
         return isDisplayed(findWithWaitElement(FORGOT_PASSWORD_WINDOW_XPATH, 5));
+    }
+
+    public String getErrorFieldMessage(){
+        return isForgotPasswordWindowDisplayed()?emailField.getErrorMessage():"";
+    }
+
+    public boolean isHighlightedInColor(String color){
+        return emailField.isHighlightedInColor(color);
     }
 }
