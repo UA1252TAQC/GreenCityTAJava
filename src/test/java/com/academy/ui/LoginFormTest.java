@@ -133,7 +133,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "registeredUserCredentials", dataProviderClass = LoginFormTestProvider.class)
-    public void checkSuccessfulSignIn(String email, String password, String name, String id) {
+    public void verifySuccessfulSignInPossibilityWithValidCredentials(String email, String password, String name, String id) {
 
         ProfilePage profilePage = page
                 .getHeaderComponent()
@@ -280,7 +280,7 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "widthResolutionPxAndZoomLevelsPercentage", dataProviderClass = LoginFormTestProvider.class)
-    public void checkScrollbarIsDisplayedOnPageTest(String language, int windowWidth, List<Integer> zoomValuesPercentage) {
+    public void verifyScrollbarIsDisplayedOnPageTest(String language, int windowWidth, List<Integer> zoomValuesPercentage) {
 
         LoginModalComponent loginModalComponent = page.setLanguage(language)
                 .getHeaderComponent()
@@ -429,11 +429,22 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test
-    public void verifyForgotPasswordFormIsDisplayed() {
-        ForgotPasswordModalComponent forgotPasswordModalComponent = new NewsPage(driver)
+    public void verifyUserIsDirectedBackToSignInPageAfterClickingTheBackToSignInLinkTest() {
+        ForgotPasswordModalComponent forgotPasswordModalComponent = page
                 .getHeaderComponent()
                 .openLoginForm()
                 .clickForgotPasswordLink();
-        Assert.assertTrue(forgotPasswordModalComponent.isForgotPasswordWindowDisplayed(), "Forgot Password is not displayed");
+
+        softAssert.assertTrue(forgotPasswordModalComponent.isForgotPasswordLinkDisplayed(),
+                "There is no 'Back to Sign in' link on 'Forgot Password' form");
+
+        LoginModalComponent loginModalComponent = forgotPasswordModalComponent
+                .clickBackToSignInLink();
+
+        softAssert.assertTrue(loginModalComponent.isForgotPasswordLinkDisplayed(),
+                "The User isn't directed back to Sign in page after clicking the 'Back to Sign in' link " +
+                        "on the Forgot Password page");
+
+        softAssert.assertAll();
     }
 }

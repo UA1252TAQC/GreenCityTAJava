@@ -12,13 +12,14 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginModalComponent extends BaseComponent {
     private static final String SIGN_IN_BUTTON_XPATH = ".//button[@type='submit']";
+    private static final String FORGOT_PASSWORD_LINK_XPATH = ".//a[@class='forgot-password']";
     private static final String FORGOT_PASSWORD_ROOT_ELEMENT = "//div[@class='restore-password-container']";
 
     @FindBy(xpath = SIGN_IN_BUTTON_XPATH)
     protected WebElement signInButton;
     @FindBy(xpath = ".//img[@class='main-picture']")
     protected WebElement mainPicture;
-    @FindBy(xpath = ".//a[@class='forgot-password']")
+    @FindBy(xpath = FORGOT_PASSWORD_LINK_XPATH)
     protected WebElement forgotPasswordLink;
     @FindBy(xpath = "//*[@id=\"pass-err-msg\"]/app-error/div")
     private WebElement errorMessageElement;
@@ -82,6 +83,10 @@ public class LoginModalComponent extends BaseComponent {
         click(mainPicture);
         clickSignInButton();
         return this;
+    }
+
+    public boolean isForgotPasswordLinkDisplayed() {
+        return isDisplayed(findWithWaitElement(FORGOT_PASSWORD_LINK_XPATH, EXPLICITLY_WAIT_DURATION_FIVE_SECONDS));
     }
 
     public ForgotPasswordModalComponent clickForgotPasswordLink() {
