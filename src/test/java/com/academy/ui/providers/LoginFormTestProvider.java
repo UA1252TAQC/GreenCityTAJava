@@ -23,22 +23,14 @@ public class LoginFormTestProvider {
     private final String EXCEEDING_PASSWORD_ERROR_EN = "Password must be less than 20 characters long without spaces.";
     private final String INALID_PASSWORD_ERROR_UA = "Введено невірний email або пароль.";
     private final String INALID_PASSWORD_ERROR_EN = "Bad email or password.";
+    private final String UNREGISTERED_EMAIL_ERROR_UA = "Введено невірний email або пароль.";
+    private final String UNREGISTERED_EMAIL_ERROR_EN = "Bad email or password.";
 
     private final TestUtils testUtils;
     ConfigProperties configProperties = new ConfigProperties();
 
     public LoginFormTestProvider() {
         this.testUtils = new TestUtils();
-    }
-
-    @DataProvider(name = "verifyErrorMessageForExceedingPasswordLengthInUA")
-    public Iterator<Object[]> verifyErrorMessageForExceedingPasswordLengthInUA(Method method) {
-        return testUtils.getTestCases(method);
-    }
-
-    @DataProvider(name = "verifyErrorMessageForEmptyEmailAndPasswordEng")
-    public Iterator<Object[]> verifyErrorMessageForEmptyEmailAndPasswordEng(Method method) {
-        return testUtils.getTestCases(method);
     }
 
     @DataProvider(name = "verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail")
@@ -150,17 +142,12 @@ public class LoginFormTestProvider {
         };
     }
 
-    @DataProvider(name = "checkLoginUnregisteredEmailDataEN")
-    public Object[][] checkLoginUnregisteredEmailDataEN() {
+    @DataProvider(name = "verifyLoginUnregisteredEmailData")
+    public Object[][] verifyLoginUnregisteredEmailData() {
         return new Object[][]{
-                {"test111@mail.com", "randomPassword", "Bad email or password."}
-        };
-    }
+                {"Ua", "test111@mail.com", "randomPassword", UNREGISTERED_EMAIL_ERROR_UA},
+                {"En", "test111@mail.com", "randomPassword", UNREGISTERED_EMAIL_ERROR_EN}
 
-    @DataProvider(name = "checkLoginUnregisteredEmailDataUA")
-    public Object[][] checkLoginUnregisteredEmailDataUA() {
-        return new Object[][]{
-                {"test111@mail.com", "randomPassword", "Введено невірний email або пароль."}
         };
     }
 
@@ -203,6 +190,7 @@ public class LoginFormTestProvider {
                 {notRegisteredEmail, ukrainian, localization.getFormMessages(ukrainian).get(emailNotRegisteredMessage) + " " + notRegisteredEmail, color},
         };
     }
+
     @DataProvider(name = "checkForgotPasswordUnregisteredEmailData")
     public Object[][] checkForgotPasswordUnregisteredEmailData() {
         return new Object[][]{
