@@ -7,6 +7,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,5 +54,33 @@ public class BasePage extends Base {
 
     public String getCurrentUrl() {
         return driver.getCurrentUrl();
+    }
+
+    public void uploadFile(String filePath) throws Exception {
+        StringSelection selection = new StringSelection(filePath);
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
+
+        Robot robot = new Robot();
+        robot.setAutoDelay(500);
+
+        robot.keyPress(KeyEvent.VK_META);
+        robot.keyPress(KeyEvent.VK_SHIFT);
+        robot.keyPress(KeyEvent.VK_G);
+        robot.keyRelease(KeyEvent.VK_G);
+        robot.keyRelease(KeyEvent.VK_SHIFT);
+        robot.keyRelease(KeyEvent.VK_META);
+
+        robot.setAutoDelay(500);
+
+        robot.keyPress(KeyEvent.VK_META);
+        robot.keyPress(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_META);
+
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
+
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
     }
 }

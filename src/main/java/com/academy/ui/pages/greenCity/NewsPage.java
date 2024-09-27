@@ -62,7 +62,7 @@ public class NewsPage extends BasePageGreenCity {
             for (NewsTags tag : tags) {
                  List <WebElement> addedTagUa = item.findElements(By.xpath(".//div[contains(@class, 'ul-eco-buttons') and contains(text(),'" + tag.getText("ua") + "')]"));
                 List <WebElement> addedTagEn = item.findElements(By.xpath(".//div[contains(@class, 'ul-eco-buttons') and contains(text(),'" + tag.getText("en") + "')]"));
-                isTagsPresent = isTagsPresent && (!addedTagUa.isEmpty()|| !addedTagEn.isEmpty());
+                isTagsPresent = isTagsPresent && (!addedTagUa.isEmpty() || !addedTagEn.isEmpty());
             }
             boolean result = titleMatch && contentMatch && isTagsPresent;
             if(result) {

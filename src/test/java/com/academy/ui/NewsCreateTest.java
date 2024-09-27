@@ -167,4 +167,24 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
         softAssert.assertAll();
     }
 
+    @Test(dataProvider = "validData", dataProviderClass = CreateNewsProvider.class)
+    public void createNewsWithPngImage(String title, NewsTags[] tags,String content){
+        createNewsPage.fillTheNewsForm(title, tags, content, "en")
+                .addImage("/src/test/resources/img/fruit-1218166_1280.png")
+                .clickPublishButton();
+        boolean isNewsAdded = newsPage.isNewsDisplayed(title,content, Arrays.asList(tags));
+        softAssert.assertTrue(isNewsAdded);
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "validData", dataProviderClass = CreateNewsProvider.class)
+    public void createNewsWithJpegImage(String title, NewsTags[] tags,String content){
+        createNewsPage.fillTheNewsForm(title, tags, content, "en")
+                .addImage("/src/test/resources/img/1700488940348.jpeg")
+                .clickPublishButton();
+        boolean isNewsAdded = newsPage.isNewsDisplayed(title,content, Arrays.asList(tags));
+        softAssert.assertTrue(isNewsAdded);
+        softAssert.assertAll();
+    }
+
 }
