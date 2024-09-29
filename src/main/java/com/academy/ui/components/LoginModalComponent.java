@@ -4,6 +4,7 @@ import com.academy.ui.components.sub.form.EmailField;
 import com.academy.ui.components.sub.form.PasswordField;
 import com.academy.ui.pages.BasePage;
 import com.academy.ui.pages.greenCity.ProfilePage;
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -43,6 +44,7 @@ public class LoginModalComponent extends BaseComponent {
         passwordField = new PasswordField(driver, rootElement);
     }
 
+    @Step("Get error")
     public String getLoginErrorText() {
         String errorMessageXpath = ".//div[contains(@class, 'alert-general-error')]";
         if (isPresent(errorMessageXpath)) {
@@ -53,73 +55,87 @@ public class LoginModalComponent extends BaseComponent {
         }
     }
 
+    @Step("Enter email {email}")
     public LoginModalComponent enterEmail(String email) {
         emailField.enter(email);
         return this;
     }
 
+    @Step("Enter password")
     public LoginModalComponent enterPassword(String password) {
         passwordField.enter(password);
         return this;
     }
 
+    @Step("Click Sign-in button")
     public LoginModalComponent clickSignInButton() {
         click(signInButton);
         return this;
     }
 
+    @Step("Open profile page if login was successful")
     public ProfilePage clickSignInButtonSuccessfulLogin() {
         clickSignInButton();
         waitTillElementIsInvisible(signInButton);
         return new ProfilePage(driver);
     }
 
+    @Step("Click Sign-in button with invalid data")
     public LoginModalComponent clickSignInButtonUnsuccessfulLogin() {
         clickSignInButton();
         return this;
     }
 
+    @Step("Click somewhere inside the form")
     public LoginModalComponent clickInsideForm() {
         click(mainPicture);
         clickSignInButton();
         return this;
     }
 
+    @Step("Check if \"Forgot Password\" displayed")
     public boolean isForgotPasswordLinkDisplayed() {
         return isDisplayed(findWithWaitElement(FORGOT_PASSWORD_LINK_XPATH, EXPLICITLY_WAIT_DURATION_FIVE_SECONDS));
     }
 
+    @Step("Click \"Forgot Password\" link")
     public ForgotPasswordModalComponent clickForgotPasswordLink() {
         click(forgotPasswordLink);
         WebElement forgetPasswordRootElement = findWithWaitElement(FORGOT_PASSWORD_ROOT_ELEMENT, 5);
         return new ForgotPasswordModalComponent(driver, forgetPasswordRootElement);
     }
 
+    @Step("Click \"Sign-in\" with Google")
     public GoogleAuthComponent clickSignInWithGoogleBtn() {
         click(signInWithGoogleBtn);
         new BasePage(driver).switchToActiveTab();
         return new GoogleAuthComponent(driver);
     }
 
+    @Step("Clear email field")
     public LoginModalComponent clearEmail() {
         emailField.clear();
         return this;
     }
 
+    @Step("Clear password field")
     public LoginModalComponent clearPassword() {
         passwordField.clear();
         return this;
     }
 
+    @Step("Check if Sign-in button is active")
     public boolean isSignInButtonActive() {
         return isEnabled(signInButton);
 
     }
 
+    @Step("Get error message from password field")
     public String getPasswordErrorMessage() {
         return this.passwordField.getErrorMessage();
     }
 
+    @Step("Fill the Sign-in form")
     public LoginModalComponent fillForm(String email, String password) {
         enterEmail(email).enterPassword(password);
         return this;
