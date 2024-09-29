@@ -1,8 +1,11 @@
 package com.academy.ui.pages.greenCity;
 
 import com.academy.ui.constants.NewsTags;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -38,6 +41,7 @@ public class CreateNewsPage extends BasePageGreenCity {
         super(driver);
     }
 
+    @Step("Add tag {tag}")
     public CreateNewsPage selectSingleTag(NewsTags tag, String languageCode) {
         String tagText = tag.getText(languageCode);
         for (WebElement tagButton : tagsButton) {
@@ -49,6 +53,7 @@ public class CreateNewsPage extends BasePageGreenCity {
         return this;
     }
 
+    @Step("Fill create news form with title {title}, content {content}, list of tags: {tags}")
     public CreateNewsPage fillTheNewsForm(String title, NewsTags[] tags, String content,
         String language) {
         newsTitle.sendKeys(title);
@@ -56,13 +61,13 @@ public class CreateNewsPage extends BasePageGreenCity {
         newsContent.sendKeys(content);
         return this;
     }
-
-    public CreateNewsPage enterSourceLink(String content) {
-        sourceLinkField.sendKeys(content);
+    @Step("Fill the source link field with {link}")
+    public CreateNewsPage enterSourceLink(String link) {
+        sourceLinkField.sendKeys(link);
         return this;
     }
 
-
+    @Step("Select tags: {tags}")
     public CreateNewsPage selectTags(NewsTags[] tags, String languageCode) {
         for (NewsTags tag : tags) {
             selectSingleTag(tag, languageCode);
@@ -70,6 +75,7 @@ public class CreateNewsPage extends BasePageGreenCity {
         return this;
     }
 
+    @Step("Unselect tag: {tag}")
     public CreateNewsPage unSelectSingleTag(NewsTags tag, String languageCode) {
         String tagText = tag.getText(languageCode);
         for (WebElement tagButton : tagsButton) {
@@ -81,6 +87,7 @@ public class CreateNewsPage extends BasePageGreenCity {
         return this;
     }
 
+    @Step("Unselect tags list: {tags}")
     public CreateNewsPage unSelectTags(NewsTags[] tags, String languageCode) {
         for (NewsTags tag : tags) {
             unSelectSingleTag(tag, languageCode);
@@ -88,6 +95,7 @@ public class CreateNewsPage extends BasePageGreenCity {
         return this;
     }
 
+    @Step("Get tag {tag} button background color")
     public String getTagButtonBackgroundColor(NewsTags tag) {
         for (WebElement tagButton : tagsButton) {
             if (tagButton.getText().equalsIgnoreCase(tag.getText("en"))
@@ -98,14 +106,17 @@ public class CreateNewsPage extends BasePageGreenCity {
         return null;
     }
 
+    @Step("Verify if the newsPreviewButton is enabled")
     public boolean newsPreviewButtonIsEnabled() {
         return isEnabled(newsPreviewButton);
     }
 
+    @Step("Verify if the newsPublishButton is enabled")
     public boolean newsPublishButtonIsEnabled() {
         return isEnabled(newsPublishButton);
     }
 
+    @Step("Click publish news button")
     public NewsPage clickPublishButton() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
@@ -113,15 +124,18 @@ public class CreateNewsPage extends BasePageGreenCity {
         return new NewsPage(driver);
     }
 
+    @Step("Click preview news button")
     public NewsPreviewPage clickPreviewButton() {
         click(newsPreviewButton);
         return new NewsPreviewPage(driver);
     }
 
+    @Step("Check if the tag {tag} is selected")
     private boolean isTagSelected(WebElement tagButton) {
         return tagButton.getAttribute("class").contains("global-tag-clicked");
     }
 
+    @Step("Get all selected tag")
     public List<WebElement> getSelectedTags() {
         List<WebElement> selectedTags = new ArrayList<>();
         for (WebElement tagButton : tagsButton) {
@@ -132,36 +146,44 @@ public class CreateNewsPage extends BasePageGreenCity {
         return selectedTags;
     }
 
+    @Step("Get title text")
     public String getTitleText() {
         return newsTitle.getAttribute("value");
     }
 
+    @Step("Get news loading message text")
     public String getNewsLoadingMessage() {
         return newsIsLoadingMessage.getText();
     }
 
+    @Step("Get news content text")
     public String getContentText() {
         WebElement editor = driver.findElement(By.cssSelector("quill-editor .ql-editor"));
         return (String) ((JavascriptExecutor) driver).executeScript(
             "return arguments[0].innerText;", editor);
     }
 
+    @Step("Check if the title field is displayed")
     public boolean isTitleFieldAppeared() {
         return isDisplayed(newsTitle);
     }
 
+    @Step("Check if the content field is displayed")
     public boolean isContentFieldAppeared() {
         return isDisplayed(newsContent);
     }
 
+    @Step("Check if the source field is displayed")
     public boolean isSourceFieldAppeared() {
         return isDisplayed(sourceLinkField);
     }
 
+    @Step("Check if the photo field is displayed")
     public boolean isPhotoFieldAppeared() {
         return isDisplayed(newsPhoto);
     }
 
+    @Step("Add image file with path {path}")
     public CreateNewsPage addImage(String path) {
         String filePath = System.getProperty("user.dir") + path;
         click(findWithWaitElement(ADD_IMG_LINK_XPATH ,10));
