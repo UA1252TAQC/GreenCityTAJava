@@ -4,6 +4,9 @@ import com.academy.ui.constants.NewsTags;
 import com.academy.ui.providers.CreateNewsProvider;
 import com.academy.ui.runners.TestRunnerMethodInitDriverLoginCreateNews;
 import com.academy.ui.styleConstants.Colors;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import java.util.Arrays;
 import java.util.List;
 import org.openqa.selenium.WebElement;
@@ -56,6 +59,9 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
     }
 
     @Test(dataProvider = "validData", dataProviderClass = CreateNewsProvider.class)
+    @Description("Verify that the user can go back to editing news by following the ‘Back to editing’ link")
+    @Feature("CreateNews")
+    @Issue("122")
     public void testBackToEditing(String title, NewsTags[] tagNames, String description) {
         createNewsPage.fillTheNewsForm(title, tagNames, description, "en");
 
@@ -75,6 +81,9 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
     }
 
     @Test
+    @Description("Verify that the user can publish news after clicking the 'Publish' button")
+    @Feature("CreateNews")
+    @Issue("78")
     public void publishNews() {
         createNewsPage
             .fillTheNewsForm(NEWS_TITLE, new NewsTags[]{NewsTags.EVENTS}, NEWS_CONTENT, "en");
@@ -91,6 +100,9 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
     }
 
     @Test
+    @Description("Verify that news will be created when the user puts 170 characters in the ‘Title’ field")
+    @Feature("CreateNews")
+    @Issue("115")
     public void checkLengthTitle() {
         createNewsPage
             .fillTheNewsForm(NEWS_TITLE_LENGTH, new NewsTags[]{NewsTags.EVENTS},
@@ -104,6 +116,9 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
     }
 
     @Test
+    @Description("Verify that Author (registered User nickname) is Auto-filled")
+    @Feature("CreateNews")
+    @Issue("77")
     public void AuthorFieldIsAutofilled() {
         createNewsPage
             .fillTheNewsForm(NEWS_TITLE_AUTHOR, new NewsTags[]{NewsTags.EVENTS},
@@ -138,6 +153,9 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
     }
 
     @Test
+    @Description("Verify that the ‘Create News’ form appears after clicking on the ‘Create news’ button")
+    @Feature("CreateNews")
+    @Issue("74")
     public void isCreateNewsFormAppear() {
         softAssert.assertEquals(createNewsPage.isTitleFieldAppeared(), true);
         softAssert.assertEquals(createNewsPage.isContentFieldAppeared(), true);
@@ -146,6 +164,9 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
     }
 
     @Test
+    @Description("Verify that after clicking the 'Publish' button, a message that the News is loading is displayed on the web-site")
+    @Feature("CreateNews")
+    @Issue("118")
     public void isNewsLoadingMessageAppear() {
         createNewsPage
             .fillTheNewsForm(NEWS_TITLE, new NewsTags[]{NewsTags.EVENTS},

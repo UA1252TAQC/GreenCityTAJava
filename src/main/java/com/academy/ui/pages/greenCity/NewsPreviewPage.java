@@ -1,5 +1,6 @@
 package com.academy.ui.pages.greenCity;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,11 +17,13 @@ public class NewsPreviewPage extends BasePageGreenCity{
         super(driver);
     }
 
+    @Step("Click 'Back to Editing' button")
     public NewsPreviewPage clickBackToEditing() {
         backToEditingButton.click();
         return this;
     }
 
+    @Step("Verify if preview page is displayed")
     public boolean isPreviewPageDisplayed() {
         return isDisplayed(previewPageTitle);
     }
