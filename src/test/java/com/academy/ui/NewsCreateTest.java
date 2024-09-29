@@ -25,6 +25,9 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
 
 
     @Test(dataProvider = "tagsListSelect", dataProviderClass = CreateNewsProvider.class)
+    @Description("Check if the user can select or unselect tags while creating news and whether the tag's style is updated accordingly.")
+    @Feature("CreateNews")
+    @Issue("97")
     public void selectUnSelectTags(NewsTags[] tagsList1, NewsTags[] tagsList2) {
 
         createNewsPage.selectTags(tagsList1, "en");
@@ -132,6 +135,9 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
     }
 
     @Test(dataProvider = "validDataSourceLink", dataProviderClass = CreateNewsProvider.class)
+    @Description("Verify that the user can create news with a source link.")
+    @Feature("CreateNews")
+    @Issue("93")
     public void createNewsWithSourceLink(String title, NewsTags[] tags, String content,
         String sourceLink) {
         createNewsPage.fillTheNewsForm(title, tags, content, "en")
@@ -143,6 +149,9 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
     }
 
     @Test(dataProvider = "validDataSourceLink", dataProviderClass = CreateNewsProvider.class)
+    @Description("Ensure that the user is able to create news without image.")
+    @Feature("CreateNews")
+    @Issue("75")
     public void createNewsWithoutImg(String title, NewsTags[] tags, String content,
         String sourceLink) {
         createNewsPage.fillTheNewsForm(title, tags, content, "en")
@@ -179,6 +188,9 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
     }
 
     @Test(dataProvider = "validData", dataProviderClass = CreateNewsProvider.class)
+    @Description("Ensure that the user is able to create news with content exactly 63,206 characters in length.")
+    @Feature("CreateNews")
+    @Issue("95")
     public void createNewsWithContentLenght(String title, NewsTags[] tags,String content){
         String str = "a".repeat(63206);
         createNewsPage.fillTheNewsForm(title, tags, str, "en")
@@ -189,6 +201,9 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
     }
 
     @Test(dataProvider = "validData", dataProviderClass = CreateNewsProvider.class)
+    @Description("Verify that news will be created when the user adds the PNG image less than 10 MB")
+    @Feature("CreateNews")
+    @Issue("91")
     public void createNewsWithPngImage(String title, NewsTags[] tags,String content){
         createNewsPage.fillTheNewsForm(title, tags, content, "en")
                 .addImage("/src/test/resources/img/fruit-1218166_1280.png")
@@ -199,6 +214,9 @@ public class NewsCreateTest extends TestRunnerMethodInitDriverLoginCreateNews {
     }
 
     @Test(dataProvider = "validData", dataProviderClass = CreateNewsProvider.class)
+    @Description("Verify that news will be created when the user adds the JPG image less than 10 MB")
+    @Feature("CreateNews")
+    @Issue("80")
     public void createNewsWithJpegImage(String title, NewsTags[] tags,String content){
         createNewsPage.fillTheNewsForm(title, tags, content, "en")
                 .addImage("/src/test/resources/img/1700488940348.jpeg")
