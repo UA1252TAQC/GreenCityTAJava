@@ -1,6 +1,7 @@
 package com.academy.ui.components.sub.form;
 
 import com.academy.ui.components.BaseComponent;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -42,10 +43,12 @@ public class EmailField extends BaseComponent {
         clear(input);
     }
 
+    @Step("Check, if Email field is empty")
     public boolean isEmailFieldEmpty(){
         return input.getAttribute("class").contains("ng-pristine");
     }
 
+    @Step("Email field is highlighted in {color}")
     public boolean isHighlightedInColor(String color) {
         return input.getCssValue("border-color").equals(color);
     }
