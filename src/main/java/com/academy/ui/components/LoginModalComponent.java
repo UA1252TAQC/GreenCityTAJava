@@ -157,6 +157,7 @@ public class LoginModalComponent extends BaseComponent {
         return errorMessageElementUnregistered.getText();
     }
 
+    @Step("Check if Sign-In Button is highlighted in {color}")
     public boolean isHighlightedSignInBtnInColor(String color) {
         String backgroundColor = signInButton.getCssValue("background-color");
         return backgroundColor.equals(color);

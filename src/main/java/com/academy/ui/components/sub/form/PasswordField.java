@@ -1,6 +1,7 @@
 package com.academy.ui.components.sub.form;
 
 import com.academy.ui.components.BaseComponent;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -41,6 +42,7 @@ public class PasswordField extends BaseComponent {
         clear(input);
     }
 
+    @Step("Check, if Password field is empty")
     public boolean isPasswordFieldEmpty(){
         return input.getAttribute("class").contains("ng-pristine");
     }

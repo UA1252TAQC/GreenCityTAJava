@@ -1,6 +1,7 @@
 package com.academy.ui.components;
 
 import com.academy.ui.pages.greenCity.BasePageGreenCity;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -44,6 +45,7 @@ public class GoogleAuthComponent extends BasePageGreenCity {
         sleep(1);
     }
 
+    @Step("Email field is displayed on GoogleAuthComponent")
     public boolean isEmailInputDisplayed(){
         return isDisplayed(emailInput);
     }

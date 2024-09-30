@@ -170,7 +170,10 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     @Test(dataProvider = "verifyErrorMessageForExceedingPasswordLength", dataProviderClass = LoginFormTestProvider.class)
     @Description("Verify error message for exceeding password length")
     @Feature("Login")
-    @Issue("130")
+    @Issues({
+            @Issue("129"),
+            @Issue("130")
+    })
     public void verifyErrorMessageForExceedingPasswordLength(String language, String email, String password, String expected) {
 
         String errorMessage = page.setLanguage(language)
@@ -205,6 +208,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test
+    @Description("Verify that the ‘Sign in’ button is activeted and highlighted in green after entering a valid email and password")
+    @Feature("Login")
+    @Issue("61")
     public void verifySignInBtnBecomesGreenByValidCreds() {
         LoginModalComponent logInModalComponent = page.getHeaderComponent()
                 .openLoginForm();
@@ -218,6 +224,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test
+    @Description("Verify that the 'Sign in' button is remained inactive after leaving the fields empty")
+    @Feature("Login")
+    @Issue("64")
     public void verifySignInBtnIsInactiveByEmptyFields() {
         LoginModalComponent logInModalComponent = page.getHeaderComponent()
                 .openLoginForm();
@@ -230,6 +239,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test
+    @Description("Verify that user is navigated to the Google register page after clicking the 'Sign in with Google' button on the sign-in page")
+    @Feature("Login")
+    @Issue("73")
     public void verifyLinkSignInWithGoogle() {
         GoogleAuthComponent googleAuthComponent = page.getHeaderComponent()
                 .openLoginForm()
@@ -240,6 +252,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyMessageAfterRecoverPassDataProvider", dataProviderClass = LoginFormTestProvider.class)
+    @Description("Verify that the message \"{expectedMessage}\" is shown below the 'Email' field during the second attempt to recover the password")
+    @Feature("Forgot Password")
+    @Issue("71")
     public void verifyMessageAfterRecoverPass(String email, String expectedMessage) {
         page.setLanguage("en")
                 .getHeaderComponent()
@@ -254,7 +269,8 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 .openLoginForm()
                 .clickForgotPasswordLink()
                 .enterEmail(email)
-                .clickSignInButton().getEmailField();
+                .clickSignInButton()
+                .getEmailField();
 
         String message = emailField.getErrorMessage();
         softAssert.assertEquals(message, expectedMessage + " " + email);
