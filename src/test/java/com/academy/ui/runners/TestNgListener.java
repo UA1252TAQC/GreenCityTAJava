@@ -10,8 +10,8 @@ import org.testng.ITestResult;
 public class TestNgListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult result) {
-        ITestContext context = result.getTestContext();
-        WebDriver driver = (WebDriver) context.getAttribute("webDriver");
+        Object testInstance = result.getInstance();
+        WebDriver driver = ((BaseTestRunner) testInstance).driver;
         if(driver != null){
             saveScreenshot(driver);
         }

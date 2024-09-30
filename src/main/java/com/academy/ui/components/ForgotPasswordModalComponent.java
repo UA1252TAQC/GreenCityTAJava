@@ -1,6 +1,7 @@
 package com.academy.ui.components;
 
 import com.academy.ui.components.sub.form.EmailField;
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -28,34 +29,41 @@ public class ForgotPasswordModalComponent extends BaseComponent {
         emailField = new EmailField(driver, rootElement);
     }
 
+    @Step("Enter email {email}")
     public ForgotPasswordModalComponent enterEmail(String email) {
         this.emailField.enter(email);
         return this;
     }
 
+    @Step("Click Sign-in button")
     public ForgotPasswordModalComponent clickSignInButton() {
         click(signInButton);
         return this;
     }
 
+    @Step("Check if \"Forgot Password\" link displayed")
     public boolean isForgotPasswordLinkDisplayed() {
         return isDisplayed(findWithWaitElement(BACK_TO_SIGN_IN_LINK_XPATH, EXPLICITLY_WAIT_DURATION_FIVE_SECONDS));
     }
 
+    @Step("Click the \"Sign-in\" link")
     public LoginModalComponent clickBackToSignInLink() {
         click(backToSignInLink);
         waitTillElementIsInvisible(backToSignInLink);
         return new LoginModalComponent(driver, loginRootElement);
     }
 
+    @Step("Check if the \"Forgot Password\" window displayed")
     public boolean isForgotPasswordWindowDisplayed() {
         return isDisplayed(findWithWaitElement(FORGOT_PASSWORD_WINDOW_XPATH, 5));
     }
 
+    @Step("Get field error message")
     public String getErrorFieldMessage(){
         return isForgotPasswordWindowDisplayed()?emailField.getErrorMessage():"";
     }
 
+    @Step("Check of email field is highlighted in color")
     public boolean isHighlightedInColor(String color){
         return emailField.isHighlightedInColor(color);
     }

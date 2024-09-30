@@ -10,6 +10,7 @@ import com.academy.ui.providers.LoginFormTestProvider;
 import com.academy.ui.pages.greenCity.ProfilePage;
 import com.academy.ui.runners.TestRunnerMethodInitDriverHomePage;
 import com.academy.ui.styleConstants.Colors;
+import io.qameta.allure.*;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -72,6 +73,12 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyErrorMessageForEmptyEmailAndOrPassword", dataProviderClass = LoginFormTestProvider.class)
+    @Description("Verify Error Message for Empty Email and Password")
+    @Feature("Login")
+    @Issues({
+            @Issue("131"),
+            @Issue("132")
+    })
     public void verifyErrorMessageForEmptyEmailAndOrPassword(String language, String email, String password, String expected) {
         String errorMessage = page.setLanguage(language)
                 .getHeaderComponent().openLoginForm()
@@ -84,6 +91,12 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyErrorMessageForEmptyEmail", dataProviderClass = LoginFormTestProvider.class)
+    @Description("Verify Error Message for empty Email field Ua/En")
+    @Feature("Login")
+    @Issues({
+            @Issue("82"),
+            @Issue("83")
+    })
     public void verifyErrorMessageForEmptyEmail(String language, String email, String expected) {
         String errorMessage = page.setLanguage(language)
                 .getHeaderComponent().openLoginForm()
@@ -96,6 +109,12 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyErrorMessageForEmptyPassword", dataProviderClass = LoginFormTestProvider.class)
+    @Description("Verify Error Message for Empty Password Field")
+    @Feature("Login")
+    @Issues({
+            @Issue("84"),
+            @Issue("85")
+    })
     public void verifyErrorMessageForEmptyPassword(String language, String password, String expected) {
         String errorMessage = page.setLanguage(language)
                 .getHeaderComponent().openLoginForm()
@@ -108,6 +127,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail", dataProviderClass = LoginFormTestProvider.class)
+    @Description("Verify that the 'Email' field is highlighted with a red outline and error message is displayed after entering invalid data")
+    @Feature("Forgot Password")
+    @Issue("69")
     public void verifyCssAndErrorIsDisplayedInForgotPasswordWithInvalidEmail(String language, String email, String expected) {
 
         ForgotPasswordModalComponent forgotPasswordModal = page
@@ -132,6 +154,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test
+    @Description("Verify opening of \"Forgot Password\" form after clicking the 'Forgot password' link")
+    @Feature("Forgot password")
+    @Issue("135")
     public void verifyOpeningForgotPasswordFormAfterClick() {
 
         boolean isDisplayed = page.getHeaderComponent()
@@ -143,6 +168,12 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyErrorMessageForExceedingPasswordLength", dataProviderClass = LoginFormTestProvider.class)
+    @Description("Verify error message for exceeding password length")
+    @Feature("Login")
+    @Issues({
+            @Issue("129"),
+            @Issue("130")
+    })
     public void verifyErrorMessageForExceedingPasswordLength(String language, String email, String password, String expected) {
 
         String errorMessage = page.setLanguage(language)
@@ -158,6 +189,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyErrorMessageForInvalidPassword", dataProviderClass = LoginFormTestProvider.class)
+    @Description("Verify Error Message for invalid password")
+    @Feature("Login")
+    @Issue("128")
     public void verifyErrorMessageForInvalidPassword(String language, String email, String password, String expected) {
 
         String errorMessage = page
@@ -174,6 +208,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test
+    @Description("Verify that the ‘Sign in’ button is activeted and highlighted in green after entering a valid email and password")
+    @Feature("Login")
+    @Issue("61")
     public void verifySignInBtnBecomesGreenByValidCreds() {
         LoginModalComponent logInModalComponent = page.getHeaderComponent()
                 .openLoginForm();
@@ -187,6 +224,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test
+    @Description("Verify that the 'Sign in' button is remained inactive after leaving the fields empty")
+    @Feature("Login")
+    @Issue("64")
     public void verifySignInBtnIsInactiveByEmptyFields() {
         LoginModalComponent logInModalComponent = page.getHeaderComponent()
                 .openLoginForm();
@@ -199,6 +239,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test
+    @Description("Verify that user is navigated to the Google register page after clicking the 'Sign in with Google' button on the sign-in page")
+    @Feature("Login")
+    @Issue("73")
     public void verifyLinkSignInWithGoogle() {
         GoogleAuthComponent googleAuthComponent = page.getHeaderComponent()
                 .openLoginForm()
@@ -209,6 +252,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyMessageAfterRecoverPassDataProvider", dataProviderClass = LoginFormTestProvider.class)
+    @Description("Verify that the message \"{expectedMessage}\" is shown below the 'Email' field during the second attempt to recover the password")
+    @Feature("Forgot Password")
+    @Issue("71")
     public void verifyMessageAfterRecoverPass(String email, String expectedMessage) {
         page.setLanguage("en")
                 .getHeaderComponent()
@@ -223,7 +269,8 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 .openLoginForm()
                 .clickForgotPasswordLink()
                 .enterEmail(email)
-                .clickSignInButton().getEmailField();
+                .clickSignInButton()
+                .getEmailField();
 
         String message = emailField.getErrorMessage();
         softAssert.assertEquals(message, expectedMessage + " " + email);
@@ -381,6 +428,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyInvalidEmailWarningProvider", dataProviderClass = LoginFormTestProvider.class)
+    @Description("Verify invalid email warning after entering not valid E-mail to the 'E-mail' field")
+    @Feature("Login")
+    @Issue("136")
     public void verifyInvalidEmailWarning(String email, String language, String expected, String color) {
         NewsPage newsPage = new NewsPage(driver);
         newsPage.getHeaderComponent().setLanguage(language);
