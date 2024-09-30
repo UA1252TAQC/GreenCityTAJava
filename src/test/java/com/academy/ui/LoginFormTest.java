@@ -343,6 +343,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
+    @Description("Verify the 'Sign-In' possibility with valid credentials")
+    @Feature("Login")
+    @Issue("81")
     @Test(dataProvider = "registeredUserCredentials", dataProviderClass = LoginFormTestProvider.class)
     public void verifySuccessfulSignInPossibilityWithValidCredentials(String email, String password, String name, String id) {
 
@@ -367,6 +370,15 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
         softAssert.assertAll();
     }
 
+    @Description("Verify that the scrollbar is displayed on the 'Sign In' page at predefined resolution")
+    @Feature("Login")
+    @Issues({
+        @Issue("98"),
+        @Issue("99"),
+        @Issue("100"),
+        @Issue("101"),
+        @Issue("102")
+    })
     @Test(dataProvider = "widthResolutionPxAndZoomLevelsPercentage", dataProviderClass = LoginFormTestProvider.class)
     public void verifyScrollbarIsDisplayedOnPageTest(String language, int windowWidth, List<Integer> zoomValuesPercentage) {
 
@@ -391,6 +403,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
 
     }
 
+    @Description("Verify the 'Sign-In' possibility with valid credentials")
+    @Feature("Login")
+    @Issue("92")
     @Test
     public void verifyUserIsDirectedBackToSignInPageAfterClickingTheBackToSignInLinkTest() {
         ForgotPasswordModalComponent forgotPasswordModalComponent = page

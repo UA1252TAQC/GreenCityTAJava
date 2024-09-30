@@ -66,12 +66,14 @@ public class BaseTestRunner{
         }
     }
 
+    @Step("Set window width")
     public void setWindowWidth(int width) {
         int height = driver.manage().window().getSize().height;
         Dimension dimension = new Dimension(width, height);
         driver.manage().window().setSize(dimension);
     }
 
+    @Step("Set zoom level")
     public void setZoomTo(int zoomLevel) {
         JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("document.body.style.zoom = '" + zoomLevel + "%';");
