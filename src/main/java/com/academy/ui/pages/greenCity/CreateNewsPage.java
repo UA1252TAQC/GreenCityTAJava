@@ -41,7 +41,7 @@ public class CreateNewsPage extends BasePageGreenCity {
         super(driver);
     }
 
-    @Step("Add tag {tag}")
+    @Step("Select the tag {tag}")
     public CreateNewsPage selectSingleTag(NewsTags tag, String languageCode) {
         String tagText = tag.getText(languageCode);
         for (WebElement tagButton : tagsButton) {
@@ -53,7 +53,7 @@ public class CreateNewsPage extends BasePageGreenCity {
         return this;
     }
 
-    @Step("Fill create news form with title {title}, content {content}, list of tags: {tags}")
+    @Step("Fill the Create News form with the title: {title}, content: {content}, and the list of tags: {tags}.")
     public CreateNewsPage fillTheNewsForm(String title, NewsTags[] tags, String content,
         String language) {
         newsTitle.sendKeys(title);
@@ -67,7 +67,7 @@ public class CreateNewsPage extends BasePageGreenCity {
         return this;
     }
 
-    @Step("Select tags: {tags}")
+    @Step("Select the tags: {tags}")
     public CreateNewsPage selectTags(NewsTags[] tags, String languageCode) {
         for (NewsTags tag : tags) {
             selectSingleTag(tag, languageCode);
@@ -75,7 +75,7 @@ public class CreateNewsPage extends BasePageGreenCity {
         return this;
     }
 
-    @Step("Unselect tag: {tag}")
+    @Step("Unselect the tag: {tag}")
     public CreateNewsPage unSelectSingleTag(NewsTags tag, String languageCode) {
         String tagText = tag.getText(languageCode);
         for (WebElement tagButton : tagsButton) {
@@ -87,7 +87,7 @@ public class CreateNewsPage extends BasePageGreenCity {
         return this;
     }
 
-    @Step("Unselect tags list: {tags}")
+    @Step("Unselect the tags list: {tags}")
     public CreateNewsPage unSelectTags(NewsTags[] tags, String languageCode) {
         for (NewsTags tag : tags) {
             unSelectSingleTag(tag, languageCode);
@@ -95,7 +95,7 @@ public class CreateNewsPage extends BasePageGreenCity {
         return this;
     }
 
-    @Step("Get tag {tag} button background color")
+    @Step("Get the background color of the {tag} button")
     public String getTagButtonBackgroundColor(NewsTags tag) {
         for (WebElement tagButton : tagsButton) {
             if (tagButton.getText().equalsIgnoreCase(tag.getText("en"))
@@ -116,7 +116,7 @@ public class CreateNewsPage extends BasePageGreenCity {
         return isEnabled(newsPublishButton);
     }
 
-    @Step("Click publish news button")
+    @Step("Click the newsPublishButton")
     public NewsPage clickPublishButton() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
@@ -124,7 +124,7 @@ public class CreateNewsPage extends BasePageGreenCity {
         return new NewsPage(driver);
     }
 
-    @Step("Click preview news button")
+    @Step("Click the newsPreviewButton")
     public NewsPreviewPage clickPreviewButton() {
         click(newsPreviewButton);
         return new NewsPreviewPage(driver);
@@ -146,7 +146,7 @@ public class CreateNewsPage extends BasePageGreenCity {
         return selectedTags;
     }
 
-    @Step("Get title text")
+    @Step("Get news title text")
     public String getTitleText() {
         return newsTitle.getAttribute("value");
     }
@@ -183,7 +183,7 @@ public class CreateNewsPage extends BasePageGreenCity {
         return isDisplayed(newsPhoto);
     }
 
-    @Step("Add image file with path {path}")
+    @Step("Upload an image from the path {path}")
     public CreateNewsPage addImage(String path) {
         String filePath = System.getProperty("user.dir") + path;
         click(findWithWaitElement(ADD_IMG_LINK_XPATH ,10));
