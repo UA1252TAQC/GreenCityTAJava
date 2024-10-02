@@ -282,6 +282,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifySignInButtonRemainedInactivePassword", dataProviderClass = LoginFormTestProvider.class)
+    @Description("Verify that the 'Sign in' button is remained inactive after entering only the 'Password' field")
+    @Feature("Enter only Password")
+    @Issue("62")
     public void verifySignInButtonRemainedInactiveWithFilledPassword(String password) {
         LoginModalComponent logInModalComponent = new HomePage(driver)
                 .getHeaderComponent().openLoginForm()
@@ -297,6 +300,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyInSignInButtonRemainedInactiveEmail", dataProviderClass = LoginFormTestProvider.class)
+    @Description("Verify that the 'Sign in' button is remained inactive after entering only the 'Email' field")
+    @Feature("Enter only Email")
+    @Issue("63")
     public void verifySignInButtonRemainedInactiveWithFilledEmail(String email) {
         LoginModalComponent logInModalComponent = new HomePage(driver)
                 .getHeaderComponent().openLoginForm()
@@ -312,6 +318,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyInvalidEmailPassword", dataProviderClass = LoginFormTestProvider.class)
+    @Description("Verify that the ‘Sign in’ button is remained inactive after entering a invalid email and password")
+    @Feature("Invalid Email and Password")
+    @Issue("65")
     public void verifyInvalidEmailPassword(String email, String password) {
         LoginModalComponent logInModalComponent = new HomePage(driver)
                 .getHeaderComponent().openLoginForm()
@@ -328,6 +337,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyInSignInButtonRemainedInactiveValidEmailInvalidPassword", dataProviderClass = LoginFormTestProvider.class)
+    @Description("Verify that the 'Sign in' button is remained inactive after entering an invalid data in the 'Password' field and a valid data in the 'Email' field")
+    @Feature("Valid Email and invalid Password")
+    @Issue("67")
     public void verifyValidEmailInvalidPassword(String email, String password) {
         LoginModalComponent logInModalComponent = new HomePage(driver)
                 .getHeaderComponent().openLoginForm()
@@ -344,6 +356,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyInSignInButtonRemainedInactiveValidPasswordInvalidEmail", dataProviderClass = LoginFormTestProvider.class)
+    @Description("Verify that the 'Sign in' button is remained inactive after entering valid data in the 'Password' field and invalid data in the 'Email' field")
+    @Feature("Valid Password and invalid Email")
+    @Issue("66")
     public void verifyValidPasswordInvalidEmail(String email, String password) {
         LoginModalComponent logInModalComponent = new HomePage(driver)
                 .getHeaderComponent().openLoginForm()
