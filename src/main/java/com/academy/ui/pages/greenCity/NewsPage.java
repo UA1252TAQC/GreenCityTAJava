@@ -1,6 +1,7 @@
 package com.academy.ui.pages.greenCity;
 
 import com.academy.ui.components.NewsFilterComponent;
+import io.qameta.allure.Step;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -10,7 +11,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.List;
 
 public class NewsPage extends BasePageGreenCity {
 
@@ -27,15 +27,6 @@ public class NewsPage extends BasePageGreenCity {
     @FindBy(xpath = ".//app-remaining-count")
     private WebElement newsCountMessage;
 
-    // @FindBy(xpath = ".//span[@aria-label='table view']/em")
-    // private WebElement tableViewButton;
-
-    // @FindBy(xpath = ".//span[@aria-label='list view']/em")
-    // private WebElement listViewButton;
-
-    //itemsComponent
-
-
     @FindBy(xpath = ".//app-tag-filter")
     private WebElement rootFilterComponent;
 
@@ -43,6 +34,7 @@ public class NewsPage extends BasePageGreenCity {
         super(driver);
     }
 
+    @Step("Click 'Create News' button")
     public CreateNewsPage clickCreateNews() {
         findWithWaitElement(CREATE_NEWS_BUTTON_XPATH, 10).click();
         return new CreateNewsPage(driver);
@@ -52,6 +44,7 @@ public class NewsPage extends BasePageGreenCity {
         return new NewsFilterComponent(driver, rootFilterComponent);
     }
 
+    @Step("Verify if news is displayed by title, content and tags")
     public boolean isNewsDisplayed(String title, String content, List<NewsTags> tags) {
         for (WebElement item : driver.findElements(By.xpath(NEWS_ITEM_BOX))) {
             boolean titleMatch = !item.findElements(By.xpath(".//div[contains(@class, 'title-list')]//h3" + "[contains(text(), '" + title + "')]"))
@@ -72,6 +65,7 @@ public class NewsPage extends BasePageGreenCity {
         return false;
     }
 
+    @Step("Verify if news is displayed by title")
     public boolean isNewsDisplayedWithTitle(String title) {
         findWithWaitElement("//img[@class='list-image-content']", 10);
         List<WebElement> newsItems = driver.findElements(By.xpath("//div[@class='list-gallery']"));
@@ -84,6 +78,7 @@ public class NewsPage extends BasePageGreenCity {
         return false;
     }
 
+    @Step("Click on news item by title")
     public void clickOnNewsWithTitle(String title) {
         findWithWaitElement("//img[@class='list-image-content']", 10);
         List<WebElement> newsItems = driver.findElements(By.xpath("//div[@class='list-gallery']"));
@@ -97,6 +92,7 @@ public class NewsPage extends BasePageGreenCity {
         throw new NoSuchElementException("News with title '" + title + "' was not found.");
     }
 
+    @Step("Get author Name")
     public String getAuthorName() {
         return authorElement.getText();
     }
