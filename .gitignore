@@ -55,6 +55,7 @@ java/build/**
 
 
 #allure
+.allure
 allure-results
 allure-report
 
