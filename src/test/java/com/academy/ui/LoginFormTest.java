@@ -434,8 +434,8 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
 
     }
 
-    @Description("Verify the 'Sign-In' possibility with valid credentials")
-    @Feature("Login")
+    @Description("Verify that the User is directed back to Sign in page after clicking the 'Back to Sign in' link")
+    @Feature("Login / Forgot Password")
     @Issue("92")
     @Test
     public void verifyUserIsDirectedBackToSignInPageAfterClickingTheBackToSignInLinkTest() {
