@@ -166,4 +166,8 @@ public class LoginModalComponent extends BaseComponent {
     public int getWidth() {
         return mainWindow.getSize().width;
     }
+
+    public int getHeight() {
+        return mainWindow.getSize().height;
+    }
 }
