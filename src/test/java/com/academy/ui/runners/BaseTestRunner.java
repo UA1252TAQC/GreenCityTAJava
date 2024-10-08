@@ -5,7 +5,9 @@ import com.academy.utils.props.ConfigProperties;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Step;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
@@ -27,7 +29,6 @@ public class BaseTestRunner {
     protected static ConfigProperties configProperties;
     protected static WebDriver driver;
     protected static DevTools devTools;
-
 
     protected static LocalizationUtils localizationUtils;
     protected SoftAssert softAssert;
