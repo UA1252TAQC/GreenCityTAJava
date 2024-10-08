@@ -418,20 +418,30 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 .openLoginForm();
 
         setWindowWidth(windowWidth);
+        int windowHeight = getWindowHeight();
 
         for (int zoomLevelPercentage : zoomValuesPercentage) {
-            setZoomTo(zoomLevelPercentage);
+            setZoomLevel(zoomLevelPercentage);
             WebElement element = loginModalComponent.getMainWindow();
             boolean hasHorizontalScrollbar = hasHorizontalScrollbar(element);
             boolean shouldHaveHorizontalScrollBar = loginModalComponent.getWidth() * zoomLevelPercentage / 100 > windowWidth;
+            boolean hasVerticalScrollbar = hasVerticalScrollbar(element);
+            boolean shouldHaveVerticalScrollBar = loginModalComponent.getHeight() * zoomLevelPercentage / 100 > windowHeight;
+
+            softAssert.assertEquals(getWindowWidth(),windowWidth, "Wrong window width on page at " +
+                    windowWidth + "px resolution with " + zoomLevelPercentage + "% zoom level");
+            softAssert.assertEquals(getZoomLevel(),zoomLevelPercentage+"%", "Wrong zoom level on page at " +
+                    windowWidth + "px resolution with " + zoomLevelPercentage + "% zoom level");
 
             softAssert.assertTrue(hasHorizontalScrollbar || !shouldHaveHorizontalScrollBar,
                     "Horizontal scrollbar should be displayed on page at " + windowWidth +
                             "px resolution with " + zoomLevelPercentage + "% zoom level");
+            softAssert.assertTrue(hasVerticalScrollbar || !shouldHaveVerticalScrollBar,
+                    "Vertical scrollbar should be displayed on page at " + windowWidth +
+                            "px resolution with " + zoomLevelPercentage + "% zoom level");
         }
 
         softAssert.assertAll();
-
     }
 
     @Description("Verify that the User is directed back to Sign in page after clicking the 'Back to Sign in' link")
