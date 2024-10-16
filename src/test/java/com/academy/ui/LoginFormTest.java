@@ -282,6 +282,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifySignInButtonRemainedInactivePassword", dataProviderClass = LoginFormTestProvider.class)
+    @Description("Verify that the 'Sign in' button is remained inactive after entering only the 'Password' field")
+    @Feature("Enter only Password")
+    @Issue("62")
     public void verifySignInButtonRemainedInactiveWithFilledPassword(String password) {
         LoginModalComponent logInModalComponent = new HomePage(driver)
                 .getHeaderComponent().openLoginForm()
@@ -297,6 +300,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyInSignInButtonRemainedInactiveEmail", dataProviderClass = LoginFormTestProvider.class)
+    @Description("Verify that the 'Sign in' button is remained inactive after entering only the 'Email' field")
+    @Feature("Enter only Email")
+    @Issue("63")
     public void verifySignInButtonRemainedInactiveWithFilledEmail(String email) {
         LoginModalComponent logInModalComponent = new HomePage(driver)
                 .getHeaderComponent().openLoginForm()
@@ -312,6 +318,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyInvalidEmailPassword", dataProviderClass = LoginFormTestProvider.class)
+    @Description("Verify that the ‘Sign in’ button is remained inactive after entering a invalid email and password")
+    @Feature("Invalid Email and Password")
+    @Issue("65")
     public void verifyInvalidEmailPassword(String email, String password) {
         LoginModalComponent logInModalComponent = new HomePage(driver)
                 .getHeaderComponent().openLoginForm()
@@ -328,6 +337,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyInSignInButtonRemainedInactiveValidEmailInvalidPassword", dataProviderClass = LoginFormTestProvider.class)
+    @Description("Verify that the 'Sign in' button is remained inactive after entering an invalid data in the 'Password' field and a valid data in the 'Email' field")
+    @Feature("Valid Email and invalid Password")
+    @Issue("67")
     public void verifyValidEmailInvalidPassword(String email, String password) {
         LoginModalComponent logInModalComponent = new HomePage(driver)
                 .getHeaderComponent().openLoginForm()
@@ -344,6 +356,9 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
     }
 
     @Test(dataProvider = "verifyInSignInButtonRemainedInactiveValidPasswordInvalidEmail", dataProviderClass = LoginFormTestProvider.class)
+    @Description("Verify that the 'Sign in' button is remained inactive after entering valid data in the 'Password' field and invalid data in the 'Email' field")
+    @Feature("Valid Password and invalid Email")
+    @Issue("66")
     public void verifyValidPasswordInvalidEmail(String email, String password) {
         LoginModalComponent logInModalComponent = new HomePage(driver)
                 .getHeaderComponent().openLoginForm()
@@ -403,24 +418,34 @@ public class LoginFormTest extends TestRunnerMethodInitDriverHomePage {
                 .openLoginForm();
 
         setWindowWidth(windowWidth);
+        int windowHeight = getWindowHeight();
 
         for (int zoomLevelPercentage : zoomValuesPercentage) {
-            setZoomTo(zoomLevelPercentage);
+            setZoomLevel(zoomLevelPercentage);
             WebElement element = loginModalComponent.getMainWindow();
             boolean hasHorizontalScrollbar = hasHorizontalScrollbar(element);
             boolean shouldHaveHorizontalScrollBar = loginModalComponent.getWidth() * zoomLevelPercentage / 100 > windowWidth;
+            boolean hasVerticalScrollbar = hasVerticalScrollbar(element);
+            boolean shouldHaveVerticalScrollBar = loginModalComponent.getHeight() * zoomLevelPercentage / 100 > windowHeight;
+
+            softAssert.assertEquals(getWindowWidth(),windowWidth, "Wrong window width on page at " +
+                    windowWidth + "px resolution with " + zoomLevelPercentage + "% zoom level");
+            softAssert.assertEquals(getZoomLevel(),zoomLevelPercentage+"%", "Wrong zoom level on page at " +
+                    windowWidth + "px resolution with " + zoomLevelPercentage + "% zoom level");
 
             softAssert.assertTrue(hasHorizontalScrollbar || !shouldHaveHorizontalScrollBar,
                     "Horizontal scrollbar should be displayed on page at " + windowWidth +
                             "px resolution with " + zoomLevelPercentage + "% zoom level");
+            softAssert.assertTrue(hasVerticalScrollbar || !shouldHaveVerticalScrollBar,
+                    "Vertical scrollbar should be displayed on page at " + windowWidth +
+                            "px resolution with " + zoomLevelPercentage + "% zoom level");
         }
 
         softAssert.assertAll();
-
     }
 
-    @Description("Verify the 'Sign-In' possibility with valid credentials")
-    @Feature("Login")
+    @Description("Verify that the User is directed back to Sign in page after clicking the 'Back to Sign in' link")
+    @Feature("Login / Forgot Password")
     @Issue("92")
     @Test
     public void verifyUserIsDirectedBackToSignInPageAfterClickingTheBackToSignInLinkTest() {
