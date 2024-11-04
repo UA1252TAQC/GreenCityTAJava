@@ -18,6 +18,9 @@
         <lombok.version>1.18.34</lombok.version>
         <allure.version>2.29.0</allure.version>
         <aspectj.version>1.9.22.1</aspectj.version>
+        <cucumber-java.version>7.20.1</cucumber-java.version>
+        <cucumber-testng.version>7.20.1</cucumber-testng.version>
+        <cucumber-picocontainer.version>7.20.1</cucumber-picocontainer.version>
     </properties>
 
     <dependencies>
@@ -48,6 +51,23 @@
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${allure.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber-java.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber-testng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>${cucumber-picocontainer.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
