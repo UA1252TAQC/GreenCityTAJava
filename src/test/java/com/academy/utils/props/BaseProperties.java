@@ -16,7 +16,7 @@ public class BaseProperties {
             var fileInputStream = new BufferedReader(new InputStreamReader(new FileInputStream("src/test/resources/" + source), StandardCharsets.UTF_8));
             properties.load(fileInputStream);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+                throw new RuntimeException(e);
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.academy.api.clients;
 
 
+import com.academy.utils.ValueProvider;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
@@ -8,24 +9,26 @@ import static io.restassured.RestAssured.given;
 
 
 public class BaseClient {
-    protected final String baseURL;
+    protected static ValueProvider valueProvider;
+    protected String baseURL;
     protected ContentType contentType;
     protected String accessToken;
+    protected String authToken;
 
-    public BaseClient(String url, ContentType contentType){
-        this.baseURL = url;
-        this.contentType = contentType;
-        this.accessToken = null;
+    public  BaseClient(){
+        if (valueProvider ==null){
+            valueProvider = new ValueProvider();
+        }
+        contentType = ContentType.JSON;
     }
 
     public RequestSpecification prepareRequest() {
         RequestSpecification requestSpecification = given()
-                .relaxedHTTPSValidation()
                 .baseUri(baseURL)
                 .contentType(contentType)
                 .accept(contentType);
-        if (accessToken != null) {
-            requestSpecification.header("Authorization", "Bearer " + accessToken);
+        if(authToken !=null){
+            requestSpecification = requestSpecification.header("Authorization", String.format("Bearer %s", authToken));
         }
         return requestSpecification;
     }
