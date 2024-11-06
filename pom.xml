@@ -19,6 +19,9 @@
         <allure.version>2.29.0</allure.version>
         <aspectj.version>1.9.22.1</aspectj.version>
         <rest-assured.version>5.5.0</rest-assured.version>
+        <cucumber-java.version>7.20.1</cucumber-java.version>
+        <cucumber-testng.version>7.20.1</cucumber-testng.version>
+        <cucumber-picocontainer.version>7.20.1</cucumber-picocontainer.version>
     </properties>
 
     <dependencies>
@@ -60,6 +63,23 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured-common</artifactId>
             <version>5.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber-java.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber-testng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>${cucumber-picocontainer.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>

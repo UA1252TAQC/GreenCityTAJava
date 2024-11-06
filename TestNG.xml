@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test Suite" configfailurepolicy="continue" verbose="1" parallel="tests" thread-count="3">
+    <test name="BDD Tests" annotations="JDK">
+        <packages>
+            <package name="com.academy.cucumber.CucumberTestRunner"/>
+        </packages>
+    </test>
+</suite>
