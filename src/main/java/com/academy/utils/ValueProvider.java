@@ -23,4 +23,12 @@ public class ValueProvider {
     public String getUserApiUrl(){
         return properties.getProperty("GreencityUserAPI");
     }
+
+    public String getApiUrl(){
+        return properties.getProperty("GreencityAPI");
+    }
+
+    public String getToken(){
+        return properties.getProperty("GreencityToken");
+    }
 }
