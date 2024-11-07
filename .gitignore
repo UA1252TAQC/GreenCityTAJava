@@ -62,3 +62,4 @@ allure-report
 
 #project
 credentials.properties
+data.properties
