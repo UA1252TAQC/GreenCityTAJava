@@ -2,6 +2,9 @@ package com.academy.cucumber.step_definitions;
 
 import com.academy.ui.components.LoginModalComponent;
 import com.academy.ui.pages.greenCity.HomePage;
+import com.academy.ui.pages.greenCity.ProfilePage;
+import com.academy.utils.props.ConfigProperties;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -13,7 +16,9 @@ public class SignIn {
     private PageContext pageContext;
     private final SoftAssert softAssert;
     private HomePage homePage;
+    private ProfilePage profilePage;
     private LoginModalComponent loginForm;
+
 
     public SignIn(BaseDefinition baseDef)  {
         this.baseDef = baseDef;
@@ -51,5 +56,41 @@ public class SignIn {
     public void theErrorMessageIsAppeared(String expected) {
         String actual = loginForm.getPasswordErrorMessage();
         Assert.assertEquals(actual, expected);
+    }
+
+    @When("user enter a registered user email")
+    public void userEnterARegisteredUserEmail() {
+        String email = BaseDefinition.getTestValueProvider().getRegisteredUserEmail();
+        loginForm.enterEmail(email);
+    }
+
+    @And("user enter a registered user password")
+    public void userEnterARegisteredUserPassword() {
+        String password = BaseDefinition.getTestValueProvider().getRegisteredUserPassword();
+        loginForm.enterPassword(password);
+    }
+
+    @Then("user should be redirected to the user profile page")
+    public void userShouldBeRedirectedToTheUserProfilePage() {
+        String expectedUrl = BaseDefinition.getTestValueProvider().getProfilePageGreenCityUrl()
+                + "/" + BaseDefinition.getTestValueProvider().getRegisteredUserId();
+        String actualUrl = baseDef.getDriver().getCurrentUrl();
+        Assert.assertEquals(actualUrl, expectedUrl);
+    }
+
+    @And("user clicks Sign In button with successful login")
+    public void userClicksSignInButtonWithSuccessfulLogin() {
+        loginForm.clickSignInButtonSuccessfulLogin();
+    }
+
+    @And("user name should be in the header")
+    public void userNameShouldBeInTheHeader() {
+        String expectedUserName = BaseDefinition.getTestValueProvider().getRegisteredUserName();
+        String actualUserName = pageContext
+                .getAllPages()
+                .getProfilePage()
+                .getHeaderComponent()
+                .getUserNameText();
+        Assert.assertEquals(actualUserName, expectedUserName);
     }
 }

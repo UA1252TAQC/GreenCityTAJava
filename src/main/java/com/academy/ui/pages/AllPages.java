@@ -3,6 +3,7 @@ package com.academy.ui.pages;
 import com.academy.ui.pages.greenCity.CreateNewsPage;
 import com.academy.ui.pages.greenCity.HomePage;
 import com.academy.ui.pages.greenCity.NewsPage;
+import com.academy.ui.pages.greenCity.ProfilePage;
 import org.openqa.selenium.WebDriver;
 
 public class AllPages {
@@ -10,6 +11,7 @@ public class AllPages {
 
     private CreateNewsPage createNewsPage;
     private HomePage homePage;
+    private ProfilePage profilePage;
     private NewsPage newsPage;
     public AllPages(WebDriver driver) {
         this.driver = driver;
@@ -25,6 +27,10 @@ public class AllPages {
 
     public HomePage getHomePage() {
         return homePage == null ? new HomePage(driver): homePage;
+    }
+
+    public ProfilePage getProfilePage() {
+        return profilePage == null ? new ProfilePage(driver): profilePage;
     }
 
     public BasePage getNewsPage() {

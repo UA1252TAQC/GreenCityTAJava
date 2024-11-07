@@ -36,7 +36,7 @@ public class BaseDefinition {
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get(testValueProvider.getBaseUrl());
+        driver.get(testValueProvider.getHomePageGreenCityUrl());
     }
 
     @After
