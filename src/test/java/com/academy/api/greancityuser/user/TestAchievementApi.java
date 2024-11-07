@@ -14,7 +14,7 @@ import java.util.List;
 
 public class TestAchievementApi {
     private AchievementClient client;
-    SoftAssert softAssert = new SoftAssert();
+
 
     @BeforeClass
     public void setUpClass() throws IOException {
@@ -24,7 +24,7 @@ public class TestAchievementApi {
     @Test
     public void verifyAchievements(){
         Response response = client.getAchievements("UNACHIEVED", 2);
-        System.out.println(response.getBody().asString());
+        SoftAssert softAssert = new SoftAssert();
         List <Achievement> achievements = response.jsonPath().getList("$", Achievement.class);
         softAssert.assertEquals(response.statusCode(), 200);
         for (Achievement item: achievements) {
