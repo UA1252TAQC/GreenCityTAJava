@@ -2,8 +2,8 @@ package com.academy.api.greancityuser.user;
 
 import com.academy.api.clients.user.AchievementClient;
 import com.academy.api.models.user.Achievement;
+import com.academy.utils.ValueProvider;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -13,17 +13,11 @@ import java.util.List;
 
 
 public class TestAchievementApi {
-    private AchievementClient client;
-
-
-    @BeforeClass
-    public void setUpClass() throws IOException {
-        client = new AchievementClient();
-    }
+    String token = new ValueProvider().getToken();
 
     @Test
-    public void verifyAchievements(){
-        Response response = client.getAchievements("UNACHIEVED", 2);
+    public void verifyAchievements() throws IOException {
+        Response response = new AchievementClient(token).getAchievements("UNACHIEVED", 2);
         SoftAssert softAssert = new SoftAssert();
         List <Achievement> achievements = response.jsonPath().getList("$", Achievement.class);
         softAssert.assertEquals(response.statusCode(), 200);

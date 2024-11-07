@@ -3,14 +3,13 @@ package com.academy.api.clients.user;
 import io.restassured.response.Response;
 
 import java.io.IOException;
-import java.util.Map;
 
 public class AchievementClient extends BaseClientGreenCity{
 
-    public AchievementClient() throws IOException {
+    public AchievementClient(String token) throws IOException {
         super();
         this.baseURL += "/achievements";
-        this.authToken = valueProvider.getToken();
+        this.authToken = token;
     }
 
     public Response getAchievements(String achievementStatus, int achievementCategoryId){
