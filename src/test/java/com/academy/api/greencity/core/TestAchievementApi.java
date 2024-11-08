@@ -1,6 +1,6 @@
-package com.academy.api.greancityuser.user;
+package com.academy.api.greencity.core;
 
-import com.academy.api.clients.user.AchievementClient;
+import com.academy.api.clients.core.AchievementClient;
 import com.academy.api.models.user.Achievement;
 import com.academy.utils.ValueProvider;
 import io.restassured.response.Response;
