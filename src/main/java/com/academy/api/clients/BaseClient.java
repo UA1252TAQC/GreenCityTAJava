@@ -27,7 +27,7 @@ public class BaseClient {
                 .baseUri(baseURL)
                 .contentType(contentType)
                 .accept(contentType);
-        if(authToken !=null){
+        if(authToken != null){
             requestSpecification = requestSpecification.header("Authorization", String.format("Bearer %s", authToken));
         }
         return requestSpecification;
