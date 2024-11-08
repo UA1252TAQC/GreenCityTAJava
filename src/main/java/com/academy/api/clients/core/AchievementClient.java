@@ -1,10 +1,10 @@
-package com.academy.api.clients.user;
+package com.academy.api.clients.core;
 
 import io.restassured.response.Response;
 
 import java.io.IOException;
 
-public class AchievementClient extends BaseClientGreenCity{
+public class AchievementClient extends BaseClientGreenCity {
 
     public AchievementClient(String token) throws IOException {
         super();

@@ -1,4 +1,4 @@
-package com.academy.api.clients.user;
+package com.academy.api.clients.core;
 
 import com.academy.api.clients.BaseClient;
 
