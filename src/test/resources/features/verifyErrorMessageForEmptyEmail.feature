@@ -7,9 +7,9 @@ Feature: Display error messages in for missing email field input
     Given GreenCity is open
     And the interface language is set to "<language>"
     When user clicks the "Sign In" Tab in the header
-    And user enters a password "Test1234!"
+    And user enters a valid password "Test1234!"
     And user clicks "Sign In" button
-    Then the "<error message>" error message is appeared
+    Then the "<error message>" email error message is appeared
 
     Examples:
       | language  | error message       |
