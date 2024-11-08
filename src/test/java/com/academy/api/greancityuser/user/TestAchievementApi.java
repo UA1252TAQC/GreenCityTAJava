@@ -22,7 +22,6 @@ public class TestAchievementApi {
                                                         String title, String nameEng, String achievementCategoryName,
                                                         int condition) throws IOException {
         Response response = new AchievementClient(token).getAchievements(achievementStatus, achievementCategoryId);
-        System.out.println(response.getBody().asString());
         SoftAssert softAssert = new SoftAssert();
         List <Achievement> achievements = response.jsonPath().getList("$", Achievement.class);
         softAssert.assertEquals(response.statusCode(), 200);
